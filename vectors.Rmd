@@ -259,7 +259,7 @@ It's intuitive what should happen if you add two vectors of the same length, or 
 
 Here, R will expand the shortest vector to the same length as the longest, so called recycling. This is silent except when the length of the longer is not an integer multiple of the length of the shorter:
 
-```{r}
+```{r, eval=FALSE}
 1:10 + 1:3
 ```
 

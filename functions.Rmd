@@ -306,7 +306,7 @@ This function takes advantage of the standard return rule: a function returns th
 
 The `condition` must evaluate to either `TRUE` or `FALSE`. If it's a vector, you'll get a warning message; if it's an `NA`, you'll get an error. Watch out for these messages in your own code:
 
-```{r, error = TRUE}
+```{r, error = TRUE, eval=FALSE}
 if (c(TRUE, FALSE)) {}
 
 if (NA) {}
