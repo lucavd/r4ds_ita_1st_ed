@@ -1,25 +1,46 @@
 ---
 knit: "bookdown::render_book"
-title: "R for Data Science"
+title: "R for Data Science - edizione italiana"
 author: "Hadley Wickham and Garrett Grolemund"
-description: "This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science. Just as a chemist learns how to clean test tubes and stock a lab, you'll learn how to clean data and draw plots---and many other things besides. These are the skills that allow data science to happen, and here you will find the best practices for doing each of these things with R. You'll learn how to use the grammar of graphics, literate programming, and reproducible research to save time. You'll also learn how to manage cognitive resources to facilitate discoveries when wrangling, visualising, and exploring data."
-url: 'https\://r4ds.had.co.nz/'
-github-repo: hadley/r4ds
-twitter-handle: hadley
+description: "Questo libro vi insegnerà come fare data science con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici--e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la 'grammar of graphics', la 'programmazione letterale 'literate programming' e la ricerca riproducibile per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati"
+url: 'https\://r4ds-ita-1st-ed.netlify.app'
+github-repo: lucavd/r4ds_ita_1st_ed
+twitter-handle: lucavd
 cover-image: cover.png
 site: bookdown::bookdown_site
 documentclass: book
 ---
 
-# Welcome {.unnumbered}
+# Benvenuto {.unnumbered}
 
-<a href="http://amzn.to/2aHLAQ1"><img src="cover.png" alt="Buy from amazon" class="cover" width="250" height="375"/></a> This is the website for **"R for Data Science"**. This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science. Just as a chemist learns how to clean test tubes and stock a lab, you'll learn how to clean data and draw plots---and many other things besides. These are the skills that allow data science to happen, and here you will find the best practices for doing each of these things with R. You'll learn how to use the grammar of graphics, literate programming, and reproducible research to save time. You'll also learn how to manage cognitive resources to facilitate discoveries when wrangling, visualising, and exploring data.
+<a href="http://amzn.to/2aHLAQ1"><img src="cover.png" alt="Buy from amazon" class="cover" width="250" height="375"/></a> Questo è il sito della traduzione italiana del libro **"R for Data Science"**. Questo libro vi insegnerà come fare data science con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici--e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la 'grammar of graphics', la 'programmazione letterale 'literate programming' e la ricerca riproducibile per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati
 
-This website is (and will always be) **free to use**, and is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/) License. If you'd like a **physical copy** of the book, you can order it from [amazon](http://amzn.to/2aHLAQ1); it was published by O'Reilly in January 2017. If you'd like to **give back** please make a donation to [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): the [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (which appears on the cover of R4DS) is a critically endangered native NZ parrot; there are only 213 left.
+Questo sito è (e sempre sarà) **gratuito**, ed è licenziato sotto [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/). Se volete una **copia fisica** del libro (in inglese), potete ordinarlo da [amazon](http://amzn.to/2aHLAQ1);è stato pubblicato da O'Reilly nel gennaio 2017. Se vuoi invece **donare qualcosa** puoi fare una donazione alla [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): il [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (che è riprodotto sulla copertina di R4DS) è un pappagallo nativo della Nuova Zelanda a grave rischio di estinzione; ne sono rimasti solo 213[^index-1].
 
-Please note that R4DS uses a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this book, you agree to abide by its terms.
+[^index-1]: Nel dicembre 2021 (inizio della traduzione) ne sono rimasti solo 201 (NdT)
 
-## Acknowledgements {.unnumbered}
+R4DS usa un [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). Contribuendo a questo libro, accetti di rispettare i suoi termini.
+
+## Nota sulla traduzione italiana {.unnumbered}
+
+*I capitoli già tradotti si possono vedere qui a sinistra con il titolo in italiano. I capitoli con il titolo inglese non sono ancora stati tradotti.*
+
+```{r, results = "asis", echo = FALSE, message = FALSE}
+cat('**Ultimo Aggiornamento **')
+cat(paste0(format(Sys.time(), '%d %B, %Y')))
+```
+
+La traduzione italiana del libro R4DS è stata condotta da [Luca Vedovelli](https://lucavd.netlify.app/) su [esplicita autorizzazione]{.ul} dell'autore (Hadley Wickam) e dell'editore O'Reilly che detiene i diritti di traduzione.
+
+Il motivo che mi ha spinto alla traduzione di un testo fondamentale per chi si avvicina all'ambiente di R e della data science è la volontà di abbattere almeno uno scoglio (la lingua) per permettere al lettore (che io immagino essere una mia studentessa o studente) di concentrarsi sui concetti e tecniche.
+
+Ho cercato di cambiare il minimo possibile del libro originale mantenendo i termini inglesi dove i corrispondenti italiani suonavano desueti o ridicoli. Anche link, autori, ringraziamenti sono rimasti inalterati. Anche il codice è rimasto inalterato (ho tradotto solo le note di testo interne al codice).
+
+La traduzione è stata effettuata sulla **prima edizione** (poi andata in stampa) del libro, quindi non sulla versione aggiornata ad oggi (che è un seconda edizione *in fieri*). Quando verrà pubblicata la seconda edizione del libro, ne farò una seconda traduzione da zero.
+
+Potete segnalare errori o suggerimenti aprendo una issue nella [repository GitHub](https://github.com/lucavd/r4ds_ita_1st_ed) della traduzione.
+
+## Ringraziamenti {.unnumbered}
 
 ```{r, results = "asis", echo = FALSE, message = FALSE}
 library(dplyr)
@@ -30,8 +51,8 @@ contributors <- contributors %>%
     desc = ifelse(is.na(name), link, glue::glue("{name} ({link})"))
   )
 
-cat("R4DS is a collaborative effort and many people have contributed fixes and improvements via pull request: ")
+cat("R4DS è uno sforzo collaborativo e molte persone hanno contribuito con correzioni e miglioramenti via pull request: ")
 cat(paste0(contributors$desc, collapse = ", "))
 ```
 
-R4DS is hosted by <https://www.netlify.com> as part of their support of open source software and communities.
+R4DS è ospitato da <https://www.netlify.com> come parte del loro supporto al software e alla comunità open source.

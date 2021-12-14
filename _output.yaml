@@ -1,7 +1,7 @@
 bookdown::bs4_book:
   theme:
     primary: "#637238"
-  repo: https://github.com/hadley/r4ds
+  repo: https://github.com/lucavd/r4ds_ita_1st_ed
   includes:
     in_header: [ga_script.html]
 
