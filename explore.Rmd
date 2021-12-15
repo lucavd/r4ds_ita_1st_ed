@@ -1,29 +1,21 @@
-# (PART) Explore {-}
+# (PARTE) Esplora {.unnumbered}
 
-# Introduction {#explore-intro}
+# Introduzione {#explore-intro}
 
-The goal of the first part of this book is to get you up to speed with the basic tools of __data exploration__ as quickly as possible. Data exploration is the art of looking at your data, rapidly generating hypotheses, quickly testing them, then repeating again and again and again. The goal of data exploration is to generate many promising leads that you can later explore in more depth.
+L'obiettivo della prima parte di questo libro è quello di farvi prendere velocità con gli strumenti di base dell' **esplorazione dei dati** il più velocemente possibile. L'esplorazione dei dati è l'arte di guardare i vostri dati, generare rapidamente delle ipotesi, testarle rapidamente e poi ripetere ancora e ancora e ancora. L'obiettivo dell'esplorazione dei dati è quello di generare molte piste promettenti che si possono poi esplorare più in profondità.
 
 ```{r echo = FALSE, out.width = "75%"}
 knitr::include_graphics("diagrams/data-science-explore.png")
 ```
 
-In this part of the book you will learn some useful tools that have an immediate payoff: 
+In questa parte del libro imparerai alcuni strumenti utili che hanno un ritorno immediato:
 
-*   Visualisation is a great place to start with R programming, because the 
-    payoff is so clear: you get to make elegant and informative plots that help 
-    you understand data. In [data visualisation] you'll dive into visualisation, 
-    learning the basic structure of a ggplot2 plot, and powerful techniques for 
-    turning data into plots. 
+-   La visualizzazione è un ottimo punto di partenza per la programmazione in R, perché il guadagno è palese: si possono fare grafici eleganti e informativi che aiutano a capire i dati. In \[data visualization\] vi immergerete nella visualizzazione, imparando la struttura di base di una trama ggplot2, e potenti tecniche per trasformare i dati in grafici.
 
-*   Visualisation alone is typically not enough, so in [data transformation] 
-    you'll learn the key verbs that allow you to select important variables, 
-    filter out key observations, create new variables, and compute summaries.
-  
-*   Finally, in [exploratory data analysis], you'll combine visualisation and
-    transformation with your curiosity and scepticism to ask and answer 
-    interesting questions about data.
+-   La sola visualizzazione di solito non è sufficiente, quindi in \[data transformation\] imparerete i verbi chiave che vi permettono di selezionare le variabili importanti, filtrare le osservazioni chiave, creare nuove variabili e calcolare le sintesi.
 
-Modelling is an important part of the exploratory process, but you don't have the skills to effectively learn or apply it yet. We'll come back to it in [modelling](#model-intro), once you're better equipped with more data wrangling and programming tools.
+-   Infine, in \[analisi esplorativa dei dati\], combinerai la visualizzazione e la trasformazione con la tua curiosità e il tuo scetticismo per chiedere e rispondere domande interessanti sui dati.
 
-Nestled among these three chapters that teach you the tools of exploration are three chapters that focus on your R workflow. In [workflow: basics], [workflow: scripts], and [workflow: projects] you'll learn good practices for writing and organising your R code. These will set you up for success in the long run, as they'll give you the tools to stay organised when you tackle real projects.
+La modellazione è una parte importante del processo esplorativo, ma non hai ancora le competenze per impararla o applicarla efficacemente. Ci torneremo in [modelling](#model-intro), una volta che sarete meglio equipaggiati con più strumenti di programmazione e gestione dei dati.
+
+Nascosti tra questi tre capitoli che vi insegnano gli strumenti di esplorazione ci sono tre capitoli che si concentrano sul vostro flusso di lavoro in R. In \[workflow: basics\], \[workflow: scripts\], e \[workflow: projects\] imparerete le buone pratiche per scrivere e organizzare il vostro codice R. Queste vi porteranno al successo nel lungo periodo, dato che vi daranno gli strumenti per rimanere organizzati quando affronterete i progetti reali.
