@@ -1,4 +1,4 @@
-# Exploratory Data Analysis
+# Analisi esplorativa
 
 ## Introduction
 

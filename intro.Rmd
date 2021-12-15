@@ -18,9 +18,9 @@ Una volta che si hanno dati ordinati, un primo passo comune è quello di trasfor
 
 Una volta che avete dati ordinati con le variabili di cui avete bisogno, ci sono due motori principali di generazione della conoscenza: visualizzazione e modellazione. Questi hanno punti di forza e di debolezza complementari, quindi ogni vera analisi itererà tra loro molte volte.
 
-La visualizzazione ( __Visualisation__ ) è un'attività fondamentalmente umana. Una buona visualizzazione vi mostrerà cose che non vi aspettavate, o solleverà nuove domande sui dati. Una buona visualizzazione potrebbe anche suggerirvi che vi state facendo la domanda sbagliata, o che avete bisogno di raccogliere dati diversi. Le visualizzazioni possono sorprendere, ma non sono particolarmente adatte perché richiedono un umano che le interpreti.
+La visualizzazione ( __visualisation__ ) è un'attività fondamentalmente umana. Una buona visualizzazione vi mostrerà cose che non vi aspettavate, o solleverà nuove domande sui dati. Una buona visualizzazione potrebbe anche suggerirvi che vi state facendo la domanda sbagliata, o che avete bisogno di raccogliere dati diversi. Le visualizzazioni possono sorprendere, ma non sono particolarmente adatte perché richiedono un umano che le interpreti.
 
- I modelli ( __Models__ ) sono strumenti complementari alla visualizzazione. Una volta che avete reso le vostre domande sufficientemente precise, potete usare un modello per rispondere. I modelli sono uno strumento fondamentalmente matematico o computazionale, quindi generalmente sono ben scalabili. Anche quando non lo fanno, di solito è più economico comprare più computer che comprare più cervelli! Ma ogni modello fa delle ipotesi, e per sua natura un modello non può mettere in discussione le proprie ipotesi. Ciò significa che un modello non può fondamentalmente sorprendervi.
+ I modelli ( __models__ ) sono strumenti complementari alla visualizzazione. Una volta che avete reso le vostre domande sufficientemente precise, potete usare un modello per rispondere. I modelli sono uno strumento fondamentalmente matematico o computazionale, quindi generalmente sono ben scalabili. Anche quando non lo fanno, di solito è più economico comprare più computer che comprare più cervelli! Ma ogni modello fa delle ipotesi, e per sua natura un modello non può mettere in discussione le proprie ipotesi. Ciò significa che un modello non può fondamentalmente sorprendervi.
 
 L'ultimo passo della scienza dei dati è la comunicazione ( __communication__ ), una parte assolutamente critica di qualsiasi progetto di analisi dei dati. Non importa quanto bene i vostri modelli e la visualizzazione vi abbiano portato a capire i dati se non potete anche comunicare i vostri risultati agli altri.
 
@@ -126,7 +126,7 @@ Sul vostro computer, digitate questa linea di codice nella console, e poi premet
 Non sarete in grado di usare le funzioni, gli oggetti e i file di aiuto di un pacchetto finché non lo caricate con `library()`. Una volta che hai installato un pacchetto, puoi caricarlo con la funzione `library()`:
 
 ```{r}
-libreria(tidyverse)
+library(tidyverse)
 ```
 
 Questo ti dice che tidyverse sta caricando i pacchetti ggplot2, tibble, tidyr, readr, purrr e dplyr. Questi sono considerati il __core__ ('cuore') del tidyverse perché li userete in quasi tutte le analisi. 
@@ -250,18 +250,16 @@ Questo libro non è solo il prodotto di Hadley e Garrett, ma è il risultato di 
 
 Questo libro è stato scritto in modo aperto, e molte persone hanno contribuito con pull request per risolvere problemi minori. Un ringraziamento speciale va a tutti coloro che hanno contribuito tramite GitHub: 
 
-```{r, risultati = "asis", echo = FALSE, messaggio = FALSE}
-libreria(dplyr)
+```{r, results = "asis", echo = FALSE, message = FALSE}
+library(dplyr)
 # git --no-pager shortlog -ns > contribs.txt
 contribs <- readr::read_tsv("contribs.txt", col_names = c("n", "name"))
-
-contributi <- contributi %>% 
+contribs <- contribs %>% 
   filter(!name %in% c("hadley", "Garrett", "Hadley Wickham",
                       "Garrett Grolemund")) %>% 
-  arrange(nome) %>% 
-  mutate(uname = ifelse(!grepl(" ", nome), paste0("@", nome), nome))
-
-cat("I ringraziamenti vanno a tutti i collaboratori in ordine alfabetico: ")
+  arrange(name) %>% 
+  mutate(uname = ifelse(!grepl(" ", name), paste0("@", name), name))
+cat("Grazie a tutti i collaboratori in ordine alfabetico: ")
 cat(paste0(contribs$uname, collapse = ", "))
 cat(".\n")
 ```
