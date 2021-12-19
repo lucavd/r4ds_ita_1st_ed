@@ -1,12 +1,12 @@
 # Workflow: basi
 
-You now have some experience running R code. We didn't give you many details, but you've obviously figured out the basics, or you would've thrown this book away in frustration! Frustration is natural when you start programming in R, because it is such a stickler for punctuation, and even one character out of place will cause it to complain. But while you should expect to be a little frustrated, take comfort in that it's both typical and temporary: it happens to everyone, and the only way to get over it is to keep trying.
+Ora hai un po' di esperienza nell'esecuzione del codice R. Non vi abbiamo dato molti dettagli, ma ovviamente avete capito le basi, o avreste buttato via questo libro per la frustrazione! La frustrazione è naturale quando si inizia a programmare in R, perché è così pignolo per la punteggiatura, e anche un solo carattere fuori posto causerà una lamentela. Ma mentre dovreste aspettarvi di essere un po' frustrati, consolatevi con il fatto che è sia tipico che temporaneo: succede a tutti, e l'unico modo per superarlo è continuare a provare.
 
-Before we go any further, let's make sure you've got a solid foundation in running R code, and that you know about some of the most helpful RStudio features.
+Prima di andare avanti, assicuriamoci che abbiate una solida base nell'esecuzione del codice R, e che conosciate alcune delle caratteristiche più utili di RStudio.
 
-## Coding basics
+## Basi di codifica
 
-Let's review some basics we've so far omitted in the interests of getting you plotting as quickly as possible. You can use R as a calculator:
+Rivediamo alcune nozioni di base che abbiamo finora omesso nell'interesse di farvi tracciare i grafici il più velocemente possibile. Potete usare R come una calcolatrice:
 
 ```{r}
 1 / 200 * 30
@@ -14,58 +14,58 @@ Let's review some basics we've so far omitted in the interests of getting you pl
 sin(pi / 2)
 ```
 
-You can create new objects with `<-`:
+Puoi creare nuovi oggetti con `<-`:
 
 ```{r}
 x <- 3 * 4
 ```
 
-All R statements where you create objects, __assignment__ statements, have the same form:
+Tutte le istruzioni di R in cui si creano oggetti, le istruzioni di __assegnazione__, hanno la stessa forma:
 
 ```{r eval = FALSE}
 object_name <- value
 ```
 
-When reading that code say "object name gets value" in your head.
+Quando leggete quel codice dite "il nome dell'oggetto ottiene il valore" nella vostra testa.
 
-You will make lots of assignments and `<-` is a pain to type. Don't be lazy and use `=`: it will work, but it will cause confusion later. Instead, use RStudio's keyboard shortcut: Alt + - (the minus sign). Notice that RStudio automagically surrounds `<-` with spaces, which is a good code formatting practice. Code is miserable to read on a good day, so giveyoureyesabreak and use spaces.
+Farete molte assegnazioni e `<-` è un dolore da digitare. Non siate pigri e usate `=`: funzionerà, ma causerà confusione in seguito. Invece, usa la scorciatoia da tastiera di RStudio: Alt + - (il segno meno). Notate che RStudio circonda automaticamente `<-` con spazi, che è una buona pratica di formattazione del codice. Il codice è penoso da leggere in una buona giornata, quindi datevi tregua e usate gli spazi.
 
-## What's in a name?
+## Cosa c'è in un nome?
 
-Object names must start with a letter, and can only contain letters, numbers, `_` and `.`. You want your object names to be descriptive, so you'll need a convention for multiple words. We recommend __snake_case__ where you separate lowercase words with `_`. 
+I nomi degli oggetti devono iniziare con una lettera e possono contenere solo lettere, numeri, `_` e `.`. Vuoi che i nomi dei tuoi oggetti siano descrittivi, quindi avrai bisogno di una convenzione per le parole multiple. Noi raccomandiamo __snake_case__ dove separi le parole minuscole con `_`. 
 
 ```{r, eval = FALSE}
-i_use_snake_case
-otherPeopleUseCamelCase
-some.people.use.periods
-And_aFew.People_RENOUNCEconvention
+io_uso_lo_snake_case
+altrePersoneUsanoIlCamelCase
+alcune.persone.usano.i.punti
+E_poche.Persone_RINUNCIANO.Alle_convenzioni
 ```
 
-We'll come back to code style later, in [functions].
+Torneremo sullo stile del codice più tardi, in [funzioni].
 
-You can inspect an object by typing its name:
+Si può ispezionare un oggetto digitando il suo nome:
 
 ```{r}
 x
 ```
 
-Make another assignment:
+Facciamo un'altra assegnazione:
 
 ```{r}
 this_is_a_really_long_name <- 2.5
 ```
 
-To inspect this object, try out RStudio's completion facility: type "this", press TAB, add characters until you have a unique prefix, then press return.
+Per ispezionare questo oggetto, provate la funzione di completamento di RStudio: digitate "this", premete TAB, aggiungete caratteri fino ad avere un prefisso unico, poi premete return.
 
-Ooops, you made a mistake! `this_is_a_really_long_name` should have value 3.5 not 2.5. Use another keyboard shortcut to help you fix it.  Type "this" then press Cmd/Ctrl + ↑. That will list all the commands you've typed that start those letters. Use the arrow keys to navigate, then press enter to retype the command. Change 2.5 to 3.5 and rerun.
+Ooops, hai fatto un errore! `this_is_a_really_long_name` dovrebbe avere valore 3.5 non 2.5. Usa un'altra scorciatoia da tastiera per aiutarti a correggerlo.  Digita "this" e poi premi Cmd/Ctrl + ↑. Questo elencherà tutti i comandi che hai digitato che iniziano con quelle lettere. Usa i tasti freccia per navigare, poi premi enter per ridigitare il comando. Cambia 2.5 in 3.5 e rilancia.
 
-Make yet another assignment:
+Facciamo un'altra assegnazione:
 
 ```{r}
 r_rocks <- 2 ^ 3
 ```
 
-Let's try to inspect it:
+Proviamo ad ispezionarlo:
 
 ```{r, eval = FALSE}
 r_rock
@@ -74,74 +74,76 @@ R_rocks
 #> Error: object 'R_rocks' not found
 ```
 
-There's an implied contract between you and R: it will do the tedious computation for you, but in return, you must be completely precise in your instructions. Typos matter. Case matters.
+C'è un contratto implicito tra voi e R: esso farà il noioso calcolo per voi, ma in cambio voi dovete essere completamente precisi nelle vostre istruzioni. Gli errori di battitura contano. Le maiuscole contano.
 
-## Calling functions
+## Chiamare le funzioni
 
-R has a large collection of built-in functions that are called like this:
+R ha una vasta collezione di funzioni integrate che vengono chiamate in questo modo:
 
 ```{r eval = FALSE}
 function_name(arg1 = val1, arg2 = val2, ...)
 ```
 
-Let's try using `seq()` which makes regular **seq**uences of numbers and, while we're at it, learn more helpful features of RStudio. Type `se` and hit TAB. A popup shows you possible completions. Specify `seq()` by typing more (a "q") to disambiguate, or by using ↑/↓ arrows to select. Notice the floating tooltip that pops up, reminding you of the function's arguments and purpose. If you want more help, press F1 to get all the details in the help tab in the lower right pane. 
+Proviamo ad usare `seq()` che fa regolari **seq**uenze di numeri e, mentre ci siamo, impariamo altre utili caratteristiche di RStudio. Digitate `se` e premete TAB. Un popup vi mostra i possibili completamenti. Specificate `seq()` digitando più (una "q") per disambiguare, o usando le frecce ↑/↓ per selezionare. Notate il tooltip galleggiante che appare, ricordandovi gli argomenti e lo scopo della funzione. Se volete più aiuto, premete F1 per ottenere tutti i dettagli nella scheda Aiuto ('Help') nel pannello in basso a destra. 
 
-Press TAB once more when you've selected the function you want. RStudio will add matching opening (`(`) and closing (`)`) parentheses for you. Type the arguments `1, 10` and hit return.
+Premete ancora una volta TAB quando avete selezionato la funzione che volete. RStudio aggiungerà le corrispondenti parentesi di apertura (`(`) e di chiusura (`)`) per voi. Digitate gli argomenti `1, 10` e premete invio.
 
 ```{r}
 seq(1, 10)
 ```
 
-Type this code and notice you get similar assistance with the paired quotation marks:
+Digitate questo codice e notate che ottenete un'assistenza simile con le virgolette accoppiate:
 
 ```{r}
 x <- "hello world"
 ```
 
-Quotation marks and parentheses must always come in a pair. RStudio does its best to help you, but it's still possible to mess up and end up with a mismatch. If this happens, R will show you the continuation character "+":
+Le virgolette e le parentesi devono sempre essere in coppia. RStudio fa del suo meglio per aiutarvi, ma è ancora possibile sbagliare e finire con una mancata corrispondenza. Se questo accade, R vi mostrerà il carattere di continuazione "+":
 
 ```
 > x <- "hello
 +
 ```
 
-The `+` tells you that R is waiting for more input; it doesn't think you're done yet. Usually that means you've forgotten either a `"` or a `)`. Either add the missing pair, or press ESCAPE to abort the expression and try again.
+Il `+` vi dice che R sta aspettando altri input; non pensa che abbiate già finito. Di solito significa che avete dimenticato un `"` o un `)`. O aggiungi la coppia mancante, o premi ESC per interrompere l'espressione e riprovare.
 
-If you make an assignment, you don't get to see the value. You're then tempted to immediately double-check the result:
+Se fai un'assegnazione, non puoi vedere il valore. Sei quindi tentato di ricontrollare immediatamente il risultato:
 
 ```{r}
 y <- seq(1, 10, length.out = 5)
 y
 ```
 
-This common action can be shortened by surrounding the assignment with parentheses, which causes assignment and "print to screen" to happen.
+Questa azione comune può essere abbreviata circondando l'assegnazione con delle parentesi, il che provoca l'assegnazione e la "stampa a schermo".
 
 ```{r}
 (y <- seq(1, 10, length.out = 5))
 ```
 
-Now look at your environment in the upper right pane:
+Ora guarda il tuo environment ('ambiente di lavoro') nel riquadro in alto a destra:
 
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("screenshots/rstudio-env.png")
 ```
 
-Here you can see all of the objects that you've created.
+Qui puoi vedere tutti gli oggetti che hai creato.
 
-## Exercises
+## Esercizi
 
-1.  Why does this code not work?
+1.  Perché questo codice non funziona?[^index-1]
 
     ```{r, error = TRUE}
     my_variable <- 10
     my_varıable
     ```
+
+[^index-1]: In realtà il codice funziona con il `locale` in italiano, ma non con il `locale` inglese (SPOILER: manca il puntino sulla "i", NdT) 
+  
+  Guardate attentamente! (Questo può sembrare un esercizio inutile, ma
+  allenare il vostro cervello a notare anche la più piccola differenza vi ripagherà
+  quando si programma).
     
-    Look carefully! (This may seem like an exercise in pointlessness, but
-    training your brain to notice even the tiniest difference will pay off
-    when programming.)
-    
-1.  Tweak each of the following R commands so that they run correctly:
+1.  Modificate ciascuno dei seguenti comandi R in modo che vengano eseguiti correttamente:
 
     ```{r, eval = FALSE}
     library(tidyverse)
@@ -153,6 +155,6 @@ Here you can see all of the objects that you've created.
     filter(diamond, carat > 3)
     ```
     
-1.  Press Alt + Shift + K. What happens? How can you get to the same place
-    using the menus?
+1.  Premi Alt + Shift + K. Cosa succede? Come puoi arrivare allo stesso punto
+    usando i menu?
 
