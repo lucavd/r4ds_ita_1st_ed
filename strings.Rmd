@@ -1,4 +1,4 @@
-# Strings
+# Stringhe
 
 ## Introduction
 

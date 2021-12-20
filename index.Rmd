@@ -23,12 +23,11 @@ R4DS usa un [Contributor Code of Conduct](https://contributor-covenant.org/versi
 
 ## Nota sulla traduzione italiana {.unnumbered}
 
-*I capitoli già tradotti si possono vedere qui a sinistra con il titolo in italiano. I capitoli con il titolo inglese non sono ancora stati tradotti.*
 
-```{r, results = "asis", echo = FALSE, message = FALSE}
-cat('**Ultimo Aggiornamento **')
-cat(paste0(format(Sys.time(), '%d %B, %Y')))
-```
+**Ultimo Aggiornamento** `r format(Sys.time(), '%d %B, %Y')`
+
+
+*I capitoli già tradotti (o iniziati) si possono vedere qui a sinistra con il titolo in italiano. I capitoli con il titolo inglese non sono ancora stati tradotti.*
 
 La traduzione italiana del libro R4DS è stata condotta da [Luca Vedovelli](https://lucavd.netlify.app/) su [esplicita autorizzazione]{.ul} dell'autore (Hadley Wickam) e dell'editore O'Reilly che detiene i diritti di traduzione.
 

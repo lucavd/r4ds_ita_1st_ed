@@ -1,4 +1,4 @@
-# Pipes
+# Pipe
 
 ## Introduction
 
