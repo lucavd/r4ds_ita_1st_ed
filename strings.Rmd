@@ -12,7 +12,7 @@ This chapter will focus on the __stringr__ package for string manipulation, whic
 library(tidyverse)
 ```
 
-## String basics
+## Nozioni di base sulle stringhe
 
 You can create strings with either single quotes or double quotes. Unlike other languages, there is no difference in behaviour. I recommend always using `"`, unless you want to create a string that contains multiple `"`.
 
