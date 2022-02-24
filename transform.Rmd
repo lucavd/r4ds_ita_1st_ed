@@ -470,7 +470,7 @@ ggplot(flights, aes(air_time - airtime2)) + geom_histogram()
 
 1.  Quali funzioni trigonometriche fornisce R?
 
-## Riassunti raggruppati con `summarise()`
+## Riassunti raggruppati con `summarise()` {#summary-funs}
 
 L'ultimo verbo chiave è `summarise()`. Esso collassa un frame di dati in una singola riga:
 

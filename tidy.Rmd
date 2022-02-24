@@ -1,20 +1,18 @@
 # Tidy data
 
-## Introduction
+## Introduzione
 
-> "Happy families are all alike; every unhappy family is unhappy in its
-> own way." --– Leo Tolstoy
+> "Le famiglie felici sono tutte uguali; ogni famiglia infelice è infelice a modo suo". --- Leo Tolstoy
 
-> "Tidy datasets are all alike, but every messy dataset is messy in its
-> own way." --– Hadley Wickham
+> "Le serie di dati ordinate sono tutte uguali, ma ogni serie di dati disordinata è disordinata a modo suo". --- Hadley Wickham
 
-In this chapter, you will learn a consistent way to organise your data in R, an organisation called __tidy data__. Getting your data into this format requires some upfront work, but that work pays off in the long term. Once you have tidy data and the tidy tools provided by packages in the tidyverse, you will spend much less time munging data from one representation to another, allowing you to spend more time on the analytic questions at hand.
+In questo capitolo, imparerete un modo coerente per organizzare i vostri dati in R, un'organizzazione chiamata __tidy data__. Mettere i vostri dati in questo formato richiede un po' di lavoro iniziale, ma questo lavoro ripaga nel lungo termine. Una volta che avete dati ordinati e gli strumenti ordinati forniti dai pacchetti del tidyverse, passerete molto meno tempo a mescolare i dati da una rappresentazione all'altra, permettendovi di dedicare più tempo alle domande analitiche che avete a disposizione.
 
-This chapter will give you a practical introduction to tidy data and the accompanying tools in the __tidyr__ package. If you'd like to learn more about the underlying theory, you might enjoy the *Tidy Data* paper published in the Journal of Statistical Software, <http://www.jstatsoft.org/v59/i10/paper>.
+Questo capitolo vi darà un'introduzione pratica ai 'tidy data'(dati ordinati, organizzati) e agli strumenti di accompagnamento nel pacchetto __tidyr__. Se volete saperne di più sulla teoria sottostante, potreste apprezzare il documento *Tidy Data* pubblicato nel Journal of Statistical Software, <http://www.jstatsoft.org/v59/i10/paper>.
 
-### Prerequisites
+### Prerequisiti
 
-In this chapter we'll focus on tidyr, a package that provides a bunch of tools to help tidy up your messy datasets. tidyr is a member of the core tidyverse.
+In questo capitolo ci concentreremo su tidyr, un pacchetto che fornisce una serie di strumenti per aiutare a riordinare i vostri insiemi di dati disordinati. tidyr è un membro del core tidyverse.
 
 ```{r setup, message = FALSE}
 library(tidyverse)
@@ -22,150 +20,149 @@ library(tidyverse)
 
 ## Tidy data
 
-You can represent the same underlying data in multiple ways. The example below shows the same data organised in four different ways. Each dataset shows the same values of four variables *country*, *year*, *population*, and *cases*, but each dataset organises the values in a different way.
+È possibile rappresentare gli stessi dati sottostanti in più modi. L'esempio qui sotto mostra gli stessi dati organizzati in quattro modi diversi. Ogni set di dati mostra gli stessi valori di quattro variabili *paese*, *anno*, *popolazione*, e *casi*, ma ogni set di dati organizza i valori in un modo diverso.
 
 ```{r}
 table1
 table2
 table3
 
-# Spread across two tibbles
-table4a  # cases
-table4b  # population
+# Distribuito su due tibble
+table4a  # casi
+table4b  # popolazione
 ```
 
-These are all representations of the same underlying data, but they are not equally easy to use. One dataset, the tidy dataset, will be much easier to work with inside the tidyverse. 
+Sono tutte rappresentazioni degli stessi dati sottostanti, ma non sono ugualmente facili da usare. Un dataset, il dataset ordinato, sarà molto più facile da lavorare all'interno del tidyverse. 
 
-There are three interrelated rules which make a dataset tidy:
+Ci sono tre regole correlate che rendono un dataset ordinato:
 
-1.  Each variable must have its own column.
-1.  Each observation must have its own row.
-1.  Each value must have its own cell.
+1.  Ogni variabile deve avere la propria colonna.
+1.  Ogni osservazione deve avere la sua riga.
+1.  Ogni valore deve avere la propria cella.
 
-Figure \@ref(fig:tidy-structure) shows the rules visually.
+La figura \@ref(fig:tidy-structure) mostra visivamente le regole.
 
-```{r tidy-structure, echo = FALSE, out.width = "100%", fig.cap = "Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
+```{r tidy-structure, echo = FALSE, out.width = "100%", fig.cap = "Seguire tre regole rende un set di dati ordinato: le variabili sono nelle colonne, le osservazioni sono nelle righe e i valori sono nelle celle."}
 knitr::include_graphics("images/tidy-1.png")
 ```
 
-These three rules are interrelated because it's impossible to only satisfy two of the three. That interrelationship leads to an even simpler set of practical instructions:
+Queste tre regole sono interrelate perché è impossibile soddisfare solo due delle tre. Questa interrelazione porta ad un insieme ancora più semplice di istruzioni pratiche:
 
-1.  Put each dataset in a tibble.
-1.  Put each variable in a column.
+1.  Metti ogni set di dati in una tibble.
+1.  Metti ogni variabile in una colonna.
 
-In this example, only `table1` is tidy. It's the only representation where each column is a variable.
+In questo esempio, solo la `table1` è ordinata. È l'unica rappresentazione in cui ogni colonna è una variabile.
 
-Why ensure that your data is tidy? There are two main advantages:
+Perché assicurarsi che i dati siano ordinati? Ci sono due vantaggi principali:
 
-1.  There's a general advantage to picking one consistent way of storing
-    data. If you have a consistent data structure, it's easier to learn the
-    tools that work with it because they have an underlying uniformity.
+1.  C'è un vantaggio generale nel scegliere un modo coerente di memorizzare
+    dati. Se hai una struttura di dati coerente, è più facile imparare gli
+    strumenti che lavorano con essa perché hanno un'uniformità di fondo.
     
-1.  There's a specific advantage to placing variables in columns because
-    it allows R's vectorised nature to shine. As you learned in
-    [mutate](#mutate-funs) and [summary functions](#summary-funs), most 
-    built-in R functions work with vectors of values. That makes transforming 
-    tidy data feel particularly natural.
+1.  C'è un vantaggio specifico nel mettere le variabili in colonne perché
+    permette alla natura vettoriale di R di brillare. Come avete imparato in
+    [mutate](#mutate-funs) e [riassunti raggruppati](#summary-funs), la maggior parte 
+    funzioni built-in di R lavorano con vettori di valori. Questo rende la trasformazione 
+    dati ordinati in modo particolarmente naturale.
 
-dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data. Here are a couple of small examples showing how you might work with `table1`.
-
+dplyr, ggplot2 e tutti gli altri pacchetti del tidyverse sono progettati per lavorare con dati ordinati. Ecco un paio di piccoli esempi che mostrano come potreste lavorare con `table1`.
 ```{r, out.width = "50%"}
-# Compute rate per 10,000
+# Calcolare il tasso per 10.000
 table1 %>% 
   mutate(rate = cases / population * 10000)
 
-# Compute cases per year
+# Calcolare i casi per anno
 table1 %>% 
   count(year, wt = cases)
 
-# Visualise changes over time
+# Visualizzare i cambiamenti nel tempo
 library(ggplot2)
 ggplot(table1, aes(year, cases)) + 
   geom_line(aes(group = country), colour = "grey50") + 
   geom_point(aes(colour = country))
 ```
 
-### Exercises
+### Esercizi
 
-1.  Using prose, describe how the variables and observations are organised in
-    each of the sample tables.
+1.  Usando la prosa, descrivete come sono organizzate le variabili e le osservazioni in
+    ciascuna delle tabelle di esempio.
 
-1.  Compute the `rate` for `table2`, and `table4a` + `table4b`. 
-    You will need to perform four operations:
+1.  Calcola il `rate` per la `table2`, e la `table4a` + `table4b`. 
+    Dovrai eseguire quattro operazioni:
 
-    1.  Extract the number of TB cases per country per year.
-    1.  Extract the matching population per country per year.
-    1.  Divide cases by population, and multiply by 10000.
-    1.  Store back in the appropriate place.
+    1.  Estrarre il numero di casi di TBC per paese e per anno.
+    1.  Estrarre la popolazione corrispondente per paese e per anno.
+    1.  Dividere i casi per la popolazione e moltiplicare per 10000.
+    1.  Memorizzare di nuovo nel posto appropriato.
     
-    Which representation is easiest to work with? Which is hardest? Why?
+    Quale rappresentazione è più facile da lavorare? Qual è la più difficile? Perché?
 
-1.  Recreate the plot showing change in cases over time using `table2`
-    instead of `table1`. What do you need to do first?
+1.  Ricreate il grafico che mostra il cambiamento dei casi nel tempo usando la `tabella2
+    invece di `table1`. Cosa devi fare per prima cosa?
 
 ## Pivoting
 
-The principles of tidy data seem so obvious that you might wonder if you'll ever encounter a dataset that isn't tidy. Unfortunately, however, most data that you will encounter will be untidy. There are two main reasons:
+I principi dei tidy data sembrano così ovvi che potreste chiedervi se incontrerete mai un set di dati che non sia ordinato. Sfortunatamente, però, la maggior parte dei dati che incontrerete saranno disordinati. Ci sono due ragioni principali:
 
-1.  Most people aren't familiar with the principles of tidy data, and it's hard
-    to derive them yourself unless you spend a _lot_ of time working with data.
+1.  La maggior parte delle persone non ha familiarità con i principi dei dati ordinati, ed è difficile
+    ricavarli da soli, a meno che non si passi molto tempo a lavorare con i dati.
     
-1.  Data is often organised to facilitate some use other than analysis. For 
-    example, data is often organised to make entry as easy as possible.
+1.  I dati sono spesso organizzati per facilitare qualche uso diverso dall'analisi. Per 
+    esempio, i dati sono spesso organizzati per rendere l'inserimento il più facile possibile.
     
-This means for most real analyses, you'll need to do some tidying. The first step is always to figure out what the variables and observations are. Sometimes this is easy; other times you'll need to consult with the people who originally generated the data. 
-The second step is to resolve one of two common problems:
+Questo significa che per la maggior parte delle analisi reali, dovrete fare un po' di ordine. Il primo passo è sempre quello di capire quali sono le variabili e le osservazioni. A volte questo è facile; altre volte avrete bisogno di consultare le persone che hanno originariamente generato i dati. 
+Il secondo passo è quello di risolvere uno dei due problemi comuni:
 
-1. One variable might be spread across multiple columns.
+1. Una variabile potrebbe essere distribuita su più colonne.
 
-1. One observation might be scattered across multiple rows.
+1. Un'osservazione potrebbe essere sparsa su più righe.
 
-Typically a dataset will only suffer from one of these problems; it'll only suffer from both if you're really unlucky! To fix these problems, you'll need the two most important functions in tidyr: `pivot_longer()` and `pivot_wider()`.
+Tipicamente un set di dati soffrirà solo di uno di questi problemi; soffrirà di entrambi solo se siete davvero sfortunati! Per risolvere questi problemi, avrete bisogno delle due funzioni più importanti di tidyr: `pivot_longer()` e `pivot_wider()`.
 
 ### Longer
 
-A common problem is a dataset where some of the column names are not names of variables, but _values_ of a variable. Take `table4a`: the column names `1999` and `2000` represent values of the `year` variable, the values in the `1999` and `2000` columns represent values of the `cases` variable, and each row represents two observations, not one.
+Un problema comune è un dataset dove alcuni dei nomi delle colonne non sono nomi di variabili, ma _valori_ di una variabile. Prendete la `table4a`: i nomi delle colonne `1999` e `2000` rappresentano i valori della variabile `year`, i valori nelle colonne `1999` e `2000` rappresentano i valori della variabile `cases`, e ogni riga rappresenta due osservazioni, non una.
 
 ```{r}
 table4a
 ```
 
-To tidy a dataset like this, we need to __pivot__ the offending columns into a new pair of variables. To describe that operation we need three parameters:
+Per riordinare un set di dati come questo, abbiamo bisogno di __pivot__ le colonne offensive in una nuova coppia di variabili. Per descrivere questa operazione abbiamo bisogno di tre parametri:
 
-* The set of columns whose names are values, not variables. In this example, 
-  those are the columns `1999` and `2000`.
+* L'insieme delle colonne i cui nomi sono valori, non variabili. In questo esempio, 
+  queste sono le colonne `1999` e `2000`.
 
-* The name of the variable to move the column names to. Here it is `year`.
+* Il nome della variabile in cui spostare i nomi delle colonne. Qui è `year`.
 
-* The name of the variable to move the column values to. Here it's `cases`.
+* Il nome della variabile in cui spostare i valori della colonna. Qui è `case`.
   
-Together those parameters generate the call to `pivot_longer()`:
+Insieme questi parametri generano la chiamata a `pivot_longer()`:
 
 ```{r}
 table4a %>% 
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
 ```
 
-The columns to pivot are specified with `dplyr::select()` style notation. Here there are only two columns, so we list them individually. Note that "1999" and "2000" are non-syntactic names (because they don't start with a letter) so we have to surround them in backticks. To refresh your memory of the other ways to select columns, see [select](#select).
+Le colonne per fare il pivot sono specificate con la notazione in stile `dplyr::select()`. Qui ci sono solo due colonne, quindi le elenchiamo singolarmente. Notate che "1999" e "2000" sono nomi non sintattici (perché non iniziano con una lettera), quindi dobbiamo circondarli di backtick. Per rinfrescarti la memoria sugli altri modi di selezionare le colonne, vedi [select](#select).
 
-`year` and `cases` do not exist in `table4a` so we put their names in quotes.
+`year` e `cases` non esistono in `table4a` quindi mettiamo i loro nomi tra virgolette.
 
-```{r tidy-gather, echo = FALSE, out.width = "100%", fig.cap = "Pivoting `table4` into a longer, tidy form."}
+```{r tidy-gather, echo = FALSE, out.width = "100%", fig.cap = "Pivot di `table4` in forma 'long' e ordinata."}
 knitr::include_graphics("images/tidy-9.png")
 ```
 
-In the final result, the pivoted columns are dropped, and we get new `year` and `cases` columns. Otherwise, the relationships between the original variables are preserved. Visually, this is shown in Figure \@ref(fig:tidy-gather). 
+Nel risultato finale, le colonne pivotate vengono eliminate e si ottengono nuove colonne `year` e `cases`. Altrimenti, le relazioni tra le variabili originali sono conservate. Visivamente, questo è mostrato nella figura \@ref(fig:tidy-gather).
 
-`pivot_longer()` makes datasets longer by increasing the number of rows and decreasing the number of columns. I don’t believe it makes sense to describe a dataset as being in “long form”. Length is a relative term, and you can only say (e.g.) that dataset A is longer than dataset B.
+La funzione `pivot_longer()` rende i set di dati più lunghi aumentando il numero di righe e diminuendo il numero di colonne. Non credo che abbia senso descrivere un set di dati come se fosse in "forma lunga". La lunghezza è un termine relativo, e si può solo dire (per esempio) che il dataset A è più lungo del dataset B.
 
-We can use `pivot_longer()` to tidy `table4b` in a similar fashion. The only difference is the variable stored in the cell values:
+Possiamo usare `pivot_longer()` per riordinare `table4b` in modo simile. L'unica differenza è la variabile memorizzata nei valori delle celle:
 
 ```{r}
 table4b %>% 
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "population")
 ```
 
-To combine the tidied versions of `table4a` and `table4b` into a single tibble, we need to use `dplyr::left_join()`, which you'll learn about in [relational data].
+Per combinare le versioni riordinate di `table4a` e `table4b` in una singola tibble, dobbiamo usare `dplyr::left_join()`, che imparerai in [dati relazionali].
 
 ```{r}
 tidy4a <- table4a %>% 
@@ -177,19 +174,19 @@ left_join(tidy4a, tidy4b)
 
 ### Wider
 
-`pivot_wider()` is the opposite of `pivot_longer()`. You use it when an observation is scattered across multiple rows. For example, take `table2`: an observation is a country in a year, but each observation is spread across two rows.
+`pivot_wider()` è l'opposto di `pivot_longer()`. Si usa quando un'osservazione è sparsa su più righe. Per esempio, prendete la `table2`: un'osservazione è un paese in un anno, ma ogni osservazione è sparsa su due righe.
 
 ```{r}
 table2
 ```
 
-To tidy this up, we first analyse the representation in similar way to `pivot_longer()`. This time, however, we only need two parameters:
+Per riordinare il tutto, analizziamo prima la rappresentazione in modo simile a `pivot_longer()`. Questa volta, però, abbiamo bisogno solo di due parametri:
 
-* The column to take variable names from. Here, it's `type`.
+* La colonna da cui prendere i nomi delle variabili. Qui è `type`.
 
-* The column to take values from. Here it's `count`.
+* La colonna da cui prendere i valori. Qui è `count`.
 
-Once we've figured that out, we can use `pivot_wider()`, as shown programmatically below, and visually in Figure \@ref(fig:tidy-spread).
+Una volta capito questo, possiamo usare `pivot_wider()`, come mostrato programmaticamente qui sotto, e visivamente nella figura \@ref(fig:tidy-spread).
 
 ```{r}
 table2 %>%
@@ -200,12 +197,12 @@ table2 %>%
 knitr::include_graphics("images/tidy-8.png")
 ```
 
-As you might have guessed from their names, `pivot_wider()` and `pivot_longer()` are complements. `pivot_longer()` makes wide tables narrower and longer; `pivot_wider()` makes long tables shorter and wider.
+Come avrete capito dai loro nomi, `pivot_wider()` e `pivot_longer()` sono complementari. `pivot_longer()` rende le tabelle larghe più strette e lunghe; `pivot_wider()` rende le tabelle lunghe più corte e larghe.
 
-### Exercises
+### Esercizi
 
-1.  Why are `pivot_longer()` and `pivot_wider()` not perfectly symmetrical?  
-    Carefully consider the following example:
+1.  Perché i metodi `pivot_longer()` e `pivot_wider()` non sono perfettamente simmetrici?  
+    Considerate attentamente il seguente esempio:
     
     ```{r, eval = FALSE}
     stocks <- tibble(
@@ -218,20 +215,19 @@ As you might have guessed from their names, `pivot_wider()` and `pivot_longer()`
       pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return")
     ```
     
-    (Hint: look at the variable types and think about column _names_.)
+    (Suggerimento: guardate i tipi di variabili e pensate ai _nomi_ delle colonne).
     
-    `pivot_longer()` has a `names_ptypes` argument, e.g. 
-    `names_ptypes = list(year = double())`. What does it do?
+    `pivot_longer()` ha un argomento `names_ptypes`, per esempio 
+    `names_ptypes = list(year = double())`. Cosa fa?
 
-1.  Why does this code fail?
+1.  Perché questo codice fallisce?
 
     ```{r, error = TRUE}
     table4a %>% 
       pivot_longer(c(1999, 2000), names_to = "year", values_to = "cases")
     ```
 
-1.  What would happen if you widen this table? Why? How could you add a 
-    new column to uniquely identify each value?
+1.  Cosa succederebbe se allargassi questa tabella? Perché? Come potresti aggiungere una nuova colonna per identificare in modo univoco ogni valore?
 
     ```{r}
     people <- tribble(
@@ -245,8 +241,7 @@ As you might have guessed from their names, `pivot_wider()` and `pivot_longer()`
     )
     ```
 
-1.  Tidy the simple tibble below. Do you need to make it wider or longer?
-    What are the variables?
+1.  Metti in ordine la semplice tibble qui sotto. Devi renderla più larga o più lunga, quali sono le variabili?
 
     ```{r}
     preg <- tribble(
@@ -256,19 +251,19 @@ As you might have guessed from their names, `pivot_wider()` and `pivot_longer()`
     )
     ```
 
-## Separating and uniting
+## Separare e unire
 
-So far you've learned how to tidy `table2` and `table4`, but not `table3`. `table3` has a different problem: we have one column (`rate`) that contains two variables (`cases` and `population`). To fix this problem, we'll need the `separate()` function. You'll also learn about the complement of `separate()`: `unite()`, which you use if a single variable is spread across multiple columns.
+Finora hai imparato come mettere in ordine `table2` e `table4`, ma non `table3`. La `table3` ha un problema diverso: abbiamo una colonna (`rate`) che contiene due variabili (`casi` e `popolazione`). Per risolvere questo problema, avremo bisogno della funzione `separate()`. Imparerete anche il complemento di `separate()`: `unite()`, che si usa se una singola variabile è distribuita su più colonne.
 
-### Separate
+### Separare
 
-`separate()` pulls apart one column into multiple columns, by splitting wherever a separator character appears. Take `table3`:
+La funzione `separate()` separa una colonna in colonne multiple, dividendo ogni volta che appare un carattere separatore. Prendiamo ad esempio `table3`:
 
 ```{r}
 table3
 ```
 
-The `rate` column contains both `cases` and `population` variables, and we need to split it into two variables. `separate()` takes the name of the column to separate, and the names of the columns to separate into, as shown in Figure \@ref(fig:tidy-separate) and the code below.
+La colonna `rate` contiene entrambe le variabili `cases` e `population`, e abbiamo bisogno di dividerla in due variabili. La funzione `separate()` prende il nome della colonna da separare e i nomi delle colonne in cui separare, come mostrato nella figura \@ref(fig:tidy-separate) e nel codice sottostante.
 
 ```{r}
 table3 %>% 
@@ -279,25 +274,25 @@ table3 %>%
 knitr::include_graphics("images/tidy-17.png")
 ```
 
-By default, `separate()` will split values wherever it sees a non-alphanumeric character (i.e. a character that isn't a number or letter). For example, in the code above, `separate()` split the values of `rate` at the forward slash characters. If you wish to use a specific character to separate a column, you can pass the character to the `sep` argument of `separate()`. For example, we could rewrite the code above as:
+Per default, `separate()` dividerà i valori ovunque veda un carattere non alfanumerico (cioè un carattere che non sia un numero o una lettera). Per esempio, nel codice qui sopra, `separate()` divide i valori di `rate` in corrispondenza dei caratteri 'forward slash'. Se volete usare un carattere specifico per separare una colonna, potete passare il carattere all'argomento `sep` di `separate()`. Per esempio, potremmo riscrivere il codice sopra come:
 
 ```{r eval = FALSE}
 table3 %>% 
   separate(rate, into = c("cases", "population"), sep = "/")
 ```
 
-(Formally, `sep` is a regular expression, which you'll learn more about in [strings].)
+(Formalmente, `sep` è un'espressione regolare, di cui imparerai di più in [stringhe]).
 
-Look carefully at the column types: you'll notice that `cases` and `population` are character columns. This is the default behaviour in `separate()`: it leaves the type of the column as is. Here, however, it's not very useful as those really are numbers. We can ask `separate()` to try and convert to better types using `convert = TRUE`:
+Guardate attentamente i tipi di colonna: noterete che `cases` e `population` sono colonne di caratteri. Questo è il comportamento predefinito di `separate()`: lascia il tipo di colonna così com'è. Qui, tuttavia, non è molto utile, dato che sono davvero numeri. Possiamo chiedere a `separate()` di provare a convertire in tipi migliori usando `convert = TRUE`.:
 
 ```{r}
 table3 %>% 
   separate(rate, into = c("cases", "population"), convert = TRUE)
 ```
 
-You can also pass a vector of integers to `sep`. `separate()` will interpret the integers as positions to split at. Positive values start at 1 on the far-left of the strings; negative value start at -1 on the far-right of the strings. When using integers to separate strings, the length of `sep` should be one less than the number of names in `into`. 
+Potete anche passare un vettore di interi a `sep`. `separate()` interpreterà gli interi come posizioni in cui dividere. I valori positivi partono da 1 all'estrema sinistra delle stringhe; i valori negativi partono da -1 all'estrema destra delle stringhe. Quando si usano gli interi per separare le stringhe, la lunghezza di `sep` dovrebbe essere inferiore al numero di nomi in `into`.
 
-You can use this arrangement to separate the last two digits of each year. This make this data less tidy, but is useful in other cases, as you'll see in a little bit.
+Puoi usare questa disposizione per separare le ultime due cifre di ogni anno. Questo rende questi dati meno ordinati, ma è utile in altri casi, come vedrai tra poco.
 
 ```{r}
 table3 %>% 
@@ -306,30 +301,30 @@ table3 %>%
 
 ### Unite
 
-`unite()` is the inverse of `separate()`: it combines multiple columns into a single column. You'll need it much less frequently than `separate()`, but it's still a useful tool to have in your back pocket.
+`unite()`è l'inverso di `separate()`: combina colonne multiple in una singola colonna. Ti servirà molto meno frequentemente di `separate()`, ma è comunque uno strumento utile da avere in tasca.
 
 ```{r tidy-unite, echo = FALSE, out.width = "75%", fig.cap = "Uniting `table5` makes it tidy"}
 knitr::include_graphics("images/tidy-18.png")
 ```
 
-We can use `unite()` to rejoin the *century* and *year* columns that we created in the last example. That data is saved as `tidyr::table5`. `unite()` takes a data frame, the name of the new variable to create, and a set of columns to combine, again specified in `dplyr::select()` style:
+Possiamo usare `unite()` per riunire le colonne *century* e *year* che abbiamo creato nell'ultimo esempio. Questi dati vengono salvati come `tidyr::table5`. `unite()` prende un data frame, il nome della nuova variabile da creare e un insieme di colonne da combinare, sempre specificate in stile `dplyr::select()`:
 
 ```{r}
 table5 %>% 
   unite(new, century, year)
 ```
 
-In this case we also need to use the `sep` argument. The default will place an underscore (`_`) between the values from different columns. Here we don't want any separator so we use `""`:
+In questo caso dobbiamo anche usare l'argomento `sep`. Il default metterà un underscore (`_`) tra i valori delle diverse colonne. Qui non vogliamo nessun separatore quindi usiamo `""`:
 
 ```{r}
 table5 %>% 
   unite(new, century, year, sep = "")
 ```
 
-### Exercises
+### Esercizi
 
-1.  What do the `extra` and `fill` arguments do in `separate()`? 
-    Experiment with the various options for the following two toy datasets.
+1.  Cosa fanno gli argomenti `extra` e `fill` in `separate()`? 
+    Sperimentate le varie opzioni per i seguenti due set di dati giocattolo.
     
     ```{r, eval = FALSE}
     tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
@@ -339,21 +334,21 @@ table5 %>%
       separate(x, c("one", "two", "three"))
     ```
 
-1.  Both `unite()` and `separate()` have a `remove` argument. What does it
-    do? Why would you set it to `FALSE`?
+1.  Sia `unite()` che `separate()` hanno un argomento `remove`. Che cosa fa
+    fa? Perché dovreste impostarlo a `FALSE`?
 
-1.  Compare and contrast `separate()` and `extract()`.  Why are there
-    three variations of separation (by position, by separator, and with
-    groups), but only one unite?
+1.  Confrontate e contrapponete `separate()` e `extract()`.  Perché ci sono
+    tre varianti di separazione (per posizione, per separatore e con
+    gruppi), ma solo una unite?
 
-## Missing values
+## Valori mancanti
 
-Changing the representation of a dataset brings up an important subtlety of missing values. Surprisingly, a value can be missing in one of two possible ways:
+Cambiare la rappresentazione di un set di dati fa emergere un'importante sottigliezza sui valori mancanti. Sorprendentemente, un valore può essere mancante in uno dei due modi possibili:
 
-* __Explicitly__, i.e. flagged with `NA`.
-* __Implicitly__, i.e. simply not present in the data.
+* __Esplicitamente__, cioè contrassegnato da `NA`.
+* __Implicitamente__, cioè semplicemente non presente nei dati.
 
-Let's illustrate this idea with a very simple data set:
+Illustriamo questa idea con un insieme di dati molto semplice:
 
 ```{r}
 stocks <- tibble(
@@ -363,24 +358,24 @@ stocks <- tibble(
 )
 ```
 
-There are two missing values in this dataset:
+Ci sono due valori mancanti in questo set di dati:
 
-* The return for the fourth quarter of 2015 is explicitly missing, because
-  the cell where its value should be instead contains `NA`.
+* Il rendimento per il quarto trimestre del 2015 è esplicitamente mancante, perché
+  la cella dove dovrebbe essere il suo valore contiene invece `NA`.
   
-* The return for the first quarter of 2016 is implicitly missing, because it
-  simply does not appear in the dataset.
+* Il rendimento per il primo trimestre del 2016 è implicitamente mancante, perché
+  semplicemente non appare nel set di dati.
   
-One way to think about the difference is with this Zen-like koan: An explicit missing value is the presence of an absence; an implicit missing value is the absence of a presence.
+Un modo per pensare alla differenza è con questo koan zen: Un valore mancante esplicito è la presenza di un'assenza; un valore mancante implicito è l'assenza di una presenza.
 
-The way that a dataset is represented can make implicit values explicit. For example, we can make the implicit missing value explicit by putting years in the columns:
+Il modo in cui un set di dati è rappresentato può rendere espliciti i valori impliciti. Per esempio, possiamo rendere esplicito il valore mancante implicito mettendo gli anni nelle colonne:
 
 ```{r}
 stocks %>% 
   pivot_wider(names_from = year, values_from = return)
 ```
 
-Because these explicit missing values may not be important in other representations of the data, you can set `values_drop_na = TRUE` in `pivot_longer()` to turn explicit missing values implicit:
+Poiché questi valori mancanti espliciti potrebbero non essere importanti in altre rappresentazioni dei dati, potete impostare `values_drop_na = TRUE` in `pivot_longer()` per rendere impliciti i valori mancanti espliciti:
 
 ```{r}
 stocks %>% 
@@ -393,16 +388,16 @@ stocks %>%
   )
 ```
 
-Another important tool for making missing values explicit in tidy data is `complete()`:
+Un altro importante strumento per rendere espliciti i valori mancanti nei dati ordinati è `complete()`:
 
 ```{r}
 stocks %>% 
   complete(year, qtr)
 ```
 
-`complete()` takes a set of columns, and finds all unique combinations. It then ensures the original dataset contains all those values, filling in explicit `NA`s where necessary.
+`complete()` prende un insieme di colonne e trova tutte le combinazioni uniche. Poi si assicura che il dataset originale contenga tutti quei valori, riempiendo i `NA` espliciti dove necessario.
 
-There's one other important tool that you should know for working with missing values. Sometimes when a data source has primarily been used for data entry, missing values indicate that the previous value should be carried forward:
+C'è un altro importante strumento che dovreste conoscere per lavorare con i valori mancanti. A volte, quando una fonte di dati è stata usata principalmente per l'inserimento di dati, i valori mancanti indicano che il valore precedente dovrebbe essere portato avanti:
 
 ```{r}
 treatment <- tribble(
@@ -414,43 +409,43 @@ treatment <- tribble(
 )
 ```
 
-You can fill in these missing values with `fill()`. It takes a set of columns where you want missing values to be replaced by the most recent non-missing value (sometimes called last observation carried forward).
+Potete riempire questi valori mancanti con `fill()`. Prende un insieme di colonne in cui volete che i valori mancanti siano sostituiti dal più recente valore non mancante (a volte chiamato ultima osservazione portata avanti).
 
 ```{r}
 treatment %>% 
   fill(person)
 ```
 
-### Exercises
+### Esercizi
 
-1.  Compare and contrast the `fill` arguments to `pivot_wider()` and `complete()`. 
+1.  Confrontate e contrapponete gli argomenti di `fill` a `pivot_wider()` e `complete()`. 
 
-1.  What does the direction argument to `fill()` do?
+1.  Cosa fa l'argomento direction di `fill()`?
 
-## Case Study
+## Caso di studio
 
-To finish off the chapter, let's pull together everything you've learned to tackle a realistic data tidying problem. The `tidyr::who` dataset contains tuberculosis (TB) cases broken down by year, country, age, gender, and diagnosis method. The data comes from the *2014 World Health Organization Global Tuberculosis Report*, available at <http://www.who.int/tb/country/data/download/en/>.
+Per finire il capitolo, mettiamo insieme tutto quello che abbiamo imparato per affrontare un realistico problema di riordino dei dati. Il dataset `tidyr::who` contiene casi di tubercolosi (TB) suddivisi per anno, paese, età, sesso e metodo di diagnosi. I dati provengono dal *2014 World Health Organization Global Tuberculosis Report*, disponibile su <http://www.who.int/tb/country/data/download/en/>.
 
-There's a wealth of epidemiological information in this dataset, but it's challenging to work with the data in the form that it's provided:
+C'è una ricchezza di informazioni epidemiologiche in questo set di dati, ma è impegnativo lavorare con i dati nella forma in cui sono forniti:
 
 ```{r}
 who
 ```
 
-This is a very typical real-life example dataset. It contains redundant columns, odd variable codes, and many missing values. In short, `who` is messy, and we'll need multiple steps to tidy it. Like dplyr, tidyr is designed so that each function does one thing well. That means in real-life situations you'll usually need to string together multiple verbs into a pipeline. 
+Questo è un tipico set di dati della vita reale. Contiene colonne ridondanti, codici variabili strani e molti valori mancanti. In breve, `who` è disordinato, e avremo bisogno di più passi per metterlo in ordine. Come dplyr, tidyr è progettato in modo che ogni funzione faccia bene una cosa. Questo significa che in situazioni reali avrete bisogno di mettere insieme più verbi in una pipeline. 
 
-The best place to start is almost always to gather together the columns that are not variables. Let's have a look at what we've got: 
+Il posto migliore per iniziare è quasi sempre quello di riunire le colonne che non sono variabili. Diamo un'occhiata a quello che abbiamo: 
 
-* It looks like `country`, `iso2`, and `iso3` are three variables that 
-  redundantly specify the country.
+* Sembra che `country`, `iso2` e `iso3` siano tre variabili che 
+  specificano in modo ridondante il paese.
   
-* `year` is clearly also a variable.
+* Anche `year` è chiaramente una variabile.
 
-* We don't know what all the other columns are yet, but given the structure 
-  in the variable names (e.g. `new_sp_m014`, `new_ep_m014`, `new_ep_f014`) 
-  these are likely to be values, not variables.
+* Non sappiamo ancora quali siano tutte le altre colonne, ma data la struttura 
+  nei nomi delle variabili (es. `new_sp_m014`, `new_ep_m014`, `new_ep_f014`) 
+  è probabile che questi siano valori, non variabili.
 
-So we need to gather together all the columns from `new_sp_m014` to `newrel_f65`. We don't know what those values represent yet, so we'll give them the generic name `"key"`. We know the cells represent the count of cases, so we'll use the variable `cases`. There are a lot of missing values in the current representation, so for now we'll use `values_drop_na` just so we can focus on the values that are present.
+Quindi abbiamo bisogno di raccogliere tutte le colonne da `new_sp_m014` a `newrel_f65`. Non sappiamo ancora cosa rappresentano questi valori, quindi daremo loro il nome generico di `"key"`. Sappiamo che le celle rappresentano il numero di casi, quindi useremo la variabile `cases`. Ci sono molti valori mancanti nella rappresentazione attuale, quindi per ora useremo `values_drop_na` solo per concentrarci sui valori che sono presenti.
 
 ```{r}
 who1 <- who %>% 
@@ -463,43 +458,43 @@ who1 <- who %>%
 who1
 ```
 
-We can get some hint of the structure of the values in the new `key` column by counting them:
+Possiamo avere qualche indizio sulla struttura dei valori nella nuova colonna "key" contandoli:
 
 ```{r}
 who1 %>% 
   count(key)
 ```
 
-You might be able to parse this out by yourself with a little thought and some experimentation, but luckily we have the data dictionary handy. It tells us:
+Potresti essere in grado di analizzarlo da solo con un po' di ragionamento e qualche esperimento, ma fortunatamente abbiamo il dizionario dei dati a portata di mano. Ci dice:
 
-1.  The first three letters of each column denote whether the column 
-    contains new or old cases of TB. In this dataset, each column contains 
-    new cases.
+1.  Le prime tre lettere di ogni colonna indicano se la colonna 
+    contiene nuovi o vecchi casi di TBC. In questo set di dati, ogni colonna contiene 
+    nuovi casi.
 
-1.  The next two letters describe the type of TB:
+1.  Le due lettere successive descrivono il tipo di TBC:
     
-    *   `rel` stands for cases of relapse
-    *   `ep` stands for cases of extrapulmonary TB
-    *   `sn` stands for cases of pulmonary TB that could not be diagnosed by 
-        a pulmonary smear (smear negative)
-    *   `sp` stands for cases of pulmonary TB that could be diagnosed by 
-        a pulmonary smear (smear positive)
+    * `rel` sta per i casi di ricaduta
+    * `ep` sta per i casi di TB extrapolmonare
+    * `sn` sta per i casi di TB polmonare che non possono essere diagnosticati da 
+        uno striscio polmonare (striscio negativo)
+    * `sp` sta per i casi di TB polmonare che potrebbero essere diagnosticati da 
+        uno striscio polmonare (striscio positivo)
 
-3.  The sixth letter gives the sex of TB patients. The dataset groups 
-    cases by males (`m`) and females (`f`).
+3.  La sesta lettera indica il sesso dei pazienti con TB. Il dataset raggruppa 
+    casi per maschi (`m`) e femmine (`f`).
 
-4.  The remaining numbers gives the age group. The dataset groups cases into 
-    seven age groups:
+4.  I numeri rimanenti danno il gruppo di età. Il set di dati raggruppa i casi in 
+    sette gruppi di età:
     
-    * `014` = 0 -- 14 years old
-    * `1524` = 15 -- 24 years old
-    * `2534` = 25 -- 34 years old
-    * `3544` = 35 -- 44 years old
-    * `4554` = 45 -- 54 years old
-    * `5564` = 55 -- 64 years old
-    * `65` = 65 or older
+    * `014` = 0 -- 14 anni
+    * `1524` = 15 -- 24 anni
+    * `2534` = 25 -- 34 anni
+    * `3544` = 35 -- 44 anni
+    * `4554` = 45 -- 54 anni
+    * `5564` = 55 -- 64 anni
+    * `65` = 65 anni o più
 
-We need to make a minor fix to the format of the column names: unfortunately the names are slightly inconsistent because instead of `new_rel` we have `newrel` (it's hard to spot this here but if you don't fix it we'll get errors in subsequent steps). You'll learn about `str_replace()` in [strings], but the basic idea is pretty simple: replace the characters "newrel" with "new_rel". This makes all variable names consistent.
+Dobbiamo fare una piccola correzione al formato dei nomi delle colonne: sfortunatamente i nomi sono leggermente incoerenti perché invece di `new_rel` abbiamo `newrel` (è difficile da notare qui, ma se non lo correggi avremo degli errori nei passi successivi). Imparerai a conoscere `str_replace()` in [strings], ma l'idea di base è abbastanza semplice: sostituisci i caratteri "newrel" con "new_rel". Questo rende coerenti tutti i nomi delle variabili.
 
 ```{r}
 who2 <- who1 %>% 
@@ -507,7 +502,7 @@ who2 <- who1 %>%
 who2
 ```
 
-We can separate the values in each code with two passes of `separate()`. The first pass will split the codes at each underscore.
+Possiamo separare i valori in ogni codice con due passaggi di `separate()`. Il primo passaggio dividerà i codici ad ogni trattino basso.
 
 ```{r}
 who3 <- who2 %>% 
@@ -515,7 +510,7 @@ who3 <- who2 %>%
 who3
 ```
 
-Then we might as well drop the `new` column because it's constant in this dataset. While we're dropping columns, let's also drop `iso2` and `iso3` since they're redundant.
+Allora potremmo anche eliminare la colonna `new` perché è costante in questo set di dati. Mentre eliminiamo le colonne, eliminiamo anche `iso2` e `iso3` perché sono ridondanti.
 
 ```{r}
 who3 %>% 
@@ -524,7 +519,7 @@ who4 <- who3 %>%
   select(-new, -iso2, -iso3)
 ```
 
-Next we'll separate `sexage` into `sex` and `age` by splitting after the first character:
+Poi separeremo `sexage` in `sex` e `age` dividendo dopo il primo carattere:
 
 ```{r}
 who5 <- who4 %>% 
@@ -534,7 +529,7 @@ who5
 
 The `who` dataset is now tidy!
 
-I've shown you the code a piece at a time, assigning each interim result to a new variable. This typically isn't how you'd work interactively. Instead, you'd gradually build up a complex pipe:
+Vi ho mostrato il codice un pezzo alla volta, assegnando ogni risultato intermedio ad una nuova variabile. Questo tipicamente non è il modo in cui si lavora in modo interattivo. Invece, costruireste gradualmente un tubo complesso:
 
 ```{r, results = "hide"}
 who %>%
@@ -552,32 +547,32 @@ who %>%
   separate(sexage, c("sex", "age"), sep = 1)
 ```
 
-### Exercises
+### Esercizi
 
-1.  In this case study I set `values_drop_na = TRUE` just to make it easier to
-    check that we had the correct values. Is this reasonable? Think about
-    how missing values are represented in this dataset. Are there implicit
-    missing values? What's the difference between an `NA` and zero? 
+1.  In questo caso di studio ho impostato `values_drop_na = TRUE` solo per rendere più facile
+    controllare che avessimo i valori corretti. È ragionevole? Pensate a
+    come sono rappresentati i valori mancanti in questo set di dati. Ci sono valori impliciti
+    valori mancanti? Qual è la differenza tra un `NA` e uno zero? 
 
-1.  What happens if you neglect the `mutate()` step?
+1.  Cosa succede se trascurate il passo `mutate()`?
     (`mutate(names_from = stringr::str_replace(key, "newrel", "new_rel"))`)
 
-1.  I claimed that `iso2` and `iso3` were redundant with `country`. 
-    Confirm this claim.
+1.  Ho affermato che `iso2` e `iso3` sono ridondanti con `country`. 
+    Confermate questa affermazione.
 
-1.  For each country, year, and sex compute the total number of cases of 
-    TB. Make an informative visualisation of the data.
+1.  Per ogni paese, anno e sesso, calcola il numero totale di casi di 
+    TBC. Fai una visualizzazione informativa dei dati.
 
-## Non-tidy data
+## Dati non Tidy
 
-Before we continue on to other topics, it's worth talking briefly about non-tidy data. Earlier in the chapter, I used the pejorative term "messy" to refer to non-tidy data. That's an oversimplification: there are lots of useful and well-founded data structures that are not tidy data. There are two main reasons to use other data structures:
+Prima di continuare con altri argomenti, vale la pena di parlare brevemente dei dati non ordinati. All'inizio del capitolo, ho usato il termine peggiorativo "disordinato" per riferirmi ai dati non ordinati. Questa è una semplificazione eccessiva: ci sono molte strutture di dati utili e ben fondate che non sono dati ordinati. Ci sono due ragioni principali per usare altre strutture di dati:
 
-* Alternative representations may have substantial performance or space 
-  advantages.
+* Rappresentazioni alternative possono avere prestazioni sostanziali o vantaggi di spazio. 
+  vantaggi di spazio.
   
-* Specialised fields have evolved their own conventions for storing data
-  that may be quite different to the conventions of  tidy data.
+* I campi specializzati hanno sviluppato le proprie convenzioni per la memorizzazione dei dati
+  che possono essere molto diverse dalle convenzioni dei dati ordinati.
 
-Either of these reasons means you'll need something other than a tibble (or data frame). If your data does fit naturally into a rectangular structure composed of observations and variables, I think tidy data should be your default choice. But there are good reasons to use other structures; tidy data is not the only way.
+Ognuno di questi motivi significa che avrete bisogno di qualcosa di diverso da un tibble (o data frame). Se i vostri dati si adattano naturalmente ad una struttura rettangolare composta da osservazioni e variabili, penso che tidy data dovrebbe essere la vostra scelta predefinita. Ma ci sono buone ragioni per usare altre strutture; i dati ordinati non sono l'unico modo.
 
-If you'd like to learn more about non-tidy data, I'd highly recommend this thoughtful blog post by Jeff Leek: <http://simplystatistics.org/2016/02/17/non-tidy-data/>
+Se volete saperne di più sui dati non ordinati, vi consiglio vivamente questo post sul blog di Jeff Leek: <http://simplystatistics.org/2016/02/17/non-tidy-data/>.
