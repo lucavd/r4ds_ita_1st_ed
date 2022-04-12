@@ -1,6 +1,6 @@
 # Importazione dei dati
 
-## Introduction
+## Introduzione
 
 Lavorare con i dati forniti dai pacchetti di R è un ottimo modo per imparare gli strumenti della data science, ma ad un certo punto si vuole smettere di imparare e iniziare a lavorare con i propri dati. In questo capitolo, imparerete come leggere file rettangolari di testo semplice in R. Qui, gratteremo solo la superficie dell'importazione dei dati, ma molti dei principi saranno trasferiti ad altre forme di dati. Finiremo con alcune indicazioni di pacchetti che sono utili per altri tipi di dati.
 
