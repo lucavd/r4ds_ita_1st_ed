@@ -853,7 +853,7 @@ Potete usare gli altri argomenti di `regex()` per controllare i dettagli della c
       [) -]?   # parentesi di chiusura opzionale, spazio o trattino
       (\\d{3}) # altri tre numeri
       [ -]?    # spazio o trattino opzionale
-      (\d{3}) # altri tre numeri
+      (\\d{3}) # altri tre numeri
       ", comments = TRUE)
     
     str_match("514-791-8141", phone)
