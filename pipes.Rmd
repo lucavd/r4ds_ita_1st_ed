@@ -1,46 +1,46 @@
 # Pipe
 
-## Introduction
+## Introduzione
 
-Pipes are a powerful tool for clearly expressing a sequence of multiple operations. So far, you've been using them without knowing how they work, or what the alternatives are. Now, in this chapter, it's time to explore the pipe in more detail. You'll learn the alternatives to the pipe, when you shouldn't use the pipe, and some useful related tools.
+Le pipe ('tubi') sono uno strumento potente per esprimere chiaramente una sequenza di operazioni multiple. Finora le avete usate senza sapere come funzionano o quali sono le alternative. Ora, in questo capitolo, è il momento di esplorare le pipe in modo più dettagliato. Imparerai le alternative alle pipe, quando non dovresti usare le pipe e alcuni utili strumenti correlati.
 
-### Prerequisites
+### Prerequisiti
 
-The pipe, `%>%`, comes from the __magrittr__ package by Stefan Milton Bache. Packages in the tidyverse load `%>%` for you automatically, so you don't usually load magrittr explicitly.  Here, however, we're focussing on piping, and we aren't loading any other packages, so we will load it explicitly.
+Il pipe, `%>%`, viene dal pacchetto __magrittr__ di Stefan Milton Bache. I pacchetti nel tidyverse caricano automaticamente `%>%` per te, quindi di solito non carichi magrittr esplicitamente.  Qui, tuttavia, ci stiamo concentrando sul piping, e non stiamo caricando nessun altro pacchetto, quindi lo caricheremo esplicitamente.
 
 ```{r setup, message = FALSE}
 library(magrittr)
 ```
 
-## Piping alternatives
+## Alternative di pipe
 
-The point of the pipe is to help you write code in a way that is easier to read and understand. To see why the pipe is so useful, we're going to explore a number of ways of writing the same code. Let's use code to tell a story about a little bunny named Foo Foo:
+Lo scopo del pipe è quello di aiutarvi a scrivere il codice in un modo che sia più facile da leggere e capire. Per vedere perché il pipe è così utile, esploreremo una serie di modi di scrivere lo stesso codice. Usiamo il codice per raccontare la storia di un coniglietto di nome Foo Foo:
 
-> Little bunny Foo Foo  
-> Went hopping through the forest  
-> Scooping up the field mice  
-> And bopping them on the head  
+> Il coniglietto Foo Foo  
+> Saltellava nella foresta  
+> Raccogliendo i topi di campagna  
+> E li colpiva sulla testa  
 
-This is a popular Children's poem that is accompanied by hand actions.
+Questa è una poesia popolare per bambini che è accompagnata da azioni manuali.
 
-We'll start by defining an object to represent little bunny Foo Foo:
+Inizieremo definendo un oggetto per rappresentare il coniglietto Foo Foo:
 
 ```{r, eval = FALSE}
 foo_foo <- little_bunny()
 ```
 
-And we'll use a function for each key verb: `hop()`, `scoop()`, and `bop()`. Using this object and these verbs, there are (at least) four ways we could retell the story in code:
+E useremo una funzione per ogni verbo chiave: `hop()`, `scoop()` e `bop()`. Usando questo oggetto e questi verbi, ci sono (almeno) quattro modi in cui potremmo raccontare la storia nel codice:
 
-1. Save each intermediate step as a new object.
-1. Overwrite the original object many times.
-1. Compose functions.
-1. Use the pipe.
+1. Salvare ogni passo intermedio come un nuovo oggetto. 
+1. Sovrascrivere l'oggetto originale molte volte. 
+1. Comporre le funzioni. 
+1. Usare la pipe.
 
-We'll work through each approach, showing you the code and talking about the advantages and disadvantages.
+Lavoreremo attraverso ogni approccio, mostrandovi il codice e parlando dei vantaggi e degli svantaggi.
 
-### Intermediate steps
+### Passi intermedi
 
-The simplest approach is to save each step as a new object:
+L'approccio più semplice è salvare ogni passo come un nuovo oggetto:
 
 ```{r, eval = FALSE}
 foo_foo_1 <- hop(foo_foo, through = forest)
@@ -48,15 +48,15 @@ foo_foo_2 <- scoop(foo_foo_1, up = field_mice)
 foo_foo_3 <- bop(foo_foo_2, on = head)
 ```
 
-The main downside of this form is that it forces you to name each intermediate element. If there are natural names, this is a good idea, and you should do it. But many times, like this in this example, there aren't natural names, and you add numeric suffixes to make the names unique. That leads to two problems:
+Il principale svantaggio di questa forma è che ti costringe a nominare ogni elemento intermedio. Se ci sono nomi naturali, questa è una buona idea, e dovreste farlo. Ma molte volte, come in questo esempio, non ci sono nomi naturali, e si aggiungono suffissi numerici per rendere unici i nomi. Questo porta a due problemi:
 
-1. The code is cluttered with unimportant names
+1. Il codice è ingombro di nomi poco importanti
 
-1. You have to carefully increment the suffix on each line. 
+1. Devi incrementare attentamente il suffisso su ogni linea. 
 
-Whenever I write code like this, I invariably use the wrong number on one line and then spend 10 minutes scratching my head and trying to figure out what went wrong with my code.
+Ogni volta che scrivo codice come questo, invariabilmente uso il numero sbagliato su una linea e poi passo 10 minuti a grattarmi la testa e a cercare di capire cosa è andato storto nel mio codice.
 
-You may also worry that this form creates many copies of your data and takes up a lot of memory. Surprisingly, that's not the case. First, note that proactively worrying about memory is not a useful way to spend your time: worry about it when it becomes a problem (i.e. you run out of memory), not before. Second, R isn't stupid, and it will share columns across data frames, where possible. Let's take a look at an actual data manipulation pipeline where we add a new column to `ggplot2::diamonds`:
+Potreste anche preoccuparvi che questo modulo crei molte copie dei vostri dati e occupi molta memoria. Sorprendentemente, non è questo il caso. In primo luogo, notate che preoccuparsi proattivamente della memoria non è un modo utile di spendere il vostro tempo: preoccupatevene quando diventa un problema (cioè quando finite la memoria), non prima. In secondo luogo, R non è stupido, e condividerà le colonne tra i frame di dati, dove possibile. Diamo un'occhiata ad un'effettiva pipeline di manipolazione dei dati in cui aggiungiamo una nuova colonna a `ggplot2::diamonds`:
 
 ```{r}
 diamonds <- ggplot2::diamonds
@@ -68,13 +68,13 @@ pryr::object_size(diamonds2)
 pryr::object_size(diamonds, diamonds2)
 ```
 
-`pryr::object_size()` gives the memory occupied by all of its arguments. The results seem counterintuitive at first:
+La funzione `pryr::object_size()` dà la memoria occupata da tutti i suoi argomenti. I risultati sembrano controintuitivi all'inizio:
 
-* `diamonds` takes up 3.46 MB,
-* `diamonds2` takes up 3.89 MB,
-* `diamonds` and `diamonds2` together take up 3.89 MB!
+* `diamonds` occupa 3.46 MB,
+* `diamonds2` occupa 3.89 MB,
+* `diamonds` e `diamonds2` insieme occupano 3,89 MB!
 
-How can that work? Well, `diamonds2` has 10 columns in common with `diamonds`: there's no need to duplicate all that data, so the two data frames have variables in common. These variables will only get copied if you modify one of them. In the following example, we modify a single value in `diamonds$carat`. That means the `carat` variable can no longer be shared between the two data frames, and a copy must be made. The size of each data frame is unchanged, but the collective size increases:
+Come può funzionare? Beh, `diamonds2` ha 10 colonne in comune con `diamonds`: non c'è bisogno di duplicare tutti quei dati, quindi i due data frame hanno variabili in comune. Queste variabili vengono copiate solo se si modifica una di esse. Nell'esempio seguente, modifichiamo un singolo valore in `diamonds$carat`. Ciò significa che la variabile `carat` non può più essere condivisa tra i due frame di dati e deve essere fatta una copia. La dimensione di ogni data frame è invariata, ma la dimensione collettiva aumenta:
 
 ```{r}
 diamonds$carat[1] <- NA
@@ -83,11 +83,11 @@ pryr::object_size(diamonds2)
 pryr::object_size(diamonds, diamonds2)
 ```
 
-(Note that we use `pryr::object_size()` here, not the built-in `object.size()`. `object.size()` only takes a single object so it can't compute how data is shared across multiple objects.)
+(Si noti che qui usiamo `pryr::object_size()`, non il built-in `object.size()`. La funzione `object.size()` prende solo un singolo oggetto quindi non può calcolare come i dati sono condivisi tra più oggetti).
 
-### Overwrite the original
+### Sovrascrivere l'originale
 
-Instead of creating intermediate objects at each step, we could overwrite the original object:
+Invece di creare oggetti intermedi ad ogni passo, potremmo sovrascrivere l'oggetto originale:
 
 ```{r, eval = FALSE}
 foo_foo <- hop(foo_foo, through = forest)
@@ -95,17 +95,17 @@ foo_foo <- scoop(foo_foo, up = field_mice)
 foo_foo <- bop(foo_foo, on = head)
 ```
 
-This is less typing (and less thinking), so you're less likely to make mistakes. However, there are two problems:
+Questo è meno digitare (e meno pensare), quindi hai meno probabilità di fare errori. Tuttavia, ci sono due problemi:
 
-1.  Debugging is painful: if you make a mistake you'll need to re-run the 
-    complete pipeline from the beginning.
+1.  Il debugging è doloroso: se fate un errore dovrete rieseguire l'intera 
+    pipeline completa dall'inizio.
     
-1.  The repetition of the object being transformed (we've written `foo_foo` six 
-    times!) obscures what's changing on each line. 
+1.  La ripetizione dell'oggetto che viene trasformato (abbiamo scritto `foo_foo` sei volte! 
+    volte!) oscura ciò che sta cambiando su ogni linea. 
 
-### Function composition
+### Composizione di funzioni
 
-Another approach is to abandon assignment and just string the function calls together:
+Un altro approccio è quello di abbandonare l'assegnazione e semplicemente mettere insieme le chiamate di funzione:
 
 ```{r, eval = FALSE}
 bop(
@@ -117,12 +117,11 @@ bop(
 )
 ```
 
-Here the disadvantage is that you have to read from inside-out, from right-to-left, and that the arguments end up spread far apart (evocatively called the 
-[dagwood sandwhich](https://en.wikipedia.org/wiki/Dagwood_sandwich) problem). In short, this code is hard for a human to consume.
+Qui lo svantaggio è che si deve leggere dall'interno verso l'esterno, da destra a sinistra, e che gli argomenti finiscono per essere molto distanziati (chiamato evocativamente il problema [dagwood sandwhich](https://en.wikipedia.org/wiki/Dagwood_sandwich)). In breve, questo codice è difficile da consumare per un umano.
 
-### Use the pipe 
+### Usa la pipe
 
-Finally, we can use the pipe:
+Infine, possiamo usare la pipe:
 
 ```{r, eval = FALSE}
 foo_foo %>%
@@ -131,9 +130,9 @@ foo_foo %>%
   bop(on = head)
 ```
 
-This is my favourite form, because it focusses on verbs, not nouns. You can read this series of function compositions like it's a set of imperative actions. Foo Foo hops, then scoops, then bops. The downside, of course, is that you need to be familiar with the pipe. If you've never seen `%>%` before, you'll have no idea what this code does. Fortunately, most people pick up the idea very quickly, so when you share your code with others who aren't familiar with the pipe, you can easily teach them.
+Questa è la mia forma preferita, perché si concentra sui verbi, non sui nomi. Potete leggere questa serie di composizioni di funzioni come se fosse un insieme di azioni imperative. Foo Foo hop, poi scoop, poi bops. L'aspetto negativo, naturalmente, è che dovete avere familiarità con il pipe. Se non avete mai visto `%>%` prima, non avrete idea di cosa faccia questo codice. Fortunatamente, la maggior parte delle persone capisce l'idea molto velocemente, così quando condividete il vostro codice con altri che non hanno familiarità con la pipe, potete facilmente insegnarglielo.
 
-The pipe works by performing a "lexical transformation": behind the scenes, magrittr reassembles the code in the pipe to a form that works by overwriting an intermediate object. When you run a pipe like the one above, magrittr does something like this:
+La pipe funziona eseguendo una "trasformazione lessicale": dietro le quinte, magrittr riassembla il codice nella pipe in una forma che funziona sovrascrivendo un oggetto intermedio. Quando si esegue una pipe come quella sopra, magrittr fa qualcosa del genere:
 
 ```{r, eval = FALSE}
 my_pipe <- function(.) {
@@ -144,10 +143,9 @@ my_pipe <- function(.) {
 my_pipe(foo_foo)
 ```
 
-This means that the pipe won't work for two classes of functions:
+Questo significa che la pipe non funziona per due classi di funzioni:
 
-1.  Functions that use the current environment. For example, `assign()`
-    will create a new variable with the given name in the current environment:
+1.Funzioni che usano l'ambiente corrente. Per esempio, `assign()` creerà una nuova variabile con il nome dato nell'ambiente corrente:
      
     ```{r}
     assign("x", 10)
@@ -157,9 +155,9 @@ This means that the pipe won't work for two classes of functions:
     x
     ```
     
-    The use of assign with the pipe does not work because it assigns it to 
-    a temporary environment used by `%>%`. If you do want to use assign with the
-    pipe, you must be explicit about the environment:
+    L'uso di assign con il pipe non funziona perché lo assegna a 
+    un ambiente temporaneo usato da `%>%`. Se volete usare l'assegnazione con la
+    pipe, dovete essere espliciti riguardo all'ambiente:
     
     ```{r}
     env <- environment()
@@ -167,15 +165,15 @@ This means that the pipe won't work for two classes of functions:
     x
     ```
     
-    Other functions with this problem include `get()` and `load()`.
+    Altre funzioni con questo problema sono `get()` e `load()`.
 
-1.  Functions that use lazy evaluation. In R, function arguments
-    are only computed when the function uses them, not prior to calling the 
-    function. The pipe computes each element in turn, so you can't 
-    rely on this behaviour.
+1.  Funzioni che usano lazy evaluation. In R, gli argomenti delle funzioni
+    sono calcolati solo quando la funzione li usa, non prima di chiamare la 
+    funzione. La pipe calcola ogni elemento a turno, quindi non potete 
+    contare su questo comportamento.
     
-    One place that this is a problem is `tryCatch()`, which lets you capture
-    and handle errors:
+    Un posto in cui questo è un problema è `tryCatch()`, che vi permette di catturare
+    e gestire gli errori:
     
     ```{r, error = TRUE}
     tryCatch(stop("!"), error = function(e) "An error")
@@ -188,36 +186,36 @@ This means that the pipe won't work for two classes of functions:
     including `try()`, `suppressMessages()`, and `suppressWarnings()`
     in base R.
   
-## When not to use the pipe
+## Quando non usare la pipe
 
-The pipe is a powerful tool, but it's not the only tool at your disposal, and it doesn't solve every problem! Pipes are most useful for rewriting a fairly short linear sequence of operations. I think you should reach for another tool when:
+La pipe è uno strumento potente, ma non è l'unico strumento a vostra disposizione, e non risolve tutti i problemi! Le pipe sono utili soprattutto per riscrivere una sequenza lineare di operazioni abbastanza breve. Penso che dovreste cercare un altro strumento quando:
 
-* Your pipes are longer than (say) ten steps. In that case, create 
-  intermediate objects with meaningful names. That will make debugging easier,
-  because you can more easily check the intermediate results, and it makes
-  it easier to understand your code, because the variable names can help 
-  communicate intent.
+* Le vostre pipe sono più lunghe di (diciamo) dieci passi. In questo caso, create 
+  oggetti intermedi con nomi significativi. Questo renderà il debug più facile,
+  perché potete controllare più facilmente i risultati intermedi, e rende
+  più facile capire il vostro codice, perché i nomi delle variabili possono aiutare 
+  comunicare l'intento.
   
-* You have multiple inputs or outputs. If there isn't one primary object
-  being transformed, but two or more objects being combined together,
-  don't use the pipe.
+* Avete più ingressi o uscite. Se non c'è un oggetto primario
+  che viene trasformato, ma due o più oggetti che vengono combinati insieme,
+  non usate la pipe.
 
-* You are starting to think about a directed graph with a complex
-  dependency structure. Pipes are fundamentally linear and expressing 
-  complex relationships with them will typically yield confusing code.
+* State iniziando a pensare ad un grafo diretto con una complessa struttura di dipendenza.
+  struttura di dipendenza complessa. Le pipe sono fondamentalmente lineari ed esprimere 
+  relazioni complesse con esse produrrà tipicamente codice confuso.
 
-## Other tools from magrittr
+## Altri strumenti di magrittr
 
-All packages in the tidyverse automatically make `%>%` available for you, so you don't normally load magrittr explicitly. However, there are some other useful tools inside magrittr that you might want to try out:
+Tutti i pacchetti del tidyverse rendono automaticamente disponibile `%>%`, quindi normalmente non si carica magrittr esplicitamente. Tuttavia, ci sono alcuni altri strumenti utili all'interno di magrittr che potresti voler provare:
 
-*   When working with more complex pipes, it's sometimes useful to call a 
-    function for its side-effects. Maybe you want to print out the current 
-    object, or plot it, or save it to disk. Many times, such functions don't 
-    return anything, effectively terminating the pipe.
+* Quando si lavora con tubi più complessi, a volte è utile chiamare una 
+    funzione per i suoi effetti collaterali. Forse volete stampare l'oggetto corrente 
+    corrente, o tracciarlo, o salvarlo su disco. Molte volte, tali funzioni non 
+    non restituiscono nulla, terminando effettivamente la pipe.
     
-    To work around this problem, you can use the "tee" pipe. `%T>%` works like 
-    `%>%` except that it returns the left-hand side instead of the right-hand 
-    side. It's called "tee" because it's like a literal T-shaped pipe.
+    Per aggirare questo problema, potete usare la pipe "tee". `%T>%` funziona come 
+    `%>%` eccetto che restituisce il lato sinistro invece del lato destro 
+    lato destro. Si chiama "tee" perché è come un tubo letterale a forma di T.
 
     ```{r}
     rnorm(100) %>%
@@ -231,34 +229,34 @@ All packages in the tidyverse automatically make `%>%` available for you, so you
       str()
     ```
 
-*   If you're working with functions that don't have a data frame based API  
-    (i.e. you pass them individual vectors, not a data frame and expressions 
-    to be evaluated in the context of that data frame), you might find `%$%` 
-    useful. It "explodes" out the variables in a data frame so that you can 
-    refer to them explicitly. This is useful when working with many functions 
-    in base R:
+* Se state lavorando con funzioni che non hanno un'API basata su data frame  
+    (cioè gli passate singoli vettori, non un frame di dati ed espressioni 
+    da valutare nel contesto di quel frame di dati), potreste trovare `%$%` 
+    utile. Esso "esplode" le variabili in un frame di dati in modo che possiate 
+    riferirsi ad esse in modo esplicito. Questo è utile quando si lavora con molte funzioni 
+    in R di base:
     
     ```{r}
     mtcars %$%
       cor(disp, mpg)
     ```
 
-*   For assignment magrittr provides the `%<>%` operator which allows you to
-    replace code like:
+* Per l'assegnazione magrittr fornisce l'operatore `%<>%` che permette di
+    sostituire il codice come:
   
     ```{r, eval = FALSE}
     mtcars <- mtcars %>% 
       transform(cyl = cyl * 2)
     ```
     
-    with
+    con
      
     ```{r, eval = FALSE}
     mtcars %<>% transform(cyl = cyl * 2)
     ```
     
-    I'm not a fan of this operator because I think assignment is such a 
-    special operation that it should always be clear when it's occurring.
-    In my opinion, a little bit of duplication (i.e. repeating the 
-    name of the object twice) is fine in return for making assignment
-    more explicit.
+    Non sono un fan di questo operatore perché penso che l'assegnazione sia un'operazione così 
+    speciale che dovrebbe essere sempre chiaro quando avviene.
+    Secondo me, un po' di duplicazione (cioè ripetere il 
+    nome dell'oggetto due volte) va bene per rendere l'assegnazione
+    più esplicito.
