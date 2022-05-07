@@ -1,29 +1,29 @@
 # Funzioni
 
-## Introduction 
+## Introduzione 
 
-One of the best ways to improve your reach as a data scientist is to write functions. Functions allow you to automate common tasks in a more powerful and general way than copy-and-pasting. Writing a function has three big advantages over using copy-and-paste:
+Uno dei modi migliori per migliorare il proprio raggio d'azione come scienziato dei dati è scrivere funzioni. Le funzioni permettono di automatizzare compiti comuni in un modo più potente e generale del copia-e-incolla. Scrivere una funzione ha tre grandi vantaggi rispetto al copia-e-incolla:
 
-1.  You can give a function an evocative name that makes your code easier to 
-    understand.
+1.  Potete dare ad una funzione un nome evocativo che rende il vostro codice più facile da 
+    capire.
 
-1.  As requirements change, you only need to update code in one place, instead
-    of many.
+1.  Quando i requisiti cambiano, hai solo bisogno di aggiornare il codice in un posto, invece di
+    invece che in molti.
 
-1.  You eliminate the chance of making incidental mistakes when you copy and 
-    paste (i.e. updating a variable name in one place, but not in another).
+1.  Si elimina la possibilità di fare errori accidentali quando si copia e 
+    incollare (cioè aggiornare un nome di variabile in un posto, ma non in un altro).
 
-Writing good functions is a lifetime journey. Even after using R for many years I still learn new techniques and better ways of approaching old problems. The goal of this chapter is not to teach you every esoteric detail of functions but to get you started with some pragmatic advice that you can apply immediately.
+Scrivere buone funzioni è un viaggio lungo una vita. Anche dopo aver usato R per molti anni, imparo ancora nuove tecniche e modi migliori di affrontare vecchi problemi. L'obiettivo di questo capitolo non è quello di insegnarvi ogni dettaglio esoterico delle funzioni, ma di farvi iniziare con alcuni consigli pragmatici che potete applicare immediatamente.
 
-As well as practical advice for writing functions, this chapter also gives you some suggestions for how to style your code. Good code style is like correct punctuation. Youcanmanagewithoutit, but it sure makes things easier to read! As with styles of punctuation, there are many possible variations. Here we present the style we use in our code, but the most important thing is to be consistent.
+Oltre a consigli pratici per scrivere funzioni, questo capitolo vi dà anche alcuni suggerimenti su come stilizzare il vostro codice. Un buono stile del codice è come una corretta punteggiatura. Si può gestire anche senza, ma di sicuro rende le cose più facili da leggere! Come per gli stili di punteggiatura, ci sono molte possibili variazioni. Qui presentiamo lo stile che usiamo nel nostro codice, ma la cosa più importante è essere coerenti.
 
-### Prerequisites
+### Prerequisiti
 
-The focus of this chapter is on writing functions in base R, so you won't need any extra packages.
+L'obiettivo di questo capitolo è scrivere funzioni in R base, quindi non avrete bisogno di altri pacchetti.
 
-## When should you write a function?
+## Quando dovreste scrivere una funzione?
 
-You should consider writing a function whenever you've copied and pasted a block of code more than twice (i.e. you now have three copies of the same code). For example, take a look at this code. What does it do?
+Dovreste considerare di scrivere una funzione ogni volta che avete copiato e incollato un blocco di codice più di due volte (cioè ora avete tre copie dello stesso codice). Per esempio, date un'occhiata a questo codice. Cosa fa?
 
 ```{r}
 df <- tibble::tibble(
@@ -43,30 +43,29 @@ df$d <- (df$d - min(df$d, na.rm = TRUE)) /
   (max(df$d, na.rm = TRUE) - min(df$d, na.rm = TRUE))
 ```
 
-You might be able to puzzle out that this rescales each column to have a range from 0 to 1. But did you spot the mistake? I made an error when copying-and-pasting the code for `df$b`: I forgot to change an `a` to a `b`. Extracting repeated code out into a function is a good idea because it prevents you from making this type of mistake.
+Potreste essere in grado di capire che questo ridimensiona ogni colonna per avere un intervallo da 0 a 1. Ma avete notato l'errore? Ho fatto un errore quando ho copiato e incollato il codice per `df$b`: Ho dimenticato di cambiare una `a` con una `b`. Estrarre il codice ripetuto in una funzione è una buona idea perché ti impedisce di fare questo tipo di errore.
 
-To write a function you need to first analyse the code. How many inputs does it have?
+Per scrivere una funzione devi prima analizzare il codice. Quanti input ha?
 
 ```{r, eval = FALSE}
 (df$a - min(df$a, na.rm = TRUE)) /
   (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
 ```
 
-This code only has one input: `df$a`. (If you're surprised that `TRUE` is not an input, you can explore why in the exercise below.) To make the inputs more clear, it's a good idea to rewrite the code using temporary variables with general names. Here this code only requires a single numeric vector, so I'll call it `x`:
+Questo codice ha solo un input: `df$a`. (Se siete sorpresi che `TRUE` non sia un input, potete esplorare il perché nell'esercizio seguente). Per rendere gli input più chiari, è una buona idea riscrivere il codice usando variabili temporanee con nomi generici. Qui questo codice richiede solo un singolo vettore numerico, quindi lo chiamerò `x`:
 
 ```{r}
 x <- df$a
 (x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
 ```
 
-There is some duplication in this code. We're computing the range of the data three times, so it makes sense to do it in one step:
-
+C'è qualche duplicazione in questo codice. Stiamo calcolando l'intervallo dei dati tre volte, quindi ha senso farlo in un solo passo:
 ```{r}
 rng <- range(x, na.rm = TRUE)
 (x - rng[1]) / (rng[2] - rng[1])
 ```
 
-Pulling out intermediate calculations into named variables is a good practice because it makes it more clear what the code is doing. Now that I've simplified the code, and checked that it still works, I can turn it into a function:
+Tirare fuori i calcoli intermedi in variabili con nome è una buona pratica perché rende più chiaro cosa sta facendo il codice. Ora che ho semplificato il codice e controllato che funzioni ancora, posso trasformarlo in una funzione:
 
 ```{r}
 rescale01 <- function(x) {
@@ -76,30 +75,30 @@ rescale01 <- function(x) {
 rescale01(c(0, 5, 10))
 ```
 
-There are three key steps to creating a new function:
+Ci sono tre passi chiave per creare una nuova funzione:
 
-1.  You need to pick a __name__ for the function. Here I've used `rescale01` 
-    because this function rescales a vector to lie between 0 and 1.
+1.  Dovete scegliere un __nome__ per la funzione. Qui ho usato `rescale01`. 
+    perché questa funzione ridimensiona un vettore per farlo stare tra 0 e 1.
 
-1.  You list the inputs, or __arguments__, to the function inside `function`.
-    Here we have just one argument. If we had more the call would look like
-    `function(x, y, z)`.
+1.  Si elencano gli input, o __argomenti__, alla funzione all'interno di `function`.
+    Qui abbiamo solo un argomento. Se ne avessimo di più, la chiamata sarebbe come
+    `funzione(x, y, z)`.
 
-1.  You place the code you have developed in __body__ of the function, a 
-    `{` block that immediately follows `function(...)`.
+1.  Mettete il codice che avete sviluppato in __corpo__ della funzione, un blocco 
+    `{` blocco che segue immediatamente la `funzione(...)`.
 
-Note the overall process: I only made the function after I'd figured out how to make it work with a simple input. It's easier to start with working code and turn it into a function; it's harder to create a function and then try to make it work.
+Notate il processo generale: Ho creato la funzione solo dopo aver capito come farla funzionare con un semplice input. È più facile iniziare con del codice funzionante e trasformarlo in una funzione; è più difficile creare una funzione e poi cercare di farla funzionare.
 
-At this point it's a good idea to check your function with a few different inputs:
+A questo punto è una buona idea controllare la vostra funzione con alcuni input diversi:
 
 ```{r}
 rescale01(c(-10, 0, 10))
 rescale01(c(1, 2, 3, NA, 5))
 ```
 
-As you write more and more functions you'll eventually want to convert these informal, interactive tests into formal, automated tests. That process is called unit testing. Unfortunately, it's beyond the scope of this book, but you can learn about it in <http://r-pkgs.had.co.nz/tests.html>.
+Man mano che scrivete sempre più funzioni, alla fine vorrete convertire questi test informali e interattivi in test formali e automatizzati. Questo processo è chiamato test delle unità. Sfortunatamente, va oltre lo scopo di questo libro, ma potete impararlo in <http://r-pkgs.had.co.nz/tests.html>.
 
-We can simplify the original example now that we have a function:
+Possiamo semplificare l'esempio originale ora che abbiamo una funzione:
 
 ```{r}
 df$a <- rescale01(df$a)
@@ -108,16 +107,16 @@ df$c <- rescale01(df$c)
 df$d <- rescale01(df$d)
 ```
 
-Compared to the original, this code is easier to understand and we've eliminated one class of copy-and-paste errors. There is still quite a bit of duplication since we're doing the same thing to multiple columns. We'll learn how to eliminate that duplication in [iteration], once you've learned more about R's data structures in [vectors].
+Rispetto all'originale, questo codice è più facile da capire e abbiamo eliminato una classe di errori di copia e incolla. C'è ancora un bel po' di duplicazione poiché stiamo facendo la stessa cosa a più colonne. Impareremo come eliminare questa duplicazione in [iterazione], una volta che avrete imparato di più sulle strutture dati di R in [vettori].
 
-Another advantage of functions is that if our requirements change, we only need to make the change in one place. For example, we might discover that some of our variables include infinite values, and `rescale01()` fails:
+Un altro vantaggio delle funzioni è che se i nostri requisiti cambiano, dobbiamo fare il cambiamento solo in un posto. Per esempio, potremmo scoprire che alcune delle nostre variabili includono valori infiniti, e `rescale01()` fallisce:
 
 ```{r}
 x <- c(1:10, Inf)
 rescale01(x)
 ```
 
-Because we've extracted the code into a function, we only need to make the fix in one place:
+Poiché abbiamo estratto il codice in una funzione, abbiamo solo bisogno di fare la correzione in un posto:
 
 ```{r}
 rescale01 <- function(x) {
@@ -127,20 +126,15 @@ rescale01 <- function(x) {
 rescale01(x)
 ```
 
-This is an important part of the "do not repeat yourself" (or DRY) principle. The more repetition you have in your code, the more places you need to remember to update when things change (and they always do!), and the more likely you are to create bugs over time.
+Questa è una parte importante del principio "non ripetersi" (o DRY, 'Do not Repeat Yourself'). Più ripetizioni avete nel vostro codice, più posti dovete ricordarvi di aggiornare quando le cose cambiano (e cambiano sempre!), e più è probabile che creiate bug nel tempo.
 
-### Exercises
+### Esercizi
 
-1.  Why is `TRUE` not a parameter to `rescale01()`? What would happen if
-    `x` contained a single missing value, and `na.rm` was `FALSE`?
+1.  Perché `TRUE` non è un parametro di `rescale01()`? 2. Cosa accadrebbe se `x` contenesse un singolo valore mancante e `na.rm` fosse `FALSE`?
 
-1.  In the second variant of `rescale01()`, infinite values are left
-    unchanged. Rewrite `rescale01()` so that `-Inf` is mapped to 0, and 
-    `Inf` is mapped to 1.
+1.  Nella seconda variante di `rescale01()`, i valori infiniti sono lasciati invariati. Riscrivi `rescale01()` in modo che `-Inf` sia mappato a 0, e `Inf` sia mappato a 1.
 
-1.  Practice turning the following code snippets into functions. Think about 
-    what each function does. What would you call it? How many arguments does it
-    need? Can you rewrite it to be more expressive or less duplicative?
+1.  Esercitatevi a trasformare i seguenti frammenti di codice in funzioni. Pensate a cosa fa ogni funzione. Come la chiameresti? Di quanti argomenti ha bisogno? Puoi riscriverla per essere più espressiva o meno duplicata?
 
     ```{r, eval = FALSE}
     mean(is.na(x))
@@ -150,89 +144,89 @@ This is an important part of the "do not repeat yourself" (or DRY) principle. Th
     sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
     ```
 
-1.  write your own functions to compute the variance and skewness of a numeric vector.
-    Variance is defined as
+1. scrivi le tue funzioni per calcolare la varianza e l'asimmetria di un vettore numerico.
+    La varianza è definita come
     $$
-    \mathrm{Var}(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2 \text{,}
+    \mathrm{Var}(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2 \testo{,}
     $$
-    where $\bar{x} = (\sum_i^n x_i) / n$ is the sample mean.
-    Skewness is defined as
+    dove $bar{x} = (\sum_i^n x_i) / n$ è la media del campione.
+    L'asimmetria è definita come
     $$
-    \mathrm{Skew}(x) = \frac{\frac{1}{n-2}\left(\sum_{i=1}^n(x_i - \bar x)^3\right)}{\mathrm{Var}(x)^{3/2}} \text{.}
+    \mathrm{Skew}(x) = \frac{frac{1}{n-2}\sinistra(\sum_{i=1}^n(x_i - \bar x)^3\destra)}{mathrm{Var}(x)^{3/2} \testo{.}
     $$
 
-1.  Write `both_na()`, a function that takes two vectors of the same length 
-    and returns the number of positions that have an `NA` in both vectors.
+1.  Scrivere `both_na()`, una funzione che prende due vettori della stessa lunghezza 
+    e restituisce il numero di posizioni che hanno un `NA` in entrambi i vettori.
 
-1.  What do the following functions do? Why are they useful even though they
-    are so short?
+1.  Cosa fanno le seguenti funzioni? Perché sono utili anche se sono
+    sono così corte?
     
     ```{r}
     is_directory <- function(x) file.info(x)$isdir
     is_readable <- function(x) file.access(x, 4) == 0
     ```
 
-1.  Read the [complete lyrics](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) 
-    to "Little Bunny Foo Foo". There's a lot of duplication in this song. 
-    Extend the initial piping example to recreate the complete song, and use 
-    functions to reduce the duplication.
+1.  Leggi il [testo completo](https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo) 
+    di "Little Bunny Foo Foo". Ci sono molti doppioni in questa canzone. 
+    Estendete l'esempio iniziale di piping per ricreare la canzone completa, e usate 
+    funzioni per ridurre la duplicazione.
 
-## Functions are for humans and computers
+## Le funzioni sono per gli umani e per i computer
 
-It's important to remember that functions are not just for the computer, but are also for humans. R doesn't care what your function is called, or what comments it contains, but these are important for human readers. This section discusses some things that you should bear in mind when writing functions that humans can understand.
+È importante ricordare che le funzioni non sono solo per il computer, ma anche per gli esseri umani. A R non interessa come viene chiamata la vostra funzione, o quali commenti contiene, ma questi sono importanti per i lettori umani. Questa sezione discute alcune cose che dovreste tenere a mente quando scrivete funzioni che gli umani possano capire.
 
-The name of a function is important. Ideally, the name of your function will be short, but clearly evoke what the function does. That's hard! But it's better to be clear than short, as RStudio's autocomplete makes it easy to type long names.
+Il nome di una funzione è importante. Idealmente, il nome della vostra funzione sarà breve, ma evocherà chiaramente ciò che la funzione fa. Questo è difficile! Ma è meglio essere chiari che brevi, poiché il completamento automatico di RStudio rende facile digitare nomi lunghi.
 
-Generally, function names should be verbs, and arguments should be nouns. There are some exceptions: nouns are ok if the function computes a very well known noun (i.e. `mean()` is better than `compute_mean()`), or accessing some property of an object (i.e. `coef()` is better than `get_coefficients()`). A good sign that a noun might be a better choice is if you're using a very broad verb like "get", "compute", "calculate", or "determine". Use your best judgement and don't be afraid to rename a function if you figure out a better name later.
+In generale, i nomi delle funzioni dovrebbero essere verbi, e gli argomenti dovrebbero essere sostantivi. Ci sono alcune eccezioni: i sostantivi vanno bene se la funzione calcola un sostantivo molto noto (ad esempio `mean()` è meglio di `compute_mean()`), o accede a qualche proprietà di un oggetto (ad esempio `coef()` è meglio di `get_coefficients()`). Un buon segno che un sostantivo potrebbe essere una scelta migliore è se state usando un verbo molto ampio come "get", "compute", "calculate", o "determine". Usate il vostro miglior giudizio e non abbiate paura di rinominare una funzione se trovate un nome migliore in seguito.
 
 ```{r, eval = FALSE}
-# Too short
+# Troppo corto
 f()
 
-# Not a verb, or descriptive
+# Non è un verbo, o descrittivo
 my_awesome_function()
 
-# Long, but clear
+# Lungo, ma chiaro
 impute_missing()
 collapse_years()
 ```
 
-If your function name is composed of multiple words, I recommend using "snake\_case", where each lowercase word is separated by an underscore. camelCase is a popular alternative. It doesn't really matter which one you pick, the important thing is to be consistent: pick one or the other and stick with it. R itself is not very consistent, but there's nothing you can do about that. Make sure you don't fall into the same trap by making your code as consistent as possible.
+Se il nome della vostra funzione è composto da più parole, vi consiglio di usare "snake\_case", dove ogni parola minuscola è separata da un underscore. camelCase è un'alternativa popolare. Non importa quale scegliete, l'importante è essere coerenti: scegliete uno o l'altro e mantenetelo. R stesso non è molto coerente, ma non puoi farci niente. Assicuratevi di non cadere nella stessa trappola rendendo il vostro codice il più coerente possibile.
 
 ```{r, eval = FALSE}
-# Never do this!
+# Non farlo mai!
 col_mins <- function(x, y) {}
 rowMaxes <- function(y, x) {}
 ```
 
-If you have a family of functions that do similar things, make sure they have consistent names and arguments. Use a common prefix to indicate that they are connected. That's better than a common suffix because autocomplete allows you to type the prefix and see all the members of the family. 
+Se avete una famiglia di funzioni che fanno cose simili, assicuratevi che abbiano nomi e argomenti coerenti. Usate un prefisso comune per indicare che sono collegate. Questo è meglio di un suffisso comune perché il completamento automatico vi permette di digitare il prefisso e vedere tutti i membri della famiglia.
 
 ```{r, eval = FALSE}
-# Good
+# Buono
 input_select()
 input_checkbox()
 input_text()
 
-# Not so good
+# Non così buono
 select_input()
 checkbox_input()
 text_input()
 ```
 
-A good example of this design is the stringr package: if you don't remember exactly which function you need, you can type `str_` and jog your memory.
+Un buon esempio di questo design è il pacchetto stringr: se non ricordate esattamente quale funzione vi serve, potete digitare `str_` e rinfrescarvi la memoria.
 
-Where possible, avoid overriding existing functions and variables. It's impossible to do in general because so many good names are already taken by other packages, but avoiding the most common names from base R will avoid confusion.
+Dove possibile, evitate di sovrascrivere funzioni e variabili esistenti. E' impossibile farlo in generale perché tanti buoni nomi sono già presi da altri pacchetti, ma evitare i nomi più comuni da R base eviterà la confusione.
 
 ```{r, eval = FALSE}
-# Don't do this!
+# Non fatelo!
 T <- FALSE
 c <- 10
 mean <- function(x) sum(x)
 ```
 
-Use comments, lines starting with `#`, to explain the "why" of your code. You generally should avoid comments that explain the "what" or the "how". If you can't understand what the code does from reading it, you should think about how to rewrite it to be more clear. Do you need to add some intermediate variables with useful names? Do you need to break out a subcomponent of a large function so you can name it? However, your code can never capture the reasoning behind your decisions: why did you choose this approach instead of an alternative? What else did you try that didn't work? It's a great idea to capture that sort of thinking in a comment.
+Usate i commenti, linee che iniziano con `#`, per spiegare il "perché" del vostro codice. Generalmente dovreste evitare commenti che spiegano il "cosa" o il "come". Se non riesci a capire cosa fa il codice leggendolo, dovresti pensare a come riscriverlo per essere più chiaro. Avete bisogno di aggiungere alcune variabili intermedie con nomi utili? Avete bisogno di separare un sottocomponente di una grande funzione in modo da poterle dare un nome? Tuttavia, il vostro codice non può mai catturare il ragionamento dietro le vostre decisioni: perché avete scelto questo approccio invece di un'alternativa? Cos'altro avete provato che non ha funzionato? È una grande idea catturare questo tipo di pensiero in un commento.
 
-Another important use of comments is to break up your file into easily readable chunks. Use long lines of `-` and `=` to make it easy to spot the breaks.
+Un altro uso importante dei commenti è quello di spezzare il tuo file in pezzi facilmente leggibili. Usate lunghe linee di `-` e `=` per rendere facile individuare le interruzioni.
 
 ```{r, eval = FALSE}
 # Load data --------------------------------------
@@ -240,16 +234,15 @@ Another important use of comments is to break up your file into easily readable 
 # Plot data --------------------------------------
 ```
 
-RStudio provides a keyboard shortcut to create these headers (Cmd/Ctrl + Shift + R), and will display them in the code navigation drop-down at the bottom-left of the editor:
+RStudio fornisce una scorciatoia da tastiera per creare queste intestazioni (Cmd/Ctrl + Shift + R), e le mostrerà nel drop-down di navigazione del codice in basso a sinistra dell'editor:
 
 ```{r, echo = FALSE, out.width = NULL}
 knitr::include_graphics("screenshots/rstudio-nav.png")
 ```
 
-### Exercises
+### Esercizi
 
-1.  Read the source code for each of the following three functions, puzzle out
-    what they do, and then brainstorm better names.
+1.  Leggete il codice sorgente di ciascuna delle tre funzioni seguenti, fate un puzzle di ciò che fanno, e poi fate un brainstorming di nomi migliori.
     
     ```{r}
     f1 <- function(string, prefix) {
@@ -264,30 +257,30 @@ knitr::include_graphics("screenshots/rstudio-nav.png")
     }
     ```
     
-1.  Take a function that you've written recently and spend 5 minutes 
-    brainstorming a better name for it and its arguments.
+1.  Prendi una funzione che hai scritto recentemente e spendi 5 minuti 
+    per trovare un nome migliore per essa e per i suoi argomenti.
 
-1.  Compare and contrast `rnorm()` and `MASS::mvrnorm()`. How could you make
-    them more consistent? 
+1.  Confrontate e contrastate `rnorm()` e `MASS::mvrnorm()`. Come potreste renderli
+    più coerenti? 
     
-1.  Make a case for why `norm_r()`, `norm_d()` etc would be better than
-    `rnorm()`, `dnorm()`. Make a case for the opposite.
+1.  Spiegate perché `norm_r()`, `norm_d()` ecc. sarebbero meglio di
+    `rnorm()`, `dnorm()`. 2. Inventa un caso per il contrario.
 
 ## Esecuzione condizionale
 
-An `if` statement allows you to conditionally execute code. It looks like this:
+Un'istruzione `if` ti permette di eseguire del codice in modo condizionale. Si presenta così:
 
 ```{r, eval = FALSE}
 if (condition) {
-  # code executed when condition is TRUE
+  # codice eseguito quando la condizione è VERA
 } else {
-  # code executed when condition is FALSE
+  # codice eseguito quando la condizione è FALSA
 }
 ```
 
-To get help on `if` you need to surround it in backticks: `` ?`if` ``. The help isn't particularly helpful if you're not already an experienced programmer, but at least you know how to get to it!
+Per avere un aiuto su `if` dovete circondarlo di backtick: `` ?`if` ``. L'aiuto non è particolarmente utile se non sei già un programmatore esperto, ma almeno sai come arrivarci!
 
-Here's a simple function that uses an `if` statement. The goal of this function is to return a logical vector describing whether or not each element of a vector is named.
+Ecco una semplice funzione che usa una dichiarazione `if`. L'obiettivo di questa funzione è di restituire un vettore logico che descriva se ogni elemento di un vettore è nominato o meno.
 
 ```{r}
 has_name <- function(x) {
@@ -300,11 +293,11 @@ has_name <- function(x) {
 }
 ```
 
-This function takes advantage of the standard return rule: a function returns the last value that it computed. Here that is either one of the two branches of the `if` statement.
+Questa funzione sfrutta la regola di ritorno standard: una funzione restituisce l'ultimo valore che ha calcolato. Qui si tratta di uno dei due rami dell'istruzione `if`.
 
-### Conditions
+### Condizioni
 
-The `condition` must evaluate to either `TRUE` or `FALSE`. If it's a vector, you'll get a warning message; if it's an `NA`, you'll get an error. Watch out for these messages in your own code:
+La `condizione` deve valutare o `TRUE` o `FALSE`. Se è un vettore, avrai un messaggio di avvertimento; se è un `NA`, avrai un errore. Fai attenzione a questi messaggi nel tuo codice:
 
 ```{r, error = TRUE, eval=FALSE}
 if (c(TRUE, FALSE)) {}
@@ -312,15 +305,15 @@ if (c(TRUE, FALSE)) {}
 if (NA) {}
 ```
 
-You can use `||` (or) and `&&` (and) to combine multiple logical expressions. These operators are "short-circuiting": as soon as `||` sees the first `TRUE` it returns `TRUE` without computing anything else. As soon as `&&` sees the first `FALSE` it returns `FALSE`. You should never use `|` or `&` in an `if` statement: these are vectorised operations that apply to multiple values (that's why you use them in `filter()`). If you do have a logical vector, you can use `any()` or `all()` to collapse it to a single value.
+Potete usare `||` (o) e `&&` (e) per combinare più espressioni logiche. Questi operatori sono "a corto circuito": non appena `||` vede il primo `TRUE` restituisce `TRUE` senza calcolare nient'altro. Non appena `&&` vede il primo `FALSE` restituisce `FALSE`. Non dovreste mai usare `|` o `&` in una dichiarazione `if`: queste sono operazioni vettoriali che si applicano a valori multipli (ecco perché le usate in `filter()`). Se avete un vettore logico, potete usare `any()` o `all()` per farlo collassare ad un singolo valore.
 
-Be careful when testing for equality. `==` is vectorised, which means that it's easy to get more than one output.  Either check the length is already 1, collapse with `all()` or `any()`, or use the non-vectorised `identical()`. `identical()` is very strict: it always returns either a single `TRUE` or a single `FALSE`, and doesn't coerce types. This means that you need to be careful when comparing integers and doubles:
+Fate attenzione quando testate l'uguaglianza. `==` è vettoriale, il che significa che è facile ottenere più di un output.  Controllate che la lunghezza sia già 1, collassate con `all()` o `any()`, o usate la non vettorializzata `identical()`. `identical()` è molto rigoroso: restituisce sempre o un singolo `TRUE` o un singolo `FALSE`, e non coordina i tipi. Questo significa che dovete fare attenzione quando confrontate interi e doppi:
 
 ```{r}
 identical(0L, 0)
 ```
 
-You also need to be wary of floating point numbers:
+Bisogna anche diffidare dei numeri in virgola mobile:
 
 ```{r}
 x <- sqrt(2) ^ 2
@@ -329,25 +322,25 @@ x == 2
 x - 2
 ```
 
-Instead use `dplyr::near()` for comparisons, as described in [comparisons].
+Usate invece `dplyr::near()` per i confronti, come descritto in [confronti].
 
-And remember, `x == NA` doesn't do anything useful!
+E ricordate, `x == NA` non fa nulla di utile!
 
-### Multiple conditions
+### Condizioni multiple
 
-You can chain multiple if statements together:
+Puoi concatenare più dichiarazioni if insieme:
 
 ```{r, eval = FALSE}
 if (this) {
-  # do that
+  # fai quello
 } else if (that) {
-  # do something else
+  # fai quell'altro
 } else {
   # 
 }
 ```
 
-But if you end up with a very long series of chained `if` statements, you should consider rewriting. One useful technique is the `switch()` function. It allows you to evaluate selected code based on position or name.
+Ma se vi ritrovate con una serie molto lunga di dichiarazioni `if` concatenate, dovreste considerare la riscrittura. Una tecnica utile è la funzione `switch()`. Vi permette di valutare il codice selezionato in base alla posizione o al nome.
 
 ```{r, echo = FALSE}
 function(x, y, op) {
@@ -361,16 +354,16 @@ function(x, y, op) {
 }
 ```
 
-Another useful function that can often eliminate long chains of `if` statements is `cut()`. It's used to discretise continuous variables.
+Un'altra funzione utile che spesso può eliminare lunghe catene di istruzioni `if` è `cut()`. Viene usata per discretizzare le variabili continue.
 
-### Code style
+### Stile del codice
 
-Both `if` and `function` should (almost) always be followed by squiggly brackets (`{}`), and the contents should be indented by two spaces. This makes it easier to see the hierarchy in your code by skimming the left-hand margin.
+Sia `if` che `function` dovrebbero (quasi) sempre essere seguite da parentesi graffe (`{}`), e il contenuto dovrebbe essere indentato di due spazi. Questo rende più facile vedere la gerarchia nel tuo codice scorrendo il margine sinistro.
 
-An opening curly brace should never go on its own line and should always be followed by a new line. A closing curly brace should always go on its own line, unless it's followed by `else`. Always indent the code inside curly braces.
+Una parentesi graffa di apertura non dovrebbe mai andare sulla propria linea e dovrebbe essere sempre seguita da una nuova linea. Una parentesi graffa di chiusura dovrebbe sempre andare sulla propria riga, a meno che non sia seguita da `else`. Fai sempre rientrare il codice all'interno delle parentesi graffe.
 
 ```{r, eval = FALSE}
-# Good
+# Buono
 if (y < 0 && debug) {
   message("Y is negative")
 }
@@ -381,7 +374,7 @@ if (y == 0) {
   y ^ x
 }
 
-# Bad
+# Cattivo
 if (y < 0 && debug)
 message("Y is negative")
 
@@ -393,14 +386,14 @@ else {
 }
 ```
 
-It's ok to drop the curly braces if you have a very short `if` statement that can fit on one line:
+Va bene non usare le parentesi graffe se hai una dichiarazione `if` molto breve che può stare su una sola riga:
 
 ```{r}
 y <- 10
 x <- if (y < 20) "Too low" else "Too high"
 ```
 
-I recommend this only for very brief `if` statements. Otherwise, the full form is easier to read:
+Lo raccomando solo per dichiarazioni molto brevi "if". Altrimenti, la forma completa è più facile da leggere:
 
 ```{r}
 if (y < 20) {
@@ -410,23 +403,23 @@ if (y < 20) {
 }
 ```
 
-### Exercises
+### Esercizi
 
-1.  What's the difference between `if` and `ifelse()`? Carefully read the help
-    and construct three examples that illustrate the key differences.
+1.  Qual è la differenza tra `if` e `ifelse()`? Leggete attentamente l'aiuto
+    e costruisci tre esempi che illustrino le differenze chiave.
 
-1.  Write a greeting function that says "good morning", "good afternoon",
-    or "good evening", depending on the time of day. (Hint: use a time
-    argument that defaults to `lubridate::now()`. That will make it 
-    easier to test your function.)
+1.  Scrivi una funzione di saluto che dica "buongiorno", "buon pomeriggio",
+    o "buona sera", a seconda dell'ora del giorno. (Suggerimento: usate un argomento
+    che sia predefinito a `lubridate::now()`. Questo renderà 
+    più facile testare la vostra funzione).
 
-1.  Implement a `fizzbuzz` function. It takes a single number as input. If
-    the number is divisible by three, it returns "fizz". If it's divisible by
-    five it returns "buzz". If it's divisible by three and five, it returns
-    "fizzbuzz". Otherwise, it returns the number. Make sure you first write 
-    working code before you create the function.
+1.  Implementare una funzione `fizzbuzz`. Prende un singolo numero come input. Se
+    il numero è divisibile per tre, restituisce "fizz". Se è divisibile per
+    cinque, restituisce "buzz". Se è divisibile per tre e per cinque, restituisce
+    "fizzbuzz". Altrimenti, restituisce il numero. Assicuratevi di scrivere prima 
+    codice funzionante prima di creare la funzione.
     
-1.  How could you use `cut()` to simplify this set of nested if-else statements?
+1.  Come potreste usare `cut()` per semplificare questo insieme di dichiarazioni if-else annidate?
 
     ```{r, eval = FALSE}
     if (temp <= 0) {
@@ -442,13 +435,13 @@ if (y < 20) {
     }
     ```
     
-    How would you change the call to `cut()` if I'd used `<` instead of `<=`?
-    What is the other chief advantage of `cut()` for this problem? (Hint:
-    what happens if you have many values in `temp`?)
+    Come cambierebbe la chiamata a `cut()` se avessi usato `<` invece di `<=`?
+    Qual è l'altro vantaggio principale di `cut()` per questo problema? (Suggerimento:
+    cosa succede se hai molti valori in `temp`?)
 
-1.  What happens if you use `switch()` with numeric values?
+1.  Cosa succede se usate `switch()` con valori numerici?
 
-1.  What does this `switch()` call do? What happens if `x` is "e"?
+1.  Cosa fa questa chiamata `switch()`? 2. Cosa succede se `x` è "e"?
 
     ```{r, eval = FALSE}
     switch(x, 
@@ -459,27 +452,27 @@ if (y < 20) {
     )
     ```
     
-    Experiment, then carefully read the documentation. 
+    Sperimentate, poi leggete attentamente la documentazione. 
 
-## Function arguments
+## Argomenti delle funzioni
 
-The arguments to a function typically fall into two broad sets: one set supplies the __data__ to compute on, and the other supplies arguments that control the __details__ of the computation. For example:
+Gli argomenti di una funzione rientrano tipicamente in due grandi insiemi: un insieme fornisce i __dati__ su cui calcolare, e l'altro fornisce argomenti che controllano i __dettagli__ del calcolo. Per esempio:
 
-* In `log()`, the data is `x`, and the detail is the `base` of the logarithm.
+* In `log()`, i dati sono `x`, e il dettaglio è la `base` del logaritmo.
 
-* In `mean()`, the data is `x`, and the details are how much data to trim
-  from the ends (`trim`) and how to handle missing values (`na.rm`).
+* In `mean()`, i dati sono `x`, e i dettagli sono quanti dati tagliare
+  dalle estremità (`trim`) e come gestire i valori mancanti (`na.rm`).
 
-* In `t.test()`, the data are `x` and `y`, and the details of the test are
-  `alternative`, `mu`, `paired`, `var.equal`, and `conf.level`.
+* In `t.test()`, i dati sono `x` e `y`, e i dettagli del test sono
+  `alternative`, `mu`, `paired`, `var.equal`, e `conf.level`.
   
-* In `str_c()` you can supply any number of strings to `...`, and the details
-  of the concatenation are controlled by `sep` and `collapse`.
+* In `str_c()` potete fornire qualsiasi numero di stringhe a `...`, e i dettagli
+  della concatenazione sono controllati da `sep` e `collapse`.
   
-Generally, data arguments should come first. Detail arguments should go on the end, and usually should have default values. You specify a default value in the same way you call a function with a named argument:
+Generalmente, gli argomenti di dati dovrebbero venire per primi. Gli argomenti di dettaglio dovrebbero andare alla fine, e di solito dovrebbero avere valori predefiniti. Si specifica un valore predefinito nello stesso modo in cui si chiama una funzione con un argomento con nome:
 
 ```{r}
-# Compute confidence interval around mean using normal approximation
+# Calcolare l'intervallo di confidenza intorno alla media usando l'approssimazione normale
 mean_ci <- function(x, conf = 0.95) {
   se <- sd(x) / sqrt(length(x))
   alpha <- 1 - conf
@@ -491,9 +484,9 @@ mean_ci(x)
 mean_ci(x, conf = 0.99)
 ```
 
-The default value should almost always be the most common value. The few exceptions to this rule are to do with safety. For example, it makes sense for `na.rm` to default to `FALSE` because missing values are important. Even though `na.rm = TRUE` is what you usually put in your code, it's a bad idea to silently ignore missing values by default.
+Il valore di default dovrebbe essere quasi sempre il valore più comune. Le poche eccezioni a questa regola hanno a che fare con la sicurezza. Per esempio, ha senso che `na.rm` abbia come valore predefinito `FALSE` perché i valori mancanti sono importanti. Anche se `na.rm = TRUE` è quello che di solito mettete nel vostro codice, è una cattiva idea ignorare silenziosamente i valori mancanti per default.
 
-When you call a function, you typically omit the names of the data arguments, because they are used so commonly. If you override the default value of a detail argument, you should use the full name:
+Quando chiamate una funzione, di solito omettete i nomi degli argomenti dei dati, perché sono usati così comunemente. Se sovrascrivete il valore predefinito di un argomento di dettaglio, dovreste usare il nome completo:
 
 ```{r, eval = FALSE}
 # Good
@@ -504,34 +497,29 @@ mean(x = 1:10, , FALSE)
 mean(, TRUE, x = c(1:10, NA))
 ```
 
-You can refer to an argument by its unique prefix (e.g. `mean(x, n = TRUE)`), but this is generally best avoided given the possibilities for confusion.
+Potete riferirvi ad un argomento con il suo unico prefisso (ad esempio `mean(x, n = TRUE)`), ma questo è generalmente meglio evitarlo, date le possibilità di confusione.
 
-Notice that when you call a function, you should place a space around `=` in function calls, and always put a space after a comma, not before (just like in regular English). Using whitespace makes it easier to skim the function for the important components.
+Notate che quando chiamate una funzione, dovreste mettere uno spazio intorno a `=` nelle chiamate di funzione, e mettere sempre uno spazio dopo una virgola, non prima (proprio come nel normale inglese). Usare gli spazi bianchi rende più facile scremare la funzione per i componenti importanti.
 
 ```{r, eval = FALSE}
-# Good
+# Buono
 average <- mean(feet / 12 + inches, na.rm = TRUE)
 
-# Bad
+# Cattivo
 average<-mean(feet/12+inches,na.rm=TRUE)
 ```
 
-### Choosing names
+### Scegliere i nomi
 
-The names of the arguments are also important. R doesn't care, but the readers of your code (including future-you!) will. Generally you should prefer longer, more descriptive names, but there are a handful of very common, very short names. It's worth memorising these:
+Anche i nomi degli argomenti sono importanti. A R non importa, ma ai lettori del vostro codice (compresi i futuri voi!) sì. Generalmente dovreste preferire nomi più lunghi e descrittivi, ma ci sono una manciata di nomi molto comuni e molto brevi. Vale la pena memorizzarli:
 
-* `x`, `y`, `z`: vectors.
-* `w`: a vector of weights.
-* `df`: a data frame.
-* `i`, `j`: numeric indices (typically rows and columns).
-* `n`: length, or number of rows.
-* `p`: number of columns.
+* `x`, `y`, `z`: vettori. * `w`: un vettore di pesi. * `df`: un data frame. * `i`, `j`: indici numerici (tipicamente righe e colonne). * `n`: lunghezza, o numero di righe. * `p`: numero di colonne.
 
-Otherwise, consider matching names of arguments in existing R functions. For example, use `na.rm` to determine if missing values should be removed.
+Altrimenti, considerate la corrispondenza dei nomi degli argomenti nelle funzioni R esistenti. Per esempio, usate `na.rm` per determinare se i valori mancanti devono essere rimossi.
 
-### Checking values
+### Controllo dei valori
 
-As you start to write more functions, you'll eventually get to the point where you don't remember exactly how your function works. At this point it's easy to call your function with invalid inputs. To avoid this problem, it's often useful to make constraints explicit. For example, imagine you've written some functions for computing weighted summary statistics:
+Quando inizierete a scrivere più funzioni, alla fine arriverete al punto in cui non ricorderete esattamente come funziona la vostra funzione. A questo punto è facile chiamare la vostra funzione con input non validi. Per evitare questo problema, è spesso utile rendere espliciti i vincoli. Per esempio, immaginate di aver scritto alcune funzioni per calcolare statistiche sommarie ponderate:
 
 ```{r}
 wt_mean <- function(x, w) {
@@ -546,15 +534,15 @@ wt_sd <- function(x, w) {
 }
 ```
 
-What happens if `x` and `w` are not the same length?
+Cosa succede se `x` e `w` non hanno la stessa lunghezza?
 
 ```{r}
 wt_mean(1:6, 1:3)
 ```
 
-In this case, because of R's vector recycling rules, we don't get an error. 
+In questo caso, a causa delle regole di riciclaggio dei vettori di R, non otteniamo un errore.
 
-It's good practice to check important preconditions, and throw an error (with `stop()`), if they are not true:
+È buona pratica controllare le precondizioni importanti e lanciare un errore (con `stop()`), se non sono vere:
 
 ```{r}
 wt_mean <- function(x, w) {
@@ -565,7 +553,7 @@ wt_mean <- function(x, w) {
 }
 ```
 
-Be careful not to take this too far. There's a tradeoff between how much time you spend making your function robust, versus how long you spend writing it. For example, if you also added a `na.rm` argument, I probably wouldn't check it carefully:
+Fate attenzione a non esagerare. C'è un compromesso tra quanto tempo spendete per rendere la vostra funzione robusta e quanto tempo spendete per scriverla. Per esempio, se hai aggiunto anche un argomento `na.rm`, probabilmente non lo controllerei attentamente:
 
 ```{r}
 wt_mean <- function(x, w, na.rm = FALSE) {
@@ -588,7 +576,7 @@ wt_mean <- function(x, w, na.rm = FALSE) {
 }
 ```
 
-This is a lot of extra work for little additional gain. A useful compromise is the built-in `stopifnot()`: it checks that each argument is `TRUE`, and produces a generic error message if not.
+Questo è un sacco di lavoro extra per un piccolo guadagno aggiuntivo. Un utile compromesso è il built-in `stopifnot()`: controlla che ogni argomento sia `TRUE`, e produce un generico messaggio di errore in caso contrario.
 
 ```{r, error = TRUE}
 wt_mean <- function(x, w, na.rm = FALSE) {
@@ -605,20 +593,20 @@ wt_mean <- function(x, w, na.rm = FALSE) {
 wt_mean(1:6, 6:1, na.rm = "foo")
 ```
 
-Note that when using `stopifnot()` you assert what should be true rather than checking for what might be wrong.
+Si noti che quando si usa `stopifnot()` si afferma ciò che dovrebbe essere vero piuttosto che controllare ciò che potrebbe essere sbagliato.
 
 ### Dot-dot-dot (...)
 
-Many functions in R take an arbitrary number of inputs:
+Molte funzioni in R accettano un numero arbitrario di input:
 
 ```{r}
 sum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 stringr::str_c("a", "b", "c", "d", "e", "f")
 ```
 
-How do these functions work? They rely on a special argument: `...` (pronounced dot-dot-dot). This special argument captures any number of arguments that aren't otherwise matched. 
+Come funzionano queste funzioni? Si basano su un argomento speciale: `...` (pronunciato dot-dot-dot). Questo argomento speciale cattura qualsiasi numero di argomenti che non sono altrimenti abbinati.
 
-It's useful because you can then send those `...` on to another function. This is a useful catch-all if your function primarily wraps another function. For example, I commonly create these helper functions that wrap around `str_c()`:
+È utile perché è possibile inviare questi `...` ad un'altra funzione. Questo è un utile catch-all se la vostra funzione avvolge principalmente un'altra funzione. Per esempio, di solito creo queste funzioni helper che avvolgono `str_c()`:
 
 ```{r}
 commas <- function(...) stringr::str_c(..., collapse = ", ")
@@ -632,44 +620,44 @@ rule <- function(..., pad = "-") {
 rule("Important output")
 ```
 
-Here `...` lets me forward on any arguments that I don't want to deal with to `str_c()`. It's a very convenient technique. But it does come at a price: any misspelled arguments will not raise an error. This makes it easy for typos to go unnoticed:
+Qui `...` mi permette di inoltrare qualsiasi argomento che non voglio trattare a `str_c()`. È una tecnica molto comoda. Ma ha un prezzo: qualsiasi argomento scritto male non genererà un errore. Questo rende facile che gli errori di battitura passino inosservati:
 
 ```{r}
 x <- c(1, 2)
 sum(x, na.mr = TRUE)
 ```
 
-If you just want to capture the values of the `...`, use `list(...)`.
+Se volete solo catturare i valori del `...`, usate `list(...)`.
 
-### Lazy evaluation
+### Valutazione pigra (lazy evaluation)
 
-Arguments in R are lazily evaluated: they're not computed until they're needed. That means if they're never used, they're never called. This is an important property of R as a programming language, but is generally not important when you're writing your own functions for data analysis. You can read more about lazy evaluation at <http://adv-r.had.co.nz/Functions.html#lazy-evaluation>.
+Gli argomenti in R sono valutati pigramente: non sono calcolati finché non sono necessari. Questo significa che se non sono mai usati, non sono mai chiamati. Questa è un'importante proprietà di R come linguaggio di programmazione, ma generalmente non è importante quando si scrivono le proprie funzioni per l'analisi dei dati. Potete leggere di più sulla valutazione pigra a <http://adv-r.had.co.nz/Functions.html#lazy-evaluation>.
 
-### Exercises
+### Esercizi
 
-1.  What does `commas(letters, collapse = "-")` do? Why?
+1.  Cosa fa `commas(letters, collapse = "-")`? Perché?
 
-1.  It'd be nice if you could supply multiple characters to the `pad` argument, 
-    e.g. `rule("Title", pad = "-+")`. Why doesn't this currently work? How 
-    could you fix it?
+1.  Sarebbe bello se tu potessi fornire più caratteri all'argomento `pad`, 
+    per esempio `rule("Titolo", pad = "-+")`. Perché attualmente questo non funziona? Come 
+    si potrebbe risolvere?
     
-1.  What does the `trim` argument to `mean()` do? When might you use it?
+1.  Cosa fa l'argomento `trim` di `mean()`? Quando potreste usarlo?
 
-1.  The default value for the `method` argument to `cor()` is 
-    `c("pearson", "kendall", "spearman")`. What does that mean? What 
-    value is used by default?
+1.  Il valore predefinito per l'argomento `metodo` di `cor()` è 
+    `c("pearson", "kendall", "spearman")`. Cosa significa? Quale 
+    valore è usato per default?
 
-## Return values
+## Valori di ritorno
 
-Figuring out what your function should return is usually straightforward: it's why you created the function in the first place! There are two things you should consider when returning a value: 
+Capire cosa dovrebbe restituire la vostra funzione è di solito semplice: è il motivo per cui avete creato la funzione in primo luogo! Ci sono due cose da considerare quando si restituisce un valore: 
 
-1. Does returning early make your function easier to read? 
+1. Restituire in anticipo rende la vostra funzione più facile da leggere? 
 
-2. Can you make your function pipeable?
+2. Potete rendere la vostra funzione 'pipeable' (usabile con una pipe)?
 
-### Explicit return statements
+### Dichiarazioni di ritorno esplicite
 
-The value returned by the function is usually the last statement it evaluates, but you can choose to return early by using `return()`. I think it's best to save the use of `return()` to signal that you can return early with a simpler solution. A common reason to do this is because the inputs are empty:
+Il valore restituito dalla funzione è di solito l'ultima affermazione che valuta, ma potete scegliere di tornare in anticipo usando `return()`. Penso che sia meglio salvare l'uso di `return()` per segnalare che si può tornare in anticipo con una soluzione più semplice. Una ragione comune per farlo è perché gli input sono vuoti:
 
 ```{r}
 complicated_function <- function(x, y, z) {
@@ -677,31 +665,32 @@ complicated_function <- function(x, y, z) {
     return(0)
   }
     
-  # Complicated code here
+  # Codice complicato qui
 }
 
 ```
 
-Another reason is because you have a `if` statement with one complex block and one simple block. For example, you might write an if statement like this:
+Un'altra ragione è che avete una dichiarazione `if` con un blocco complesso e un blocco semplice. Per esempio, potreste scrivere un'istruzione if come questa:
 
 ```{r, eval = FALSE}
 f <- function() {
   if (x) {
-    # Do 
-    # something
-    # that
-    # takes
-    # many
-    # lines
-    # to
-    # express
+    # fare 
+    # qualcosa
+    # che
+    # prende
+    # molte
+    # linee
+    # per 
+    # essere
+    # espresso
   } else {
-    # return something short
+    # restituire qualcosa di breve
   }
 }
 ```
 
-But if the first block is very long, by the time you get to the `else`, you've forgotten the `condition`. One way to rewrite it is to use an early return for the simple case:
+Ma se il primo blocco è molto lungo, quando si arriva al `else`, si è dimenticata la `condizione`. Un modo per riscriverlo è usare un ritorno anticipato per il caso semplice:
 
 ```{r, eval = FALSE}
 
@@ -710,24 +699,25 @@ f <- function() {
     return(something_short)
   }
 
-  # Do 
-  # something
-  # that
-  # takes
-  # many
-  # lines
-  # to
-  # express
+    # fare 
+    # qualcosa
+    # che
+    # prende
+    # molte
+    # linee
+    # per 
+    # essere
+    # espresso
 }
 ```
 
-This tends to make the code easier to understand, because you don't need quite so much context to understand it.
+Questo tende a rendere il codice più facile da capire, perché non avete bisogno di così tanto contesto per capirlo.
 
-### Writing pipeable functions
+### Scrivere funzioni 'pipeable' (usabili con la pipe)
 
-If you want to write your own pipeable functions, it's important to think about the return value. Knowing the return value's object type will mean that your pipeline will "just work". For example, with dplyr and tidyr the object type is the data frame. 
+Se volete scrivere le vostre funzioni pipeable, è importante pensare al valore di ritorno. Conoscere il tipo di oggetto del valore di ritorno significherà che la vostra pipeline "funzionerà". Per esempio, con dplyr e tidyr il tipo di oggetto è il data frame.
 
-There are two basic types of pipeable functions: transformations and side-effects. With __transformations__, an object is passed to the function's first argument and a modified object is returned. With __side-effects__, the passed object is not transformed. Instead, the function performs an action on the object, like drawing a plot or saving a file. Side-effects functions should "invisibly" return the first argument, so that while they're not printed they can still be used in a pipeline. For example, this simple function prints the number of missing values in a data frame:
+Ci sono due tipi base di funzioni pipeable: le trasformazioni e gli effetti collaterali. Con __trasformazioni__, un oggetto viene passato come primo argomento della funzione e viene restituito un oggetto modificato. Con __effetti collaterali__, l'oggetto passato non viene trasformato. Invece, la funzione esegue un'azione sull'oggetto, come disegnare una grafico o salvare un file. Le funzioni effetti collaterali dovrebbero restituire "invisibilmente" il primo argomento, in modo che mentre non vengono stampate possono ancora essere utilizzate in una pipe. Per esempio, questa semplice funzione stampa il numero di valori mancanti in un frame di dati:
 
 ```{r}
 show_missings <- function(df) {
@@ -738,13 +728,13 @@ show_missings <- function(df) {
 }
 ```
 
-If we call it interactively, the `invisible()` means that the input `df` doesn't get printed out:
+Se lo chiamiamo interattivamente, l'opzione `invisible()` significa che l'input `df` non viene stampato:
 
 ```{r}
 show_missings(mtcars)
 ```
 
-But it's still there, it's just not printed by default:
+Ma c'è ancora, solo che non è stampato di default:
 
 ```{r}
 x <- show_missings(mtcars) 
@@ -752,7 +742,7 @@ class(x)
 dim(x)
 ```
 
-And we can still use it in a pipe:
+E possiamo ancora usarlo in una pipe:
 
 ```{r, include = FALSE}
 library(dplyr)
@@ -764,9 +754,9 @@ mtcars %>%
   show_missings() 
 ```
 
-## Environment
+## Ambiente
 
-The last component of a function is its environment. This is not something you need to understand deeply when you first start writing functions. However, it's important to know a little bit about environments because they are crucial to how functions work. The environment of a function controls how R finds the value associated with a name. For example, take this function:
+L'ultimo componente di una funzione è il suo ambiente. Questo non è qualcosa che dovete capire a fondo quando iniziate a scrivere funzioni. Tuttavia, è importante conoscere un po' gli ambienti perché sono cruciali per il funzionamento delle funzioni. L'ambiente di una funzione controlla come R trova il valore associato ad un nome. Per esempio, prendete questa funzione:
 
 ```{r}
 f <- function(x) {
@@ -774,7 +764,7 @@ f <- function(x) {
 } 
 ```
 
-In many programming languages, this would be an error, because `y` is not defined inside the function. In R, this is valid code because R uses rules called __lexical scoping__ to find the value associated with a name. Since `y` is not defined inside the function, R will look in the __environment__ where the function was defined:
+In molti linguaggi di programmazione, questo sarebbe un errore, perché `y` non è definito all'interno della funzione. In R, questo è un codice valido perché R usa delle regole chiamate __lexical scoping__ per trovare il valore associato ad un nome. Poiché `y` non è definito all'interno della funzione, R cercherà nell' __ambiente__ dove la funzione è stata definita:
 
 ```{r}
 y <- 100
@@ -784,9 +774,9 @@ y <- 1000
 f(10)
 ```
 
-This behaviour seems like a recipe for bugs, and indeed you should avoid creating functions like this deliberately, but by and large it doesn't cause too many problems (especially if you regularly restart R to get to a clean slate). 
+Questo comportamento sembra una ricetta per i bug, e in effetti si dovrebbe evitare di creare deliberatamente funzioni come questa, ma in generale non causa troppi problemi (soprattutto se si riavvia regolarmente R per arrivare a una tabula rasa).
 
-The advantage of this behaviour is that from a language standpoint it allows R to be very consistent. Every name is looked up using the same set of rules. For `f()` that includes the behaviour of two things that you might not expect: `{` and `+`. This allows you to do devious things like:
+Il vantaggio di questo comportamento è che dal punto di vista del linguaggio permette a R di essere molto coerente. Ogni nome viene cercato usando lo stesso insieme di regole. Per `f()` questo include il comportamento di due cose che potreste non aspettarvi: `{` e `+`. Questo vi permette di fare cose subdole come:
 
 ```{r}
 `+` <- function(x, y) {
@@ -800,4 +790,4 @@ table(replicate(1000, 1 + 2))
 rm(`+`)
 ```
 
-This is a common phenomenon in R. R places few limits on your power. You can do many things that you can't do in other programming languages. You can do many things that 99% of the time are extremely ill-advised (like overriding how addition works!). But this power and flexibility is what makes tools like ggplot2 and dplyr possible. Learning how to make best use of this flexibility is beyond the scope of this book, but you can read about in [_Advanced R_](http://adv-r.had.co.nz).
+Questo è un fenomeno comune in R. R pone pochi limiti al vostro potere. Potete fare molte cose che non potete fare in altri linguaggi di programmazione. Potete fare molte cose che il 99% delle volte sono estremamente sconsigliate (come sovrascrivere il funzionamento dell'addizione!). Ma questa potenza e flessibilità è ciò che rende possibili strumenti come ggplot2 e dplyr. Imparare come usare al meglio questa flessibilità va oltre lo scopo di questo libro, ma si può leggere in [_Advanced R_](http://adv-r.had.co.nz).
