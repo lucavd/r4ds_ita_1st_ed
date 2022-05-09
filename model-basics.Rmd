@@ -1,49 +1,49 @@
-# Model basics
+# Modelli base
 
-## Introduction
+## Introduzione
 
-The goal of a model is to provide a simple low-dimensional summary of a dataset. In the context of this book we're going to use models to partition data into patterns and residuals. Strong patterns will hide subtler trends, so we'll use models to help peel back layers of structure as we explore a dataset.
+L'obiettivo di un modello è quello di fornire un semplice riassunto a bassa dimesionalità di un set di dati. Nel contesto di questo libro useremo i modelli per dividere i dati in modelli e residui. I modelli forti nasconderanno tendenze più sottili, quindi useremo i modelli per aiutarci a rimuovere i livelli di struttura mentre esploriamo un set di dati.
 
-However, before we can start using models on interesting, real, datasets, you need to understand the basics of how models work. For that reason, this chapter of the book is unique because it uses only simulated datasets. These datasets are very simple, and not at all interesting, but they will help you understand the essence of modelling before you apply the same techniques to real data in the next chapter.
+Tuttavia, prima di iniziare a usare i modelli su serie di dati interessanti e reali, è necessario comprendere le basi del funzionamento dei modelli. Per questo motivo, questo capitolo del libro è unico perché utilizza solo set di dati simulati. Questi set di dati sono molto semplici, e per niente interessanti, ma vi aiuteranno a capire l'essenza della modellazione prima di applicare le stesse tecniche ai dati reali nel prossimo capitolo.
 
-There are two parts to a model:
+Ci sono due parti in un modello:
 
-1.  First, you define a __family of models__ that express a precise, but 
-    generic, pattern that you want to capture. For example, the pattern 
-    might be a straight line, or a quadratic curve. You will express
-    the model family as an equation like `y = a_1 * x + a_2` or 
-    `y = a_1 * x ^ a_2`. Here, `x` and `y` are known variables from your
-    data, and `a_1` and `a_2` are parameters that can vary to capture 
-    different patterns.
+1.  Primo, si definisce una __famiglia di modelli__ che esprimono un modello preciso, ma 
+    modello preciso, ma generico, che si vuole catturare. Per esempio, il modello 
+    potrebbe essere una linea retta o una curva quadratica. Esprimerai
+    la famiglia di modelli come un'equazione come `y = a_1 * x + a_2` o 
+    `y = a_1 * x ^ a_2`. Qui, `x` e `y` sono variabili conosciute dai tuoi
+    dati, e `a_1` e `a_2` sono parametri che possono variare per catturare 
+    modelli diversi.
 
-1.  Next, you generate a __fitted model__ by finding the model from the 
-    family that is the closest to your data. This takes the generic model 
-    family and makes it specific, like `y = 3 * x + 7` or `y = 9 * x ^ 2`.
+1.  Poi, si genera un __modello adattato__ trovando il modello dalla 
+    famiglia che si avvicina di più ai vostri dati. Questo prende il modello generico 
+    generico e lo rende specifico, come `y = 3 * x + 7` o `y = 9 * x ^ 2`.
 
-It's important to understand that a fitted model is just the closest model from a family of models. That implies that you have the "best" model (according to some criteria); it doesn't imply that you have a good model and it certainly doesn't imply that the model is "true". George Box puts this well in his famous aphorism:
+È importante capire che un modello adattato è solo il modello più vicino da una famiglia di modelli. Questo implica che si ha il modello "migliore" (secondo alcuni criteri); non implica che si abbia un buon modello e certamente non implica che il modello sia "vero". George Box lo dice bene nel suo famoso aforisma:
 
-> All models are wrong, but some are useful.
+> Tutti i modelli sono sbagliati, ma alcuni sono utili.
 
-It's worth reading the fuller context of the quote:
+Vale la pena leggere il contesto più completo della citazione:
 
-> Now it would be very remarkable if any system existing in the real world 
-> could be exactly represented by any simple model. However, cunningly chosen 
-> parsimonious models often do provide remarkably useful approximations. For 
-> example, the law PV = RT relating pressure P, volume V and temperature T of 
-> an "ideal" gas via a constant R is not exactly true for any real gas, but it 
-> frequently provides a useful approximation and furthermore its structure is 
-> informative since it springs from a physical view of the behavior of gas 
-> molecules.
+> Ora sarebbe davvero notevole se qualsiasi sistema esistente nel mondo reale 
+> potesse essere rappresentato esattamente da un qualsiasi modello semplice. Tuttavia, modelli astutamente scelti 
+> modelli parsimoniosi spesso forniscono approssimazioni notevolmente utili. Per 
+> esempio, la legge PV = RT che mette in relazione pressione P, volume V e temperatura T di 
+> un gas "ideale" attraverso una costante R non è esattamente vera per qualsiasi gas reale, ma 
+> spesso fornisce un'approssimazione utile e inoltre la sua struttura è 
+> informativa poiché scaturisce da una visione fisica del comportamento delle molecole di gas 
+> molecole di gas.
 > 
-> For such a model there is no need to ask the question "Is the model true?". 
-> If "truth" is to be the "whole truth" the answer must be "No". The only 
-> question of interest is "Is the model illuminating and useful?".
+> Per un tale modello non c'è bisogno di porre la domanda "Il modello è vero? 
+> Se la "verità" deve essere "tutta la verità", la risposta deve essere "No". L'unica 
+> domanda di interesse è "Il modello è illuminante e utile?".
 
-The goal of a model is not to uncover truth, but to discover a simple approximation that is still useful. 
+L'obiettivo di un modello non è quello di scoprire la verità, ma di scoprire una semplice approssimazione che sia ancora utile. 
 
-### Prerequisites
+### Prerequisiti
 
-In this chapter we'll use the modelr package which wraps around base R's modelling functions to make them work naturally in a pipe.
+In questo capitolo useremo il pacchetto modelr che avvolge le funzioni di modellazione di base di R per farle lavorare naturalmente in un tubo.
 
 ```{r setup, message = FALSE}
 library(tidyverse)
@@ -52,16 +52,16 @@ library(modelr)
 options(na.action = na.warn)
 ```
 
-## A simple model
+## Un modello semplice
 
-Lets take a look at the simulated dataset `sim1`, included with the modelr package. It contains two continuous variables, `x` and `y`. Let's plot them to see how they're related:
+Diamo un'occhiata al dataset simulato `sim1`, incluso nel pacchetto modelr. Contiene due variabili continue, `x` e `y`. Tracciamo il loro grafico per vedere come sono correlati:
 
 ```{r}
 ggplot(sim1, aes(x, y)) + 
   geom_point()
 ```
 
-You can see a strong pattern in the data. Let's use a model to capture that pattern and make it explicit. It's our job to supply the basic form of the model. In this case, the relationship looks linear, i.e. `y = a_0 + a_1 * x`.  Let's start by getting a feel for what models from that family look like by randomly generating a few and overlaying them on the data. For this simple case, we can use `geom_abline()` which takes a slope and intercept as parameters. Later on we'll learn more general techniques that work with any model.
+Si può vedere un forte modello nei dati. Usiamo un modello per catturare quel modello e renderlo esplicito. È nostro compito fornire la forma base del modello. In questo caso, la relazione sembra lineare, cioè `y = a_0 + a_1 * x`.  Cominciamo a farci un'idea di come sono i modelli di questa famiglia generandone alcuni a caso e sovrapponendoli ai dati. Per questo semplice caso, possiamo usare `geom_abline()` che prende una pendenza e un'intercetta come parametri. Più avanti impareremo tecniche più generali che funzionano con qualsiasi modello.
 
 ```{r}
 models <- tibble(
@@ -74,9 +74,9 @@ ggplot(sim1, aes(x, y)) +
   geom_point() 
 ```
 
-There are 250 models on this plot, but a lot are really bad! We need to find the good models by making precise our intuition that a good model is "close" to the data. We need a way to quantify the distance between the data and a model. Then we can fit the model by finding the value of `a_0` and `a_1` that generate the model with the smallest distance from this data.
+Ci sono 250 modelli su questo grafico, ma molti sono davvero pessimi! Dobbiamo trovare i buoni modelli rendendo precisa la nostra intuizione che un buon modello è "vicino" ai dati. Abbiamo bisogno di un modo per quantificare la distanza tra i dati e un modello. Poi possiamo adattare il modello trovando il valore di `a_0` e `a_1` che genera il modello con la minore distanza dai dati.
 
-One easy place to start is to find the vertical distance between each point and the model, as in the following diagram. (Note that I've shifted the x values slightly so you can see the individual distances.)
+Un facile punto di partenza è trovare la distanza verticale tra ogni punto e il modello, come nel seguente diagramma. (Nota che ho spostato leggermente i valori x in modo che tu possa vedere le singole distanze).
 
 ```{r, echo = FALSE}
 dist1 <- sim1 %>% 
@@ -92,9 +92,9 @@ ggplot(dist1, aes(x1, y)) +
   geom_linerange(aes(ymin = y, ymax = pred), colour = "#3366FF") 
 ```
 
-This distance is just the difference between the y value given by the model (the __prediction__), and the actual y value in the data (the __response__).
+Questa distanza è semplicemente la differenza tra il valore y dato dal modello (la __predizione__) e il valore y reale nei dati (la __risposta__).
 
-To compute this distance, we first turn our model family into an R function. This takes the model parameters and the data as inputs, and gives values predicted by the model as output:
+Per calcolare questa distanza, prima trasformiamo la nostra famiglia di modelli in una funzione R. Questa prende i parametri del modello e i dati come input, e dà come output i valori predetti dal modello:
 
 ```{r}
 model1 <- function(a, data) {
@@ -103,9 +103,9 @@ model1 <- function(a, data) {
 model1(c(7, 1.5), sim1)
 ```
 
-Next, we need some way to compute an overall distance between the predicted and actual values. In other words, the plot above shows 30 distances: how do we collapse that into a single number?
+Poi, abbiamo bisogno di un modo per calcolare una distanza complessiva tra i valori previsti e quelli reali. In altre parole, il grafico sopra mostra 30 distanze: come facciamo a farle collassare in un singolo numero?
 
-One common way to do this in statistics to use the "root-mean-squared deviation". We compute the difference between actual and predicted, square them, average them, and the take the square root. This distance has lots of appealing mathematical properties, which we're not going to talk about here. You'll just have to take my word for it!
+Un modo comune per farlo in statistica è usare la "deviazione media della radice quadrata". Si calcola la differenza tra il reale e il previsto, si eleva al quadrato, si fa la media e si prende la radice quadrata. Questa distanza ha un sacco di interessanti proprietà matematiche, di cui non parleremo qui. Dovrete fidarvi della mia parola!
 
 ```{r}
 measure_distance <- function(mod, data) {
@@ -115,7 +115,7 @@ measure_distance <- function(mod, data) {
 measure_distance(c(7, 1.5), sim1)
 ```
 
-Now we can use purrr to compute the distance for all the models defined above. We need a helper function because our distance function expects the model as a numeric vector of length 2.
+Ora possiamo usare purrr per calcolare la distanza per tutti i modelli definiti sopra. Abbiamo bisogno di una funzione di aiuto perché la nostra funzione di distanza si aspetta il modello come un vettore numerico di lunghezza 2.
 
 ```{r}
 sim1_dist <- function(a1, a2) {
@@ -127,7 +127,7 @@ models <- models %>%
 models
 ```
 
-Next, let's overlay the 10 best models on to the data. I've coloured the models by `-dist`: this is an easy way to make sure that the best models (i.e. the ones with the smallest distance) get the brighest colours.
+Poi, sovrapponiamo i 10 migliori modelli ai dati. Ho colorato i modelli per `-dist`: questo è un modo semplice per assicurarsi che i modelli migliori (cioè quelli con la distanza minore) abbiano i colori più brillanti.
 
 ```{r}
 ggplot(sim1, aes(x, y)) + 
@@ -138,7 +138,7 @@ ggplot(sim1, aes(x, y)) +
   )
 ```
 
-We can also think about these models as observations, and visualising with a scatterplot of `a1` vs  `a2`, again coloured by `-dist`. We can no longer directly see how the model compares to the data, but we can see many models at once. Again, I've highlighted the 10 best models, this time by drawing red circles underneath them.
+Possiamo anche pensare a questi modelli come a delle osservazioni, e visualizzarli con uno scatterplot di `a1` vs `a2`, sempre colorato da `-dist`. Non possiamo più vedere direttamente come il modello si confronta con i dati, ma possiamo vedere molti modelli contemporaneamente. Di nuovo, ho evidenziato i 10 modelli migliori, questa volta disegnando dei cerchi rossi sotto di essi.
 
 ```{r}
 ggplot(models, aes(a1, a2)) +
@@ -146,7 +146,7 @@ ggplot(models, aes(a1, a2)) +
   geom_point(aes(colour = -dist))
 ```
 
-Instead of trying lots of random models, we could be more systematic and generate an evenly spaced grid of points (this is called a grid search). I picked the parameters of the grid roughly by looking at where the best models were in the plot above.
+Invece di provare molti modelli casuali, potremmo essere più sistematici e generare una griglia di punti uniformemente distanziati (questa è chiamata ricerca a griglia). Ho scelto i parametri della griglia in modo approssimativo guardando dove si trovavano i migliori modelli nel grafico sopra.
 
 ```{r}
 grid <- expand.grid(
@@ -161,7 +161,7 @@ grid %>%
   geom_point(aes(colour = -dist)) 
 ```
 
-When you overlay the best 10 models back on the original data, they all look pretty good:
+Quando si sovrappongono i migliori 10 modelli ai dati originali, tutti sembrano abbastanza buoni:
 
 ```{r}
 ggplot(sim1, aes(x, y)) + 
@@ -172,7 +172,7 @@ ggplot(sim1, aes(x, y)) +
   )
 ```
 
-You could imagine iteratively making the grid finer and finer until you narrowed in on the best model. But there's a better way to tackle that problem: a numerical minimisation tool called Newton-Raphson search. The intuition of Newton-Raphson is pretty simple: you pick a starting point and look around for the steepest slope. You then ski down that slope a little way, and then repeat again and again, until you can't go any lower. In R, we can do that with `optim()`:
+Si potrebbe immaginare di rendere iterativamente la griglia sempre più fine fino a restringere il modello migliore. Ma c'è un modo migliore per affrontare questo problema: uno strumento di minimizzazione numerica chiamato ricerca Newton-Raphson. L'intuizione di Newton-Raphson è piuttosto semplice: si sceglie un punto di partenza e si cerca il pendio più ripido. Poi si scia giù per quel pendio un po', e poi si ripete ancora e ancora, finché non si può scendere più in basso. In R, possiamo farlo con `optim()`:
 
 ```{r}
 best <- optim(c(0, 0), measure_distance, data = sim1)
@@ -183,23 +183,20 @@ ggplot(sim1, aes(x, y)) +
   geom_abline(intercept = best$par[1], slope = best$par[2])
 ```
 
-Don't worry too much about the details of how `optim()` works. It's the intuition that's important here. If you have a function that defines the distance between a model and a dataset, an algorithm that can minimise that distance by modifying the parameters of the model, you can find the best model. The neat thing about this approach is that it will work for any family of models that you can write an equation for. 
+Non preoccupatevi troppo dei dettagli di come funziona `optim()`. È l'intuizione che è importante qui. Se avete una funzione che definisce la distanza tra un modello e un set di dati, un algoritmo che può minimizzare tale distanza modificando i parametri del modello, potete trovare il modello migliore. La cosa bella di questo approccio è che funzionerà per qualsiasi famiglia di modelli per cui è possibile scrivere un'equazione.
 
-There's one more approach that we can use for this model, because it's a special case of a broader family: linear models. A linear model has the general form `y = a_1 + a_2 * x_1 + a_3 * x_2 + ... + a_n * x_(n - 1)`. So this simple model is equivalent to a general linear model where n is 2 and `x_1` is `x`. R has a tool specifically designed for fitting linear models called `lm()`. `lm()` has a special way to specify the model family: formulas. Formulas look like `y ~ x`, which `lm()` will translate to a function like `y = a_1 + a_2 * x`. We can fit the model and look at the output:
+C'è un altro approccio che possiamo usare per questo modello, perché è un caso speciale di una famiglia più ampia: i modelli lineari. Un modello lineare ha la forma generale `y = a_1 + a_2 * x_1 + a_3 * x_2 + ... + a_n * x_(n - 1)`. Quindi questo semplice modello è equivalente a un modello lineare generale dove n è 2 e `x_1` è `x`. R ha uno strumento specificamente progettato per l'adattamento di modelli lineari chiamato `lm()`. `lm()` ha un modo speciale per specificare la famiglia di modelli: le formule. Le formule assomigliano a `y ~ x`, che `lm()` tradurrà in una funzione come `y = a_1 + a_2 * x`. Possiamo adattare il modello e guardare l'output:
 
 ```{r}
 sim1_mod <- lm(y ~ x, data = sim1)
 coef(sim1_mod)
 ```
 
-These are exactly the same values we got with `optim()`! Behind the scenes `lm()` doesn't use `optim()` but instead takes advantage of the mathematical structure of linear models. Using some connections between geometry, calculus, and linear algebra, `lm()` actually finds the closest model in a single step, using a sophisticated algorithm. This approach is both faster, and guarantees that there is a global minimum.
+Questi sono esattamente gli stessi valori che abbiamo ottenuto con `optim()`! Dietro le quinte `lm()` non usa `optim()` ma sfrutta invece la struttura matematica dei modelli lineari. Usando alcune connessioni tra geometria, calcolo e algebra lineare, `lm()` trova effettivamente il modello più vicino in un solo passo, usando un algoritmo sofisticato. Questo approccio è più veloce e garantisce che ci sia un minimo globale.
 
-### Exercises
+### Esercizi
 
-1.  One downside of the linear model is that it is sensitive to unusual values
-    because the distance incorporates a squared term. Fit a linear model to 
-    the simulated data below, and visualise the results. Rerun a few times to
-    generate different simulated datasets. What do you notice about the model? 
+1.  Uno svantaggio del modello lineare è che è sensibile a valori insoliti perché la distanza incorpora un termine quadratico. Adattate un modello lineare ai dati simulati qui sotto e visualizzate i risultati. Esegui un paio di volte per generare diversi set di dati simulati. Cosa notate del modello?
     
     ```{r}
     sim1a <- tibble(
@@ -208,9 +205,7 @@ These are exactly the same values we got with `optim()`! Behind the scenes `lm()
     )
     ```
 
-1.  One way to make linear models more robust is to use a different distance
-    measure. For example, instead of root-mean-squared distance, you could use
-    mean-absolute distance:
+1.  Un modo per rendere i modelli lineari più robusti è usare una misura di distanza diversa. Per esempio, invece della distanza radice-media quadrata, si potrebbe usare la distanza media-assoluta:
     
     ```{r}
     measure_distance <- function(mod, data) {
@@ -219,12 +214,9 @@ These are exactly the same values we got with `optim()`! Behind the scenes `lm()
     }
     ```
     
-    Use `optim()` to fit this model to the simulated data above and compare it 
-    to the linear model.
+    Usate `optim()` per adattare questo modello ai dati simulati sopra e confrontatelo con il modello lineare.
 
-1.  One challenge with performing numerical optimisation is that it's only
-    guaranteed to find one local optimum. What's the problem with optimising
-    a three parameter model like this?
+1.  Una sfida nell'eseguire l'ottimizzazione numerica è che è garantito di trovare solo un ottimo locale. Qual è il problema dell'ottimizzazione di un modello a tre parametri come questo?
     
     ```{r}
     model1 <- function(a, data) {
@@ -232,15 +224,15 @@ These are exactly the same values we got with `optim()`! Behind the scenes `lm()
     }
     ```
 
-## Visualising models
+## Visualizzare i modelli
 
-For simple models, like the one above, you can figure out what pattern the model captures by carefully studying the model family and the fitted coefficients. And if you ever take a statistics course on modelling, you're likely to spend a lot of time doing just that. Here, however, we're going to take a different tack. We're going to focus on understanding a model by looking at its predictions. This has a big advantage: every type of predictive model makes predictions (otherwise what use would it be?) so we can use the same set of techniques to understand any type of predictive model.
+Per modelli semplici, come quello di cui sopra, è possibile capire quale modello cattura studiando attentamente la famiglia del modello e i coefficienti montati. E se si segue un corso di statistica sulla modellizzazione, è probabile che si passi molto tempo a fare proprio questo. Qui, tuttavia, prenderemo una strada diversa. Ci concentreremo sulla comprensione di un modello guardando le sue previsioni. Questo ha un grande vantaggio: ogni tipo di modello predittivo fa delle previsioni (altrimenti a cosa servirebbe?) quindi possiamo usare lo stesso set di tecniche per capire qualsiasi tipo di modello predittivo.
 
-It's also useful to see what the model doesn't capture, the so-called residuals which are left after subtracting the predictions from the data. Residuals are powerful because they allow us to use models to remove striking patterns so we can study the subtler trends that remain.
+È anche utile vedere ciò che il modello non cattura, i cosiddetti residui che rimangono dopo aver sottratto le previsioni dai dati. I residui sono potenti perché ci permettono di usare i modelli per rimuovere i modelli eclatanti in modo da poter studiare le tendenze più sottili che rimangono.
 
-### Predictions
+### Previsioni
 
-To visualise the predictions from a model, we start by generating an evenly spaced grid of values that covers the region where our data lies. The easiest way to do that is to use `modelr::data_grid()`. Its first argument is a data frame, and for each subsequent argument it finds the unique variables and then generates all combinations:
+Per visualizzare le previsioni di un modello, iniziamo generando una griglia di valori uniformemente distanziati che copra la regione in cui si trovano i nostri dati. Il modo più semplice per farlo è usare `modelr::data_grid()`. Il suo primo argomento è un frame di dati, e per ogni argomento successivo trova le variabili uniche e poi genera tutte le combinazioni:
 
 ```{r}
 grid <- sim1 %>% 
@@ -248,9 +240,9 @@ grid <- sim1 %>%
 grid
 ```
 
-(This will get more interesting when we start to add more variables to our model.)
+(Questo diventerà più interessante quando inizieremo ad aggiungere più variabili al nostro modello).
 
-Next we add predictions. We'll use `modelr::add_predictions()` which takes a data frame and a model. It adds the predictions from the model to a new column in the data frame:
+Poi aggiungiamo le predizioni. Useremo `modelr::add_predictions()` che prende un data frame e un modello. Aggiunge le predizioni dal modello ad una nuova colonna nel data frame:
 
 ```{r}
 grid <- grid %>% 
@@ -258,9 +250,9 @@ grid <- grid %>%
 grid
 ```
 
-(You can also use this function to add predictions to your original dataset.)
+(Potete anche usare questa funzione per aggiungere previsioni al vostro set di dati originale).
 
-Next, we plot the predictions. You might wonder about all this extra work compared to just using `geom_abline()`. But the advantage of this approach is that it will work with _any_ model in R, from the simplest to the most complex. You're only limited by your visualisation skills. For more ideas about how to visualise more complex model types, you might try <http://vita.had.co.nz/papers/model-vis.html>.
+Poi, tracciamo le previsioni. Potreste chiedervi tutto questo lavoro extra rispetto al semplice utilizzo di `geom_abline()`. Ma il vantaggio di questo approccio è che funzionerà con _qualsiasi_ modello in R, dal più semplice al più complesso. Siete limitati solo dalle vostre capacità di visualizzazione. Per altre idee su come visualizzare tipi di modelli più complessi, potreste provare <http://vita.had.co.nz/papers/model-vis.html>.
 
 ```{r}
 ggplot(sim1, aes(x)) +
@@ -268,11 +260,11 @@ ggplot(sim1, aes(x)) +
   geom_line(aes(y = pred), data = grid, colour = "red", size = 1)
 ```
 
-### Residuals
+### Residui
 
-The flip-side of predictions are __residuals__. The predictions tells you the pattern that the model has captured, and the residuals tell you what the model has missed. The residuals are just the distances between the observed and predicted values that we computed above. 
+Il rovescio della medaglia delle previsioni sono i __residui__. Le previsioni ti dicono il modello che il modello ha catturato, e i residui ti dicono cosa il modello ha mancato. I residui sono solo le distanze tra i valori osservati e quelli previsti che abbiamo calcolato sopra.
 
-We add residuals to the data with `add_residuals()`, which works much like `add_predictions()`. Note, however, that we use the original dataset, not a manufactured grid. This is because to compute residuals we need actual y values.
+Aggiungiamo i residui ai dati con `add_residuals()`, che funziona come `add_predictions()`. Si noti, tuttavia, che usiamo il dataset originale, non una griglia costruita. Questo perché per calcolare i residui abbiamo bisogno dei valori reali di y.
 
 ```{r}
 sim1 <- sim1 %>% 
@@ -280,16 +272,16 @@ sim1 <- sim1 %>%
 sim1
 ```
 
-There are a few different ways to understand what the residuals tell us about the model. One way is to simply draw a frequency polygon to help us understand the spread of the residuals:
+Ci sono alcuni modi diversi per capire cosa ci dicono i residui sul modello. Un modo è semplicemente disegnare un poligono di frequenza per aiutarci a capire la diffusione dei residui:
 
 ```{r}
 ggplot(sim1, aes(resid)) + 
   geom_freqpoly(binwidth = 0.5)
 ```
 
-This helps you calibrate the quality of the model: how far away are the predictions from the observed values?  Note that the average of the residual will always be 0.
+Questo vi aiuta a calibrare la qualità del modello: quanto sono lontane le previsioni dai valori osservati?  Notate che la media del residuo sarà sempre 0.
 
-You'll often want to recreate plots using the residuals instead of the original predictor. You'll see a lot of that in the next chapter.
+Spesso vorrete ricreare dei grafici usando i residui invece del predittore originale. Vedrete molto di questo nel prossimo capitolo.
 
 ```{r}
 ggplot(sim1, aes(x, resid)) + 
@@ -297,31 +289,31 @@ ggplot(sim1, aes(x, resid)) +
   geom_point() 
 ```
 
-This looks like random noise, suggesting that our model has done a good job of capturing the patterns in the dataset.
+Questo sembra un rumore casuale, suggerendo che il nostro modello ha fatto un buon lavoro nel catturare i modelli nel set di dati.
 
-### Exercises
+### Esercizi
 
-1.  Instead of using `lm()` to fit a straight line, you can use `loess()`
-    to fit a smooth curve. Repeat the process of model fitting, 
-    grid generation, predictions, and visualisation on `sim1` using 
-    `loess()` instead of `lm()`. How does the result compare to 
+1.  Invece di usare `lm()` per adattare una linea retta, potete usare `loess()`
+    per adattare una curva liscia. 2. Ripetete il processo di adattamento del modello, 
+    generazione della griglia, previsioni e visualizzazione su `sim1` usando 
+    `loess()` invece di `lm()`. Come si confronta il risultato con 
     `geom_smooth()`?
     
-1.  `add_predictions()` is paired with `gather_predictions()` and 
-    `spread_predictions()`. How do these three functions differ?
+1.  `add_predictions()`è abbinato a `gather_predictions()` e 
+    `spread_predictions()`. Come differiscono queste tre funzioni?
     
-1.  What does `geom_ref_line()` do? What package does it come from?
-    Why is displaying a reference line in plots showing residuals
-    useful and important?
+1.  Cosa fa `geom_ref_line()`? Da quale pacchetto proviene?
+    Perché la visualizzazione di una linea di riferimento nei grafici che mostrano i residui è
+    utile e importante?
     
-1.  Why might you want to look at a frequency polygon of absolute residuals?
-    What are the pros and cons compared to looking at the raw residuals?
+1.  Perché potreste voler guardare un poligono di frequenza dei residui assoluti?
+    2. Quali sono i pro e i contro rispetto al guardare i residui grezzi?
 
-## Formulas and model families
+## Formule e famiglie di modelli
 
-You've seen formulas before when using `facet_wrap()` and `facet_grid()`. In R, formulas provide a general way of getting "special behaviour". Rather than evaluating the values of the variables right away, they capture them so they can be interpreted by the function.
+Avete già visto le formule quando usate `facet_wrap()` e `facet_grid()`. In R, le formule forniscono un modo generale per ottenere un "comportamento speciale". Piuttosto che valutare subito i valori delle variabili, li catturano in modo che possano essere interpretati dalla funzione.
 
-The majority of modelling functions in R use a standard conversion from formulas to functions. You've seen one simple conversion already: `y ~ x` is translated to `y = a_1 + a_2 * x`.  If you want to see what R actually does, you can use the `model_matrix()` function. It takes a data frame and a formula and returns a tibble that defines the model equation: each column in the output is associated with one coefficient in the model, the function is always `y = a_1 * out1 + a_2 * out_2`. For the simplest case of `y ~ x1` this shows us something interesting:
+La maggior parte delle funzioni di modellazione in R usa una conversione standard da formule a funzioni. Avete già visto una semplice conversione: `y ~ x` viene tradotto in `y = a_1 + a_2 * x`.  Se volete vedere cosa fa effettivamente R, potete usare la funzione `model_matrix()`. Prende un data frame e una formula e restituisce una tibla che definisce l'equazione del modello: ogni colonna nell'output è associata a un coefficiente nel modello, la funzione è sempre `y = a_1 * out1 + a_2 * out_2`. Per il caso più semplice di `y ~ x1` questo ci mostra qualcosa di interessante:
 
 ```{r}
 df <- tribble(
@@ -332,25 +324,25 @@ df <- tribble(
 model_matrix(df, y ~ x1)
 ```
 
-The way that R adds the intercept to the model is just by having a column that is full of ones.  By default, R will always add this column. If you don't want, you need to explicitly drop it with `-1`:
+Il modo in cui R aggiunge l'intercetta al modello è semplicemente avere una colonna piena di uno.  Per impostazione predefinita, R aggiungerà sempre questa colonna. Se non volete, dovete eliminarla esplicitamente con `-1`:
 
 ```{r}
 model_matrix(df, y ~ x1 - 1)
 ```
 
-The model matrix grows in an unsurprising way when you add more variables to the the model:
+La matrice del modello cresce in modo non sorprendente quando si aggiungono più variabili al modello:
 
 ```{r}
 model_matrix(df, y ~ x1 + x2)
 ```
 
-This formula notation is sometimes called "Wilkinson-Rogers notation", and was initially described in _Symbolic Description of Factorial Models for Analysis of Variance_, by G. N. Wilkinson and C. E. Rogers <https://www.jstor.org/stable/2346786>. It's worth digging up and reading the original paper if you'd like to understand the full details of the modelling algebra.
+Questa notazione della formula è talvolta chiamata "notazione Wilkinson-Rogers", ed è stata inizialmente descritta in _Symbolic Description of Factorial Models for Analysis of Variance_, di G. N. Wilkinson e C. E. Rogers <https://www.jstor.org/stable/2346786>. Vale la pena scavare e leggere l'articolo originale se volete capire tutti i dettagli dell'algebra di modellazione.
 
-The following sections expand on how this formula notation works for categorical variables, interactions, and transformation.
+Le sezioni seguenti spiegano come funziona questa notazione della formula per le variabili categoriche, le interazioni e la trasformazione.
 
-### Categorical variables
+### Variabili categoriche
 
-Generating a function from a formula is straight forward when the predictor is continuous, but things get a bit more complicated when the predictor is categorical. Imagine you have a formula like `y ~ sex`, where sex could either be male or female. It doesn't make sense to convert that to a formula like `y = x_0 + x_1 * sex` because `sex` isn't a number - you can't multiply it! Instead what R does is convert it to `y = x_0 + x_1 * sex_male` where `sex_male` is one if `sex` is male and zero otherwise:
+Generare una funzione da una formula è semplice quando il predittore è continuo, ma le cose diventano un po' più complicate quando il predittore è categorico. Immaginate di avere una formula come `y ~ sex`, dove sex potrebbe essere maschio o femmina. Non ha senso convertirla in una formula come `y = x_0 + x_1 * sex` perché `sex` non è un numero - non si può moltiplicare! Invece quello che R fa è convertirlo in `y = x_0 + x_1 * sex_male` dove `sex_male` è uno se `sex` è maschio e zero altrimenti:
 
 ```{r}
 df <- tribble(
@@ -362,16 +354,16 @@ df <- tribble(
 model_matrix(df, response ~ sex)
 ```
 
-You might wonder why R also doesn't create a `sexfemale` column. The problem is that would create a column that is perfectly predictable based on the other columns (i.e. `sexfemale = 1 - sexmale`). Unfortunately the exact details of why this is a problem is beyond the scope of this book, but basically it creates a model family that is too flexible, and will have infinitely many models that are equally close to the data.
+Potresti chiederti perché R non crea anche una colonna `sexfemale`. Il problema è che creerebbe una colonna che è perfettamente prevedibile in base alle altre colonne (cioè `sexfemale = 1 - sexmale`). Sfortunatamente i dettagli esatti del perché questo è un problema vanno oltre lo scopo di questo libro, ma fondamentalmente crea una famiglia di modelli che è troppo flessibile, e avrà infiniti modelli che sono ugualmente vicini ai dati.
 
-Fortunately, however, if you focus on visualising predictions you don't need to worry about the exact parameterisation. Let's look at some data and models to make that concrete. Here's the `sim2` dataset from modelr:
+Fortunatamente, però, se ci si concentra sulla visualizzazione delle previsioni non è necessario preoccuparsi della parametrizzazione esatta. Guardiamo alcuni dati e modelli per renderlo concreto. Ecco il dataset `sim2` di modelr:
 
 ```{r}
 ggplot(sim2) + 
   geom_point(aes(x, y))
 ```
 
-We can fit a model to it, and generate predictions:
+Possiamo adattarvi un modello e generare delle previsioni:
 
 ```{r}
 mod2 <- lm(y ~ x, data = sim2)
@@ -382,7 +374,7 @@ grid <- sim2 %>%
 grid
 ```
 
-Effectively, a model with a categorical `x` will predict the mean value for each category. (Why? Because the mean minimises the root-mean-squared distance.) That's easy to see if we overlay the predictions on top of the original data:
+In effetti, un modello con un `x` categorico predirà il valore medio per ogni categoria. (Perché? Perché la media minimizza la distanza radice-media-quadrata.) Questo è facile da vedere se sovrapponiamo le previsioni ai dati originali:
 
 ```{r}
 ggplot(sim2, aes(x)) + 
@@ -390,43 +382,43 @@ ggplot(sim2, aes(x)) +
   geom_point(data = grid, aes(y = pred), colour = "red", size = 4)
 ```
 
-You can't make predictions about levels that you didn't observe. Sometimes you'll do this by accident so it's good to recognise this error message:
+Non puoi fare previsioni su livelli che non hai osservato. A volte lo si fa per caso, quindi è bene riconoscere questo messaggio di errore:
 
 ```{r, error = TRUE}
 tibble(x = "e") %>% 
   add_predictions(mod2)
 ```
 
-### Interactions (continuous and categorical)
+### Interazioni (continue e categoriche)
 
-What happens when you combine a continuous and a categorical variable?  `sim3` contains a categorical predictor and a continuous predictor. We can visualise it with a simple plot:
+Cosa succede quando combini una variabile continua e una categorica?  `sim3` contiene un predittore categorico e un predittore continuo. Possiamo visualizzarlo con un semplice grafico:
 
 ```{r}
 ggplot(sim3, aes(x1, y)) + 
   geom_point(aes(colour = x2))
 ```
 
-There are two possible models you could fit to this data:
+Ci sono due possibili modelli da adattare a questi dati:
 
 ```{r}
 mod1 <- lm(y ~ x1 + x2, data = sim3)
 mod2 <- lm(y ~ x1 * x2, data = sim3)
 ```
 
-When you add variables with `+`, the model will estimate each effect independent of all the others. It's possible to fit the so-called interaction by using `*`. For example, `y ~ x1 * x2` is translated to `y = a_0 + a_1 * x1 + a_2 * x2 + a_12 * x1 * x2`. Note that whenever you use `*`, both the interaction and the individual components are included in the model.
+Quando si aggiungono variabili con `+`, il modello stima ogni effetto indipendente da tutti gli altri. È possibile adattare la cosiddetta interazione usando `*`. Per esempio, `y ~ x1 * x2` si traduce in `y = a_0 + a_1 * x1 + a_2 * x2 + a_12 * x1 * x2`. Nota che ogni volta che usi `*`, sia l'interazione che le singole componenti sono incluse nel modello.
 
-To visualise these models we need two new tricks:
+Per visualizzare questi modelli abbiamo bisogno di due nuovi trucchi:
 
-1.  We have two predictors, so we need to give `data_grid()` both variables. 
-    It finds all the unique values of `x1` and `x2` and then generates all
-    combinations. 
+1.  Abbiamo due predittori, quindi dobbiamo dare a `data_grid()` entrambe le variabili. 
+    Trova tutti i valori unici di `x1` e `x2` e poi genera tutte le
+    combinazioni. 
    
-1.  To generate predictions from both models simultaneously, we can use 
-    `gather_predictions()` which adds each prediction as a row. The
-    complement of `gather_predictions()` is `spread_predictions()` which adds 
-    each prediction to a new column.
+1.  Per generare previsioni da entrambi i modelli simultaneamente, possiamo usare 
+    `gather_predictions()` che aggiunge ogni previsione come una riga. Il
+    complemento di `gather_predictions()` è `spread_predictions()` che aggiunge 
+    ogni previsione in una nuova colonna.
     
-Together this gives us:
+Insieme questo ci dà:
 
 ```{r}
 grid <- sim3 %>% 
@@ -435,7 +427,7 @@ grid <- sim3 %>%
 grid
 ```
 
-We can visualise the results for both models on one plot using facetting:
+Possiamo visualizzare i risultati di entrambi i modelli su un unico grafico usando il facetting:
 
 ```{r}
 ggplot(sim3, aes(x1, y, colour = x2)) + 
@@ -444,9 +436,9 @@ ggplot(sim3, aes(x1, y, colour = x2)) +
   facet_wrap(~ model)
 ```
 
-Note that the model that uses `+` has the same slope for each line, but different intercepts. The model that uses `*` has a different slope and intercept for each line.
+Nota che il modello che usa `+` ha la stessa pendenza per ogni linea, ma intercette diverse. Il modello che usa `*` ha una pendenza e un'intercetta diverse per ogni linea.
 
-Which model is better for this data? We can take look at the residuals. Here I've facetted by both model and `x2` because it makes it easier to see the pattern within each group.
+Quale modello è migliore per questi dati? Possiamo dare un'occhiata ai residui. Qui ho sfaccettato sia il modello che `x2` perché rende più facile vedere il modello all'interno di ogni gruppo.
 
 ```{r}
 sim3 <- sim3 %>% 
@@ -457,11 +449,11 @@ ggplot(sim3, aes(x1, resid, colour = x2)) +
   facet_grid(model ~ x2)
 ```
 
-There is little obvious pattern in the residuals for `mod2`. The residuals for `mod1` show that the model has clearly missed some pattern in `b`, and less so, but still present is pattern in `c`, and `d`. You might wonder if there's a precise way to tell which of `mod1` or `mod2` is better. There is, but it requires a lot of mathematical background, and we don't really care. Here, we're interested in a qualitative assessment of whether or not the model has captured the pattern that we're interested in. 
+C'è un modello poco evidente nei residui per il `mod2`. I residui per il `mod1` mostrano che il modello ha chiaramente mancato qualche modello in `b`, e meno, ma ancora presente è il modello in `c`, e `d`. Ci si potrebbe chiedere se c'è un modo preciso per dire quale di `mod1` o `mod2` sia migliore. C'è, ma richiede un sacco di background matematico, e a noi non interessa molto. Qui, ci interessa una valutazione qualitativa del fatto che il modello abbia catturato o meno il modello che ci interessa.
 
-### Interactions (two continuous)
+### Interazioni (due continue)
 
-Let's take a look at the equivalent model for two continuous variables. Initially things proceed almost identically to the previous example:
+Diamo un'occhiata al modello equivalente per due variabili continue. Inizialmente le cose procedono in modo quasi identico all'esempio precedente:
 
 ```{r}
 mod1 <- lm(y ~ x1 + x2, data = sim4)
@@ -476,10 +468,10 @@ grid <- sim4 %>%
 grid
 ```
 
-Note my use of `seq_range()` inside `data_grid()`. Instead of using every unique value of `x`, I'm going to use a regularly spaced grid of five values between the minimum and maximum numbers. It's probably not super important here, but it's a useful technique in general. There are two other useful arguments to `seq_range()`:
+Notate il mio uso di `seq_range()` dentro `data_grid()`. Invece di usare ogni valore unico di `x`, userò una griglia regolarmente distanziata di cinque valori tra i numeri minimo e massimo. Probabilmente non è super importante in questo caso, ma è una tecnica utile in generale. Ci sono altri due utili argomenti a `seq_range()`:
 
-*  `pretty = TRUE` will generate a "pretty" sequence, i.e. something that looks
-    nice to the human eye. This is useful if you want to produce tables of 
+* `pretty = TRUE` genererà una sequenza "carina", cioè qualcosa che sembra
+    piacevole all'occhio umano. Questo è utile se volete produrre tabelle di 
     output:
     
     ```{r}
@@ -487,9 +479,9 @@ Note my use of `seq_range()` inside `data_grid()`. Instead of using every unique
     seq_range(c(0.0123, 0.923423), n = 5, pretty = TRUE)
     ```
     
-*   `trim = 0.1` will trim off 10% of the tail values. This is useful if the 
-    variables have a long tailed distribution and you want to focus on generating
-    values near the center:
+* `trim = 0.1` taglierà via il 10% dei valori della coda. Questo è utile se le 
+    variabili hanno una distribuzione a coda lunga e ci si vuole concentrare sulla generazione di
+    valori vicino al centro:
     
     ```{r}
     x1 <- rcauchy(100)
@@ -499,8 +491,7 @@ Note my use of `seq_range()` inside `data_grid()`. Instead of using every unique
     seq_range(x1, n = 5, trim = 0.50)
     ```
     
-*   `expand = 0.1` is in some sense the opposite of `trim()` it expands the 
-    range by 10%.
+* `expand = 0.1` è in un certo senso l'opposto di `trim()`, espande l'intervallo del 10%.
     
     ```{r}
     x2 <- c(0, 1)
@@ -510,7 +501,7 @@ Note my use of `seq_range()` inside `data_grid()`. Instead of using every unique
     seq_range(x2, n = 5, expand = 0.50)
     ```
 
-Next let's try and visualise that model. We have two continuous predictors, so you can imagine the model like a 3d surface. We could display that using `geom_tile()`:
+Ora proviamo a visualizzare questo modello. Abbiamo due predittori continui, quindi potete immaginare il modello come una superficie 3d. Potremmo visualizzarlo usando `geom_tile()`:
 
 ```{r}
 ggplot(grid, aes(x1, x2)) + 
@@ -518,8 +509,7 @@ ggplot(grid, aes(x1, x2)) +
   facet_wrap(~ model)
 ```
 
-That doesn't suggest that the models are very different! But that's partly an illusion: our eyes and brains are not very good at accurately comparing shades of colour. Instead of looking at the surface from the top, we could look at it from either side, showing multiple slices:
-
+Questo non suggerisce che i modelli siano molto diversi! Ma questa è in parte un'illusione: i nostri occhi e il nostro cervello non sono molto bravi a confrontare accuratamente le sfumature di colore. Invece di guardare la superficie dall'alto, potremmo guardarla da entrambi i lati, mostrando più facce:
 ```{r, asp = 1/2}
 ggplot(grid, aes(x1, pred, colour = x2, group = x2)) + 
   geom_line() +
@@ -529,17 +519,17 @@ ggplot(grid, aes(x2, pred, colour = x1, group = x1)) +
   facet_wrap(~ model)
 ```
 
-This shows you that interaction between two continuous variables works basically the same way as for a categorical and continuous variable. An interaction says that there's not a fixed offset: you need to consider both values of `x1` and `x2` simultaneously in order to predict `y`.
+Questo vi mostra che l'interazione tra due variabili continue funziona fondamentalmente allo stesso modo di una variabile categorica e continua. Un'interazione dice che non c'è un offset fisso: devi considerare entrambi i valori di `x1` e `x2` simultaneamente per prevedere `y`.
 
-You can see that even with just two continuous variables, coming up with good visualisations are hard. But that's reasonable: you shouldn't expect it will be easy to understand how three or more variables simultaneously interact! But again, we're saved a little because we're using models for exploration, and you can gradually build up your model over time. The model doesn't have to be perfect, it just has to help you reveal a little more about your data.
+Puoi vedere che anche con solo due variabili continue, è difficile ottenere una buona visualizzazione. Ma questo è ragionevole: non ci si dovrebbe aspettare che sia facile capire come tre o più variabili interagiscono simultaneamente! Ma di nuovo, ci salviamo un po' perché stiamo usando i modelli per l'esplorazione, e potete costruire gradualmente il vostro modello nel tempo. Il modello non deve essere perfetto, deve solo aiutarvi a rivelare un po' di più sui vostri dati.
 
-I spent some time looking at the residuals to see if I could figure if `mod2` did better than `mod1`. I think it does, but it's pretty subtle. You'll have a chance to work on it in the exercises.
+Ho passato un po' di tempo a guardare i residui per vedere se potevo capire se il `mod2` ha fatto meglio del `mod1`. Penso che lo faccia, ma è piuttosto sottile. Avrai la possibilità di lavorarci negli esercizi.
 
-### Transformations
+### Trasformazioni
 
-You can also perform transformations inside the model formula. For example, `log(y) ~ sqrt(x1) + x2` is transformed to `log(y) = a_1 + a_2 * sqrt(x1) + a_3 * x2`. If your transformation involves `+`, `*`, `^`, or `-`, you'll need to wrap it in `I()` so R doesn't treat it like part of the model specification. For example, `y ~ x + I(x ^ 2)` is translated to `y = a_1 + a_2 * x + a_3 * x^2`. If you forget the `I()` and specify `y ~ x ^ 2 + x`, R will compute `y ~ x * x + x`. `x * x` means the interaction of `x` with itself, which is the same as `x`. R automatically drops redundant variables so `x + x` become `x`, meaning that `y ~ x ^ 2 + x` specifies the function `y = a_1 + a_2 * x`. That's probably not what you intended!
+Puoi anche eseguire trasformazioni all'interno della formula del modello. Per esempio, `log(y) ~ sqrt(x1) + x2` si trasforma in `log(y) = a_1 + a_2 * sqrt(x1) + a_3 * x2`. Se la vostra trasformazione coinvolge `+`, `*`, `^`, o `-`, dovrete avvolgerla in `I()` in modo che R non la tratti come parte della specifica del modello. Per esempio, `y ~ x + I(x ^ 2)` viene tradotto in `y = a_1 + a_2 * x + a_3 * x^2`. Se dimenticate il `I()` e specificate `y ~ x ^ 2 + x`, R calcolerà `y ~ x * x + x`. `x * x` significa l'interazione di `x` con se stesso, che è la stessa di `x`. R elimina automaticamente le variabili ridondanti così `x + x` diventa `x`, il che significa che `y ~ x ^ 2 + x` specifica la funzione `y = a_1 + a_2 * x`. Probabilmente non è quello che intendevi!
 
-Again, if you get confused about what your model is doing, you can always use `model_matrix()` to see exactly what equation `lm()` is fitting:
+Di nuovo, se sei confuso su ciò che il tuo modello sta facendo, puoi sempre usare `model_matrix()` per vedere esattamente quale equazione `lm()` si adatta:
 
 ```{r}
 df <- tribble(
@@ -552,20 +542,20 @@ model_matrix(df, y ~ x^2 + x)
 model_matrix(df, y ~ I(x^2) + x)
 ```
 
-Transformations are useful because you can use them to approximate non-linear functions. If you've taken a calculus class, you may have heard of Taylor's theorem which says you can approximate any smooth function with an infinite sum of polynomials. That means you can use a polynomial function to get arbitrarily close to a smooth function by fitting an equation like `y = a_1 + a_2 * x + a_3 * x^2 + a_4 * x ^ 3`. Typing that sequence by hand is tedious, so R provides a helper function: `poly()`:
+Le trasformazioni sono utili perché puoi usarle per approssimare funzioni non lineari. Se hai seguito un corso di calcolo, potresti aver sentito parlare del teorema di Taylor che dice che puoi approssimare qualsiasi funzione liscia con una somma infinita di polinomi. Ciò significa che puoi usare una funzione polinomiale per avvicinarti arbitrariamente a una funzione liscia adattando un'equazione come `y = a_1 + a_2 * x + a_3 * x^2 + a_4 * x ^ 3`. Scrivere questa sequenza a mano è noioso, così R fornisce una funzione di aiuto: `poly()`:
 
 ```{r}
 model_matrix(df, y ~ poly(x, 2))
 ```
 
-However there's one major problem with using `poly()`: outside the range of the data, polynomials rapidly shoot off to positive or negative infinity. One safer alternative is to use the natural spline, `splines::ns()`.
+Tuttavia c'è un grosso problema nell'uso di `poly()`: al di fuori dell'intervallo dei dati, i polinomi sparano rapidamente all'infinito positivo o negativo. Un'alternativa più sicura è usare la spline naturale, `splines::ns()`.
 
 ```{r}
 library(splines)
 model_matrix(df, y ~ ns(x, 2))
 ```
 
-Let's see what that looks like when we try and approximate a non-linear function:
+Vediamo come appare quando cerchiamo di approssimare una funzione non lineare:
 
 ```{r}
 sim5 <- tibble(
@@ -577,7 +567,7 @@ ggplot(sim5, aes(x, y)) +
   geom_point()
 ```
 
-I'm going to fit five models to this data.
+Ho intenzione di adattare cinque modelli a questi dati.
 
 ```{r}
 mod1 <- lm(y ~ ns(x, 1), data = sim5)
@@ -596,33 +586,33 @@ ggplot(sim5, aes(x, y)) +
   facet_wrap(~ model)
 ```
 
-Notice that the extrapolation outside the range of the data is clearly bad. This is the downside to approximating a function with a polynomial. But this is a very real problem with every model: the model can never tell you if the behaviour is true when you start extrapolating outside the range of the data that you have seen. You must rely on theory and science.
+Notate che l'estrapolazione al di fuori dell'intervallo dei dati è chiaramente cattiva. Questo è il lato negativo di approssimare una funzione con un polinomio. Ma questo è un problema molto reale con ogni modello: il modello non può mai dirvi se il comportamento è vero quando iniziate ad estrapolare al di fuori dell'intervallo dei dati che avete visto. Dovete affidarvi alla teoria e alla scienza.
 
-### Exercises
+### Esercizi
 
-1.  What happens if you repeat the analysis of `sim2` using a model without
-    an intercept. What happens to the model equation? What happens to the
-    predictions?
+1.  Cosa succede se ripetete l'analisi di `sim2` usando un modello senza
+    un'intercetta. Cosa succede all'equazione del modello? Cosa succede alle
+    previsioni?
     
-1.  Use `model_matrix()` to explore the equations generated for the models
-    I fit to `sim3` and `sim4`. Why is `*` a good shorthand for interaction?
+1.  Usate `model_matrix()` per esplorare le equazioni generate per i modelli
+    che ho adattato a `sim3` e `sim4`. Perché `*` è una buona abbreviazione di interazione?
 
-1.  Using the basic principles, convert the formulas in the following two
-    models into functions. (Hint: start by converting the categorical variable
-    into 0-1 variables.)
+1.  Usando i principi di base, convertite le formule dei seguenti due
+    modelli in funzioni. (Suggerimento: iniziate a convertire la variabile categorica
+    in variabili 0-1).
     
     ```{r, eval = FALSE}
     mod1 <- lm(y ~ x1 + x2, data = sim3)
     mod2 <- lm(y ~ x1 * x2, data = sim3)
     ```
 
-1.   For `sim4`,  which of `mod1` and `mod2` is better? I think `mod2` does a 
-     slightly better job at removing patterns, but it's pretty subtle. Can you 
-     come up with a plot to support my claim? 
+1.   Per `sim4`, quale tra `mod1` e `mod2` è meglio? Penso che `mod2` faccia un 
+     un lavoro leggermente migliore nella rimozione dei pattern, ma è piuttosto sottile. Puoi 
+     un grafico a sostegno della mia affermazione? 
 
-## Missing values
+## Valori mancanti
 
-Missing values obviously can not convey any information about the relationship between the variables, so modelling functions will drop any rows that contain missing values. R's default behaviour is to silently drop them, but `options(na.action = na.warn)` (run in the prerequisites), makes sure you get a warning.
+I valori mancanti ovviamente non possono trasmettere alcuna informazione sulla relazione tra le variabili, quindi le funzioni di modellazione eliminano tutte le righe che contengono valori mancanti. Il comportamento predefinito di R è di eliminarli silenziosamente, ma `options(na.action = na.warn)` (eseguito nei prerequisiti), fa in modo che tu riceva un avviso.
 
 ```{r}
 df <- tribble(
@@ -637,49 +627,49 @@ df <- tribble(
 mod <- lm(y ~ x, data = df)
 ```
 
-To suppress the warning, set `na.action = na.exclude`:
+Per sopprimere l'avvertimento, impostare `na.action = na.exclude`:
 
 ```{r}
 mod <- lm(y ~ x, data = df, na.action = na.exclude)
 ```
 
-You can always see exactly how many observations were used with `nobs()`:
+Puoi sempre vedere esattamente quante osservazioni sono state usate con `nobs()`:
 
 ```{r}
 nobs(mod)
 ```
 
-## Other model families
+## Altre famiglie di modelli
 
-This chapter has focussed exclusively on the class of linear models, which assume a relationship of the form `y = a_1 * x1 + a_2 * x2 + ... + a_n * xn`. Linear models additionally assume that the residuals have a normal distribution, which we haven't talked about. There are a large set of model classes that extend the linear model in various interesting ways. Some of them are:
+Questo capitolo si è concentrato esclusivamente sulla classe dei modelli lineari, che assumono una relazione della forma `y = a_1 * x1 + a_2 * x2 + ... + a_n * xn`. I modelli lineari assumono inoltre che i residui abbiano una distribuzione normale, di cui non abbiamo parlato. Esiste un vasto insieme di classi di modelli che estendono il modello lineare in vari modi interessanti. Alcuni di essi sono:
 
-* __Generalised linear models__, e.g. `stats::glm()`. Linear models assume that
-  the response is continuous and the error has a normal distribution. 
-  Generalised linear models extend linear models to include non-continuous
-  responses (e.g. binary data or counts). They work by defining a distance
-  metric based on the statistical idea of likelihood.
+* __Modelli lineari generalizzati__, ad esempio `stats::glm()`. I modelli lineari assumono che
+  la risposta sia continua e l'errore abbia una distribuzione normale. 
+  I modelli lineari generalizzati estendono i modelli lineari per includere risposte non continue
+  risposte non continue (per esempio dati binari o conteggi). Funzionano definendo una distanza
+  basata sull'idea statistica di verosimiglianza.
   
-* __Generalised additive models__, e.g. `mgcv::gam()`, extend generalised
-  linear models to incorporate arbitrary smooth functions. That means you can
-  write a formula like `y ~ s(x)` which becomes an equation like 
-  `y = f(x)` and let `gam()` estimate what that function is (subject to some
-  smoothness constraints to make the problem tractable).
+* __Modelli additivi generalizzati__, ad esempio `mgcv::gam()`, estendono i modelli lineari generalizzati
+  modelli lineari generalizzati per incorporare funzioni lisce arbitrarie. Ciò significa che è possibile
+  scrivere una formula come `y ~ s(x)` che diventa un'equazione come 
+  y = f(x)` e lasciare che `gam()` stimi quale sia questa funzione (soggetta ad alcuni
+  vincoli di scorrevolezza per rendere il problema trattabile).
   
-* __Penalised linear models__, e.g. `glmnet::glmnet()`, add a penalty term to
-  the distance that penalises complex models (as defined by the distance 
-  between the parameter vector and the origin). This tends to make
-  models that generalise better to new datasets from the same population.
+* __Modelli lineari penalizzati__, per esempio `glmnet::glmnet()`, aggiungono un termine di penalità alla
+  la distanza che penalizza i modelli complessi (definiti dalla distanza 
+  tra il vettore dei parametri e l'origine). Questo tende a rendere
+  modelli che generalizzano meglio a nuovi insiemi di dati della stessa popolazione.
 
-* __Robust linear models__, e.g. `MASS::rlm()`, tweak the distance to downweight 
-  points that are very far away. This makes them less sensitive to the presence
-  of outliers, at the cost of being not quite as good when there are no 
-  outliers.
+* __Modelli lineari robusti__, ad esempio `MASS::rlm()`, modificano la distanza per ponderare 
+  punti che sono molto lontani. Questo li rende meno sensibili alla presenza
+  di outlier, al costo di non essere altrettanto buoni quando non ci sono 
+  valori anomali.
   
-* __Trees__, e.g. `rpart::rpart()`, attack the problem in a completely different
-  way than linear models. They fit a piece-wise constant model, splitting the
-  data into progressively smaller and smaller pieces. Trees aren't terribly
-  effective by themselves, but they are very powerful when used in aggregate
-  by models like __random forests__ (e.g. `randomForest::randomForest()`) or 
-  __gradient boosting machines__ (e.g. `xgboost::xgboost`.)
+* __Alberi decisionali__, per esempio `rpart::rpart()`, attaccano il problema in un modo completamente diverso
+  modo completamente diverso dai modelli lineari. Si adattano ad un modello costante frammentario, dividendo i
+  dati in pezzi progressivamente sempre più piccoli. Gli alberi non sono terribilmente
+  efficaci da soli, ma sono molto potenti se usati in aggregato
+  da modelli come __random forests__ (ad esempio `randomForest::randomForest()`) o 
+  __gradient boosting machines__ (ad esempio `xgboost::xgboost`).
 
-These models all work similarly from a programming perspective. Once you've mastered linear models, you should find it easy to master the mechanics of these other model classes. Being a skilled modeller is a mixture of some good general principles and having a big toolbox of techniques. Now that you've learned some general tools and one useful class of models, you can go on and learn more classes from other sources.
+Questi modelli funzionano tutti in modo simile dal punto di vista della programmazione. Una volta che avete padroneggiato i modelli lineari, dovreste trovare facile padroneggiare la meccanica di queste altre classi di modelli. Essere un abile modellatore è un misto di alcuni buoni principi generali e di avere una grande cassetta degli attrezzi di tecniche. Ora che avete imparato alcuni strumenti generali e una classe utile di modelli, potete andare avanti e imparare altre classi da altre fonti.

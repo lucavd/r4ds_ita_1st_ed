@@ -1,27 +1,27 @@
-# Model building
+# Costruire modelli
 
-## Introduction
+## Introduzione
 
-In the previous chapter you learned how linear models work, and learned some basic tools for understanding what a model is telling you about your data. The previous chapter focussed on simulated datasets. This chapter will focus on real data, showing you how you can progressively build up a model to aid your understanding of the data.
+Nel capitolo precedente avete imparato come funzionano i modelli lineari e avete appreso alcuni strumenti di base per capire cosa vi dice un modello sui vostri dati. Il capitolo precedente si è concentrato su serie di dati simulati. Questo capitolo si concentrerà su dati reali, mostrandovi come potete costruire progressivamente un modello per aiutare la vostra comprensione dei dati.
 
-We will take advantage of the fact that you can think about a model partitioning your data into pattern and residuals. We'll find patterns with visualisation, then make them concrete and precise with a model. We'll then repeat the process, but replace the old response variable with the residuals from the model. The goal is to transition from implicit knowledge in the data and your head to explicit knowledge in a quantitative model. This makes it easier to apply to new domains, and easier for others to use. 
+Sfrutteremo il fatto che potete pensare ad un modello che partiziona i vostri dati in pattern e residui. Troveremo i modelli con la visualizzazione, poi li renderemo concreti e precisi con un modello. Poi ripeteremo il processo, ma sostituendo la vecchia variabile di risposta con i residui del modello. L'obiettivo è quello di passare dalla conoscenza implicita nei dati e nella tua testa alla conoscenza esplicita in un modello quantitativo. Questo la rende più facile da applicare a nuovi domini, e più facile da usare per gli altri. 
 
-For very large and complex datasets this will be a lot of work. There are certainly alternative approaches - a more machine learning approach is simply to focus on the predictive ability of the model. These approaches tend to produce black boxes: the model does a really good job at generating predictions, but you don't know why. This is a totally reasonable approach, but it does make it hard to apply your real world knowledge to the model. That, in turn, makes it difficult to assess whether or not the model will continue to work in the long-term, as fundamentals change. For most real models, I'd expect you to use some combination of this approach and a more classic automated approach.
+Per serie di dati molto grandi e complesse questo sarà un sacco di lavoro. Ci sono certamente approcci alternativi - un approccio più da machine learning è semplicemente concentrarsi sulla capacità predittiva del modello. Questi approcci tendono a produrre scatole nere: il modello fa un ottimo lavoro nel generare previsioni, ma non si sa perché. Questo è un approccio del tutto ragionevole, ma rende difficile applicare la vostra conoscenza del mondo reale al modello. Questo, a sua volta, rende difficile valutare se il modello continuerà a funzionare a lungo termine, quando i fondamentali cambieranno. Per la maggior parte dei modelli reali, mi aspetto che usiate una combinazione di questo approccio e un approccio automatico più classico.
 
-It's a challenge to know when to stop. You need to figure out when your model is good enough, and when additional investment is unlikely to pay off. I particularly like this quote from reddit user Broseidon241: 
+È una sfida sapere quando fermarsi. Devi capire quando il tuo modello è abbastanza buono e quando è improbabile che un ulteriore investimento paghi. Mi piace particolarmente questa citazione dall'utente di reddit Broseidon241: 
 
-> A long time ago in art class, my teacher told me "An artist needs to know 
-> when a piece is done. You can't tweak something into perfection - wrap it up. 
-> If you don't like it, do it over again. Otherwise begin something new". Later
-> in life, I heard "A poor seamstress makes many mistakes. A good seamstress 
-> works hard to correct those mistakes. A great seamstress isn't afraid to 
-> throw out the garment and start over."
+> Molto tempo fa, al corso d'arte, il mio insegnante mi disse: "Un artista deve sapere 
+> quando un pezzo è finito. Non puoi ritoccare qualcosa fino alla perfezione - incartapecorisce. 
+> Se non ti piace, rifallo. Altrimenti inizia qualcosa di nuovo". Più tardi
+> nella vita, ho sentito: "Una povera sarta fa molti errori. Una buona sarta 
+> lavora duramente per correggere quegli errori. Una grande sarta non ha paura di 
+> buttare l'indumento e ricominciare da capo".
 > 
 > -- Broseidon241, <https://www.reddit.com/r/datascience/comments/4irajq>
 
-### Prerequisites
+### Prerequisiti
 
-We'll use the same tools as in the previous chapter, but add in some real datasets: `diamonds` from ggplot2, and `flights` from nycflights13.  We'll also need lubridate in order to work with the date/times in `flights`.
+Useremo gli stessi strumenti del capitolo precedente, ma aggiungeremo alcuni set di dati reali: `diamonds` da ggplot2, e `flights` da nycflights13.  Avremo anche bisogno di lubridate per lavorare con la data/ora in `flights`.
 
 ```{r setup, message = FALSE}
 library(tidyverse)
@@ -32,9 +32,9 @@ library(nycflights13)
 library(lubridate)
 ```
 
-## Why are low quality diamonds more expensive? {#diamond-prices}
+## Perché i diamanti di bassa qualità sono più cari? {#diamond-prices}
 
-In previous chapters we've seen a surprising relationship between the quality of diamonds and their price: low quality diamonds (poor cuts, bad colours, and inferior clarity) have higher prices.
+Nei capitoli precedenti abbiamo visto una relazione sorprendente tra la qualità dei diamanti e il loro prezzo: i diamanti di bassa qualità (tagli poveri, colori scadenti e purezza inferiore) hanno prezzi più alti.
 
 ```{r dev = "png"}
 ggplot(diamonds, aes(cut, price)) + geom_boxplot()
@@ -42,21 +42,20 @@ ggplot(diamonds, aes(color, price)) + geom_boxplot()
 ggplot(diamonds, aes(clarity, price)) + geom_boxplot()
 ```
 
-Note that the worst diamond color is J (slightly yellow), and the worst clarity is I1 (inclusions visible to the naked eye).
+Si noti che il peggior colore del diamante è J (leggermente giallo), e la peggiore purezza è I1 (inclusioni visibili a occhio nudo).
 
-### Price and carat
+### Prezzo e caratura
 
-It looks like lower quality diamonds have higher prices because there is an important confounding variable: the weight (`carat`) of the diamond. The weight of the diamond is the single most important factor for determining the price of the diamond, and lower quality diamonds tend to be larger.
+Sembra che i diamanti di qualità inferiore abbiano prezzi più alti perché c'è un'importante variabile di confusione: il peso (`carat`) del diamante. Il peso del diamante è il singolo fattore più importante per determinare il prezzo del diamante, e i diamanti di qualità inferiore tendono ad essere più grandi.
 
 ```{r}
 ggplot(diamonds, aes(carat, price)) + 
   geom_hex(bins = 50)
 ```
 
-We can make it easier to see how the other attributes of a diamond affect its relative `price` by fitting a model to separate out the effect of `carat`. But first, lets make a couple of tweaks to the diamonds dataset to make it easier to work with:
+Possiamo rendere più facile vedere come gli altri attributi di un diamante influenzano il suo `price` (prezzo) relativo adattando un modello per separare l'effetto della `carat`(caratura). Ma prima, facciamo un paio di modifiche al dataset dei diamanti per renderlo più facile da lavorare:
 
-1. Focus on diamonds smaller than 2.5 carats (99.7% of the data)
-1. Log-transform the carat and price variables.
+1. Concentrarsi sui diamanti più piccoli di 2,5 carati (99,7% dei dati) 1. 2. Log-transformare le variabili carati e prezzo.
 
 ```{r}
 diamonds2 <- diamonds %>% 
@@ -64,20 +63,20 @@ diamonds2 <- diamonds %>%
   mutate(lprice = log2(price), lcarat = log2(carat))
 ```
 
-Together, these changes make it easier to see the relationship between `carat` and `price`:
+Insieme, questi cambiamenti rendono più facile vedere la relazione tra `carat` e `price`:
 
 ```{r}
 ggplot(diamonds2, aes(lcarat, lprice)) + 
   geom_hex(bins = 50)
 ```
 
-The log-transformation is particularly useful here because it makes the pattern linear, and linear patterns are the easiest to work with. Let's take the next step and remove that strong linear pattern. We first make the pattern explicit by fitting a model:
+La trasformazione logaritmica è particolarmente utile qui perché rende il modello lineare, e i modelli lineari sono i più facili da lavorare. Facciamo il passo successivo e rimuoviamo questo forte modello lineare. Per prima cosa rendiamo il modello esplicito adattando un modello:
 
 ```{r}
 mod_diamond <- lm(lprice ~ lcarat, data = diamonds2)
 ```
 
-Then we look at what the model tells us about the data. Note that I back transform the predictions, undoing the log transformation, so I can overlay the predictions on the raw data:
+Poi guardiamo cosa ci dice il modello sui dati. Notate che ho ritrasformato le previsioni, annullando la trasformazione logaritmica, in modo da poter sovrapporre le previsioni ai dati grezzi:
 
 ```{r}
 grid <- diamonds2 %>% 
@@ -91,9 +90,9 @@ ggplot(diamonds2, aes(carat, price)) +
   geom_line(data = grid, colour = "red", size = 1)
 ```
 
-That tells us something interesting about our data. If we believe our model, then the large diamonds are much cheaper than expected. This is probably because no diamond in this dataset costs more than $19,000.
+Questo ci dice qualcosa di interessante sui nostri dati. Se crediamo al nostro modello, allora i grandi diamanti sono molto più economici del previsto. Questo probabilmente perché nessun diamante in questo set di dati costa più di 19.000 dollari.
 
-Now we can look at the residuals, which verifies that we've successfully removed the strong linear pattern:
+Ora possiamo guardare i residui, il che verifica che abbiamo rimosso con successo il forte modello lineare:
 
 ```{r}
 diamonds2 <- diamonds2 %>% 
@@ -103,7 +102,7 @@ ggplot(diamonds2, aes(lcarat, lresid)) +
   geom_hex(bins = 50)
 ```
 
-Importantly, we can now re-do our motivating plots using those residuals instead of `price`. 
+È importante che ora possiamo rifare i nostri grafici motivanti usando questi residui invece di `price`. 
 
 ```{r dev = "png"}
 ggplot(diamonds2, aes(cut, lresid)) + geom_boxplot()
@@ -111,17 +110,17 @@ ggplot(diamonds2, aes(color, lresid)) + geom_boxplot()
 ggplot(diamonds2, aes(clarity, lresid)) + geom_boxplot()
 ```
 
-Now we see the relationship we expect: as the quality of the diamond increases, so too does its relative price. To interpret the `y` axis, we need to think about what the residuals are telling us, and what scale they are on. A residual of -1 indicates that `lprice` was 1 unit lower than a prediction based solely on its weight. $2^{-1}$ is 1/2, points with a value of -1 are half the expected price, and residuals with value 1 are twice the predicted price.
+Ora vediamo la relazione che ci aspettiamo: man mano che la qualità del diamante aumenta, aumenta anche il suo prezzo relativo. Per interpretare l'asse `y`, dobbiamo pensare a cosa ci dicono i residui e su quale scala si trovano. Un residuo di -1 indica che `lprice` è stato 1 unità più basso di una previsione basata solo sul suo peso. $2^{-1}$ è 1/2, i punti con un valore di -1 sono la metà del prezzo previsto, e i residui con valore 1 sono il doppio del prezzo previsto.
 
-### A more complicated model
+### Un modello più complicato
 
-If we wanted to, we could continue to build up our model, moving the effects we've observed into the model to make them explicit. For example, we could include `color`, `cut`, and `clarity` into the model so that we also make explicit the effect of these three categorical variables:
+Se volessimo, potremmo continuare a costruire il nostro modello, spostando gli effetti che abbiamo osservato nel modello per renderli espliciti. Per esempio, potremmo includere "color", "cut" e "clarity" nel modello in modo da rendere esplicito anche l'effetto di queste tre variabili categoriche:
 
 ```{r}
 mod_diamond2 <- lm(lprice ~ lcarat + color + cut + clarity, data = diamonds2)
 ```
 
-This model now includes four predictors, so it's getting harder to visualise. Fortunately, they're currently all independent which means that we can plot them individually in four plots. To make the process a little easier, we're going to use the `.model` argument to `data_grid`:
+Questo modello ora include quattro predittori, quindi sta diventando più difficile da visualizzare. Fortunatamente, attualmente sono tutti indipendenti, il che significa che possiamo tracciarli individualmente in quattro grafici. Per rendere il processo un po' più semplice, useremo l'argomento `.model` in `data_grid`:
 
 ```{r}
 grid <- diamonds2 %>% 
@@ -133,7 +132,7 @@ ggplot(grid, aes(cut, pred)) +
   geom_point()
 ```
 
-If the model needs variables that you haven't explicitly supplied, `data_grid()` will automatically fill them in with "typical" value. For continuous variables, it uses the median, and categorical variables it uses the most common value (or values, if there's a tie).
+Se il modello ha bisogno di variabili che non sono state esplicitamente fornite, `data_grid()` le riempirà automaticamente con il valore "tipico". Per le variabili continue, usa la mediana, e per le variabili categoriche usa il valore più comune (o i valori, se c'è un pareggio).
 
 ```{r}
 diamonds2 <- diamonds2 %>% 
@@ -143,7 +142,7 @@ ggplot(diamonds2, aes(lcarat, lresid2)) +
   geom_hex(bins = 50)
 ```
 
-This plot indicates that there are some diamonds with quite large residuals - remember a residual of 2 indicates that the diamond is 4x the price that we expected. It's often useful to look at unusual values individually:
+Questo grafico indica che ci sono alcuni diamanti con residui abbastanza grandi - ricorda che un residuo di 2 indica che il diamante è 4 volte il prezzo che ci aspettavamo. Spesso è utile guardare i valori insoliti singolarmente:
 
 ```{r}
 diamonds2 %>% 
@@ -154,27 +153,22 @@ diamonds2 %>%
   arrange(price)
 ```
 
-Nothing really jumps out at me here, but it's probably worth spending time considering if this indicates a problem with our model, or if there are errors in the data. If there are mistakes in the data, this could be an opportunity to buy diamonds that have been priced low incorrectly.
+Non c'è niente che mi salti all'occhio, ma probabilmente vale la pena spendere del tempo per considerare se questo indica un problema con il nostro modello, o se ci sono errori nei dati. Se ci sono errori nei dati, questa potrebbe essere un'opportunità per comprare diamanti che sono stati valutati male.
 
-### Exercises
+### Esercizi
 
-1.  In the plot of `lcarat` vs. `lprice`, there are some bright vertical
-    strips. What do they represent?
+1.  Nel grafico di `lcarat` vs. `lprice`, ci sono alcune strisce verticali luminose. Cosa rappresentano?
 
-1.  If `log(price) = a_0 + a_1 * log(carat)`, what does that say about 
-    the relationship between `price` and `carat`?
+1.  Se `log(price) = a_0 + a_1 * log(carat)`, cosa dice questo sulla relazione tra `price` e `carat`?
     
-1.  Extract the diamonds that have very high and very low residuals. 
-    Is there anything unusual about these diamonds? Are they particularly bad
-    or good, or do you think these are pricing errors?
+1.  Estrai i diamanti che hanno residui molto alti e molto bassi. 
+    C'è qualcosa di insolito in questi diamanti? Sono particolarmente cattivi o buoni, o pensate che si tratti di errori di prezzo?
 
-1.  Does the final model, `mod_diamond2`, do a good job of predicting
-    diamond prices? Would you trust it to tell you how much to spend
-    if you were buying a diamond?
+1.  Il modello finale, `mod_diamond2`, fa un buon lavoro di previsione dei prezzi dei diamanti? Vi fidereste di esso per dirvi quanto spendere se doveste comprare un diamante?
 
-## What affects the number of daily flights?
+## Cosa influenza il numero di voli giornalieri?
 
-Let's work through a similar process for a dataset that seems even simpler at first glance: the number of flights that leave NYC per day. This is a really small dataset --- only 365 rows and 2 columns --- and we're not going to end up with a fully realised model, but as you'll see, the steps along the way will help us better understand the data. Let's get started by counting the number of flights per day and visualising it with ggplot2.
+Lavoriamo attraverso un processo simile per un set di dati che sembra ancora più semplice a prima vista: il numero di voli che lasciano NYC al giorno. Questo è un dataset davvero piccolo --- solo 365 righe e 2 colonne --- e non finiremo con un modello completamente realizzato, ma come vedrete, i passi lungo il percorso ci aiuteranno a capire meglio i dati. Iniziamo contando il numero di voli al giorno e visualizzandolo con ggplot2.
 
 ```{r}
 daily <- flights %>% 
@@ -187,9 +181,9 @@ ggplot(daily, aes(date, n)) +
   geom_line()
 ```
 
-### Day of week
+### Giorno della settimana
 
-Understanding the long-term trend is challenging because there's a very strong day-of-week effect that dominates the subtler patterns. Let's start by looking at the distribution of flight numbers by day-of-week:
+Capire la tendenza a lungo termine è difficile perché c'è un effetto giorno della settimana molto forte che domina i modelli più sottili. Cominciamo a guardare la distribuzione del numero di voli per giorno della settimana:
 
 ```{r}
 daily <- daily %>% 
@@ -198,9 +192,9 @@ ggplot(daily, aes(wday, n)) +
   geom_boxplot()
 ```
 
-There are fewer flights on weekends because most travel is for business. The effect is particularly pronounced on Saturday: you might sometimes leave on Sunday for a Monday morning meeting, but it's very rare that you'd leave on Saturday as you'd much rather be at home with your family.
+Ci sono meno voli nei fine settimana perché la maggior parte dei viaggi è per affari. L'effetto è particolarmente pronunciato il sabato: si potrebbe a volte partire la domenica per una riunione del lunedì mattina, ma è molto raro che si parta il sabato perché si preferisce stare a casa con la propria famiglia.
 
-One way to remove this strong pattern is to use a model. First, we fit the model, and display its predictions overlaid on the original data:
+Un modo per rimuovere questo forte schema è usare un modello. Per prima cosa, adattiamo il modello e mostriamo le sue previsioni sovrapposte ai dati originali:
 
 ```{r}
 mod <- lm(n ~ wday, data = daily)
@@ -214,7 +208,7 @@ ggplot(daily, aes(wday, n)) +
   geom_point(data = grid, colour = "red", size = 4)
 ```
 
-Next we compute and visualise the residuals:
+Poi calcoliamo e visualizziamo i residui:
 
 ```{r}
 daily <- daily %>% 
@@ -225,37 +219,32 @@ daily %>%
   geom_line()
 ```
 
-Note the change in the y-axis: now we are seeing the deviation from the expected number of flights, given the day of week. This plot is useful because now that we've removed much of the large day-of-week effect, we can see some of the subtler patterns that remain:
+    Notate il cambiamento nell'asse y: ora stiamo vedendo la deviazione dal numero previsto di voli, dato il giorno della settimana. Questo grafico è utile perché ora che abbiamo rimosso gran parte del grande effetto del giorno della settimana, possiamo vedere alcuni dei modelli più sottili che rimangono:
 
-1.  Our model seems to fail starting in June: you can still see a strong 
-    regular pattern that our model hasn't captured. Drawing a plot with one 
-    line for each day of the week makes the cause easier to see:
+1.  Il nostro modello sembra fallire a partire da giugno: si può ancora vedere un forte modello regolare che il nostro modello non ha catturato. Disegnare un grafico con una linea per ogni giorno della settimana rende la causa più facile da vedere:
 
     ```{r}
     ggplot(daily, aes(date, resid, colour = wday)) + 
       geom_ref_line(h = 0) + 
       geom_line()
     ```
+   
+    Il nostro modello non riesce a prevedere accuratamente il numero di voli del sabato: durante l'estate ci sono più voli di quanto ci aspettiamo, e durante l'autunno ce ne sono meno. Vedremo come possiamo fare meglio per catturare questo modello nella prossima sezione.
 
-    Our model fails to accurately predict the number of flights on Saturday:
-    during summer there are more flights than we expect, and during Fall there 
-    are fewer. We'll see how we can do better to capture this pattern in the
-    next section.
-
-1.  There are some days with far fewer flights than expected:
+1.  Ci sono alcuni giorni con molti meno voli del previsto:
 
     ```{r}
     daily %>% 
       filter(resid < -100)
     ```
 
-    If you're familiar with American public holidays, you might spot New Year's 
-    day, July 4th, Thanksgiving and Christmas. There are some others that don't 
-    seem to correspond to public holidays. You'll work on those in one 
-    of the exercises.
+    Se avete familiarità con le festività americane, potreste individuare il Capodanno 
+    4 luglio, il Ringraziamento e il Natale. Ce ne sono altri che non 
+    sembrano corrispondere ai giorni festivi. Lavorerai su quelle in uno 
+    degli esercizi.
     
-1.  There seems to be some smoother long term trend over the course of a year.
-    We can highlight that trend with `geom_smooth()`:
+1.  Sembra che ci sia una tendenza a lungo termine più morbida nel corso di un anno.
+    Possiamo evidenziare questa tendenza con `geom_smooth()`:
 
     ```{r}
     daily %>% 
@@ -265,14 +254,14 @@ Note the change in the y-axis: now we are seeing the deviation from the expected
       geom_smooth(se = FALSE, span = 0.20)
     ```
 
-    There are fewer flights in January (and December), and more in summer 
-    (May-Sep). We can't do much with this pattern quantitatively, because we 
-    only have a single year of data. But we can use our domain knowledge to 
-    brainstorm potential explanations.
+    Ci sono meno voli a gennaio (e dicembre), e più in estate 
+    (maggio-settembre). Non possiamo fare molto con questo modello quantitativamente, perché 
+    abbiamo solo un anno di dati. Ma possiamo usare la nostra conoscenza del dominio per 
+    per trovare delle potenziali spiegazioni.
 
-### Seasonal Saturday effect
+### Effetto stagionale del sabato
 
-Let's first tackle our failure to accurately predict the number of flights on Saturday. A good place to start is to go back to the raw numbers, focussing on Saturdays:
+Affrontiamo prima il nostro fallimento nel prevedere accuratamente il numero di voli di sabato. Un buon punto di partenza è tornare ai numeri grezzi, concentrandosi sul sabato:
 
 ```{r}
 daily %>% 
@@ -283,13 +272,13 @@ daily %>%
     scale_x_date(NULL, date_breaks = "1 month", date_labels = "%b")
 ```
 
-(I've used both points and lines to make it more clear what is data and what is interpolation.)
+(Ho usato sia punti che linee per rendere più chiaro cosa sono i dati e cosa l'interpolazione).
 
-I suspect this pattern is caused by summer holidays: many people go on holiday in the summer, and people don't mind travelling on Saturdays for vacation. Looking at this plot, we might guess that summer holidays are from early June to late August. That seems to line up fairly well with the [state's school terms](http://schools.nyc.gov/Calendar/2013-2014+School+Year+Calendars.htm): summer break in 2013 was Jun 26--Sep 9. 
+Sospetto che questo modello sia causato dalle vacanze estive: molte persone vanno in vacanza in estate, e alla gente non dispiace viaggiare di sabato per le vacanze. Guardando questo grafico, potremmo indovinare che le vacanze estive vanno da inizio giugno a fine agosto. Questo sembra allinearsi abbastanza bene con i [termini scolastici dello stato] (http://schools.nyc.gov/Calendar/2013-2014+School+Year+Calendars.htm): la pausa estiva nel 2013 era 26 giugno - 9 settembre.
 
-Why are there more Saturday flights in the Spring than the Fall? I asked some American friends and they suggested that it's less common to plan family vacations during the Fall because of the big Thanksgiving and Christmas holidays. We don't have the data to know for sure, but it seems like a plausible working hypothesis.
+Perché ci sono più voli di sabato in primavera che in autunno? Ho chiesto ad alcuni amici americani e mi hanno suggerito che è meno comune pianificare le vacanze in famiglia durante l'autunno a causa delle grandi vacanze del Ringraziamento e di Natale. Non abbiamo i dati per saperlo con certezza, ma sembra un'ipotesi di lavoro plausibile.
 
-Lets create a "term" variable that roughly captures the three school terms, and check our work with a plot:
+Creiamo una variabile "termine" che catturi approssimativamente i tre termini scolastici, e controlliamo il nostro lavoro con un grafico:
 
 ```{r}
 term <- function(date) {
@@ -310,9 +299,9 @@ daily %>%
   scale_x_date(NULL, date_breaks = "1 month", date_labels = "%b")
 ```
 
-(I manually tweaked the dates to get nice breaks in the plot. Using a visualisation to help you understand what your function is doing is a really powerful and general technique.)
+(Ho modificato manualmente le date per ottenere delle belle pause nel grafico. Usare una visualizzazione per aiutarvi a capire cosa sta facendo la vostra funzione è una tecnica davvero potente e generale).
 
-It's useful to see how this new variable affects the other days of the week:
+È utile vedere come questa nuova variabile influenza gli altri giorni della settimana:
 
 ```{r}
 daily %>% 
@@ -320,7 +309,7 @@ daily %>%
     geom_boxplot()
 ```
 
-It looks like there is significant variation across the terms, so fitting a separate day of week effect for each term is reasonable. This improves our model, but not as much as we might hope:
+Sembra che ci sia una variazione significativa tra i termini, quindi è ragionevole inserire un effetto separato del giorno della settimana per ogni termine. Questo migliora il nostro modello, ma non così tanto come potremmo sperare:
 
 ```{r}
 mod1 <- lm(n ~ wday, data = daily)
@@ -332,7 +321,7 @@ daily %>%
     geom_line(alpha = 0.75)
 ```
 
-We can see the problem by overlaying the predictions from the model on to the raw data:
+Possiamo vedere il problema sovrapponendo le previsioni del modello ai dati grezzi:
 
 ```{r}
 grid <- daily %>% 
@@ -345,7 +334,7 @@ ggplot(daily, aes(wday, n)) +
   facet_wrap(~ term)
 ```
 
-Our model is finding the _mean_ effect, but we have a lot of big outliers, so mean tends to be far away from the typical value. We can alleviate this problem by using a model that is robust to the effect of outliers: `MASS::rlm()`. This greatly reduces the impact of the outliers on our estimates, and gives a model that does a good job of removing the day of week pattern:
+Il nostro modello sta trovando l'effetto _mean_, ma abbiamo molti grandi outlier, quindi la media tende ad essere molto lontana dal valore tipico. Possiamo alleviare questo problema usando un modello che è robusto all'effetto degli outlier: `MASS::rlm()`. Questo riduce notevolmente l'impatto degli outlier sulle nostre stime e fornisce un modello che fa un buon lavoro per rimuovere il modello del giorno della settimana:
 
 ```{r, warn = FALSE}
 mod3 <- MASS::rlm(n ~ wday * term, data = daily)
@@ -357,12 +346,12 @@ daily %>%
   geom_line()
 ```
 
-It's now much easier to see the long-term trend, and the positive and negative outliers.
+Ora è molto più facile vedere la tendenza a lungo termine e gli outlier positivi e negativi.
 
 
-### Computed variables
+### Variabili calcolate
 
-If you're experimenting with many models and many visualisations, it's a good idea to bundle the creation of variables up into a function so there's no chance of accidentally applying a different transformation in different places. For example, we could write:
+Se state sperimentando molti modelli e molte visualizzazioni, è una buona idea raggruppare la creazione delle variabili in una funzione in modo che non ci sia la possibilità di applicare accidentalmente una trasformazione diversa in posti diversi. Per esempio, potremmo scrivere
 
 ```{r}
 compute_vars <- function(data) {
@@ -374,18 +363,18 @@ compute_vars <- function(data) {
 }
 ```
 
-Another option is to put the transformations directly in the model formula:
+Un'altra opzione è quella di mettere le trasformazioni direttamente nella formula del modello:
 
 ```{r}
 wday2 <- function(x) wday(x, label = TRUE)
 mod3 <- lm(n ~ wday2(date) * term(date), data = daily)
 ```
 
-Either approach is reasonable. Making the transformed variable explicit is useful if you want to check your work, or use them in a visualisation. But you can't easily use transformations (like splines) that return multiple columns. Including the transformations in the model function makes life a little easier when you're working with many different datasets because the model is self contained.
+Entrambi gli approcci sono ragionevoli. Rendere esplicita la variabile trasformata è utile se vuoi controllare il tuo lavoro, o usarla in una visualizzazione. Ma non si possono usare facilmente trasformazioni (come le spline) che restituiscono colonne multiple. Includere le trasformazioni nella funzione del modello rende la vita un po' più facile quando si lavora con molti set di dati diversi, perché il modello è autonomo.
 
-### Time of year: an alternative approach
+### Tempo dell'anno: un approccio alternativo
 
-In the previous section we used our domain knowledge (how the US school term affects travel) to improve the model. An alternative to using our knowledge explicitly in the model is to give the data more room to speak. We could use a more flexible model and allow that to capture the pattern we're interested in. A simple linear trend isn't adequate, so we could try using a natural spline to fit a smooth curve across the year:
+Nella sezione precedente abbiamo usato la nostra conoscenza del dominio (come il periodo scolastico negli Stati Uniti influenza i viaggi) per migliorare il modello. Un'alternativa all'uso esplicito della nostra conoscenza nel modello è quella di dare ai dati più spazio per parlare. Potremmo usare un modello più flessibile e permettergli di catturare il modello che ci interessa. Una semplice tendenza lineare non è adeguata, quindi potremmo provare a usare una spline naturale per adattare una curva liscia attraverso l'anno:
 
 ```{r}
 library(splines)
@@ -399,72 +388,70 @@ daily %>%
     geom_point()
 ```
 
-We see a strong pattern in the numbers of Saturday flights. This is reassuring, because we also saw that pattern in the raw data. It's a good sign when you get the same signal from different approaches.
+Vediamo un forte schema nel numero di voli del sabato. Questo è rassicurante, perché abbiamo visto questo schema anche nei dati grezzi. È un buon segno quando si ottiene lo stesso segnale da approcci diversi.
 
 
-### Exercises
+### Esercizi
 
-1.  Use your Google sleuthing skills to brainstorm why there were fewer than
-    expected flights on Jan 20, May 26, and Sep 1. (Hint: they all have the
-    same explanation.) How would these days generalise to another year?
+1.  Usate le vostre abilità di investigazione su Google per capire perché ci sono stati meno voli del previsto il 20 gennaio, il 26 maggio e il 1° settembre. (Suggerimento: hanno tutti la stessa spiegazione.) Come si possono generalizzare questi giorni ad un altro anno?
 
-1.  What do the three days with high positive residuals represent?
-    How would these days generalise to another year?
+1.  Cosa rappresentano i tre giorni con alti residui positivi? Come si possono generalizzare questi giorni ad un altro anno?
+
 
     ```{r}
     daily %>% 
       slice_max(n = 3, resid)
     ```
 
-1.  Create a new variable that splits the `wday` variable into terms, but only
-    for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, 
-    `Sat-spring`, `Sat-fall`. How does this model compare with the model with 
-    every combination of `wday` and `term`?
+1.  Creare una nuova variabile che divide la variabile `wday` in termini, ma solo
+    per i sabati, cioè dovrebbe avere `Thurs`, `Fri`, ma `Sat-summer`, 
+    `Sat-spring`, `Sat-fall`. Come si confronta questo modello con il modello con 
+    ogni combinazione di `wday` e `term`?
     
-1.  Create a new `wday` variable that combines the day of week, term 
-    (for Saturdays), and public holidays. What do the residuals of 
-    that model look like?
+1.  Crea una nuova variabile `wday` che combina il giorno della settimana, il termine 
+    (per il sabato) e i giorni festivi. Come appaiono i residui di 
+    questo modello?
 
-1.  What happens if you fit a day of week effect that varies by month 
-    (i.e. `n ~ wday * month`)? Why is this not very helpful? 
+1.  Cosa succede se inserite un effetto del giorno della settimana che varia in base al mese 
+    (cioè `n ~ wday * month`)? Perché questo non è molto utile? 
 
-1.  What would you expect the model `n ~ wday + ns(date, 5)` to look like?
-    Knowing what you know about the data, why would you expect it to be
-    not particularly effective?
+1.  Come vi aspettate che sia il modello `n ~ wday + ns(date, 5)`?
+    Sapendo quello che sai sui dati, perché ti aspetteresti che non sia
+    non particolarmente efficace?
 
-1.  We hypothesised that people leaving on Sundays are more likely to be 
-    business travellers who need to be somewhere on Monday. Explore that 
-    hypothesis by seeing how it breaks down based on distance and time: if 
-    it's true, you'd expect to see more Sunday evening flights to places that 
-    are far away.
+1.  Abbiamo ipotizzato che le persone che partono di domenica hanno più probabilità di essere 
+    viaggiatori d'affari che devono essere da qualche parte il lunedì. Esplora questa 
+    ipotesi vedendo come si scompone in base alla distanza e al tempo: se 
+    è vero, ci si aspetterebbe di vedere più voli di domenica sera verso luoghi che 
+    sono lontani.
 
-1.  It's a little frustrating that Sunday and Saturday are on separate ends
-    of the plot. Write a small function to set the levels of the 
-    factor so that the week starts on Monday.
+1.  È un po' frustrante che la domenica e il sabato siano su estremità separate
+    del grafico. Scrivete una piccola funzione per impostare i livelli del 
+    fattore in modo che la settimana inizi il lunedì.
 
-## Learning more about models
+## Imparare di più sui modelli
 
-We have only scratched the absolute surface of modelling, but you have hopefully gained some simple, but general-purpose tools that you can use to improve your own data analyses. It's OK to start simple! As you've seen, even very simple models can make a dramatic difference in your ability to tease out interactions between variables.
+Abbiamo solo scalfito la superficie assoluta della modellazione, ma speriamo che abbiate acquisito alcuni strumenti semplici, ma di uso generale, che potete usare per migliorare le vostre analisi dei dati. Va bene iniziare in modo semplice! Come avete visto, anche modelli molto semplici possono fare una grande differenza nella vostra capacità di individuare le interazioni tra le variabili.
 
-These modelling chapters are even more opinionated than the rest of the book. I approach modelling from a somewhat different perspective to most others, and there is relatively little space devoted to it. Modelling really deserves a book on its own, so I'd highly recommend that you read at least one of these three books:
+Questi capitoli sulla modellazione sono ancora più ricchi di opinioni rispetto al resto del libro. Mi avvicino alla modellazione da una prospettiva un po' diversa dalla maggior parte degli altri, e c'è relativamente poco spazio dedicato ad essa. La modellazione merita davvero un libro a sé, quindi vi consiglio vivamente di leggere almeno uno di questi tre libri:
 
-* *Statistical Modeling: A Fresh Approach* by Danny Kaplan,
-  <http://project-mosaic-books.com/?page_id=13>. This book provides 
-  a gentle introduction to modelling, where you build your intuition,
-  mathematical tools, and R skills in parallel. The book replaces a traditional
-  "introduction to statistics" course, providing a curriculum that is up-to-date 
-  and relevant to data science.
+*Statistical Modeling: A Fresh Approach* di Danny Kaplan,
+  <http://project-mosaic-books.com/?page_id=13>. Questo libro fornisce 
+  un'introduzione gentile alla modellazione, dove si costruisce la propria intuizione,
+  strumenti matematici e competenze R in parallelo. Il libro sostituisce un tradizionale
+  corso di "introduzione alla statistica", fornendo un curriculum che è aggiornato 
+  e rilevante per la scienza dei dati.
 
-* *An Introduction to Statistical Learning* by Gareth James, Daniela Witten, 
-  Trevor Hastie, and Robert Tibshirani, <http://www-bcf.usc.edu/~gareth/ISL/> 
-  (available online for free). This book presents a family of modern modelling
-  techniques collectively known as statistical learning.  For an even deeper
-  understanding of the math behind the models, read the classic 
-  *Elements of Statistical Learning* by Trevor Hastie, Robert Tibshirani, and
-  Jerome Friedman, <https://web.stanford.edu/~hastie/Papers/ESLII.pdf> (also
-  available online for free).
+*An Introduction to Statistical Learning* di Gareth James, Daniela Witten, 
+  Trevor Hastie, e Robert Tibshirani, <http://www-bcf.usc.edu/~gareth/ISL/> 
+  (disponibile online gratuitamente). Questo libro presenta una famiglia di moderne tecniche di modellazione
+  tecniche di modellazione note collettivamente come apprendimento statistico.  Per una comprensione ancora più profonda
+  comprensione della matematica dietro i modelli, leggete il classico 
+  *Elements of Statistical Learning* di Trevor Hastie, Robert Tibshirani, e
+  Jerome Friedman, <https://web.stanford.edu/~hastie/Papers/ESLII.pdf> (disponibile anche
+  disponibile online gratuitamente).
 
-* *Applied Predictive Modeling* by Max Kuhn and Kjell Johnson, 
-  <http://appliedpredictivemodeling.com>. This book is a companion to the 
-  __caret__ package and provides practical tools for dealing with real-life
-  predictive modelling challenges.
+*Applied Predictive Modeling* di Max Kuhn e Kjell Johnson, 
+  <http://appliedpredictivemodeling.com>. Questo libro è un compagno del pacchetto 
+  __caret__ e fornisce strumenti pratici per affrontare la vita reale
+  reali di modellazione predittiva.

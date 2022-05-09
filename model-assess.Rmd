@@ -1,80 +1,58 @@
-# Model assessment
+# Valutazione dei modelli
 
-In this chapter, you'll turn the tools of multiple models towards model assessment: learning how the model performs when given new data. So far we've focussed on models as tools for description, using models to help us understand the patterns in the data we have collected so far. But ideally a model will do more than just describe what we have seen so far - it will also help predict what will come next.  
+In questo capitolo, rivolgerete gli strumenti dei modelli multipli verso la valutazione del modello: imparare come il modello si comporta quando gli vengono dati nuovi dati. Finora ci siamo concentrati sui modelli come strumenti di descrizione, usando i modelli per aiutarci a capire i modelli nei dati che abbiamo raccolto finora. Ma idealmente un modello farà più che descrivere ciò che abbiamo visto finora - aiuterà anche a prevedere ciò che verrà dopo.  
 
-In other words, we want a model that doesn't just perform well on the sample, but also accurately summarises the underlying population.
+In altre parole, vogliamo un modello che non solo si comporti bene sul campione, ma che riassuma accuratamente la popolazione sottostante.
 
-In some industries this is primarily the use of models: you spend relatively little time fitting the model compared to how many times you use it.
+In alcuni settori questo è l'uso principale dei modelli: si spende relativamente poco tempo ad adattare il modello rispetto a quante volte lo si usa.
 
-There are two basic ways that a model can fail with new data:
+Ci sono due modi fondamentali in cui un modello può fallire con nuovi dati:
 
-* You can under- or over-fit the model.  Underfitting is where you fail
-  to model and important trend: you leave too much in the residuals, and not 
-  enough in the model. Overfitting is the opposite: you fit a trend to
-  what is actually random noise: you've too put much model and not left
-  enough in the residuals. Generally overfitting tends to be more of a 
-  problem than underfitting.
+* Si può sotto- o sovra-adattare il modello.  L'underfitting è quando non si riesce a modellare una tendenza importante: si lascia troppo nei residui e non abbastanza nel modello. L'overfitting è l'opposto: si adatta una tendenza a quello che in realtà è un rumore casuale: si è messo troppo modello e non si è lasciato abbastanza nei residui. Generalmente l'overfitting tende ad essere un problema maggiore dell'underfitting.
 
-* The process that generates the data might change. There's nothing the 
-  model can do about this. You can protect yourself against this to some
-  extent by creating models that you understand and applying your knowledge
-  to the problem. Are these fundamentals likely to change? If you have 
-  a model that you are going to use again and again for a long time, you
-  need to plan to maintain the model, regularly checking that it still 
-  makes sense. i.e. is the population the same?
+* Il processo che genera i dati potrebbe cambiare. Non c'è niente che il modello possa fare su questo. Puoi proteggerti da questo in una certa misura creando modelli che capisci e applicando le tue conoscenze al problema. È probabile che questi fondamenti cambino? Se avete un modello che userete ripetutamente per molto tempo, dovete pianificare la manutenzione del modello, controllando regolarmente che abbia ancora senso.
   
-    <http://research.google.com/pubs/pub43146.html>
-    <http://www.wired.com/2015/10/can-learn-epic-failure-google-flu-trends/>
+    <http://research.google.com/pubs/pub43146.html> <http://www.wired.com/2015/10/can-learn-epic-failure-google-flu-trends/>
  
-The most common problem with a model that causes it to do poorly with new data is overfitting. 
+Il problema più comune con un modello che lo fa funzionare male con i nuovi dati è l'overfitting.
 
 
-Obviously, there's a bit of a problem here: we don't have new data with which to check the model, and even if we did, we'd presumably use it to make the model better in the first place. One powerful technique of approaches can help us get around this problem: resampling.
+Ovviamente, qui c'è un piccolo problema: non abbiamo nuovi dati con cui controllare il modello, e anche se li avessimo, presumibilmente li useremmo per migliorare il modello in primo luogo. Una potente tecnica di approccio può aiutarci ad aggirare questo problema: il ricampionamento.
 
-There are two main resampling techniques that we're going to cover.
+Ci sono due principali tecniche di ricampionamento che copriremo.
 
-* We will use __cross-validation__ to assess model quality. In 
-  cross-validation, you split the data into test and training sets. You fit 
-  the data to the training set, and evaluate it on the test set. This avoids
-  intrinsic bias of using the same data to both fit the model and assess it's
-  quality. However it introduces a new bias: you're not using all the data to
-  fit the model so it's not going to be quite as good as it could be.
+* Useremo la __convalida incrociata__ (cross validation) per valutare la qualità del modello. Nella convalida incrociata, si dividono i dati in test e training set. Si adattano i dati al set di addestramento e si valutano sul set di test. Questo evita la distorsione intrinseca di usare gli stessi dati sia per adattare il modello che per valutarne la qualità. Tuttavia introduce una nuova distorsione: non state usando tutti i dati per adattare il modello, quindi non sarà così buono come potrebbe essere.
   
-* We will use __boostrapping__ to understand how stable (or how variable)
-  the model is. If you sample data from the same population multiple times, 
-  how much does your model vary? Instead of going back to collect new data, 
-  you can use the best estimate of the population data: the data you've
-  collected so far. The amazing idea of the bootstrap is that you can resample
-  from the data you already have.
+* Useremo __boostrapping__ per capire quanto stabile (o quanto variabile) sia il modello. Se si campionano più volte i dati della stessa popolazione, quanto varia il modello? Invece di tornare indietro per raccogliere nuovi dati, potete usare la migliore stima dei dati della popolazione: i dati che avete raccolto finora. L'idea sorprendente del bootstrap è che potete ricampionare dai dati che avete già.
 
-There are lots of high-level helpers to do these resampling methods in R. We're going to use the tools provided by the modelr package because they are explicit - you'll see exactly what's going on at each step. 
+Ci sono molti aiutanti di alto livello per fare questi metodi di ricampionamento in R. Useremo gli strumenti forniti dal pacchetto modelr perché sono espliciti - vedrete esattamente cosa sta succedendo ad ogni passo.
 
-<http://topepo.github.io/caret>. [Applied Predictive Modeling](https://amzn.com/1461468485), by Max Kuhn and Kjell Johnson.
+<http://topepo.github.io/caret>. [Applied Predictive Modeling](https://amzn.com/1461468485), di Max Kuhn e Kjell Johnson.
 
-If you're competing in competitions, like Kaggle, that are predominantly about creating good predictions, developing a good strategy for avoiding overfitting is very important. Otherwise you risk tricking yourself into thinking that you have a good model, when in reality you just have a model that does a good job of fitting your data.
+Se si compete in competizioni, come Kaggle, che riguardano principalmente la creazione di buone previsioni, sviluppare una buona strategia per evitare l'overfitting è molto importante. Altrimenti si rischia di ingannare se stessi pensando di avere un buon modello, quando in realtà si ha solo un modello che fa un buon lavoro di adattamento dei dati.
 
-There is a closely related family that uses a similar idea: model ensembles. However, instead of trying to find the best models, ensembles make use of all the models, acknowledging that even models that don't fit all the data particularly well can still model some subsets well. In general, you can think of model ensemble techniques as functions that take a list of models, and a return a single model that attempts to take the best part of each.
+C'è una famiglia strettamente correlata che usa un'idea simile: gli insiemi di modelli. Tuttavia, invece di cercare di trovare i migliori modelli, gli ensemble fanno uso di tutti i modelli, riconoscendo che anche i modelli che non si adattano particolarmente bene a tutti i dati possono ancora modellare bene alcuni sottoinsiemi. In generale, si può pensare alle tecniche di ensemble di modelli come a funzioni che prendono una lista di modelli e restituiscono un singolo modello che cerca di prendere la parte migliore di ognuno.
 
 
-### Prerequisites
+### Prerequisiti
 
 ```{r setup, message = FALSE}
-# Standard data manipulation and visulisation
+# Manipolazione e visualizzazione dei dati standard
 library(dplyr)
 library(ggplot2)
 
-# Tools for working with models
+# Strumenti per lavorare con i modelli
 library(broom)
 library(modelr)
 library(splines)
 
-# Tools for working with lots of models
+# Strumenti per lavorare con molti modelli
 library(purrr)
 library(tidyr)
 ```
 
 ```{r}
-# Options that make your life easier
+# Opzioni che ti semplificano la vita
 options(
   contrasts = c("contr.treatment", "contr.treatment"),
   na.option = na.exclude
@@ -84,11 +62,11 @@ options(
 
 ## Overfitting
 
-Both bootstrapping and cross-validation help us to spot and remedy the problem of __over fitting__, where the model fits the data we've seen so far extremely well, but does a bad job of generalising to new data.
+Sia il bootstrapping che la validazione incrociata ci aiutano a individuare e rimediare al problema dell'__over fitting__, dove il modello si adatta estremamente bene ai dati che abbiamo visto finora, ma fa un cattivo lavoro di generalizzazione a nuovi dati.
 
-A classic example of over-fitting is to using a polynomial with too many degrees of freedom.
+Un esempio classico di over-fitting è l'utilizzo di un polinomio con troppi gradi di libertà.
 
-Bias - variance tradeoff.  Simpler = more biased. Complex = more variable.  Occam's razor.
+Scambio bias - varianza.  Più semplice = più distorto. Complesso = più variabile.  Rasoio di Occam.
 
 ```{r}
 true_model <- function(x) {
@@ -105,7 +83,7 @@ df %>%
   geom_point()
 ```
 
-We can create a model that fits this data very well:
+Possiamo creare un modello che si adatta molto bene a questi dati:
 
 ```{r, message = FALSE}
 library(splines)
@@ -127,7 +105,7 @@ df %>%
   geom_point()
 ```
 
-As we fit progressively more and more complicated models, the model error decreases:
+Man mano che si adattano modelli sempre più complicati, l'errore del modello diminuisce:
 
 ```{r}
 fs <- list(
@@ -153,9 +131,9 @@ models %>%
   geom_point(size = 3)
 ```
 
-But do you think this model will do well if we apply it to new data from the same population? 
+Ma pensate che questo modello andrà bene se lo applichiamo a nuovi dati della stessa popolazione?
 
-In real-life you can't easily go out and recollect your data. There are two approaches to help you get around this problem. I'll introduce them briefly here, and then we'll go into more depth in the following sections.
+Nella vita reale non è facile andare a raccogliere i dati. Ci sono due approcci che vi aiutano ad aggirare questo problema. Li introdurrò brevemente qui, e poi andremo più in profondità nelle sezioni seguenti.
 
 ```{r}
 boot <- bootstrap(df, 100) %>% 
@@ -170,18 +148,18 @@ boot %>%
   geom_line(alpha = 1/3)
 ```
 
-It's a little easier to see what's going on if we zoom on the y axis:
+È un po' più facile vedere cosa sta succedendo se zoomiamo sull'asse y:
 
 ```{r}
 last_plot() + 
   coord_cartesian(ylim = c(0, 5))
 ```
 
-(You might notice that while each individual model varies a lot, the average of all the models seems like it might not be that bad. That gives rise to a model ensemble technique called model averaging.)
+(Potreste notare che mentre ogni singolo modello varia molto, la media di tutti i modelli sembra non essere così male. Questo dà origine a una tecnica di insieme di modelli chiamata media dei modelli).
 
-Bootstrapping is a useful tool to help us understand how the model might vary if we'd collected a different sample from the population. A related technique is cross-validation which allows us to explore the quality of the model. It works by repeatedly splitting the data into two pieces. One piece, the training set, is used to fit, and the other piece, the test set, is used to measure the model quality.
+Il bootstrapping è uno strumento utile per aiutarci a capire come il modello potrebbe variare se avessimo raccolto un campione diverso dalla popolazione. Una tecnica correlata è la validazione incrociata che ci permette di esplorare la qualità del modello. Funziona dividendo ripetutamente i dati in due parti. Un pezzo, l'insieme di addestramento, è usato per adattarsi, e l'altro pezzo, l'insieme di test, è usato per misurare la qualità del modello.
 
-The following code generates 100 test-training splits, holding out 20% of the data for testing each time. We then fit a model to the training set, and evaluate the error on the test set:
+Il codice seguente genera 100 suddivisioni test-formazione, tenendo ogni volta il 20% dei dati per il test. Poi adattiamo un modello al set di allenamento, e valutiamo l'errore sul set di test:
 
 ```{r}
 cv <- crossv_mc(df, 100) %>% 
@@ -192,7 +170,7 @@ cv <- crossv_mc(df, 100) %>%
 cv
 ```
 
-Obviously, a plot is going to help us see distribution more easily. I've added our original estimate of the model error as a white vertical line (where the same dataset is used for both training and testing), and you can see it's very optimistic.
+Ovviamente, un grafico ci aiuterà a vedere la distribuzione più facilmente. Ho aggiunto la nostra stima originale dell'errore del modello come linea verticale bianca (dove lo stesso set di dati è usato sia per l'allenamento che per il test), e potete vedere che è molto ottimista.
 
 ```{r}
 cv %>% 
@@ -202,7 +180,7 @@ cv %>%
   geom_rug()
 ```
 
-The distribution of errors is highly skewed: there are a few cases which have very high errors. These represent samples where we ended up with a few cases on all with low values or high values of x.  Let's take a look:
+La distribuzione degli errori è molto asimmetrica: ci sono alcuni casi che hanno errori molto alti. Questi rappresentano campioni in cui ci siamo ritrovati con pochi casi su tutti con valori bassi o alti di x. Diamo un'occhiata:
 
 ```{r}
 filter(cv, rmse > 1.5) %>% 
@@ -212,17 +190,17 @@ filter(cv, rmse > 1.5) %>%
     xlim(0, 1)
 ```
 
-All of the models that fit particularly poorly were fit to samples that either missed the first one or two or the last one or two observation. Because polynomials shoot off to positive and negative, they give very bad predictions for those values.
+Tutti i modelli che si adattano particolarmente male sono stati adattati a campioni che hanno mancato la prima o due osservazioni o l'ultima o due. Poiché i polinomi sparano fuori in positivo e in negativo, danno pessime previsioni per quei valori.
 
-Now that we've given you a quick overview and intuition for these techniques, let's dive in more detail.
+Ora che vi abbiamo dato una rapida panoramica e un'intuizione di queste tecniche, entriamo più nel dettaglio.
 
-## Resamples
+## Ricampionamenti
 
-### Building blocks
+### Blocchi di costruzione
 
-Both the boostrap and cross-validation are built on top of a "resample" object. In modelr, you can access these low-level tools directly with the `resample_*` functions. 
+Sia il boostrap che la validazione incrociata sono costruiti sopra un oggetto "resample". In Modelr, è possibile accedere a questi strumenti di basso livello direttamente con le funzioni `resample_*`.
 
-These functions return an object of class "resample", which represents the resample in a memory efficient way. Instead of storing the resampled dataset itself, it instead stores the integer indices, and a "pointer" to the original dataset. This makes resamples take up much less memory.
+Queste funzioni restituiscono un oggetto di classe "resample", che rappresenta il ricampionamento in modo efficiente in termini di memoria. Invece di memorizzare il set di dati ricampionati, memorizza gli indici interi e un "puntatore" al set di dati originale. Questo fa sì che i ricampionamenti occupino molta meno memoria.
 
 ```{r}
 x <- resample_bootstrap(as_tibble(mtcars))
@@ -231,41 +209,38 @@ class(x)
 x
 ```
 
-Most modelling functions call `as.data.frame()` on the `data` argument. This generates a resampled data frame. Because it's called automatically you can just pass the object.
+La maggior parte delle funzioni di modellazione chiama `as.data.frame()` sull'argomento `data`. Questo genera un frame di dati ricampionato. Poiché viene chiamata automaticamente, potete semplicemente passare l'oggetto.
 
 ```{r}
 lm(mpg ~ wt, data = x)
 ```
 
-If you get a strange error, it's probably because the modelling function doesn't do this, and you need to do it yourself. You'll also need to do it yourself if you want to `unnest()` the data so you can visualise it.  If you want to just get the rows selected, you can use `as.integer()`.
+Se ottenete uno strano errore, probabilmente è perché la funzione di modellazione non lo fa, e dovete farlo voi stessi. Dovrete farlo voi stessi anche se volete `unnest()` i dati in modo da poterli visualizzare.  Se vuoi solo ottenere le righe selezionate, puoi usare `as.integer()`.
 
 ### Dataframe API
 
-`bootstrap()` and `crossv_mc()` are built on top of these simpler primitives. They are designed to work naturally in a model exploration environment by returning data frames. Each row of the data frame represents a single sample. They return slightly different columns:
+`bootstrap()` e `crossv_mc()` sono costruiti sulla base di queste primitive più semplici. Sono progettate per lavorare naturalmente in un ambiente di esplorazione del modello, restituendo dei dataframe. Ogni riga del data frame rappresenta un singolo campione. Essi restituiscono colonne leggermente diverse:
 
-*   `boostrap()` returns a data frame with two columns:
+* `boostrap()` restituisce un data frame con due colonne:
 
     ```{r}
     bootstrap(df, 3)
     ```
     
-    `strap` gives the bootstrap sample dataset, and `.id` assigns a 
-    unique identifier to each model (this is often useful for plotting)
+    `strap` dà il set di dati del campione di bootstrap, e `.id` assegna un identificatore univoco a ciascun modello (questo è spesso utile per i grafici)
     
-*   `crossv_mc()` return a data frame with three columns:
+* `crossv_mc()` restituisce un frame di dati con tre colonne:
 
     ```{r}
     crossv_mc(df, 3)
     ```
-    `train` contains the data that you should use to fit (train) the model,
-    and `test` contains the data you should use to validate the model. Together,
-    the test and train columns form an exclusive partition of the full dataset.
+    `train` contiene i dati che dovresti usare per adattare (addestrare) il modello, e `test` contiene i dati che dovresti usare per validare il modello. Insieme, le colonne test e train formano una partizione esclusiva dell'intero set di dati.
 
-## Numeric summaries of model quality
+## Riassunti numerici della qualità del modello
 
-When you start dealing with many models, it's helpful to have some rough way of comparing them so you can spend your time looking at the models that do the best job of capturing important features in the data. 
+Quando si inizia ad avere a che fare con molti modelli, è utile avere un modo approssimativo per confrontarli in modo da poter spendere il proprio tempo guardando i modelli che fanno il miglior lavoro nel catturare le caratteristiche importanti nei dati.
 
-One way to capture the quality of the model is to summarise the distribution of the residuals. For example, you could look at the quantiles of the absolute residuals. For this dataset, 25% of predictions are less than \$7,400 away, and 75% are less than \$25,800 away. That seems like quite a bit of error when predicting someone's income!
+Un modo per catturare la qualità del modello è riassumere la distribuzione dei residui. Per esempio, potreste guardare i quantili dei residui assoluti. Per questo set di dati, il 25% delle previsioni sono a meno di \7.400 dollari, e il 75% sono a meno di \25.800 dollari. Sembra un bel po' di errore quando si predice il reddito di qualcuno!
 
 ```{r}
 heights <- tibble(readRDS("data/heights.RDS"))
@@ -276,26 +251,26 @@ qae(h, heights)
 range(heights$income)
 ```
 
-You might be familiar with the $R^2$. That's a single number summary that rescales the variance of the residuals to between 0 (very bad) and 1 (very good):
+Potreste avere familiarità con il $R^2$. Si tratta di un singolo numero riassuntivo che scala la varianza dei residui tra 0 (molto male) e 1 (molto bene):
 
 ```{r}
 rsquare(h, heights)
 ```
 
-$R^2$ can be interpreted as the amount of variation in the data explained by the model. Here we're explaining 3% of the total variation - not a lot! But I don't think worrying about the relative amount of variation explained is that useful; instead I think you need to consider whether the absolute amount of variation explained is useful for your project.
+$R^2$ può essere interpretato come la quantità di variazione nei dati spiegata dal modello. Qui stiamo spiegando il 3% della variazione totale - non molto! Ma non credo che preoccuparsi della quantità relativa di variazione spiegata sia così utile; penso invece che tu debba considerare se la quantità assoluta di variazione spiegata sia utile per il tuo progetto.
 
-It's called the $R^2$ because for simple models like this, it's just the square of the correlation between the variables:
+Si chiama $R^2$ perché per modelli semplici come questo, è solo il quadrato della correlazione tra le variabili:
 
 ```{r}
 cor(heights$income, heights$height) ^ 2
 ```
 
-The $R^2$ is an ok single number summary, but I prefer to think about the unscaled residuals because it's easier to interpret in the context of the original data. As you'll also learn later, it's also a rather optimistic interpretation of the model. Because you're assessing the model using the same data that was used to fit it, it really gives more of an upper bound on the quality of the model, not a fair assessment. 
+Il $R^2$ è un buon riassunto di un singolo numero, ma preferisco pensare ai residui non scalati perché è più facile da interpretare nel contesto dei dati originali. Come imparerai più tardi, è anche un'interpretazione piuttosto ottimistica del modello. Poiché state valutando il modello usando gli stessi dati che sono stati usati per adattarlo, dà davvero più di un limite superiore sulla qualità del modello, non una valutazione equa.
 
 
 
 ## Bootstrapping
 
 
-## Cross-validation
+## Validazione incrociata
 
