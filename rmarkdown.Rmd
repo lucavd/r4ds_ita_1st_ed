@@ -1,34 +1,34 @@
 # R Markdown
 
-## Introduction
+## Introduzione
 
-R Markdown provides an unified authoring framework for data science, combining your code, its results, and your prose commentary. R Markdown documents are fully reproducible and support dozens of output formats, like PDFs, Word files, slideshows, and more. 
+R Markdown fornisce un framework di authoring unificato per la scienza dei dati, che combina il codice, i risultati e i commenti in prosa. I documenti R Markdown sono completamente riproducibili e supportano decine di formati di output, come PDF, file Word, presentazioni e altro ancora. 
 
-R Markdown files are designed to be used in three ways:
+I file R Markdown sono progettati per essere utilizzati in tre modi:
 
-1.  For communicating to decision makers, who want to focus on the conclusions,
-    not the code behind the analysis.
+1.  Per comunicare ai decisori, che vogliono concentrarsi sulle conclusioni,
+    non sul codice che sta dietro l'analisi.
 
-1.  For collaborating with other data scientists (including future you!), who
-    are interested in both your conclusions, and how you reached them (i.e.
-    the code).
+1.  Per collaborare con altri data scientist (compreso il futuro te stesso!), che sono interessati sia alle vostre conclusioni che al modo in cui le avete elaborate.
+    che sono interessati sia alle vostre conclusioni che al modo in cui le avete raggiunte (cioè il codice).
+    il codice).
     
-1.  As an environment in which to _do_ data science, as a modern day lab 
-    notebook where you can capture not only what you did, but also what you
-    were thinking.
+1.  Come ambiente in cui "fare" scienza dei dati, come un moderno taccuino di laboratorio 
+    di laboratorio dove è possibile registrare non solo ciò che si è fatto, ma anche ciò che si è pensato.
+    pensiero.
 
-R Markdown integrates a number of R packages and external tools. This means that help is, by-and-large, not available through `?`. Instead, as you work through this chapter, and use R Markdown in the future, keep these resources close to hand:
+R Markdown integra una serie di pacchetti R e di strumenti esterni. Ciò significa che l'aiuto non è in genere disponibile attraverso `?`. Invece, mentre lavorate a questo capitolo e utilizzate R Markdown in futuro, tenete a portata di mano queste risorse:
 
-*   R Markdown Cheat Sheet: _Help > Cheatsheets > R Markdown Cheat Sheet_,
+* R Markdown Cheat Sheet: _Help > Cheatsheets > R Markdown Cheat Sheet_,
 
-*   R Markdown Reference Guide: _Help > Cheatsheets > R Markdown Reference 
-    Guide_.
+* Guida di riferimento a R Markdown: _Help > Cheatsheets > R Markdown Reference Guide_. 
+    Guida_.
 
-Both cheatsheets are also available at <https://rstudio.com/resources/cheatsheets/>.
+Entrambi i fogli informativi sono disponibili anche all'indirizzo <https://rstudio.com/resources/cheatsheets/>.
 
-### Prerequisites
+### Prerequisiti
 
-You need the __rmarkdown__ package, but you don't need to explicitly install it or load it, as RStudio automatically does both when needed.
+È necessario il pacchetto __rmarkdown__, ma non è necessario installarlo o caricarlo esplicitamente, poiché RStudio fa automaticamente entrambe le cose quando necessario.
 
 ```{r setup, include = FALSE}
 chunk <- "```"
@@ -36,160 +36,160 @@ inline <- function(x = "") paste0("`` `r ", x, "` ``")
 library(tidyverse)
 ```
 
-## R Markdown basics
+## Nozioni di base di R Markdown
 
-This is an R Markdown file, a plain text file that has the extension `.Rmd`:
+Questo è un file R Markdown, un file di testo semplice con estensione `.Rmd`:
 
 ```{r echo = FALSE, comment = ""}
 cat(htmltools::includeText("rmarkdown/diamond-sizes.Rmd"))
 ```
 
-It contains three important types of content:
+Contiene tre importanti tipi di contenuti:
 
-1.  An (optional) __YAML header__ surrounded by `---`s.
-1.  __Chunks__ of R code surrounded by ```` ``` ````.
-1.  Text mixed with simple text formatting like `# heading` and `_italics_`.
+1.  Un'intestazione (opzionale) __YAML circondata da `---`s.
+1.  __Chunks__ di codice R circondati da ```` ``` ````.
+1.  Testo mescolato con una semplice formattazione del testo come `# heading` e `_italics_`.
 
-When you open an `.Rmd`, you get a notebook interface where code and output are interleaved. You can run each code chunk by clicking the Run icon (it looks like a play button at the top of the chunk), or by pressing Cmd/Ctrl + Shift + Enter. RStudio executes the code and displays the results inline with the code:
+Quando si apre un `.Rmd', si ottiene un'interfaccia di blocco note in cui il codice e l'output sono interlacciati. È possibile eseguire ciascun pezzo di codice facendo clic sull'icona Esegui (simile a un pulsante di riproduzione nella parte superiore del pezzo) o premendo Cmd/Ctrl + Maiusc + Invio. RStudio esegue il codice e visualizza i risultati in linea con il codice:
 
 ```{r, echo = FALSE, out.width = "75%"}
 knitr::include_graphics("rmarkdown/diamond-sizes-notebook.png")
 ```
 
-To produce a complete report containing all text, code, and results, click "Knit" or press Cmd/Ctrl + Shift + K.  You can also do this programmatically with `rmarkdown::render("1-example.Rmd")`. This will display the report in the viewer pane, and create a self-contained HTML file that you can share with others.
+Per produrre un rapporto completo contenente tutto il testo, il codice e i risultati, fare clic su "Knit" o premere Cmd/Ctrl + Shift + K. È possibile farlo anche in modo programmatico con `rmarkdown::render("1-example.Rmd")`. In questo modo si visualizza il rapporto nel riquadro del visualizzatore e si crea un file HTML autonomo che si può condividere con altri.
 
 ```{r, echo = FALSE, out.width = "75%"}
 knitr::include_graphics("rmarkdown/diamond-sizes-report.png")
 ```
 
-When you __knit__ the document, R Markdown sends the .Rmd file to __knitr__, http://yihui.name/knitr/, which executes all of the code chunks and creates a new markdown (.md) document which includes the code and its output. The markdown file generated by knitr is then processed by __pandoc__, <http://pandoc.org/>, which is responsible for creating the finished file. The advantage of this two step workflow is that you can create a very wide range of output formats, as you'll learn about in [R markdown formats].
+Quando si __knit__ il documento, R Markdown invia il file .Rmd a __knitr__, http://yihui.name/knitr/, che esegue tutti i pezzi di codice e crea un nuovo documento markdown (.md) che include il codice e il suo output. Il file markdown generato da knitr viene poi elaborato da __pandoc__, <http://pandoc.org/>, che è responsabile della creazione del file finito. Il vantaggio di questo flusso di lavoro in due fasi è che si può creare un'ampia gamma di formati di output, come si vedrà in [Formati di R markdown].
 
 ```{r, echo = FALSE, out.width = "75%"}
 knitr::include_graphics("images/RMarkdownFlow.png")
 ```
 
-To get started with your own `.Rmd` file, select *File > New File > R Markdown...* in the menubar. RStudio will launch a wizard that you can use to pre-populate your file with useful content that reminds you how the key features of R Markdown work. 
+Per iniziare a creare il proprio file `.Rmd', selezionare *File > New File > R Markdown...* nella barra dei menu. RStudio lancerà una procedura guidata che potrete utilizzare per pre-popolare il vostro file con contenuti utili che vi ricorderanno come funzionano le caratteristiche principali di R Markdown. 
 
-The following sections dive into the three components of an R Markdown document in more details: the markdown text, the code chunks, and the YAML header.
+Le sezioni seguenti approfondiscono i tre componenti di un documento R Markdown: il testo markdown, i pezzi di codice e l'intestazione YAML.
 
-### Exercises
+### Esercizi
 
-1.  Create a new notebook using _File > New File > R Notebook_. Read the 
-    instructions. Practice running the chunks. Verify that you can modify
-    the code, re-run it, and see modified output.
+1.  Creare un nuovo blocco note utilizzando _File > New File > R Notebook_. Leggere le 
+    istruzioni. Esercitatevi a eseguire i pezzi. Verificare che sia possibile modificare
+    il codice, eseguirlo nuovamente e vedere l'output modificato.
     
-1.  Create a new R Markdown document with _File > New File > R Markdown..._
-    Knit it by clicking the appropriate button. Knit it by using the 
-    appropriate keyboard short cut. Verify that you can modify the
-    input and see the output update.
+1.  Create un nuovo documento R Markdown con _File > New File > R Markdown..._.
+    Lavorare a maglia facendo clic sul pulsante appropriato. Lavorare con la scorciatoia da tastiera appropriata. 
+    tastiera appropriata. Verificare che sia possibile modificare l'input
+    e vedere l'aggiornamento dell'output.
     
-1.  Compare and contrast the R notebook and R markdown files you created
-    above. How are the outputs similar? How are they different? How are
-    the inputs similar? How are they different? What happens if you
-    copy the YAML header from one to the other?
+1.  Confrontate e confrontate i file R notebook e R markdown creati in precedenza.
+    sopra. In che modo gli output sono simili? In che modo sono diversi? Come sono
+    gli input sono simili? In che modo sono diversi? Cosa succede se
+    copiare l'intestazione YAML da uno all'altro?
 
-1.  Create one new R Markdown document for each of the three built-in
-    formats: HTML, PDF and Word. Knit each of the three documents.
-    How does the output differ? How does the input differ? (You may need
-    to install LaTeX in order to build the PDF output --- RStudio will
-    prompt you if this is necessary.)
+1.  Creare un nuovo documento R Markdown per ognuno dei tre formati incorporati
+    formati incorporati: HTML, PDF e Word. Lavorate a maglia ciascuno dei tre documenti.
+    In che modo l'output differisce? In cosa differisce l'input? (Potrebbe essere necessario
+    installare LaTeX per creare l'output PDF --- RStudio vi chiederà se è necessario).
+    vi chiederà se ciò è necessario).
 
-## Text formatting with Markdown
+## Formattazione del testo con Markdown
 
-Prose in `.Rmd` files is written in Markdown, a lightweight set of conventions for formatting plain text files. Markdown is designed to be easy to read and easy to write. It is also very easy to learn. The guide below shows how to use Pandoc's Markdown, a slightly extended version of Markdown that R Markdown understands.
+La prosa nei file `.Rmd` è scritta in Markdown, un insieme leggero di convenzioni per la formattazione dei file di testo. Markdown è stato progettato per essere facile da leggere e da scrivere. È anche molto facile da imparare. La guida che segue mostra come utilizzare il Markdown di Pandoc, una versione leggermente estesa di Markdown che R Markdown comprende.
 
 ```{r, echo = FALSE, comment = ""}
 cat(readr::read_file("rmarkdown/markdown.Rmd"))
 ```
 
-The best way to learn these is simply to try them out. It will take a few days, but soon they will become second nature, and you won't need to think about them. If you forget, you can get to a handy reference sheet with *Help > Markdown Quick Reference*.
+Il modo migliore per impararle è semplicemente provarle. Ci vorrà qualche giorno, ma presto diventeranno una seconda natura e non sarà più necessario pensarci. In caso di dimenticanza, è possibile accedere a un pratico foglio di riferimento con *Help > Markdown Quick Reference*.
 
-### Exercises
+### Esercizi
 
-1.  Practice what you've learned by creating a brief CV. The title should be
-    your name, and you should include headings for (at least) education or
-    employment. Each of the sections should include a bulleted list of
-    jobs/degrees. Highlight the year in bold.
+1.  Mettete in pratica quanto appreso creando un breve curriculum vitae. Il titolo dovrebbe essere
+    il vostro nome, e dovreste includere titoli per (almeno) l'istruzione o l'impiego.
+    occupazione. Ciascuna delle sezioni deve includere un elenco puntato di
+    lavori/diplomi. Evidenziate l'anno in grassetto.
     
-1.  Using the R Markdown quick reference, figure out how to:
+1.  Utilizzando la guida rapida di R Markdown, capire come fare:
 
-    1.  Add a footnote.
-    1.  Add a horizontal rule.
-    1.  Add a block quote.
+    1.  Aggiungere una nota a piè di pagina.
+    1.  Aggiungere una regola orizzontale.
+    1.  Aggiungere una citazione a blocchi.
     
-1.  Copy and paste the contents of `diamond-sizes.Rmd` from
-    <https://github.com/hadley/r4ds/tree/master/rmarkdown> in to a local
-    R markdown document. Check that you can run it, then add text after the 
-    frequency polygon that describes its most striking features.
+1.  Copiare e incollare il contenuto di `diamond-sizes.Rmd` da
+    <https://github.com/hadley/r4ds/tree/master/rmarkdown> in un documento
+    R in un documento markdown locale. Verificate che sia possibile eseguirlo, quindi aggiungete del testo dopo il 
+    poligono di frequenza che descrive le sue caratteristiche più evidenti.
 
-## Code chunks
+## Pezzi di codice
 
-To run code inside an R Markdown document, you need to insert a chunk. There are three ways to do so:
+Per eseguire del codice all'interno di un documento R Markdown, è necessario inserire un chunk. Ci sono tre modi per farlo:
 
-1. The keyboard shortcut Cmd/Ctrl + Alt + I
+1. La scorciatoia da tastiera Cmd/Ctrl + Alt + I
 
-1. The "Insert" button icon in the editor toolbar.
+1. L'icona del pulsante "Inserisci" nella barra degli strumenti dell'editor.
 
-1. By manually typing the chunk delimiters ` ```{r} ` and ` ``` `.
+1. Digitando manualmente i delimitatori di pezzi ` ```{r} ` e ` ``` `.
 
-Obviously, I'd recommend you learn the keyboard shortcut. It will save you a lot of time in the long run!
+Ovviamente, vi consiglio di imparare la scorciatoia da tastiera. Vi farà risparmiare molto tempo nel lungo periodo!
 
-You can continue to run the code using the keyboard shortcut that by now (I hope!) you know and love: Cmd/Ctrl + Enter. However, chunks get a new keyboard shortcut: Cmd/Ctrl + Shift + Enter, which runs all the code in the chunk. Think of a chunk like a function. A chunk should be relatively self-contained, and focussed around a single task. 
+Potete continuare a eseguire il codice utilizzando la scorciatoia da tastiera che ormai (spero!) conoscete e amate: Cmd/Ctrl + Invio. Tuttavia, i chunk hanno una nuova scorciatoia da tastiera: Cmd/Ctrl + Shift + Invio, che esegue tutto il codice contenuto nel gruppo. Pensate a un gruppo come a una funzione. Un chunk dovrebbe essere relativamente autonomo e focalizzato su un singolo compito. 
 
-The following sections describe the chunk header which consists of ```` ```{r ````, followed by an optional chunk name, followed by comma separated options, followed by `}`. Next comes your R code and the chunk end is indicated by a final ```` ``` ````.
+Le sezioni seguenti descrivono l'intestazione del chunk, che consiste in ```` ```{r ````, seguito da un nome opzionale del chunk, seguito da opzioni separate da virgole, seguite da `}`. Segue il codice R e la fine del chunk è indicata da un ultimo ```` ``` ````.
 
-### Chunk name
+### Nome del chunk
 
-Chunks can be given an optional name: ```` ```{r by-name} ````. This has three advantages:
+Ai chunk può essere dato un nome opzionale: ```` ```{r by-name} ````. Questo ha tre vantaggi:
 
-1.  You can more easily navigate to specific chunks using the drop-down
-    code navigator in the bottom-left of the script editor:
+1.  Si può navigare più facilmente verso specifici chunk usando il navigatore di codice a discesa in basso a sinistra.
+    navigatore di codice in basso a sinistra nell'editor di script:
 
     ```{r, echo = FALSE, out.width = "30%"}
     knitr::include_graphics("screenshots/rmarkdown-chunk-nav.png")
     ```
 
-1.  Graphics produced by the chunks will have useful names that make
-    them easier to use elsewhere. More on that in [other important options].
+1.  I grafici prodotti dai chunks avranno nomi utili che li renderanno
+    più facili da usare altrove. Maggiori informazioni in [altre opzioni importanti].
     
-1.  You can set up networks of cached chunks to avoid re-performing expensive
-    computations on every run. More on that below.
+1.  È possibile impostare reti di pezzi memorizzati nella cache per evitare di rieseguire costose
+    calcoli costosi a ogni esecuzione. Per saperne di più, si veda più avanti.
 
-There is one chunk name that imbues special behaviour: `setup`. When you're in a notebook mode, the chunk named setup will be run automatically once, before any other code is run.
+C'è un nome di chunk che implica un comportamento speciale: `setup`. Quando si è in modalità notebook, il chunk chiamato setup viene eseguito automaticamente una volta, prima che venga eseguito qualsiasi altro codice.
 
-### Chunk options
+### Opzioni dei chunk
 
-Chunk output can be customised with __options__, arguments supplied to chunk header. Knitr provides almost 60 options that you can use to customize your code chunks. Here we'll cover the most important chunk options that you'll use frequently. You can see the full list at <http://yihui.name/knitr/options/>. 
+L'output dei chunk può essere personalizzato con le __opzioni__, argomenti forniti all'intestazione dei chunk. Knitr fornisce quasi 60 opzioni che possono essere utilizzate per personalizzare i chunk di codice. In questa sede tratteremo le opzioni più importanti, che verranno utilizzate di frequente. L'elenco completo è disponibile all'indirizzo <http://yihui.name/knitr/options/>. 
 
-The most important set of options controls if your code block is executed and what results are inserted in the finished report:
+L'insieme più importante di opzioni controlla se il blocco di codice viene eseguito e quali risultati vengono inseriti nel report finito:
   
-*   `eval = FALSE` prevents code from being evaluated. (And obviously if the
-    code is not run, no results will be generated). This is useful for 
-    displaying example code, or for disabling a large block of code without 
-    commenting each line.
+* `eval = FALSE` impedisce che il codice venga valutato. (E ovviamente se il codice
+    codice non viene eseguito, non verrà generato alcun risultato). Questo è utile per 
+    visualizzare un esempio di codice, o per disabilitare un grande blocco di codice senza 
+    commentare ogni riga.
 
-*   `include = FALSE` runs the code, but doesn't show the code or results 
-    in the final document. Use this for setup code that you don't want
-    cluttering your report.
+* `include = FALSE` esegue il codice, ma non mostra il codice o i risultati nel documento finale. 
+    nel documento finale. Usare questa opzione per il codice di configurazione che non si vuole
+    ingombrare il rapporto.
 
-*   `echo = FALSE` prevents code, but not the results from appearing in the 
-    finished file. Use this when writing reports aimed at people who don't
-    want to see the underlying R code.
+* `echo = FALSE` impedisce al codice, ma non ai risultati, di apparire nel file finale. 
+    file finito. Usare questa opzione quando si scrivono rapporti destinati a persone che non vogliono
+    non vogliono vedere il codice R sottostante.
     
-*   `message = FALSE` or `warning = FALSE` prevents messages or warnings 
-    from appearing in the finished file.
+* `messaggio = FALSE` o `avvertimento = FALSE` impedisce che i messaggi o gli avvertimenti 
+    di apparire nel file finito.
 
-*   `results = 'hide'` hides printed output; `fig.show = 'hide'` hides
-    plots.
+* `risultati = 'hide'` nasconde l'output stampato; `fig.show = 'hide'` nasconde i
+    trame.
 
-*   `error = TRUE` causes the render to continue even if code returns an error.
-    This is rarely something you'll want to include in the final version
-    of your report, but can be very useful if you need to debug exactly
-    what is going on inside your `.Rmd`. It's also useful if you're teaching R
-    and want to deliberately include an error. The default, `error = FALSE` causes 
-    knitting to fail if there is a single error in the document.
+* `error = TRUE` fa sì che il rendering continui anche se il codice restituisce un errore.
+    Questo è raramente qualcosa che si vuole includere nella versione finale del report.
+    del report, ma può essere molto utile se si ha la necessità di eseguire il debug di ciò che
+    cosa sta succedendo all'interno di `.Rmd`. È anche utile se si sta insegnando R
+    e si vuole includere deliberatamente un errore. L'impostazione predefinita, `errore = FALSO`, fa sì che 
+    fa sì che il knitting fallisca se c'è un singolo errore nel documento.
     
-The following table summarises which types of output each option suppresses:
+La tabella seguente riassume i tipi di output che ciascuna opzione sopprime:
 
 Option             | Run code | Show code | Output | Plots | Messages | Warnings 
 -------------------|----------|-----------|--------|-------|----------|---------
@@ -201,15 +201,15 @@ Option             | Run code | Show code | Output | Plots | Messages | Warnings
 `message = FALSE`  |          |           |        |       | -        |
 `warning = FALSE`  |          |           |        |       |          | -
 
-### Table
+### Tabelle
 
-By default, R Markdown prints data frames and matrices as you'd see them in the console:
+Per impostazione predefinita, R Markdown stampa frame e matrici di dati come li vedreste nella console:
 
 ```{r}
 mtcars[1:5, ]
 ```
 
-If you prefer that data be displayed with additional formatting you can use the `knitr::kable` function. The code below generates Table \@ref(tab:kable).
+Se si preferisce che i dati siano visualizzati con una formattazione aggiuntiva, si può usare la funzione `knitr::kable`. Il codice seguente genera la tabella \@ref(tab:kable).
 
 ```{r kable}
 knitr::kable(
@@ -218,15 +218,15 @@ knitr::kable(
 )
 ```
 
-Read the documentation for `?knitr::kable` to see the other ways in which you can customise the table. For even deeper customisation, consider the __xtable__, __stargazer__, __pander__, __tables__, and __ascii__ packages. Each provides a set of tools for returning formatted tables from R code.
+Si legga la documentazione di `?knitr::kable` per vedere gli altri modi in cui si può personalizzare la tabella. Per una personalizzazione ancora più profonda, considerate i pacchetti __xtable__, __stargazer__, __pander__, __tables__ e __ascii__. Ognuno di essi fornisce una serie di strumenti per restituire tabelle formattate da codice R.
 
-There is also a rich set of options for controlling how figures are embedded. You'll learn about these in [saving your plots].
+Esiste anche una ricca serie di opzioni per controllare il modo in cui le figure vengono incorporate. Queste opzioni sono illustrate in [salvare le trame].
 
 ### Caching
 
-Normally, each knit of a document starts from a completely clean slate. This is great for reproducibility, because it ensures that you've captured every important computation in code. However, it can be painful if you have some computations that take a long time. The solution is `cache = TRUE`. When set, this will save the output of the chunk to a specially named file on disk. On subsequent runs, knitr will check to see if the code has changed, and if it hasn't, it will reuse the cached results.
+Normalmente, ogni maglia di un documento parte da una base completamente pulita. Questo è ottimo per la riproducibilità, perché assicura che ogni calcolo importante sia stato catturato nel codice. Tuttavia, può essere doloroso se si hanno alcuni calcoli che richiedono molto tempo. La soluzione è `cache = TRUE`. Se impostata, questa opzione salva l'output del chunk in un file su disco con un nome speciale. Nelle esecuzioni successive, knitr controllerà se il codice è cambiato e, in caso contrario, riutilizzerà i risultati in cache.
 
-The caching system must be used with care, because by default it is based on the code only, not its dependencies. For example, here the `processed_data` chunk depends on the `raw_data` chunk:
+Il sistema di cache deve essere usato con attenzione, perché per impostazione predefinita si basa solo sul codice, non sulle sue dipendenze. Per esempio, qui il chunk `processed_data` dipende dal chunk `raw_data`:
 
     `r chunk`{r raw_data}
     rawdata <- readr::read_csv("a_very_large_file.csv")
@@ -238,7 +238,7 @@ The caching system must be used with care, because by default it is based on the
       mutate(new_variable = complicated_transformation(x, y, z))
     `r chunk`
 
-Caching the `processed_data` chunk means that it will get re-run if the dplyr pipeline is changed, but it won't get rerun if the `read_csv()` call changes. You can avoid that problem with the `dependson` chunk option:
+Mettere in cache il chunk `processed_data` significa che verrà rieseguito se la pipeline di dplyr viene modificata, ma non verrà rieseguito se la chiamata `read_csv()` cambia. È possibile evitare questo problema con l'opzione chunk `dependson`:
 
     `r chunk`{r processed_data, cache = TRUE, dependson = "raw_data"}
     processed_data <- rawdata %>% 
@@ -246,21 +246,21 @@ Caching the `processed_data` chunk means that it will get re-run if the dplyr pi
       mutate(new_variable = complicated_transformation(x, y, z))
     `r chunk`
 
-`dependson` should contain a character vector of *every* chunk that the cached chunk depends on. Knitr will update the results for the cached chunk whenever it detects that one of its dependencies have changed.
+`dependson` deve contenere un vettore di caratteri di *ogni* chunk da cui il chunk in cache dipende. Knitr aggiornerà i risultati del chunk in cache ogni volta che rileverà che una delle sue dipendenze è cambiata.
 
-Note that the chunks won't update if `a_very_large_file.csv` changes, because knitr caching only tracks changes within the `.Rmd` file. If you want to also track changes to that file you can use the `cache.extra` option. This is an arbitrary R expression that will invalidate the cache whenever it changes. A good function to use is `file.info()`: it returns a bunch of information about the file including when it was last modified. Then you can write:
+Si noti che i chunk non verranno aggiornati se `a_very_large_file.csv` cambia, perché la cache di Knitr tiene traccia solo dei cambiamenti all'interno del file `.Rmd`. Se si vuole tenere traccia anche delle modifiche a quel file, si può usare l'opzione `cache.extra`. Si tratta di un'espressione R arbitraria che invalida la cache ogni volta che viene modificata. Una buona funzione da usare è `file.info()`: restituisce una serie di informazioni sul file, compresa l'ultima modifica. Quindi si può scrivere:
 
     `r chunk`{r raw_data, cache.extra = file.info("a_very_large_file.csv")}
     rawdata <- readr::read_csv("a_very_large_file.csv")
     `r chunk`
 
-As your caching strategies get progressively more complicated, it's a good idea to regularly clear out all your caches with `knitr::clean_cache()`.
+Quando le strategie di cache diventano progressivamente più complicate, è una buona idea svuotare regolarmente tutte le cache con `knitr::clean_cache()`.
 
-I've used the advice of [David Robinson](https://twitter.com/drob/status/738786604731490304) to name these chunks: each chunk is named after the primary object that it creates. This makes it easier to understand the `dependson` specification.
+Ho usato il consiglio di [David Robinson](https://twitter.com/drob/status/738786604731490304) per dare un nome a questi chunk: ogni chunk ha il nome dell'oggetto primario che crea. Questo rende più facile la comprensione della specifica `dependson`.
 
-### Global options
+### Opzioni globali
 
-As you work more with knitr, you will discover that some of the default chunk options don't fit your needs and you want to change them. You can do this by calling `knitr::opts_chunk$set()` in a code chunk. For example, when writing books and tutorials I set:
+Lavorando di più con knitr, si scoprirà che alcune delle opzioni predefinite dei chunk non sono adatte alle proprie esigenze e si vorrà cambiarle. È possibile farlo chiamando `knitr::opts_chunk$set()` in un pezzo di codice. Per esempio, quando scrivo libri e tutorial, imposto:
 
 ```{r, eval = FALSE}
 knitr::opts_chunk$set(
@@ -269,7 +269,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This uses my preferred comment formatting, and ensures that the code and output are kept closely entwined. On the other hand, if you were preparing a report, you might set:
+Questo utilizza la formattazione dei commenti che preferisco e garantisce che il codice e l'output siano strettamente legati. D'altra parte, se si stesse preparando una relazione, si potrebbe impostare:
 
 ```{r eval = FALSE}
 knitr::opts_chunk$set(
@@ -277,22 +277,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-That will hide the code by default, so only showing the chunks you deliberately choose to show (with `echo = TRUE`). You might consider setting `message = FALSE` and `warning = FALSE`, but that would make it harder to debug problems because you wouldn't see any messages in the final document.
+Questo nasconderà il codice per impostazione predefinita, mostrando solo le parti che si sceglie deliberatamente di mostrare (con `echo = TRUE`). Si potrebbe pensare di impostare `message = FALSE` e `warning = FALSE`, ma questo renderebbe più difficile il debug dei problemi, perché non si vedrebbe alcun messaggio nel documento finale.
 
-### Inline code
+### Codice in linea
 
-There is one other way to embed R code into an R Markdown document: directly into the text, with:  `r inline()`. This can be very useful if you mention properties of your data in the text. For example, in the example document I used at the start of the chapter I had:
+Esiste un altro modo per incorporare codice R in un documento R Markdown: direttamente nel testo, con:  `r inline()`. Questo può essere molto utile se si citano le proprietà dei dati nel testo. Per esempio, nel documento di esempio che ho usato all'inizio del capitolo, avevo:
 
-> We have data about `r inline('nrow(diamonds)')` diamonds. 
-> Only `r inline('nrow(diamonds) - nrow(smaller)')` are larger 
-> than 2.5 carats. The distribution of the remainder is shown below:
+> Abbiamo dati sui diamanti di `r inline('nrow(diamonds)')`. 
+> Solo `r inline('nrow(diamonds) - nrow(smaller)')` sono più grandi di 
+> di 2,5 carati. La distribuzione dei rimanenti è mostrata di seguito:
 
-When the report is knit, the results of these computations are inserted into the text:
+Quando il report viene lavorato a maglia, i risultati di questi calcoli vengono inseriti nel testo:
 
-> We have data about 53940 diamonds. Only 126 are larger than 
-> 2.5 carats. The distribution of the remainder is shown below:
+> Abbiamo dati su 53940 diamanti. Solo 126 sono più grandi di 
+> 2,5 carati. La distribuzione dei rimanenti è mostrata di seguito:
 
-When inserting numbers into text, `format()` is your friend. It allows you to set the number of `digits` so you don't print to a ridiculous degree of accuracy, and a `big.mark` to make numbers easier to read. I'll often combine these into a helper function:
+Quando si inseriscono numeri nel testo, `format()` è un amico. Permette di impostare il numero di `cifre', in modo da non stampare con una precisione ridicola, e un `big.mark' per rendere i numeri più facili da leggere. Spesso le combino in una funzione di aiuto:
 
 ```{r}
 comma <- function(x) format(x, digits = 2, big.mark = ",")
@@ -300,51 +300,51 @@ comma(3452345)
 comma(.12358124331)
 ```
 
-### Exercises
+### Esercizi
 
-1.  Add a section that explores how diamond sizes vary by cut, colour,
-    and clarity. Assume you're writing a report for someone who doesn't know
-    R, and instead of setting `echo = FALSE` on each chunk, set a global 
-    option.
+1.  Aggiungere una sezione che esplori come le dimensioni dei diamanti variano in base al taglio, al colore e alla purezza,
+    e chiarezza. Si supponga di scrivere una relazione per qualcuno che non conosce R.
+    R, e invece di impostare `echo = FALSE` su ogni pezzo, impostate un'opzione globale. 
+    globale.
 
-1.  Download `diamond-sizes.Rmd` from
-    <https://github.com/hadley/r4ds/tree/master/rmarkdown>. Add a section
-    that describes the largest 20 diamonds, including a table that displays
-    their most important attributes.
+1.  Scaricare `diamond-sizes.Rmd` da
+    <https://github.com/hadley/r4ds/tree/master/rmarkdown>. Aggiungete una sezione
+    che descriva i 20 diamanti più grandi, inclusa una tabella che mostri i loro
+    gli attributi più importanti.
 
-1.  Modify `diamonds-sizes.Rmd` to use `comma()` to produce nicely
-    formatted output. Also include the percentage of diamonds that are
-    larger than 2.5 carats.
+1.  Modificare `diamonds-sizes.Rmd` per utilizzare `comma()` per produrre un output ben
+    formattato. Includere anche la percentuale di diamanti
+    più grandi di 2,5 carati.
 
-1.  Set up a network of chunks where `d` depends on `c` and `b`, and
-    both `b` and `c` depend on `a`. Have each chunk print `lubridate::now()`,
-    set `cache = TRUE`, then verify your understanding of caching.
+1.  Impostare una rete di pezzi dove `d` dipende da `c` e `b`, e
+    sia `b` che `c` dipendono da `a`. Fate in modo che ogni chunk stampi `lubridate::now()`,
+    impostare `cache = TRUE`, quindi verificare la comprensione della cache.
 
-## Troubleshooting
+## Risoluzione dei problemi
 
-Troubleshooting R Markdown documents can be challenging because you are no longer in an interactive R environment, and you will need to learn some new tricks. The first thing you should always try is to recreate the problem in an interactive session. Restart R, then "Run all chunks" (either from Code menu, under Run region), or with the keyboard shortcut Ctrl + Alt + R. If you're lucky, that will recreate the problem, and you can figure out what's going on interactively.
+La risoluzione dei problemi dei documenti R Markdown può essere impegnativa, perché non ci si trova più in un ambiente R interattivo, e sarà necessario imparare alcuni nuovi trucchi. La prima cosa da fare è ricreare il problema in una sessione interattiva. Riavviate R, quindi "Esegui tutti i pezzi" (dal menu Codice, sotto la voce Esegui regione) o con la scorciatoia da tastiera Ctrl + Alt + R. Se siete fortunati, questo ricreerà il problema e potrete capire cosa sta succedendo in modo interattivo.
 
-If that doesn't help, there must be something different between your interactive environment and the R markdown environment. You're going to need to systematically explore the options. The most common difference is the working directory: the working directory of an R Markdown is the directory in which it lives. Check the working directory is what you expect by including `getwd()` in a chunk.
+Se questo non aiuta, deve esserci qualcosa di diverso tra l'ambiente interattivo e l'ambiente markdown di R. È necessario sistemare l'ambiente interattivo e l'ambiente markdown. È necessario esplorare sistematicamente le opzioni. La differenza più comune è la directory di lavoro: la directory di lavoro di un markdown R è la directory in cui risiede. Verificate che la directory di lavoro sia quella che vi aspettate includendo `getwd()` in un chunk.
 
-Next, brainstorm all the things that might cause the bug. You'll need to systematically check that they're the same in your R session and your R markdown session. The easiest way to do that is to set `error = TRUE` on the chunk causing the problem, then use `print()` and `str()` to check that settings are as you expect.
+Successivamente, si deve fare un brainstorming di tutte le cose che potrebbero causare il bug. È necessario verificare sistematicamente che siano gli stessi nella sessione R e nella sessione R markdown. Il modo più semplice per farlo è impostare `error = TRUE` sul pezzo che causa il problema, quindi usare `print()` e `str()` per verificare che le impostazioni siano quelle previste.
 
-## YAML header
+## Intestazione YAML
 
-You can control many other "whole document" settings by tweaking the parameters of the YAML header.  You might wonder what YAML stands for: it's "yet another markup language", which is designed for representing hierarchical data in a way that's easy for humans to read and write. R Markdown uses it to control many details of the output. Here we'll discuss two: document parameters and bibliographies.
+È possibile controllare molte altre impostazioni dell'intero documento modificando i parametri dell'intestazione YAML.  Ci si potrebbe chiedere cosa significhi YAML: è "un altro linguaggio di markup", progettato per rappresentare dati gerarchici in modo facile da leggere e scrivere per gli esseri umani. R Markdown lo usa per controllare molti dettagli dell'output. Qui ne discuteremo due: i parametri del documento e le bibliografie.
 
-### Parameters
+### Parametri
 
-R Markdown documents can include one or more parameters whose values can be set when you render the report. Parameters are useful when you want to re-render the same report with distinct values for various key inputs. For example, you might be producing sales reports per branch, exam results by student, or demographic summaries by country. To declare one or more parameters, use the `params` field. 
+I documenti R Markdown possono includere uno o più parametri i cui valori possono essere impostati durante il rendering del report. I parametri sono utili quando si vuole riproporre lo stesso report con valori diversi per vari input chiave. Ad esempio, si possono produrre rapporti di vendita per filiale, risultati di esami per studente o riepiloghi demografici per paese. Per dichiarare uno o più parametri, utilizzare il campo `params`. 
 
-This example uses a `my_class` parameter to determine which class of cars to display:
+Questo esempio utilizza il parametro `my_class` per determinare la classe di auto da visualizzare:
 
 ```{r, echo = FALSE, out.width = "100%", comment = ""}
 cat(readr::read_file("rmarkdown/fuel-economy.Rmd"))
 ```
 
-As you can see, parameters are available within the code chunks as a read-only list named `params`.
+Come si può vedere, i parametri sono disponibili all'interno dei pezzi di codice come un elenco di sola lettura chiamato `params`.
 
-You can write atomic vectors directly into the YAML header. You can also run arbitrary R expressions by prefacing the parameter value with `!r`. This is a good way to specify date/time parameters.
+È possibile scrivere vettori atomici direttamente nell'intestazione YAML. È anche possibile eseguire espressioni R arbitrarie, anteponendo al valore del parametro `!r`. Questo è un buon modo per specificare parametri di data/ora.
 
 ```yaml
 params:
@@ -352,15 +352,15 @@ params:
   snapshot: !r lubridate::ymd_hms("2015-01-01 12:30:00")
 ```
 
-In RStudio, you can click the "Knit with Parameters" option in the Knit dropdown menu to set parameters, render, and preview the report in a single user friendly step. You can customise the dialog by setting other options in the header. See <http://rmarkdown.rstudio.com/developer_parameterized_reports.html#parameter_user_interfaces> for more details.
+In RStudio, è possibile fare clic sull'opzione "Knit with Parameters" nel menu a discesa Knit per impostare i parametri, eseguire il rendering e visualizzare l'anteprima del report in un unico passaggio di facile utilizzo. È possibile personalizzare la finestra di dialogo impostando altre opzioni nell'intestazione. Per ulteriori dettagli, vedere <http://rmarkdown.rstudio.com/developer_parameterized_reports.html#parameter_user_interfaces>.
 
-Alternatively, if you need to produce many such parameterised reports, you can call `rmarkdown::render()` with a list of `params`:
+In alternativa, se è necessario produrre molti rapporti parametrati, si può chiamare `rmarkdown::render()` con un elenco di `parametri`:
 
 ```{r eval = FALSE}
 rmarkdown::render("fuel-economy.Rmd", params = list(my_class = "suv"))
 ```
 
-This is particularly powerful in conjunction with `purrr:pwalk()`. The following example creates a report for each value of `class` found in `mpg`. First we create a data frame that has one row for each class, giving the `filename` of the report and the `params`:
+È particolarmente potente in combinazione con `purrr:pwalk()`. L'esempio seguente crea un report per ogni valore di `classe` trovato in `mpg`. Per prima cosa si crea un frame di dati con una riga per ogni classe, indicando il `nome del file` del report e i `parametri`:
 
 ```{r}
 reports <- tibble(
@@ -371,7 +371,7 @@ reports <- tibble(
 reports
 ```
 
-Then we match the column names to the argument names of `render()`, and use purrr's **parallel** walk to call `render()` once for each row:
+Quindi si abbinano i nomi delle colonne ai nomi degli argomenti di `render()` e si usa il metodo **parallel** di Purrr per chiamare `render()` una volta per ogni riga:
 
 ```{r, eval = FALSE}
 reports %>% 
@@ -379,54 +379,54 @@ reports %>%
   purrr::pwalk(rmarkdown::render, input = "fuel-economy.Rmd")
 ```
 
-### Bibliographies and Citations
+### Bibliografie e citazioni
 
-Pandoc can automatically generate citations and a bibliography in a number of styles. To use this feature, specify a bibliography file using the `bibliography` field in your file's header. The field should contain a path from the directory that contains your .Rmd file to the file that contains the bibliography file:
+Pandoc può generare automaticamente citazioni e una bibliografia in diversi stili. Per utilizzare questa funzione, specificare un file di bibliografia utilizzando il campo `bibliografia' nell'intestazione del file. Il campo deve contenere un percorso dalla directory che contiene il file .Rmd al file che contiene la bibliografia:
 
 ```yaml
-bibliography: rmarkdown.bib
+bibliografia: rmarkdown.bib
 ```
 
-You can use many common bibliography formats including BibLaTeX, BibTeX, endnote, medline.
+È possibile utilizzare molti formati di bibliografia comuni, tra cui BibLaTeX, BibTeX, endnote, medline.
 
-To create a citation within your .Rmd file, use a key composed of ‘@’ + the citation identifier from the bibliography file. Then place the citation in square brackets. Here are some examples:
+Per creare una citazione all'interno del file .Rmd, utilizzare una chiave composta da '@' + l'identificatore della citazione dal file di bibliografia. Quindi inserire la citazione tra parentesi quadre. Ecco alcuni esempi:
 
 ```markdown
-Separate multiple citations with a `;`: Blah blah [@smith04; @doe99].
+Separare più citazioni con un `;`: Blah blah [@smith04; @doe99].
 
-You can add arbitrary comments inside the square brackets: 
-Blah blah [see @doe99, pp. 33-35; also @smith04, ch. 1].
+È possibile aggiungere commenti arbitrari all'interno delle parentesi quadre: 
+Blah blah [cfr. @doe99, pp. 33-35; anche @smith04, cap. 1].
 
-Remove the square brackets to create an in-text citation: @smith04 
-says blah, or @smith04 [p. 33] says blah.
+Rimuovere le parentesi quadre per creare una citazione nel testo: @smith04 
+dice bla, oppure @smith04 [p. 33] dice bla.
 
-Add a `-` before the citation to suppress the author's name: 
-Smith says blah [-@smith04].
+Aggiungere un `-` prima della citazione per sopprimere il nome dell'autore: 
+Smith dice bla [-@smith04].
 ```
 
-When R Markdown renders your file, it will build and append a bibliography to the end of your document. The bibliography will contain each of the cited references from your bibliography file, but it will not contain a section heading. As a result it is common practice to end your file with a section header for the bibliography, such as `# References` or `# Bibliography`.
+Quando R Markdown esegue il rendering del file, costruisce e aggiunge una bibliografia alla fine del documento. La bibliografia conterrà tutti i riferimenti citati nel file di bibliografia, ma non conterrà un titolo di sezione. Di conseguenza, è prassi comune terminare il file con un'intestazione di sezione per la bibliografia, come `# Riferimenti` o `# Bibliografia`.
 
-You can change the style of your citations and bibliography by referencing a CSL (citation style language) file in the `csl` field:
+È possibile modificare lo stile delle citazioni e della bibliografia facendo riferimento a un file CSL (citation style language) nel campo `csl`:
 
 ```yaml
-bibliography: rmarkdown.bib
-csl: apa.csl
+bibliografia: rmarkdown.bib
+CSL: apa.csl
 ```
 
-As with the bibliography field, your csl file should contain a path to the file. Here I assume that the csl file is in the same directory as the .Rmd file. A good place to find CSL style files for common bibliography styles is  <http://github.com/citation-style-language/styles>.
+Come per il campo bibliografia, il file csl deve contenere il percorso del file. Qui assumo che il file csl si trovi nella stessa directory del file .Rmd. Un buon posto dove trovare i file di stile CSL per gli stili di bibliografia più comuni è <http://github.com/citation-style-language/styles>.
 
-## Learning more
+## Per saperne di più
 
-R Markdown is still relatively young, and is still growing rapidly. The best place to stay on top of innovations is the official R Markdown website: <http://rmarkdown.rstudio.com>.
+R Markdown è ancora relativamente giovane e sta crescendo rapidamente. Il posto migliore per rimanere aggiornati sulle novità è il sito ufficiale di R Markdown: <http://rmarkdown.rstudio.com>.
 
-There are two important topics that we haven't covered here: collaboration, and the details of accurately communicating your ideas to other humans. Collaboration is a vital part of modern data science, and you can make your life much easier by using version control tools, like Git and GitHub. We recommend two free resources that will teach you about Git:
+Ci sono due argomenti importanti che non sono stati trattati qui: la collaborazione e i dettagli per comunicare accuratamente le proprie idee ad altri esseri umani. La collaborazione è una parte vitale della moderna scienza dei dati e potete semplificarvi la vita utilizzando strumenti di controllo delle versioni, come Git e GitHub. Vi consigliamo due risorse gratuite che vi insegneranno a conoscere Git:
 
-1.  "Happy Git with R": a user friendly introduction to Git and GitHub from 
-    R users, by Jenny Bryan. The book is freely available online:
+1.  "Happy Git with R": un'introduzione semplice a Git e GitHub per gli utenti di R, a cura di Jenny Bryan. 
+    utenti di R, di Jenny Bryan. Il libro è disponibile gratuitamente online:
     <http://happygitwithr.com>
     
-1.  The "Git and GitHub" chapter of _R Packages_, by Hadley. You can also 
-    read it for free online: <http://r-pkgs.had.co.nz/git.html>.
+1.  Il capitolo "Git e GitHub" di _R Packages_, di Hadley. È anche possibile 
+    leggerlo gratuitamente online: <http://r-pkgs.had.co.nz/git.html>.
 
-I have also not touched on what you should actually write in order to clearly communicate the results of your analysis. To improve your writing, I highly recommend reading either [_Style: Lessons in Clarity and Grace_](https://amzn.com/0134080416) by Joseph M. Williams & Joseph Bizup, or [_The Sense of Structure: Writing from the Reader's Perspective_](https://amzn.com/0205296327) by George Gopen. Both books will help you understand the structure of sentences and paragraphs, and give you the tools to make your writing more clear. (These books are rather expensive if purchased new, but they're used by many English classes so there are plenty of cheap second-hand copies). George Gopen also has a number of short articles on writing at <https://www.georgegopen.com/the-litigation-articles.html>. They are aimed at lawyers, but almost everything applies to data scientists too. 
+Non ho nemmeno parlato di ciò che dovreste scrivere per comunicare chiaramente i risultati della vostra analisi. Per migliorare la vostra scrittura, vi consiglio di leggere [_Style: Lessons in Clarity and Grace_] (https://amzn.com/0134080416) di Joseph M. Williams e Joseph Bizup, oppure [_The Sense of Structure: Writing from the Reader's Perspective_] (https://amzn.com/0205296327) di George Gopen. Entrambi i libri vi aiuteranno a capire la struttura delle frasi e dei paragrafi e vi daranno gli strumenti per rendere più chiara la vostra scrittura. (Questi libri sono piuttosto costosi se acquistati nuovi, ma sono utilizzati da molti corsi di inglese, quindi si trovano molte copie di seconda mano a buon mercato). George Gopen ha anche una serie di brevi articoli sulla scrittura all'indirizzo <https://www.georgegopen.com/the-litigation-articles.html>. Sono rivolti agli avvocati, ma quasi tutto si applica anche agli scienziati dei dati. 
   
