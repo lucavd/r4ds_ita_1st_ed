@@ -34,7 +34,7 @@ Ho cercato di cambiare il minimo possibile del libro originale mantenendo i term
 
 La traduzione è stata effettuata sulla **prima edizione** (poi andata in stampa) del libro, quindi non sulla versione aggiornata ad oggi (che è un seconda edizione *in fieri*). Quando verrà pubblicata la seconda edizione del libro, ne farò una seconda traduzione da zero.
 
-Potete segnalare errori o suggerimenti aprendo una issue nella [repository GitHub](https://github.com/lucavd/r4ds_ita_1st_ed) della traduzione.
+Potete segnalare errori o suggerimenti (molto apprezzati!) aprendo una issue nella [repository GitHub](https://github.com/lucavd/r4ds_ita_1st_ed) della traduzione.
 
 ## Ringraziamenti {.unnumbered}
 
