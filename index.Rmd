@@ -2,7 +2,7 @@
 knit: "bookdown::render_book"
 title: "R for Data Science - edizione italiana"
 author: "Hadley Wickham and Garrett Grolemund"
-description: "Questo libro vi insegnerà come fare data science con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici--e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la 'grammar of graphics', la 'programmazione letterale 'literate programming' e la ricerca riproducibile per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati"
+description: "Questo libro vi insegnerà come fare _data science_ con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici--e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la 'gramamtica dei grafici' (_grammar of graphics_), la 'programmazione letterale' (_literate programming_) e la 'ricerca riproducibile' (_reproducible research_) per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati"
 url: 'https\://r4ds-ita-1st-ed.netlify.app'
 github-repo: lucavd/r4ds_ita_1st_ed
 twitter-handle: lucavd
@@ -13,13 +13,13 @@ documentclass: book
 
 # Benvenuto {.unnumbered}
 
-<a href="http://amzn.to/2aHLAQ1"><img src="cover.png" alt="Buy from amazon" class="cover" width="250" height="375"/></a> Questo è il sito della traduzione italiana del libro **"R for Data Science"**. Questo libro vi insegnerà come fare data science con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici--e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la 'grammar of graphics', la 'programmazione letterale 'literate programming' e la ricerca riproducibile per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati
+<a href="http://amzn.to/2aHLAQ1"><img src="cover.png" alt="Buy from amazon" class="cover" width="250" height="375"/></a> Questo è il sito della traduzione italiana del libro **"R for Data Science"**. Questo libro vi insegnerà come fare _data science_ con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici--e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la 'gramamtica dei grafici' (_grammar of graphics_), la 'programmazione letterale' (_literate programming_) e la 'ricerca riproducibile' (_reproducible research_) per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati
 
-Questo sito è (e sempre sarà) **gratuito**, ed è licenziato sotto [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/). Se volete una **copia fisica** del libro (in inglese), potete ordinarlo da [amazon](http://amzn.to/2aHLAQ1);è stato pubblicato da O'Reilly nel gennaio 2017. Se vuoi invece **donare qualcosa** puoi fare una donazione alla [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): il [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (che è riprodotto sulla copertina di R4DS) è un pappagallo nativo della Nuova Zelanda a grave rischio di estinzione; ne sono rimasti solo 213[^index-1].
+Questo sito è (e sempre sarà) **gratuito**, ed è licenziato sotto [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/). Se volete una **copia fisica** del libro (in inglese), potete ordinarlo da [amazon](http://amzn.to/2aHLAQ1); è stato pubblicato da O'Reilly nel gennaio 2017. Se vuoi invece **donare qualcosa** puoi fare una donazione alla [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): il [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (che è riprodotto sulla copertina di R4DS) è un pappagallo nativo della Nuova Zelanda a grave rischio di estinzione; ne sono rimasti solo 213[^index-1].
 
 [^index-1]: Nel dicembre 2021 (inizio della traduzione) ne sono rimasti solo 201 (NdT)
 
-R4DS usa un [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). Contribuendo a questo libro, accetti di rispettare i suoi termini.
+R4DS usa un [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html) (versione in italiano visionabile [qui](https://www.contributor-covenant.org/it/version/2/0/code_of_conduct/)). Contribuendo a questo libro, accetti di rispettare i suoi termini.
 
 ## Nota sulla traduzione italiana {.unnumbered}
 
@@ -28,13 +28,13 @@ R4DS usa un [Contributor Code of Conduct](https://contributor-covenant.org/versi
 
 La traduzione italiana del libro R4DS è stata condotta da [Luca Vedovelli](https://lucavd.netlify.app/) su [esplicita autorizzazione]{.ul} dell'autore (Hadley Wickam) e dell'editore O'Reilly che detiene i diritti di traduzione.
 
-Il motivo che mi ha spinto alla traduzione di un testo fondamentale per chi si avvicina all'ambiente di R e della data science è la volontà di abbattere almeno uno scoglio (la lingua) per permettere al lettore (che io immagino essere una mia studentessa o studente) di concentrarsi sui concetti e tecniche.
+Il motivo che mi ha spinto alla traduzione di un testo fondamentale per chi si avvicina all'ambiente di R e della _data science_ è la volontà di abbattere almeno uno scoglio (la lingua) lungo il loro apprendimento, per permettere al lettore (che io immagino essere una mia studentessa o studente) di concentrarsi sui concetti e tecniche.
 
-Ho cercato di cambiare il minimo possibile del libro originale mantenendo i termini inglesi dove i corrispondenti italiani suonavano desueti o ridicoli. Anche link, autori, ringraziamenti sono rimasti inalterati. Anche il codice è rimasto inalterato (ho tradotto solo le note di testo interne al codice).
+Ho cercato di cambiare il minimo possibile dal libro originale mantenendo i termini inglesi dove i corrispondenti italiani suonavano desueti o ridicoli. Anche link, autori, ringraziamenti sono rimasti inalterati. Anche il codice è rimasto inalterato (ho tradotto solo le note di testo interne al codice).
 
-La traduzione è stata effettuata sulla **prima edizione** (poi andata in stampa) del libro, quindi non sulla versione aggiornata ad oggi (che è un seconda edizione *in fieri*). Quando verrà pubblicata la seconda edizione del libro, ne farò una seconda traduzione da zero.
+La traduzione è stata effettuata sulla **prima edizione** (poi andata in stampa) del libro, quindi non sulla versione aggiornata a oggi (che è un seconda edizione *in fieri*). Quando verrà pubblicata la seconda edizione del libro, ne farò una seconda traduzione daccapo.
 
-Potete segnalare errori o suggerimenti (molto apprezzati!) aprendo una issue nella [repository GitHub](https://github.com/lucavd/r4ds_ita_1st_ed) della traduzione.
+Potete segnalare errori o suggerimenti (molto apprezzati!) aprendo un pull-request alla [repository GitHub](https://github.com/lucavd/r4ds_ita_1st_ed) della traduzione.
 
 ## Ringraziamenti {.unnumbered}
 
