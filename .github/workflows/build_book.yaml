@@ -9,7 +9,7 @@ on:
     # run every day at 11 PM
     - cron: '0 23 * * *'
 
-name: Build book
+name: Build book on Netlify
 
 env:
   isExtPR: ${{ github.event.pull_request.head.repo.fork == true }}
