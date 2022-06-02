@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Analisi esplorativa | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="7.1 Introduzione Questo capitolo vi mostrerà come usare la visualizzazione e la trasformazione per esplorare i vostri dati in modo sistematico, un compito che gli statistici chiamano analisi...">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="7 Analisi esplorativa | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app/analisi-esplorativa.html">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="7.1 Introduzione Questo capitolo vi mostrerà come usare la visualizzazione e la trasformazione per esplorare i vostri dati in modo sistematico, un compito che gli statistici chiamano analisi...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Analisi esplorativa | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="7.1 Introduzione Questo capitolo vi mostrerà come usare la visualizzazione e la trasformazione per esplorare i vostri dati in modo sistematico, un compito che gli statistici chiamano analisi...">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="active" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="analisi-esplorativa" class="section level1">
+<h1>
+<span class="header-section-number">7</span> Analisi esplorativa<a class="anchor" aria-label="anchor" href="#analisi-esplorativa"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduzione-3" class="section level2">
+<h2>
+<span class="header-section-number">7.1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione-3"><i class="fas fa-link"></i></a>
+</h2>
+<p>Questo capitolo vi mostrerà come usare la visualizzazione e la trasformazione per esplorare i vostri dati in modo sistematico, un compito che gli statistici chiamano analisi esplorativa dei dati, o EDA in breve. L’EDA è un ciclo iterativo. Voi:</p>
+<ol style="list-style-type: decimal">
+<li><p>Generate domande sui vostri dati.</p></li>
+<li><p>Cercate le risposte visualizzando, trasformando e modellando i vostri dati.</p></li>
+<li><p>Usare ciò che si impara per raffinare le domande e/o generare nuove domande.</p></li>
+</ol>
+<p>L’EDA non è un processo formale con un rigido insieme di regole. Più che altro, l’EDA è uno stato mentale. Durante le fasi iniziali dell’EDA dovreste sentirvi liberi di investigare ogni idea che vi viene in mente. Alcune di queste idee andranno a buon fine e altre saranno vicoli ciechi. Man mano che la vostra esplorazione continua, vi concentrerete su alcune aree particolarmente produttive che alla fine metterete per iscritto e comunicherete agli altri.</p>
+<p>L’EDA è una parte importante di qualsiasi analisi dei dati, anche se le domande ti vengono servite su un piatto d’argento, perché devi sempre indagare sulla qualità dei tuoi dati. La pulizia dei dati è solo un’applicazione dell’EDA: vi chiedete se i vostri dati soddisfino o meno le vostre aspettative. Per fare la pulizia dei dati, avrete bisogno di impiegare tutti gli strumenti dell’EDA: visualizzazione, trasformazione e modellazione.</p>
+<div id="prerequisiti-3" class="section level3">
+<h3>
+<span class="header-section-number">7.1.1</span> Prerequisiti<a class="anchor" aria-label="anchor" href="#prerequisiti-3"><i class="fas fa-link"></i></a>
+</h3>
+<p>In questo capitolo combineremo ciò che avete imparato su dplyr e ggplot2 per porre domande in modo interattivo, rispondere con i dati e poi porre nuove domande.</p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="domande" class="section level2">
+<h2>
+<span class="header-section-number">7.2</span> Domande<a class="anchor" aria-label="anchor" href="#domande"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>“Non ci sono domande statistiche di routine, solo domande statistiche discutibili
+routine”. — Sir David Cox</p>
+</blockquote>
+<blockquote>
+<p>Molto meglio una risposta approssimativa alla domanda giusta, che è spesso
+vaga, che una risposta esatta alla domanda sbagliata, che può sempre essere resa
+precisa". — John Tukey</p>
+</blockquote>
+<p>Il tuo obiettivo durante l’EDA è quello di sviluppare una comprensione dei tuoi dati. Il modo più semplice per farlo è usare le domande come strumenti per guidare la vostra indagine. Quando fate una domanda, la domanda focalizza la vostra attenzione su una parte specifica del vostro set di dati e vi aiuta a decidere quali grafici, modelli o trasformazioni fare.</p>
+<p>L’EDA è fondamentalmente un processo creativo. E come la maggior parte dei processi creativi, la chiave per fare domande di <em>qualità</em> è generare una grande <em>quantità</em> di domande. È difficile fare domande rivelatrici all’inizio della vostra analisi perché non sapete quali intuizioni sono contenute nel vostro set di dati. D’altra parte, ogni nuova domanda che ponete vi esporrà a un nuovo aspetto dei vostri dati e aumenterà le vostre possibilità di fare una scoperta. È possibile scavare rapidamente nelle parti più interessanti dei vostri dati - e sviluppare una serie di domande che fanno riflettere - se fate seguire ad ogni domanda una nuova domanda basata su ciò che trovate.</p>
+<p>Non c’è una regola su quali domande dovresti porre per guidare la tua ricerca. Tuttavia, due tipi di domande saranno sempre utili per fare scoperte all’interno dei tuoi dati. Queste domande possono essere formulate liberamente come:</p>
+<ol style="list-style-type: decimal">
+<li><p>Che tipo di variazione si verifica all’interno delle mie variabili?</p></li>
+<li><p>Che tipo di covariazione si verifica tra le mie variabili?</p></li>
+</ol>
+<p>Il resto di questo capitolo esaminerà queste due domande. Spiegherò cosa sono la variazione e la covariazione, e vi mostrerò diversi modi per rispondere a ciascuna domanda. Per facilitare la discussione, definiamo alcuni termini:</p>
+<ul>
+<li><p>Una <strong>variabile</strong> è una quantità, qualità o proprietà che si può misurare.</p></li>
+<li><p>Un <strong>valore</strong> è lo stato di una variabile quando la si misura. Il valore di una
+Il valore di una variabile può cambiare da una misurazione all’altra.</p></li>
+<li><p>Una <strong>osservazione</strong> è un insieme di misurazioni fatte in condizioni simili
+(di solito si fanno tutte le misure di un’osservazione nello stesso
+tempo e sullo stesso oggetto). Un’osservazione conterrà diversi valori,
+ciascuno associato ad una variabile diversa. A volte mi riferirò a
+un’osservazione come un punto di dati.</p></li>
+<li><p>I <strong>Dati tabulari</strong> sono un insieme di valori, ciascuno associato a una variabile e a un’osservazione.
+osservazione. I dati tabulari sono <em>ordinati</em> se ogni valore è collocato nella sua
+“cella”, ogni variabile nella sua colonna e ogni osservazione nella sua
+riga.</p></li>
+</ul>
+<p>Finora, tutti i dati che avete visto sono stati ordinati. Nella vita reale, la maggior parte dei dati non è ordinata, quindi torneremo di nuovo su queste idee in [dati ordinati].</p>
+</div>
+<div id="variazione" class="section level2">
+<h2>
+<span class="header-section-number">7.3</span> Variazione<a class="anchor" aria-label="anchor" href="#variazione"><i class="fas fa-link"></i></a>
+</h2>
+<p>La <strong>Variazione</strong> è la tendenza dei valori di una variabile a cambiare da una misurazione all’altra. Puoi vedere facilmente la variazione nella vita reale; se misuri qualsiasi variabile continua due volte, otterrai due risultati diversi. Questo è vero anche se si misurano quantità che sono costanti, come la velocità della luce. Ognuna delle vostre misurazioni includerà una piccola quantità di errore che varia da misura a misura. Le variabili categoriche possono anche variare se misurate attraverso soggetti diversi (per esempio i colori degli occhi di persone diverse), o tempi diversi (per esempio i livelli di energia di un elettrone in momenti diversi).
+Ogni variabile ha il suo modello di variazione, che può rivelare informazioni interessanti. Il modo migliore per capire questo modello è quello di visualizzare la distribuzione dei valori della variabile.</p>
+<div id="visualizzare-le-distribuzioni" class="section level3">
+<h3>
+<span class="header-section-number">7.3.1</span> Visualizzare le distribuzioni<a class="anchor" aria-label="anchor" href="#visualizzare-le-distribuzioni"><i class="fas fa-link"></i></a>
+</h3>
+<p>Il modo in cui si visualizza la distribuzione di una variabile dipende dal fatto che la variabile sia categorica o continua. Una variabile è <strong>categorica</strong> se può assumere solo uno di un piccolo insieme di valori. In R, le variabili categoriche sono solitamente salvate come fattori o vettori di caratteri. Per esaminare la distribuzione di una variabile categorica, usate un grafico a barre:</p>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-1-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>L’altezza delle barre mostra quante osservazioni si sono verificate con ogni valore x. Puoi calcolare questi valori manualmente con <code><a href="https://dplyr.tidyverse.org/reference/count.html">dplyr::count()</a></code>:</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">cut</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 5 × 2</span>
+<span class="co">#&gt;   cut           n</span>
+<span class="co">#&gt;   &lt;ord&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 Fair       1610</span>
+<span class="co">#&gt; 2 Good       4906</span>
+<span class="co">#&gt; 3 Very Good 12082</span>
+<span class="co">#&gt; 4 Premium   13791</span>
+<span class="co">#&gt; 5 Ideal     21551</span></code></pre></div>
+<p>Una variabile è <strong>continua</strong> se può prendere uno qualsiasi di un insieme infinito di valori ordinati. I numeri e le date-ora sono due esempi di variabili continue. Per esaminare la distribuzione di una variabile continua, usate un istogramma:</p>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Puoi calcolarlo a mano combinando <code><a href="https://dplyr.tidyverse.org/reference/count.html">dplyr::count()</a></code> e <code><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">ggplot2::cut_width()</a></code>:</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_width</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 11 × 2</span>
+<span class="co">#&gt;   `cut_width(carat, 0.5)`     n</span>
+<span class="co">#&gt;   &lt;fct&gt;                   &lt;int&gt;</span>
+<span class="co">#&gt; 1 [-0.25,0.25]              785</span>
+<span class="co">#&gt; 2 (0.25,0.75]             29498</span>
+<span class="co">#&gt; 3 (0.75,1.25]             15977</span>
+<span class="co">#&gt; 4 (1.25,1.75]              5313</span>
+<span class="co">#&gt; 5 (1.75,2.25]              2002</span>
+<span class="co">#&gt; 6 (2.25,2.75]               322</span>
+<span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
+<p>Un istogramma divide l’asse x in intervalli equamente distanziati e poi usa l’altezza di una barra per mostrare il numero di osservazioni che rientrano in ciascun intervallo. Nel grafico qui sopra, la barra più alta mostra che quasi 30.000 osservazioni hanno un valore di <code>carat</code> tra 0,25 e 0,75, che sono i bordi sinistro e destro della barra.</p>
+<p>Potete impostare la larghezza degli intervalli in un istogramma con l’argomento <code>binwidth</code>, che è misurato nelle unità della variabile <code>x</code>. Dovreste sempre esplorare una varietà di larghezze di binario quando lavorate con gli istogrammi, poiché diverse larghezze di binario possono rivelare diversi modelli. Per esempio, ecco come appare il grafico qui sopra quando ingrandiamo solo i diamanti con una dimensione inferiore a tre carati e scegliamo una larghezza di banda più piccola.</p>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">smaller</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">carat</span> <span class="op">&lt;</span> <span class="fl">3</span><span class="op">)</span>
+  
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smaller</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Se vuoi sovrapporre più istogrammi nello stesso grafico, ti consiglio di usare <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly()</a></code> invece di <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code>. La funzione <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly()</a></code> esegue lo stesso calcolo di <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code>, ma invece di visualizzare i conteggi con delle barre, utilizza delle linee. È molto più facile capire le linee sovrapposte rispetto alle barre.</p>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smaller</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, colour <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Ci sono alcune sfide con questo tipo di grafico, su cui torneremo in <a href="analisi-esplorativa.html#cat-cont">visualizzare una variabile categorica e una continua</a>.</p>
+<p>Ora che potete visualizzare la variazione, cosa dovreste cercare nei vostri grafici? E che tipo di domande successive dovresti fare? Ho messo insieme una lista qui sotto dei tipi di informazioni più utili che troverete nei vostri grafici, insieme ad alcune domande di follow-up per ogni tipo di informazione. La chiave per fare buone domande di follow-up sarà fare affidamento sulla tua curiosità (Cosa vuoi sapere di più?) e sul tuo scetticismo (Come potrebbe essere fuorviante?).</p>
+</div>
+<div id="valori-tipici" class="section level3">
+<h3>
+<span class="header-section-number">7.3.2</span> Valori tipici<a class="anchor" aria-label="anchor" href="#valori-tipici"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sia nei grafici a barre che negli istogrammi, le barre alte mostrano i valori comuni di una variabile, e le barre più corte mostrano i valori meno comuni. I punti che non hanno barre rivelano valori che non sono stati visti nei vostri dati. Per trasformare queste informazioni in domande utili, cercate qualcosa di inaspettato:</p>
+<ul>
+<li><p>Quali valori sono i più comuni? Perché?</p></li>
+<li><p>Quali valori sono rari? Perché? Corrisponde alle tue aspettative?</p></li>
+<li><p>Riesci a vedere qualche schema insolito? Cosa potrebbe spiegarli?</p></li>
+</ul>
+<p>Come esempio, l’istogramma qui sotto suggerisce diverse domande interessanti:</p>
+<ul>
+<li><p>Perché ci sono più diamanti a carati interi e frazioni comuni di carati?</p></li>
+<li><p>Perché ci sono più diamanti leggermente a destra di ogni picco rispetto a quelli
+sono leggermente a sinistra di ogni picco?</p></li>
+<li><p>Perché non ci sono diamanti più grandi di 3 carati?</p></li>
+</ul>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smaller</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>I raggruppamenti di valori simili suggeriscono l’esistenza di sottogruppi nei tuoi dati. Per capire i sottogruppi, chiedetevi:</p>
+<ul>
+<li><p>Come sono simili tra loro le osservazioni all’interno di ogni cluster?</p></li>
+<li><p>In che modo le osservazioni in cluster separati sono diverse l’una dall’altra?</p></li>
+<li><p>Come puoi spiegare o descrivere i cluster?</p></li>
+<li><p>Perché l’aspetto dei cluster potrebbe essere fuorviante?</p></li>
+</ul>
+<p>L’istogramma qui sotto mostra la durata (in minuti) di 272 eruzioni dell’Old Faithful Geyser nel Parco Nazionale di Yellowstone. I tempi di eruzione sembrano essere raggruppati in due gruppi: ci sono eruzioni brevi (di circa 2 minuti) ed eruzioni lunghe (4-5 minuti), ma poco nel mezzo.</p>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">faithful</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">eruptions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Molte delle domande di cui sopra vi spingeranno ad esplorare una relazione <em>tra</em> variabili, per esempio, per vedere se i valori di una variabile possono spiegare il comportamento di un’altra variabile. Ci arriveremo tra poco.</p>
+</div>
+<div id="valori-insoliti" class="section level3">
+<h3>
+<span class="header-section-number">7.3.3</span> Valori insoliti<a class="anchor" aria-label="anchor" href="#valori-insoliti"><i class="fas fa-link"></i></a>
+</h3>
+<p>I valori anomali sono osservazioni insolite; punti di dati che non sembrano adattarsi allo schema. A volte i valori anomali sono errori di inserimento dei dati; altre volte i valori anomali suggeriscono importanti novità scientifiche. Quando si hanno molti dati, i valori anomali sono a volte difficili da vedere in un istogramma. Per esempio, prendiamo la distribuzione della variabile <code>y</code> dal set di dati dei diamanti. L’unica prova dell’esistenza di outlier sono i limiti insolitamente ampi sull’asse delle x.</p>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Ci sono così tante osservazioni nei bin comuni che i bin rari sono così corti che non potete vederli (anche se forse se fissate intensamente lo 0 noterete qualcosa). Per rendere facile vedere i valori insoliti, abbiamo bisogno di zoomare a piccoli valori dell’asse y con <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian()</a></code>:</p>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>(<code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian()</a></code> ha anche un argomento <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> per quando avete bisogno di zoomare sull’asse x. ggplot2 ha anche le funzioni <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> e <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> che lavorano in modo leggermente diverso: buttano via i dati al di fuori dei limiti).</p>
+<p>Questo ci permette di vedere che ci sono tre valori insoliti: 0, ~30, e ~60. Li tiriamo fuori con dplyr:</p>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unusual</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">|</span> <span class="va">y</span> <span class="op">&gt;</span> <span class="fl">20</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">price</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="va">unusual</span>
+<span class="co">#&gt; # A tibble: 9 × 4</span>
+<span class="co">#&gt;   price     x     y     z</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  5139  0      0    0   </span>
+<span class="co">#&gt; 2  6381  0      0    0   </span>
+<span class="co">#&gt; 3 12800  0      0    0   </span>
+<span class="co">#&gt; 4 15686  0      0    0   </span>
+<span class="co">#&gt; 5 18034  0      0    0   </span>
+<span class="co">#&gt; 6  2130  0      0    0   </span>
+<span class="co">#&gt; 7  2130  0      0    0   </span>
+<span class="co">#&gt; 8  2075  5.15  31.8  5.12</span>
+<span class="co">#&gt; 9 12210  8.09  58.9  8.06</span></code></pre></div>
+<p>La variabile <code>y</code> misura una delle tre dimensioni di questi diamanti, in mm. Sappiamo che i diamanti non possono avere una larghezza di 0mm, quindi questi valori devono essere errati. Potremmo anche sospettare che le misure di 32mm e 59mm non siano plausibili: quei diamanti sono lunghi più di un pollice, ma non costano centinaia di migliaia di dollari!</p>
+<p>È una buona pratica ripetere l’analisi con e senza i valori anomali. Se hanno un effetto minimo sui risultati, e non riesci a capire perché sono lì, è ragionevole sostituirli con valori mancanti e andare avanti. Tuttavia, se hanno un effetto sostanziale sui tuoi risultati, non dovresti abbandonarli senza giustificazione. Dovrai capire cosa li ha causati (ad esempio un errore di inserimento dati) e rendere noto che li hai rimossi nel tuo scritto.</p>
+</div>
+<div id="esercizi-15" class="section level3">
+<h3>
+<span class="header-section-number">7.3.4</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-15"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Esplora la distribuzione di ciascuna delle variabili <code>x</code>, <code>y</code> e <code>z</code>.
+in <code>diamanti</code>. Cosa hai imparato? Pensa a un diamante e a come
+potresti decidere quale dimensione è la lunghezza, la larghezza e la profondità.</p></li>
+<li><p>Esplora la distribuzione del <code>prezzo</code>. Scopri qualcosa di insolito
+o sorprendente? (Suggerimento: pensa attentamente alla <code>larghezza di banda</code> e assicurati di
+di provare una vasta gamma di valori).</p></li>
+<li><p>Quanti diamanti sono 0,99 carati? Quanti sono da 1 carato? Quale
+pensi che sia la causa della differenza?</p></li>
+<li><p>Confrontate e contrastate <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian()</a></code> vs <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> o <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> quando
+zoomare su un istogramma. Cosa succede se lasciate <code>binwidth</code> non impostato?
+Cosa succede se provate a zoomare in modo da mostrare solo metà della barra?</p></li>
+</ol>
+</div>
+</div>
+<div id="valori-mancanti-2" class="section level2">
+<h2>
+<span class="header-section-number">7.4</span> Valori mancanti<a class="anchor" aria-label="anchor" href="#valori-mancanti-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Se avete incontrato valori insoliti nel vostro set di dati e volete semplicemente passare al resto della vostra analisi, avete due opzioni.</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Eliminare l’intera riga con i valori strani:</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/between.html">between</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">3</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Non raccomando questa opzione perché solo perché una misurazione
+non è valida, non significa che tutte le misure lo siano. Inoltre, se si hanno
+dati di bassa qualità, quando avrete applicato questo approccio a tutte le variabili,
+potreste scoprire che non vi rimane alcun dato!</p>
+</li>
+<li>
+<p>Invece, consiglio di sostituire i valori insoliti con valori mancanti.
+Il modo più semplice per farlo è usare <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> per sostituire la variabile
+con una copia modificata. Potete usare la funzione <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> per sostituire
+valori insoliti con <code>NA</code>:</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;</span> <span class="fl">3</span> <span class="op">|</span> <span class="va">y</span> <span class="op">&gt;</span> <span class="fl">20</span>, <span class="cn">NA</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</li>
+</ol>
+<p><code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> ha tre argomenti. Il primo argomento <code>test</code> dovrebbe essere un vettore logico. Il risultato conterrà il valore del secondo argomento, <code>yes</code>, quando <code>test</code> è <code>TRUE</code>, e il valore del terzo argomento, <code>no</code>, quando è false. In alternativa a ifelse, usate <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">dplyr::case_when()</a></code>. <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> è particolarmente utile all’interno di mutate quando si vuole creare una nuova variabile che si basa su una combinazione complessa di variabili esistenti.</p>
+<p>Come R, ggplot2 sottoscrive la filosofia che i valori mancanti non dovrebbero mai mancare silenziosamente. Non è ovvio dove si dovrebbero tracciare i valori mancanti, quindi ggplot2 non li include nel grafico, ma avverte che sono stati rimossi:</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds2</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Removed 9 rows containing missing values (geom_point).</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Per sopprimere questo avvertimento, impostate <code>na.rm = TRUE</code>:</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds2</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>Altre volte vuoi capire cosa rende le osservazioni con valori mancanti diverse dalle osservazioni con valori registrati. Per esempio, in <code><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">nycflights13::flights</a></code>, i valori mancanti nella variabile <code>dep_time</code> indicano che il volo è stato cancellato. Quindi potresti voler confrontare gli orari di partenza programmati per gli orari cancellati e non cancellati. Potete farlo creando una nuova variabile con <code><a href="https://rdrr.io/r/base/NA.html">is.na()</a></code>.</p>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    cancelled <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span>,
+    sched_hour <span class="op">=</span> <span class="va">sched_dep_time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">100</span>,
+    sched_min <span class="op">=</span> <span class="va">sched_dep_time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">100</span>,
+    sched_dep_time <span class="op">=</span> <span class="va">sched_hour</span> <span class="op">+</span> <span class="va">sched_min</span> <span class="op">/</span> <span class="fl">60</span>
+  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">sched_dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">cancelled</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Tuttavia questo grafico non è ottimale perché ci sono molti più voli non cancellati che voli cancellati. Nella prossima sezione esploreremo alcune tecniche per migliorare questo confronto.</p>
+<div id="esercizi-16" class="section level3">
+<h3>
+<span class="header-section-number">7.4.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-16"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Cosa succede ai valori mancanti in un istogramma? Cosa succede ai valori mancanti
+valori mancanti in un grafico a barre? Perché c’è una differenza?</p></li>
+<li><p>Cosa fa <code>na.rm = TRUE</code> in <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> e <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>?</p></li>
+</ol>
+</div>
+</div>
+<div id="covariazione" class="section level2">
+<h2>
+<span class="header-section-number">7.5</span> Covariazione<a class="anchor" aria-label="anchor" href="#covariazione"><i class="fas fa-link"></i></a>
+</h2>
+<p>Se la variazione descrive il comportamento <em>all’interno</em> di una variabile, la covariazione descrive il comportamento <em>tra</em> le variabili. La <strong>Covariazione</strong> è la tendenza dei valori di due o più variabili a variare insieme in modo correlato. Il modo migliore per individuare la covariazione è visualizzare la relazione tra due o più variabili. Il modo in cui lo si fa dovrebbe dipendere ancora una volta dal tipo di variabili coinvolte.</p>
+<div id="cat-cont" class="section level3">
+<h3>
+<span class="header-section-number">7.5.1</span> Una variabile categorica e continua<a class="anchor" aria-label="anchor" href="#cat-cont"><i class="fas fa-link"></i></a>
+</h3>
+<p>È comune voler esplorare la distribuzione di una variabile continua suddivisa da una variabile categorica, come nel precedente poligono di frequenza. L’aspetto predefinito di <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly()</a></code> non è molto utile per questo tipo di confronto perché l’altezza è data dal conteggio. Ciò significa che se uno dei gruppi è molto più piccolo degli altri, è difficile vedere le differenze di forma. Per esempio, esploriamo come il prezzo di un diamante varia con la sua qualità:</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">cut</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>È difficile vedere la differenza di distribuzione perché i conteggi complessivi sono molto diversi:</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Per rendere il confronto più facile, dobbiamo scambiare ciò che viene visualizzato sull’asse y. Invece di visualizzare il conteggio, visualizzeremo <strong>densità</strong>, che è il conteggio standardizzato in modo che l’area sotto ogni poligono di frequenza sia uno.</p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span>, y <span class="op">=</span> <span class="va">..density..</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">cut</span><span class="op">)</span>, binwidth <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>C’è qualcosa di piuttosto sorprendente in questo grafico - sembra che i diamanti discreti (‘fair’, la qualità più bassa) abbiano il prezzo medio più alto! Ma forse è perché i poligoni di frequenza sono un po’ difficili da interpretare - c’è molto da fare in questo grafico.</p>
+<p>Un’altra alternativa per visualizzare la distribuzione di una variabile continua suddivisa per una variabile categorica è il boxplot. Un <strong>boxplot</strong> è un tipo di stenografia visiva per una distribuzione di valori che è popolare tra gli statistici. Ogni boxplot è composto da:</p>
+<ul>
+<li><p>Un riquadro che si estende dal 25° percentile della distribuzione al
+75° percentile, una distanza nota come intervallo interquartile (IQR). Nel
+mezzo del riquadro c’è una linea che mostra la mediana, cioè il 50° percentile,
+della distribuzione. Queste tre linee vi danno un senso della diffusione della
+distribuzione e se la distribuzione è simmetrica o meno intorno alla
+mediana o inclinata su un lato.</p></li>
+<li><p>Punti visivi che mostrano le osservazioni che cadono a più di 1,5 volte il
+IQR da entrambi i bordi del riquadro. Questi punti fuori misura sono insoliti
+quindi sono tracciati singolarmente.</p></li>
+<li><p>Una linea (o baffo) che si estende da ogni estremità del riquadro e va fino al<br>
+punto non anomalo più lontano nella distribuzione.</p></li>
+</ul>
+<div class="inline-figure"><img src="images/EDA-boxplot.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Diamo un’occhiata alla distribuzione del prezzo per taglio usando <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code>:</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Vediamo molte meno informazioni sulla distribuzione, ma i boxplot sono molto più compatti, quindi possiamo confrontarli più facilmente (e adattarne di più su un solo grafico). Questo supporta la scoperta controintuitiva che i diamanti di migliore qualità sono in media più economici! Negli esercizi, sarete sfidati a capire perché.</p>
+<p>Il <code>taglio</code> è un fattore ordinato: giusto è peggiore di buono, che è peggiore di molto buono e così via. Molte variabili categoriche non hanno un tale ordine intrinseco, quindi potreste volerle riordinare per fare una visualizzazione più informativa. Un modo per farlo è con la funzione <code><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder()</a></code>.</p>
+<p>Per esempio, prendete la variabile <code>class</code> nel set di dati <code>mpg</code>. Potreste essere interessati a sapere come varia il chilometraggio autostradale tra le classi:</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Per rendere la tendenza più facile da vedere, possiamo riordinare la <code>classe</code> in base al valore mediano di <code>hwy</code>:</p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">hwy</span>, FUN <span class="op">=</span> <span class="va">median</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Se avete nomi di variabili lunghi, <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> funzionerà meglio se lo capovolgete di 90°. Potete farlo con <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a></code>.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span><span class="op">(</span><span class="va">class</span>, <span class="va">hwy</span>, FUN <span class="op">=</span> <span class="va">median</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div id="esercizi-17" class="section level4">
+<h4>
+<span class="header-section-number">7.5.1.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-17"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li><p>Usa ciò che hai imparato per migliorare la visualizzazione degli orari di partenza
+dei voli cancellati rispetto a quelli non cancellati.</p></li>
+<li><p>Quale variabile nel dataset dei diamanti è più importante per prevedere
+il prezzo di un diamante? Come è correlata questa variabile con il taglio?
+Perché la combinazione di queste due relazioni fa sì che i diamanti di qualità inferiore
+più costosi i diamanti di qualità inferiore?</p></li>
+<li><p>Installate il pacchetto ggstance e create un boxplot orizzontale.
+Come si confronta questo con l’uso di <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a></code>?</p></li>
+<li><p>Un problema con i boxplot è che sono stati sviluppati in un’era di
+di insiemi di dati molto più piccoli e tendono a visualizzare un proibitivo
+un numero proibitivo di “valori anomali”. Un approccio per rimediare a questo problema è
+il plot del valore delle lettere. Installate il pacchetto lvplot e provate ad usare
+<code>geom_lv()</code> per visualizzare la distribuzione del prezzo rispetto al taglio. Cosa
+imparate? Come interpretate i grafici?</p></li>
+<li><p>Confrontate e contrastate <code><a href="https://ggplot2.tidyverse.org/reference/geom_violin.html">geom_violin()</a></code> con un <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> sfaccettato,
+o un <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly()</a></code> colorato. Quali sono i pro e i contro di ciascun
+metodo?</p></li>
+<li><p>Se avete un piccolo set di dati, a volte è utile usare <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code>
+per vedere la relazione tra una variabile continua e una categorica.
+Il pacchetto ggbeeswarm fornisce una serie di metodi simili a
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code>. Elencateli e descrivete brevemente cosa fa ciascuno di essi.</p></li>
+</ol>
+</div>
+</div>
+<div id="due-variabili-categoriche" class="section level3">
+<h3>
+<span class="header-section-number">7.5.2</span> Due variabili categoriche<a class="anchor" aria-label="anchor" href="#due-variabili-categoriche"><i class="fas fa-link"></i></a>
+</h3>
+<p>Per visualizzare la covariazione tra variabili categoriche, avrete bisogno di contare il numero di osservazioni per ogni combinazione. Un modo per farlo è affidarsi al built-in <code><a href="https://ggplot2.tidyverse.org/reference/geom_count.html">geom_count()</a></code>:</p>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_count.html">geom_count</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">color</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>La dimensione di ogni cerchio nel grafico mostra quante osservazioni si sono verificate per ogni combinazione di valori. La covariazione apparirà come una forte correlazione tra specifici valori x e specifici valori y.</p>
+<p>Un altro approccio è quello di calcolare il conteggio con dplyr:</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">cut</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 35 × 3</span>
+<span class="co">#&gt;   color cut           n</span>
+<span class="co">#&gt;   &lt;ord&gt; &lt;ord&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 D     Fair        163</span>
+<span class="co">#&gt; 2 D     Good        662</span>
+<span class="co">#&gt; 3 D     Very Good  1513</span>
+<span class="co">#&gt; 4 D     Premium    1603</span>
+<span class="co">#&gt; 5 D     Ideal      2834</span>
+<span class="co">#&gt; 6 E     Fair        224</span>
+<span class="co">#&gt; # … with 29 more rows</span></code></pre></div>
+<p>Poi visualizzate con <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile()</a></code> e il riempimento estetico:</p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">cut</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">color</span>, y <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Se le variabili categoriche non sono ordinate, potreste voler usare il pacchetto seriation per riordinare simultaneamente le righe e le colonne in modo da rivelare più chiaramente i modelli interessanti. Per grafici più grandi, potreste provare i pacchetti d3heatmap o heatmaply, che creano grafici interattivi.</p>
+<div id="esercizi-18" class="section level4">
+<h4>
+<span class="header-section-number">7.5.2.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-18"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li><p>Come potreste ridimensionare il dataset di conteggio di cui sopra per mostrare più chiaramente
+la distribuzione del taglio nel colore o del colore nel taglio?</p></li>
+<li><p>Usate <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile()</a></code> insieme a dplyr per esplorare come i ritardi medi dei voli
+per la destinazione e il mese dell’anno. Cosa rende il
+difficile da leggere? Come potreste migliorarlo?</p></li>
+<li><p>Perché è leggermente meglio usare <code>aes(x = color, y = cut)</code> piuttosto che <code>aes(x = cut, y = color)</code> nell’esempio sopra?
+piuttosto che <code>aes(x = cut, y = color)</code> nell’esempio sopra?</p></li>
+</ol>
+</div>
+</div>
+<div id="due-variabili-continue" class="section level3">
+<h3>
+<span class="header-section-number">7.5.3</span> Due variabili continue<a class="anchor" aria-label="anchor" href="#due-variabili-continue"><i class="fas fa-link"></i></a>
+</h3>
+<p>Avete già visto un ottimo modo per visualizzare la covariazione tra due variabili continue: disegnare uno scatterplot con <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>. Potete vedere la covariazione come un modello nei punti. Per esempio, potete vedere una relazione esponenziale tra la dimensione del carato e il prezzo di un diamante.</p>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Gli scatterplot diventano meno utili man mano che la dimensione del tuo set di dati cresce, perché i punti cominciano a sovrapporsi e si accumulano in aree di nero uniforme (come sopra). Hai già visto un modo per risolvere il problema: usare l’estetica <code>alpha</code> per aggiungere trasparenza.</p>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Ma usare la trasparenza può essere impegnativo per insiemi di dati molto grandi. Un’altra soluzione è usare bin. In precedenza avete usato <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> e <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly()</a></code> per ‘binare’ in una dimensione. Ora imparerete come usare <code><a href="https://ggplot2.tidyverse.org/reference/geom_bin_2d.html">geom_bin2d()</a></code> e <code><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex()</a></code> per ‘binare’ in due dimensioni.</p>
+<p><code><a href="https://ggplot2.tidyverse.org/reference/geom_bin_2d.html">geom_bin2d()</a></code> e <code><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex()</a></code> dividono il piano delle coordinate in bin 2d e poi usano un colore di riempimento per mostrare quanti punti rientrano in ogni bin. La funzione <code><a href="https://ggplot2.tidyverse.org/reference/geom_bin_2d.html">geom_bin2d()</a></code> crea dei contenitori rettangolari. <code><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex()</a></code> crea bin esagonali. Avrai bisogno di installare il pacchetto hexbin per usare <code><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex()</a></code>.</p>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smaller</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bin_2d.html">geom_bin2d</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># install.packages("hexbin")</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smaller</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="EDA_files/figure-html/unnamed-chunk-32-1.png" width="50%"><img src="EDA_files/figure-html/unnamed-chunk-32-2.png" width="50%"></p>
+<p>Un’altra opzione è quella di binare una variabile continua in modo che si comporti come una variabile categorica. Poi puoi usare una delle tecniche per visualizzare la combinazione di una variabile categorica e una continua che hai imparato. Per esempio, potreste classificare <code>carat</code> e poi, per ogni gruppo, visualizzare un boxplot:</p>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smaller</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_width</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p><code>cut_width(x, width)</code>, come usato sopra, divide <code>x</code> in bins di larghezza <code>width</code>. Per default, i boxplot hanno all’incirca lo stesso aspetto (a parte il numero di outlier) indipendentemente dal numero di osservazioni, quindi è difficile dire che ogni boxplot riassume un numero diverso di punti. Un modo per mostrarlo è rendere la larghezza del boxplot proporzionale al numero di punti con <code>varwidth = TRUE</code>.</p>
+<p>Un altro approccio è quello di visualizzare approssimativamente lo stesso numero di punti in ogni bin. Questo è il compito di <code><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_number()</a></code>:</p>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smaller</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_number</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div id="esercizi-19" class="section level4">
+<h4>
+<span class="header-section-number">7.5.3.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-19"><i class="fas fa-link"></i></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li><p>Invece di riassumere la distribuzione condizionale con un boxplot, si
+potrebbe usare un poligono di frequenza. Cosa dovete considerare quando usate
+<code><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_width()</a></code> vs <code><a href="https://ggplot2.tidyverse.org/reference/cut_interval.html">cut_number()</a></code>? Che impatto ha su una visualizzazione di
+la distribuzione 2d di <code>carat</code> e <code>price</code>?</p></li>
+<li><p>Visualizzate la distribuzione dei carati, suddivisa per prezzo.</p></li>
+<li><p>Come fa la distribuzione del prezzo dei diamanti molto grandi a paragonarsi ai piccoli diamanti?
+diamanti piccoli? È come ti aspetti o ti sorprende?</p></li>
+<li><p>Combinate due delle tecniche che avete imparato per visualizzare la
+distribuzione combinata di taglio, caratura e prezzo.</p></li>
+<li>
+<p>I grafici bidimensionali rivelano valori anomali che non sono visibili in quelli monodimensionali.
+dimensionale. Per esempio, alcuni punti nel grafico sottostante hanno una
+combinazione insolita di valori <code>x</code> e <code>y</code>, che rende i punti anomali
+anche se i loro valori <code>x</code> e <code>y</code> sembrano normali se esaminati separatamente.</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">11</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Perché un grafico a dispersione è una visualizzazione migliore di un grafico a celle per questo caso?</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="schemi-e-modelli" class="section level2">
+<h2>
+<span class="header-section-number">7.6</span> Schemi e modelli<a class="anchor" aria-label="anchor" href="#schemi-e-modelli"><i class="fas fa-link"></i></a>
+</h2>
+<p>Gli schemi nei tuoi dati forniscono indizi sulle relazioni. Se esiste una relazione sistematica tra due variabili, essa apparirà come un modello nei dati. Se individuate un modello, chiedetevi:</p>
+<ul>
+<li><p>Questo modello potrebbe essere dovuto alla coincidenza (cioè al caso)?</p></li>
+<li><p>Come puoi descrivere la relazione implicita nel modello?</p></li>
+<li><p>Quanto è forte la relazione implicita nello schema?</p></li>
+<li><p>Quali altre variabili potrebbero influenzare la relazione?</p></li>
+<li><p>La relazione cambia se si guardano i singoli sottogruppi dei dati?</p></li>
+</ul>
+<p>Un grafico a dispersione della lunghezza delle eruzioni dell’Old Faithful rispetto al tempo di attesa tra le eruzioni mostra un modello: tempi di attesa più lunghi sono associati a eruzioni più lunghe. Lo scatterplot mostra anche i due cluster che abbiamo notato sopra.</p>
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">faithful</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">eruptions</span>, y <span class="op">=</span> <span class="va">waiting</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Gli schemi forniscono uno degli strumenti più utili per gli scienziati dei dati perché rivelano la covariazione. Se si pensa alla variazione come a un fenomeno che crea incertezza, la covariazione è un fenomeno che la riduce. Se due variabili covariano, puoi usare i valori di una variabile per fare previsioni migliori sui valori della seconda. Se la covariazione è dovuta a una relazione causale (un caso speciale), allora si può usare il valore di una variabile per controllare il valore della seconda.</p>
+<p>I modelli sono uno strumento per estrarre modelli dai dati. Per esempio, considerate i dati sui diamanti. È difficile capire la relazione tra taglio e prezzo, perché taglio e carato, e carato e prezzo sono strettamente correlati. È possibile utilizzare un modello per rimuovere la relazione molto forte tra prezzo e carato in modo da poter esplorare le sottigliezze che rimangono. Il codice seguente adatta un modello che predice il <code>price</code> dal <code>carat</code> e poi calcola i residui (la differenza tra il valore predetto e il valore reale). I residui ci danno una visione del prezzo del diamante, una volta rimosso l’effetto della caratura.</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://modelr.tidyverse.org">modelr</a></span><span class="op">)</span>
+
+<span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span>
+
+<span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>resid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">resid</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds2</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">carat</span>, y <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Una volta eliminata la forte relazione tra carati e prezzo, si può vedere ciò che ci si aspetta nella relazione tra taglio e prezzo: in relazione alle loro dimensioni, i diamanti di migliore qualità sono più costosi.</p>
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds2</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">resid</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="EDA_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Imparerai come funzionano i modelli e il pacchetto modelr nella parte finale del libro, <a href="model-intro.html#model-intro">modellare</a>. Teniamo la modellazione per dopo perché capire cosa sono i modelli e come funzionano è più facile una volta che si hanno in mano gli strumenti di gestione dei dati e di programmazione.</p>
+</div>
+<div id="chiamate-ggplot2" class="section level2">
+<h2>
+<span class="header-section-number">7.7</span> Chiamate ggplot2<a class="anchor" aria-label="anchor" href="#chiamate-ggplot2"><i class="fas fa-link"></i></a>
+</h2>
+<p>Man mano che passeremo da questi capitoli introduttivi, passeremo ad un’espressione più concisa del codice ggplot2. Finora siamo stati molto espliciti, il che è utile quando si sta imparando:</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">faithful</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">eruptions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></code></pre></div>
+<p>Tipicamente, i primi uno o due argomenti di una funzione sono così importanti che dovreste conoscerli a memoria. I primi due argomenti di <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> sono <code>data</code> e <code>mapping</code>, e i primi due argomenti di <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> sono <code>x</code> e <code>y</code>. Nel resto del libro, non forniremo questi nomi. Questo risparmia la digitazione e, riducendo la quantità di boilerplate, rende più facile vedere cosa c’è di diverso tra le trame. Questa è una preoccupazione di programmazione molto importante che torneremo in <a href="funzioni.html#funzioni">funzioni</a>.</p>
+<p>Riscrivendo la trama precedente in modo più conciso si ottiene:</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">faithful</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">eruptions</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></code></pre></div>
+<p>A volte trasformeremo la fine di una pipeline di trasformazione dei dati in una trama. Fate attenzione alla transizione da <code>%&gt;%</code> a <code>+</code>. Vorrei che questa transizione non fosse necessaria, ma sfortunatamente ggplot2 è stato creato prima che il tubo fosse scoperto.</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">clarity</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">clarity</span>, <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="per-saperne-di-più" class="section level2">
+<h2>
+<span class="header-section-number">7.8</span> Per saperne di più<a class="anchor" aria-label="anchor" href="#per-saperne-di-pi%C3%B9"><i class="fas fa-link"></i></a>
+</h2>
+<p>Se vuoi imparare di più sui meccanismi di ggplot2, ti consiglio vivamente di prendere una copia del libro ggplot2: <a href="https://amzn.com/331924275X" class="uri">https://amzn.com/331924275X</a>. È stato recentemente aggiornato, quindi include il codice di dplyr e tidyr, e ha molto più spazio per esplorare tutte le sfaccettature della visualizzazione. Sfortunatamente il libro non è generalmente disponibile gratuitamente, ma se avete una connessione con un’università potete probabilmente ottenere una versione elettronica gratuita attraverso SpringerLink.</p>
+<p>Un’altra risorsa utile è il <a href="https://amzn.com/1449316956"><em>R Graphics Cookbook</em></a> di Winston Chang. Gran parte dei contenuti sono disponibili online su <a href="http://www.cookbook-r.com/Graphs/" class="uri">http://www.cookbook-r.com/Graphs/</a>.</p>
+<p>Raccomando anche <a href="https://amzn.com/1498715230"><em>Graphical Data Analysis with R</em></a>, di Antony Unwin. Questo è un libro di lunghezza simile al materiale trattato in questo capitolo, ma ha lo spazio per andare molto più in profondità.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></div>
+<div class="next"><a href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#analisi-esplorativa"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li>
+<a class="nav-link" href="#introduzione-3"><span class="header-section-number">7.1</span> Introduzione</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#prerequisiti-3"><span class="header-section-number">7.1.1</span> Prerequisiti</a></li></ul>
+</li>
+<li><a class="nav-link" href="#domande"><span class="header-section-number">7.2</span> Domande</a></li>
+<li>
+<a class="nav-link" href="#variazione"><span class="header-section-number">7.3</span> Variazione</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#visualizzare-le-distribuzioni"><span class="header-section-number">7.3.1</span> Visualizzare le distribuzioni</a></li>
+<li><a class="nav-link" href="#valori-tipici"><span class="header-section-number">7.3.2</span> Valori tipici</a></li>
+<li><a class="nav-link" href="#valori-insoliti"><span class="header-section-number">7.3.3</span> Valori insoliti</a></li>
+<li><a class="nav-link" href="#esercizi-15"><span class="header-section-number">7.3.4</span> Esercizi</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#valori-mancanti-2"><span class="header-section-number">7.4</span> Valori mancanti</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-16"><span class="header-section-number">7.4.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#covariazione"><span class="header-section-number">7.5</span> Covariazione</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#cat-cont"><span class="header-section-number">7.5.1</span> Una variabile categorica e continua</a></li>
+<li><a class="nav-link" href="#due-variabili-categoriche"><span class="header-section-number">7.5.2</span> Due variabili categoriche</a></li>
+<li><a class="nav-link" href="#due-variabili-continue"><span class="header-section-number">7.5.3</span> Due variabili continue</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#schemi-e-modelli"><span class="header-section-number">7.6</span> Schemi e modelli</a></li>
+<li><a class="nav-link" href="#chiamate-ggplot2"><span class="header-section-number">7.7</span> Chiamate ggplot2</a></li>
+<li><a class="nav-link" href="#per-saperne-di-pi%C3%B9"><span class="header-section-number">7.8</span> Per saperne di più</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/EDA.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/EDA.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

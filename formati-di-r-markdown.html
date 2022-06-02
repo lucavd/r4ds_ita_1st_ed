@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>29 Formati di R Markdown | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="29.1 Introduzione Finora abbiamo visto R Markdown utilizzato per produrre documenti HTML. Questo capitolo offre una breve panoramica di alcuni dei molti altri tipi di output che si possono...">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="29 Formati di R Markdown | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app/formati-di-r-markdown.html">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="29.1 Introduzione Finora abbiamo visto R Markdown utilizzato per produrre documenti HTML. Questo capitolo offre una breve panoramica di alcuni dei molti altri tipi di output che si possono...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="29 Formati di R Markdown | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="29.1 Introduzione Finora abbiamo visto R Markdown utilizzato per produrre documenti HTML. Questo capitolo offre una breve panoramica di alcuni dei molti altri tipi di output che si possono...">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="active" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="formati-di-r-markdown" class="section level1">
+<h1>
+<span class="header-section-number">29</span> Formati di R Markdown<a class="anchor" aria-label="anchor" href="#formati-di-r-markdown"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduzione-20" class="section level2">
+<h2>
+<span class="header-section-number">29.1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione-20"><i class="fas fa-link"></i></a>
+</h2>
+<p>Finora abbiamo visto R Markdown utilizzato per produrre documenti HTML. Questo capitolo offre una breve panoramica di alcuni dei molti altri tipi di output che si possono produrre con R Markdown. Esistono due modi per impostare l’output di un documento:</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>In modo permanente, modificando l’intestazione YAML:</p>
+<div class="sourceCode" id="cb771"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb771-1"><a href="formati-di-r-markdown.html#cb771-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Viridis Demo"</span></span>
+<span id="cb771-2"><a href="formati-di-r-markdown.html#cb771-2"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span></code></pre></div>
+</li>
+<li>
+<p>In modo transitorio, chiamando manualmente <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code>:</p>
+<div class="sourceCode" id="cb772"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"diamond-sizes.Rmd"</span>, output_format <span class="op">=</span> <span class="st">"word_document"</span><span class="op">)</span></code></pre></div>
+<p>Questo è utile se si desidera produrre programmaticamente più tipi di output.</p>
+</li>
+</ol>
+<p>Il pulsante knit di RStudio esegue il rendering di un file nel primo formato elencato nel campo <code>output</code>. È possibile eseguire il rendering in altri formati facendo clic sul menu a discesa accanto al pulsante knit.</p>
+<div class="inline-figure"><img src="screenshots/rmarkdown-knit.png" width="206" style="display: block; margin: auto;"></div>
+</div>
+<div id="opzioni-di-output" class="section level2">
+<h2>
+<span class="header-section-number">29.2</span> Opzioni di output<a class="anchor" aria-label="anchor" href="#opzioni-di-output"><i class="fas fa-link"></i></a>
+</h2>
+<p>A ogni formato di output è associata una funzione R. Si può scrivere <code>foo</code> o <code>pkg::foo</code>. Se si omette <code>pkg</code>, si assume come predefinito rmarkdown. È importante conoscere il nome della funzione che produce l’output, perché è da lì che si ottiene aiuto. Per esempio, per capire quali parametri si possono impostare con <code>html_document</code>, si può consultare <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html">?rmarkdown::html_document</a></code>.</p>
+<p>Per sovrascrivere i valori predefiniti dei parametri, è necessario utilizzare un campo <code>output</code> espanso. Per esempio, se si volesse rendere un <code>html_document</code> con un indice fluttuante, si userebbe:</p>
+<div class="sourceCode" id="cb773"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb773-1"><a href="formati-di-r-markdown.html#cb773-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb773-2"><a href="formati-di-r-markdown.html#cb773-2"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb773-3"><a href="formati-di-r-markdown.html#cb773-3"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb773-4"><a href="formati-di-r-markdown.html#cb773-4"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<p>È anche possibile eseguire il rendering su più output fornendo un elenco di formati:</p>
+<div class="sourceCode" id="cb774"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb774-1"><a href="formati-di-r-markdown.html#cb774-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb774-2"><a href="formati-di-r-markdown.html#cb774-2"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb774-3"><a href="formati-di-r-markdown.html#cb774-3"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb774-4"><a href="formati-di-r-markdown.html#cb774-4"></a><span class="at">    </span><span class="fu">toc_float</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb774-5"><a href="formati-di-r-markdown.html#cb774-5"></a><span class="at">  </span><span class="fu">pdf_document</span><span class="kw">:</span><span class="at"> default</span></span></code></pre></div>
+<p>Si noti la sintassi speciale se non si vuole sovrascrivere nessuna delle opzioni predefinite.</p>
+</div>
+<div id="documenti" class="section level2">
+<h2>
+<span class="header-section-number">29.3</span> Documenti<a class="anchor" aria-label="anchor" href="#documenti"><i class="fas fa-link"></i></a>
+</h2>
+<p>Il capitolo precedente si è concentrato sull’output predefinito <code>html_document</code>. Esistono diverse variazioni di base su questo tema, che generano diversi tipi di documenti:</p>
+<ul>
+<li><p><code>pdf_document</code> crea un PDF con LaTeX (un sistema di impaginazione di documenti open source), che è necessario installare.
+LaTeX (un sistema open source di impaginazione dei documenti), che è necessario installare. RStudio lo richiederà se
+non l’avete già.</p></li>
+<li><p><code>word_document</code> per i documenti Microsoft Word (<code>.docx</code>).</p></li>
+<li><p><code>odt_document</code> per i documenti OpenDocument Text (<code>.odt</code>).</p></li>
+<li><p><code>rtf_document</code> per i documenti Rich Text Format (<code>.rtf</code>).</p></li>
+<li><p><code>md_document</code> per un documento Markdown. In genere non è utile di per sé, ma
+di per sé, ma si potrebbe usare se, per esempio, il CMS aziendale o il wiki del laboratorio
+wiki del laboratorio utilizza markdown.</p></li>
+<li><p><code>github_document</code>: si tratta di una versione adattata di <code>md_document</code>
+pensata per la condivisione su GitHub.</p></li>
+</ul>
+<p>Ricordate che quando si genera un documento da condividere con i decisori, è possibile disattivare la visualizzazione predefinita del codice impostando le opzioni globali nel chunk di setup:</p>
+<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p>Per gli <code>html_document</code> un’altra opzione è quella di rendere i pezzi di codice nascosti per impostazione predefinita, ma visibili con un clic:</p>
+<div class="sourceCode" id="cb776"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb776-1"><a href="formati-di-r-markdown.html#cb776-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb776-2"><a href="formati-di-r-markdown.html#cb776-2"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
+<span id="cb776-3"><a href="formati-di-r-markdown.html#cb776-3"></a><span class="at">    </span><span class="fu">code_folding</span><span class="kw">:</span><span class="at"> hide</span></span></code></pre></div>
+</div>
+<div id="quaderni" class="section level2">
+<h2>
+<span class="header-section-number">29.4</span> Quaderni<a class="anchor" aria-label="anchor" href="#quaderni"><i class="fas fa-link"></i></a>
+</h2>
+<p>Un quaderno, <code>html_notebook</code>, è una variante di un <code>html_document</code>. I risultati resi sono molto simili, ma lo scopo è diverso. Un <code>html_document</code> è focalizzato sulla comunicazione con i decisori, mentre un notebook è focalizzato sulla collaborazione con altri data scientist. Questi scopi diversi portano a utilizzare l’output HTML in modi diversi. Entrambi gli output HTML contengono l’output completamente renderizzato, ma il blocco note contiene anche il codice sorgente completo. Ciò significa che è possibile utilizzare il file <code>.nb.html</code> generato dal blocco note in due modi:</p>
+<ol style="list-style-type: decimal">
+<li><p>È possibile visualizzarlo in un browser Web e vedere l’output renderizzato. A differenza di
+<code>html_document</code>, questo rendering comprende sempre una copia incorporata del
+del codice sorgente che lo ha generato.</p></li>
+<li><p>È possibile modificarlo in RStudio. Quando si apre un file <code>.nb.html</code>, RStudio ricrea automaticamente il file <code>.Rmd</code>.
+ricreerà automaticamente il file <code>.Rmd</code> che lo ha generato. In futuro, sarà possibile
+in futuro sarà possibile includere anche file di supporto (ad esempio file di dati <code>.csv</code>), che verranno estratti automaticamente quando necessario.
+saranno estratti automaticamente quando necessario.</p></li>
+</ol>
+<p>L’invio di file <code>.nb.html</code> via e-mail è un modo semplice per condividere le analisi con i colleghi. Ma le cose si faranno dolorose non appena vorranno apportare delle modifiche. Se ciò inizia a verificarsi, è il momento di imparare Git e GitHub. Imparare Git e GitHub è sicuramente doloroso all’inizio, ma i vantaggi della collaborazione sono enormi. Come accennato in precedenza, Git e GitHub esulano dallo scopo del libro, ma c’è un suggerimento utile se li si sta già usando: utilizzare entrambi gli output <code>html_notebook</code> e <code>github_document</code>:</p>
+<div class="sourceCode" id="cb777"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb777-1"><a href="formati-di-r-markdown.html#cb777-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb777-2"><a href="formati-di-r-markdown.html#cb777-2"></a><span class="at">  </span><span class="fu">html_notebook</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb777-3"><a href="formati-di-r-markdown.html#cb777-3"></a><span class="at">  </span><span class="fu">github_document</span><span class="kw">:</span><span class="at"> default</span></span></code></pre></div>
+<p><code>html_notebook</code> fornisce un’anteprima locale e un file da condividere via e-mail. <code>github_document</code> crea un file md minimo che può essere inserito in git. Si può facilmente vedere come i risultati dell’analisi (non solo il codice) cambiano nel tempo e GitHub li renderà online.</p>
+</div>
+<div id="presentazioni" class="section level2">
+<h2>
+<span class="header-section-number">29.5</span> Presentazioni<a class="anchor" aria-label="anchor" href="#presentazioni"><i class="fas fa-link"></i></a>
+</h2>
+<p>È anche possibile utilizzare R Markdown per produrre presentazioni. Il controllo visivo è minore rispetto a strumenti come Keynote o PowerPoint, ma l’inserimento automatico dei risultati del codice R in una presentazione può far risparmiare moltissimo tempo. Le presentazioni funzionano dividendo il contenuto in diapositive, con una nuova diapositiva che inizia a ogni intestazione di primo (<code>#</code>) o secondo (<code>##</code>) livello. È anche possibile inserire una regola orizzontale (<code>***</code>) per creare una nuova diapositiva senza intestazione.</p>
+<p>R Markdown è dotato di tre formati di presentazione integrati:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>ioslides_presentation</code> - Presentazione HTML con ioslides</p></li>
+<li><p><code>slidy_presentation</code> - presentazione HTML con W3C Slidy</p></li>
+<li><p><code>beamer_presentation</code> - Presentazione PDF con LaTeX Beamer.</p></li>
+</ol>
+<p>Altri due formati popolari sono forniti da pacchetti:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>revealjs::revealjs_presentation</code> - Presentazione HTML con reveal.js.
+Richiede il pacchetto <strong>revealjs</strong>.</p></li>
+<li><p><strong>rmdshower</strong>, <a href="https://github.com/MangoTheCat/rmdshower" class="uri">https://github.com/MangoTheCat/rmdshower</a>, fornisce un
+wrapper attorno a <strong>shower</strong>, <a href="https://github.com/shower/shower" class="uri">https://github.com/shower/shower</a>,
+motore di presentazione</p></li>
+</ol>
+</div>
+<div id="cruscotti" class="section level2">
+<h2>
+<span class="header-section-number">29.6</span> Cruscotti<a class="anchor" aria-label="anchor" href="#cruscotti"><i class="fas fa-link"></i></a>
+</h2>
+<p>I cruscotti sono un modo utile per comunicare grandi quantità di informazioni in modo visivo e veloce. Flexdashboard rende particolarmente facile la creazione di cruscotti usando R Markdown e una convenzione per il modo in cui le intestazioni influenzano il layout:</p>
+<ul>
+<li>Ogni intestazione di livello 1 (<code>#</code>) inizia una nuova pagina del dashboard.</li>
+<li>Ogni intestazione di livello 2 (<code>##</code>) inizia una nuova colonna.</li>
+<li>Ogni intestazione di livello 3 (<code>###</code>) inizia una nuova riga.</li>
+</ul>
+<p>Ad esempio, è possibile produrre questo dashboard:</p>
+<div class="inline-figure"><img src="screenshots/rmarkdown-flexdashboard.png" width="75%" style="display: block; margin: auto;"></div>
+<p>Utilizzando questo codice:</p>
+<pre><code>---
+title: "Diamonds distribution dashboard"
+output: flexdashboard::flex_dashboard
+---
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(dplyr)
+knitr::opts_chunk$set(fig.width = 5, fig.asp = 1/3)
+```
+
+## Column 1
+
+### Carat
+
+```{r}
+ggplot(diamonds, aes(carat)) + geom_histogram(binwidth = 0.1)
+```
+
+### Cut
+
+```{r}
+ggplot(diamonds, aes(cut)) + geom_bar()
+```
+
+### Colour
+
+```{r}
+ggplot(diamonds, aes(color)) + geom_bar()
+```
+
+## Column 2
+
+### The largest diamonds
+
+```{r}
+diamonds %&gt;% 
+  arrange(desc(carat)) %&gt;% 
+  head(100) %&gt;% 
+  select(carat, cut, color, price) %&gt;% 
+  DT::datatable()
+```</code></pre>
+<p>Flexdashboard fornisce anche semplici strumenti per la creazione di barre laterali, tabset, caselle di valore e indicatori. Per saperne di più su flexdashboard visitate <a href="http://rmarkdown.rstudio.com/flexdashboard/" class="uri">http://rmarkdown.rstudio.com/flexdashboard/</a>.</p>
+</div>
+<div id="interattività" class="section level2">
+<h2>
+<span class="header-section-number">29.7</span> Interattività<a class="anchor" aria-label="anchor" href="#interattivit%C3%A0"><i class="fas fa-link"></i></a>
+</h2>
+<p>Qualsiasi formato HTML (documento, blocco note, presentazione o dashboard) può contenere componenti interattivi.</p>
+<div id="htmlwidgets" class="section level3">
+<h3>
+<span class="header-section-number">29.7.1</span> htmlwidgets<a class="anchor" aria-label="anchor" href="#htmlwidgets"><i class="fas fa-link"></i></a>
+</h3>
+<p>L’HTML è un formato interattivo e si può sfruttare questa interattività con <strong>htmlwidgets</strong>, funzioni di R che producono visualizzazioni HTML interattive. Per esempio, prendete la mappa <strong>leaflet</strong> qui sotto. Se state visualizzando questa pagina sul web, potete trascinare la mappa, ingrandirla e rimpicciolirla, ecc. Ovviamente non è possibile farlo in un libro, quindi rmarkdown inserisce automaticamente una schermata statica.</p>
+<div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/leaflet/man/leaflet-imports.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span><span class="fl">174.764</span>, <span class="op">-</span><span class="fl">36.877</span>, zoom <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/leaflet/man/leaflet-imports.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/leaflet/man/leaflet-imports.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addMarkers</a></span><span class="op">(</span><span class="fl">174.764</span>, <span class="op">-</span><span class="fl">36.877</span>, popup <span class="op">=</span> <span class="st">"Maungawhau"</span><span class="op">)</span> </code></pre></div>
+<div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:70%;height:415.296px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[-36.877,174.764],16,[]],"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-36.877,174.764,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Maungawhau",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-36.877,-36.877],"lng":[174.764,174.764]}},"evals":[],"jsHooks":[]}</script><p>Il bello di htmlwidgets è che non è necessario conoscere nulla di HTML o JavaScript per utilizzarli. Tutti i dettagli sono racchiusi all’interno del pacchetto, quindi non c’è bisogno di preoccuparsi.</p>
+<p>Esistono molti pacchetti che forniscono htmlwidget, tra cui:</p>
+<ul>
+<li><p><strong>dygraphs</strong>, <a href="http://rstudio.github.io/dygraphs/" class="uri">http://rstudio.github.io/dygraphs/</a>, per la visualizzazione interattiva di serie temporali.
+serie temporali interattive.</p></li>
+<li><p><strong>DT</strong>, <a href="http://rstudio.github.io/DT/" class="uri">http://rstudio.github.io/DT/</a>, per tabelle interattive.</p></li>
+<li><p><strong>threejs</strong>, <a href="https://github.com/bwlewis/rthreejs" class="uri">https://github.com/bwlewis/rthreejs</a>, per grafici 3d interattivi.</p></li>
+<li><p><strong>DiagrammeR</strong>, <a href="http://rich-iannone.github.io/DiagrammeR/" class="uri">http://rich-iannone.github.io/DiagrammeR/</a> per diagrammi (come diagrammi di flusso e semplici diagrammi a nodi).
+(come diagrammi di flusso e semplici diagrammi di collegamento tra nodi).</p></li>
+</ul>
+<p>Per saperne di più sugli htmlwidget e per vedere un elenco più completo dei pacchetti che li forniscono, visitate <a href="http://www.htmlwidgets.org/" class="uri">http://www.htmlwidgets.org/</a>.</p>
+</div>
+<div id="shiny" class="section level3">
+<h3>
+<span class="header-section-number">29.7.2</span> Shiny<a class="anchor" aria-label="anchor" href="#shiny"><i class="fas fa-link"></i></a>
+</h3>
+<p>Gli htmlwidget forniscono l’interattività <strong>client-side</strong> — tutta l’interattività avviene nel browser, indipendentemente da R. Da un lato, questo è ottimo perché si può distribuire il file HTML senza alcuna connessione a R. Tuttavia, questo limita fondamentalmente ciò che si può fare alle cose che sono state implementate in HTML e JavaScript. Un approccio alternativo è quello di utilizzare <strong>shiny</strong>, un pacchetto che consente di creare interattività utilizzando codice R, non JavaScript.</p>
+<p>Per richiamare il codice Shiny da un documento R Markdown, aggiungere <code>runtime: shiny</code> all’intestazione:</p>
+<div class="sourceCode" id="cb780"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb780-1"><a href="formati-di-r-markdown.html#cb780-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Shiny Web App"</span></span>
+<span id="cb780-2"><a href="formati-di-r-markdown.html#cb780-2"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_document</span></span>
+<span id="cb780-3"><a href="formati-di-r-markdown.html#cb780-3"></a><span class="fu">runtime</span><span class="kw">:</span><span class="at"> shiny</span></span></code></pre></div>
+<p>Quindi è possibile utilizzare le funzioni di “input” per aggiungere componenti interattivi al documento:</p>
+<div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span>
+
+<span class="fu">textInput</span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"Come ti chiami?"</span><span class="op">)</span>
+<span class="fu">numericInput</span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"Quanti anni hai?"</span>, <span class="cn">NA</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></code></pre></div>
+<p><img src="screenshots/rmarkdown-shiny.png" width="357" style="display: block; margin: auto;">
+È quindi possibile fare riferimento ai valori con <code>input$name</code> e <code>input$age</code>, e il codice che li utilizza verrà automaticamente rieseguito ogni volta che cambiano.</p>
+<p>Non posso mostrarvi un’applicazione shiny dal vivo perché le interazioni di shiny avvengono sul <strong>lato server</strong>. Ciò significa che è possibile scrivere applicazioni interattive senza conoscere JavaScript, ma è necessario un server su cui eseguirle. Questo introduce un problema logistico: Le applicazioni Shiny hanno bisogno di un server Shiny per essere eseguite online. Quando si eseguono le app shiny sul proprio computer, shiny configura automaticamente un server shiny per l’utente, ma è necessario un server shiny pubblico se si vuole pubblicare questo tipo di interattività online. Questo è il compromesso fondamentale di shiny: in un documento shiny si può fare tutto ciò che si può fare in R, ma è necessario che qualcuno utilizzi R.</p>
+<p>Per saperne di più su Shiny, consultare <a href="http://shiny.rstudio.com/" class="uri">http://shiny.rstudio.com/</a>.</p>
+</div>
+</div>
+<div id="siti-web" class="section level2">
+<h2>
+<span class="header-section-number">29.8</span> Siti web<a class="anchor" aria-label="anchor" href="#siti-web"><i class="fas fa-link"></i></a>
+</h2>
+<p>Con una piccola infrastruttura aggiuntiva è possibile utilizzare R Markdown per generare un sito web completo:</p>
+<ul>
+<li><p>Mettere i file <code>.Rmd</code> in una singola directory. <code>index.Rmd</code> diventerà la
+la pagina iniziale.</p></li>
+<li>
+<p>Aggiungere un file YAML chiamato <code>_site.yml</code> che fornisca la navigazione del sito.
+Per esempio:</p>
+<pre><code>name: "my-website"
+navbar:
+  title: "My Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Viridis Colors"
+      href: 1-example.html
+    - text: "Terrain Colors"
+      href: 3-inline.html</code></pre>
+</li>
+</ul>
+<p>Eseguire <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render_site.html">rmarkdown::render_site()</a></code> per costruire <code>_site</code>, una cartella di file pronta per essere distribuita come sito web statico autonomo, o se si usa un progetto RStudio per la cartella del sito web. RStudio aggiungerà una scheda Build all’IDE che si può usare per costruire e visualizzare in anteprima il sito.</p>
+<p>Per saperne di più: <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html" class="uri">http://rmarkdown.rstudio.com/rmarkdown_websites.html</a>.</p>
+</div>
+<div id="altri-formati" class="section level2">
+<h2>
+<span class="header-section-number">29.9</span> Altri formati<a class="anchor" aria-label="anchor" href="#altri-formati"><i class="fas fa-link"></i></a>
+</h2>
+<p>Altri pacchetti forniscono altri formati di output:</p>
+<ul>
+<li><p>Il pacchetto <strong>bookdown</strong>, <a href="https://github.com/rstudio/bookdown" class="uri">https://github.com/rstudio/bookdown</a>,
+semplifica la scrittura di libri, come questo. Per saperne di più, leggere
+<a href="https://bookdown.org/yihui/bookdown/"><em>Authoring Books with R Markdown</em></a>,
+di Yihui Xie, che ovviamente è scritto in bookdown. Visitate
+<a href="http://www.bookdown.org" class="uri">http://www.bookdown.org</a> per vedere altri libri in bookdown scritti dalla comunità
+comunità di R.</p></li>
+<li><p>Il pacchetto <strong>prettydoc</strong>, <a href="https://github.com/yixuan/prettydoc/" class="uri">https://github.com/yixuan/prettydoc/</a>,
+fornisce formati di documenti leggeri con una serie di
+temi accattivanti.</p></li>
+<li><p>Il pacchetto <strong>rticles</strong>, <a href="https://github.com/rstudio/rticles" class="uri">https://github.com/rstudio/rticles</a>, compila una selezione di formati
+una selezione di formati adatti a specifiche riviste scientifiche.</p></li>
+</ul>
+<p>Vedere <a href="http://rmarkdown.rstudio.com/formats.html" class="uri">http://rmarkdown.rstudio.com/formats.html</a> per un elenco di altri formati. È anche possibile crearne uno proprio seguendo le istruzioni di <a href="http://rmarkdown.rstudio.com/developer_custom_formats.html" class="uri">http://rmarkdown.rstudio.com/developer_custom_formats.html</a>.</p>
+</div>
+<div id="imparare-di-più-1" class="section level2">
+<h2>
+<span class="header-section-number">29.10</span> Imparare di più<a class="anchor" aria-label="anchor" href="#imparare-di-pi%C3%B9-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Per saperne di più sulla comunicazione efficace in questi diversi formati, vi consiglio le seguenti risorse:</p>
+<ul>
+<li><p>Per migliorare le vostre capacità di presentazione, vi consiglio
+<a href="https://amzn.com/0321820800"><em>Presentation Patterns</em></a>, di Neal Ford,
+Matthew McCollough e Nathaniel Schutta. Fornisce una serie di modelli
+efficaci (sia di basso che di alto livello) da applicare per migliorare le vostre presentazioni.
+presentazioni.</p></li>
+<li><p>Se tenete conferenze accademiche, vi consiglio di leggere la <a href="https://github.com/jtleek/talkguide"><em>Guida del gruppo Leek
+to giving talks</em></a>.</p></li>
+<li><p>Non l’ho seguito personalmente, ma ho sentito parlare bene del corso online di Matt
+McGarrity sul parlare in pubblico:
+<a href="https://www.coursera.org/learn/public-speaking" class="uri">https://www.coursera.org/learn/public-speaking</a>.</p></li>
+<li><p>Se state creando molti cruscotti, assicuratevi di leggere Stephen Few’s
+<a href="https://amzn.com/0596100167">Progettazione di cruscotti informativi: La comunicazione visiva efficace dei dati
+of Data</a>. Vi aiuterà a creare cruscotti
+che siano veramente utili, non solo belli da vedere.</p></li>
+<li><p>Comunicare in modo efficace le proprie idee spesso si avvantaggia di qualche
+conoscenza del design grafico. Il libro <a href="http://amzn.com/0133966151"><em>Il design per non designer
+Book</em></a> è un ottimo punto di partenza.</p></li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></div>
+<div class="next"><a href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#formati-di-r-markdown"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="nav-link" href="#introduzione-20"><span class="header-section-number">29.1</span> Introduzione</a></li>
+<li><a class="nav-link" href="#opzioni-di-output"><span class="header-section-number">29.2</span> Opzioni di output</a></li>
+<li><a class="nav-link" href="#documenti"><span class="header-section-number">29.3</span> Documenti</a></li>
+<li><a class="nav-link" href="#quaderni"><span class="header-section-number">29.4</span> Quaderni</a></li>
+<li><a class="nav-link" href="#presentazioni"><span class="header-section-number">29.5</span> Presentazioni</a></li>
+<li><a class="nav-link" href="#cruscotti"><span class="header-section-number">29.6</span> Cruscotti</a></li>
+<li>
+<a class="nav-link" href="#interattivit%C3%A0"><span class="header-section-number">29.7</span> Interattività</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#htmlwidgets"><span class="header-section-number">29.7.1</span> htmlwidgets</a></li>
+<li><a class="nav-link" href="#shiny"><span class="header-section-number">29.7.2</span> Shiny</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#siti-web"><span class="header-section-number">29.8</span> Siti web</a></li>
+<li><a class="nav-link" href="#altri-formati"><span class="header-section-number">29.9</span> Altri formati</a></li>
+<li><a class="nav-link" href="#imparare-di-pi%C3%B9-1"><span class="header-section-number">29.10</span> Imparare di più</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/rmarkdown-formats.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/rmarkdown-formats.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

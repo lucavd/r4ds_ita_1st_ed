@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>18 Pipe | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="18.1 Introduzione Le pipe (‘tubi’) sono uno strumento potente per esprimere chiaramente una sequenza di operazioni multiple. Finora le avete usate senza sapere come funzionano o quali sono le...">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="18 Pipe | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app/pipe.html">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="18.1 Introduzione Le pipe (‘tubi’) sono uno strumento potente per esprimere chiaramente una sequenza di operazioni multiple. Finora le avete usate senza sapere come funzionano o quali sono le...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="18 Pipe | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="18.1 Introduzione Le pipe (‘tubi’) sono uno strumento potente per esprimere chiaramente una sequenza di operazioni multiple. Finora le avete usate senza sapere come funzionano o quali sono le...">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="active" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="pipe" class="section level1">
+<h1>
+<span class="header-section-number">18</span> Pipe<a class="anchor" aria-label="anchor" href="#pipe"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduzione-11" class="section level2">
+<h2>
+<span class="header-section-number">18.1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione-11"><i class="fas fa-link"></i></a>
+</h2>
+<p>Le pipe (‘tubi’) sono uno strumento potente per esprimere chiaramente una sequenza di operazioni multiple. Finora le avete usate senza sapere come funzionano o quali sono le alternative. Ora, in questo capitolo, è il momento di esplorare le pipe in modo più dettagliato. Imparerai le alternative alle pipe, quando non dovresti usare le pipe e alcuni utili strumenti correlati.</p>
+<div id="prerequisiti-11" class="section level3">
+<h3>
+<span class="header-section-number">18.1.1</span> Prerequisiti<a class="anchor" aria-label="anchor" href="#prerequisiti-11"><i class="fas fa-link"></i></a>
+</h3>
+<p>Il pipe, <code>%&gt;%</code>, viene dal pacchetto <strong>magrittr</strong> di Stefan Milton Bache. I pacchetti nel tidyverse caricano automaticamente <code>%&gt;%</code> per te, quindi di solito non carichi magrittr esplicitamente. Qui, tuttavia, ci stiamo concentrando sul piping, e non stiamo caricando nessun altro pacchetto, quindi lo caricheremo esplicitamente.</p>
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="alternative-di-pipe" class="section level2">
+<h2>
+<span class="header-section-number">18.2</span> Alternative di pipe<a class="anchor" aria-label="anchor" href="#alternative-di-pipe"><i class="fas fa-link"></i></a>
+</h2>
+<p>Lo scopo del pipe è quello di aiutarvi a scrivere il codice in un modo che sia più facile da leggere e capire. Per vedere perché il pipe è così utile, esploreremo una serie di modi di scrivere lo stesso codice. Usiamo il codice per raccontare la storia di un coniglietto di nome Foo Foo:</p>
+<blockquote>
+<p>Il coniglietto Foo Foo<br>
+Saltellava nella foresta<br>
+Raccogliendo i topi di campagna<br>
+E li colpiva sulla testa</p>
+</blockquote>
+<p>Questa è una poesia popolare per bambini che è accompagnata da azioni manuali.</p>
+<p>Inizieremo definendo un oggetto per rappresentare il coniglietto Foo Foo:</p>
+<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foo_foo</span> <span class="op">&lt;-</span> <span class="fu">little_bunny</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>E useremo una funzione per ogni verbo chiave: <code>hop()</code>, <code>scoop()</code> e <code>bop()</code>. Usando questo oggetto e questi verbi, ci sono (almeno) quattro modi in cui potremmo raccontare la storia nel codice:</p>
+<ol style="list-style-type: decimal">
+<li>Salvare ogni passo intermedio come un nuovo oggetto.</li>
+<li>Sovrascrivere l’oggetto originale molte volte.</li>
+<li>Comporre le funzioni.</li>
+<li>Usare la pipe.</li>
+</ol>
+<p>Lavoreremo attraverso ogni approccio, mostrandovi il codice e parlando dei vantaggi e degli svantaggi.</p>
+<div id="passi-intermedi" class="section level3">
+<h3>
+<span class="header-section-number">18.2.1</span> Passi intermedi<a class="anchor" aria-label="anchor" href="#passi-intermedi"><i class="fas fa-link"></i></a>
+</h3>
+<p>L’approccio più semplice è salvare ogni passo come un nuovo oggetto:</p>
+<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foo_foo_1</span> <span class="op">&lt;-</span> <span class="fu">hop</span><span class="op">(</span><span class="va">foo_foo</span>, through <span class="op">=</span> <span class="va">forest</span><span class="op">)</span>
+<span class="va">foo_foo_2</span> <span class="op">&lt;-</span> <span class="fu">scoop</span><span class="op">(</span><span class="va">foo_foo_1</span>, up <span class="op">=</span> <span class="va">field_mice</span><span class="op">)</span>
+<span class="va">foo_foo_3</span> <span class="op">&lt;-</span> <span class="fu">bop</span><span class="op">(</span><span class="va">foo_foo_2</span>, on <span class="op">=</span> <span class="va">head</span><span class="op">)</span></code></pre></div>
+<p>Il principale svantaggio di questa forma è che ti costringe a nominare ogni elemento intermedio. Se ci sono nomi naturali, questa è una buona idea, e dovreste farlo. Ma molte volte, come in questo esempio, non ci sono nomi naturali, e si aggiungono suffissi numerici per rendere unici i nomi. Questo porta a due problemi:</p>
+<ol style="list-style-type: decimal">
+<li><p>Il codice è ingombro di nomi poco importanti</p></li>
+<li><p>Devi incrementare attentamente il suffisso su ogni linea.</p></li>
+</ol>
+<p>Ogni volta che scrivo codice come questo, invariabilmente uso il numero sbagliato su una linea e poi passo 10 minuti a grattarmi la testa e a cercare di capire cosa è andato storto nel mio codice.</p>
+<p>Potreste anche preoccuparvi che questo modulo crei molte copie dei vostri dati e occupi molta memoria. Sorprendentemente, non è questo il caso. In primo luogo, notate che preoccuparsi proattivamente della memoria non è un modo utile di spendere il vostro tempo: preoccupatevene quando diventa un problema (cioè quando finite la memoria), non prima. In secondo luogo, R non è stupido, e condividerà le colonne tra i frame di dati, dove possibile. Diamo un’occhiata ad un’effettiva pipeline di manipolazione dei dati in cui aggiungiamo una nuova colonna a <code><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">ggplot2::diamonds</a></code>:</p>
+<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="va"><a href="https://ggplot2.tidyverse.org/reference/diamonds.html">diamonds</a></span>
+<span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>price_per_carat <span class="op">=</span> <span class="va">price</span> <span class="op">/</span> <span class="va">carat</span><span class="op">)</span>
+
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>
+<span class="co">#&gt; 3,456,344 B</span>
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">diamonds2</span><span class="op">)</span>
+<span class="co">#&gt; 3,887,976 B</span>
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="va">diamonds2</span><span class="op">)</span>
+<span class="co">#&gt; 3,888,552 B</span></code></pre></div>
+<p>La funzione <code><a href="https://rdrr.io/pkg/pryr/man/object_size.html">pryr::object_size()</a></code> dà la memoria occupata da tutti i suoi argomenti. I risultati sembrano controintuitivi all’inizio:</p>
+<ul>
+<li>
+<code>diamonds</code> occupa 3.46 MB,</li>
+<li>
+<code>diamonds2</code> occupa 3.89 MB,</li>
+<li>
+<code>diamonds</code> e <code>diamonds2</code> insieme occupano 3,89 MB!</li>
+</ul>
+<p>Come può funzionare? Beh, <code>diamonds2</code> ha 10 colonne in comune con <code>diamonds</code>: non c’è bisogno di duplicare tutti quei dati, quindi i due data frame hanno variabili in comune. Queste variabili vengono copiate solo se si modifica una di esse. Nell’esempio seguente, modifichiamo un singolo valore in <code>diamonds$carat</code>. Ciò significa che la variabile <code>carat</code> non può più essere condivisa tra i due frame di dati e deve essere fatta una copia. La dimensione di ogni data frame è invariata, ma la dimensione collettiva aumenta:</p>
+<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span><span class="op">$</span><span class="va">carat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span>
+<span class="co">#&gt; 3,456,344 B</span>
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">diamonds2</span><span class="op">)</span>
+<span class="co">#&gt; 3,887,976 B</span>
+<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="va">diamonds2</span><span class="op">)</span>
+<span class="co">#&gt; 4,320,120 B</span></code></pre></div>
+<p>(Si noti che qui usiamo <code><a href="https://rdrr.io/pkg/pryr/man/object_size.html">pryr::object_size()</a></code>, non il built-in <code><a href="https://rdrr.io/r/utils/object.size.html">object.size()</a></code>. La funzione <code><a href="https://rdrr.io/r/utils/object.size.html">object.size()</a></code> prende solo un singolo oggetto quindi non può calcolare come i dati sono condivisi tra più oggetti).</p>
+</div>
+<div id="sovrascrivere-loriginale" class="section level3">
+<h3>
+<span class="header-section-number">18.2.2</span> Sovrascrivere l’originale<a class="anchor" aria-label="anchor" href="#sovrascrivere-loriginale"><i class="fas fa-link"></i></a>
+</h3>
+<p>Invece di creare oggetti intermedi ad ogni passo, potremmo sovrascrivere l’oggetto originale:</p>
+<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foo_foo</span> <span class="op">&lt;-</span> <span class="fu">hop</span><span class="op">(</span><span class="va">foo_foo</span>, through <span class="op">=</span> <span class="va">forest</span><span class="op">)</span>
+<span class="va">foo_foo</span> <span class="op">&lt;-</span> <span class="fu">scoop</span><span class="op">(</span><span class="va">foo_foo</span>, up <span class="op">=</span> <span class="va">field_mice</span><span class="op">)</span>
+<span class="va">foo_foo</span> <span class="op">&lt;-</span> <span class="fu">bop</span><span class="op">(</span><span class="va">foo_foo</span>, on <span class="op">=</span> <span class="va">head</span><span class="op">)</span></code></pre></div>
+<p>Questo è meno digitare (e meno pensare), quindi hai meno probabilità di fare errori. Tuttavia, ci sono due problemi:</p>
+<ol style="list-style-type: decimal">
+<li><p>Il debugging è doloroso: se fate un errore dovrete rieseguire l’intera
+pipeline completa dall’inizio.</p></li>
+<li><p>La ripetizione dell’oggetto che viene trasformato (abbiamo scritto <code>foo_foo</code> sei volte!
+volte!) oscura ciò che sta cambiando su ogni linea.</p></li>
+</ol>
+</div>
+<div id="composizione-di-funzioni" class="section level3">
+<h3>
+<span class="header-section-number">18.2.3</span> Composizione di funzioni<a class="anchor" aria-label="anchor" href="#composizione-di-funzioni"><i class="fas fa-link"></i></a>
+</h3>
+<p>Un altro approccio è quello di abbandonare l’assegnazione e semplicemente mettere insieme le chiamate di funzione:</p>
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">bop</span><span class="op">(</span>
+  <span class="fu">scoop</span><span class="op">(</span>
+    <span class="fu">hop</span><span class="op">(</span><span class="va">foo_foo</span>, through <span class="op">=</span> <span class="va">forest</span><span class="op">)</span>,
+    up <span class="op">=</span> <span class="va">field_mice</span>
+  <span class="op">)</span>, 
+  on <span class="op">=</span> <span class="va">head</span>
+<span class="op">)</span></code></pre></div>
+<p>Qui lo svantaggio è che si deve leggere dall’interno verso l’esterno, da destra a sinistra, e che gli argomenti finiscono per essere molto distanziati (chiamato evocativamente il problema <a href="https://en.wikipedia.org/wiki/Dagwood_sandwich">dagwood sandwhich</a>). In breve, questo codice è difficile da consumare per un umano.</p>
+</div>
+<div id="usa-la-pipe" class="section level3">
+<h3>
+<span class="header-section-number">18.2.4</span> Usa la pipe<a class="anchor" aria-label="anchor" href="#usa-la-pipe"><i class="fas fa-link"></i></a>
+</h3>
+<p>Infine, possiamo usare la pipe:</p>
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foo_foo</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">hop</span><span class="op">(</span>through <span class="op">=</span> <span class="va">forest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">scoop</span><span class="op">(</span>up <span class="op">=</span> <span class="va">field_mice</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">bop</span><span class="op">(</span>on <span class="op">=</span> <span class="va">head</span><span class="op">)</span></code></pre></div>
+<p>Questa è la mia forma preferita, perché si concentra sui verbi, non sui nomi. Potete leggere questa serie di composizioni di funzioni come se fosse un insieme di azioni imperative. Foo Foo hop, poi scoop, poi bops. L’aspetto negativo, naturalmente, è che dovete avere familiarità con il pipe. Se non avete mai visto <code>%&gt;%</code> prima, non avrete idea di cosa faccia questo codice. Fortunatamente, la maggior parte delle persone capisce l’idea molto velocemente, così quando condividete il vostro codice con altri che non hanno familiarità con la pipe, potete facilmente insegnarglielo.</p>
+<p>La pipe funziona eseguendo una “trasformazione lessicale”: dietro le quinte, magrittr riassembla il codice nella pipe in una forma che funziona sovrascrivendo un oggetto intermedio. Quando si esegue una pipe come quella sopra, magrittr fa qualcosa del genere:</p>
+<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_pipe</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">.</span> <span class="op">&lt;-</span> <span class="fu">hop</span><span class="op">(</span><span class="va">.</span>, through <span class="op">=</span> <span class="va">forest</span><span class="op">)</span>
+  <span class="va">.</span> <span class="op">&lt;-</span> <span class="fu">scoop</span><span class="op">(</span><span class="va">.</span>, up <span class="op">=</span> <span class="va">field_mice</span><span class="op">)</span>
+  <span class="fu">bop</span><span class="op">(</span><span class="va">.</span>, on <span class="op">=</span> <span class="va">head</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">my_pipe</span><span class="op">(</span><span class="va">foo_foo</span><span class="op">)</span></code></pre></div>
+<p>Questo significa che la pipe non funziona per due classi di funzioni:</p>
+<p>1.Funzioni che usano l’ambiente corrente. Per esempio, <code><a href="https://rdrr.io/r/base/assign.html">assign()</a></code> creerà una nuova variabile con il nome dato nell’ambiente corrente:</p>
+<pre><code>```r
+assign("x", 10)
+x
+#&gt; [1] 10
+
+"x" %&gt;% assign(100)
+x
+#&gt; [1] 10
+```
+
+L'uso di assign con il pipe non funziona perché lo assegna a 
+un ambiente temporaneo usato da `%&gt;%`. Se volete usare l'assegnazione con la
+pipe, dovete essere espliciti riguardo all'ambiente:
+
+
+```r
+env &lt;- environment()
+"x" %&gt;% assign(100, envir = env)
+x
+#&gt; [1] 100
+```
+
+Altre funzioni con questo problema sono `get()` e `load()`.</code></pre>
+<ol style="list-style-type: decimal">
+<li>
+<p>Funzioni che usano lazy evaluation. In R, gli argomenti delle funzioni
+sono calcolati solo quando la funzione li usa, non prima di chiamare la
+funzione. La pipe calcola ogni elemento a turno, quindi non potete
+contare su questo comportamento.</p>
+<p>Un posto in cui questo è un problema è <code><a href="https://rdrr.io/r/base/conditions.html">tryCatch()</a></code>, che vi permette di catturare
+e gestire gli errori:</p>
+<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"!"</span><span class="op">)</span>, error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="st">"An error"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "An error"</span>
+
+<span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"!"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="kw"><a href="https://rdrr.io/r/base/conditions.html">tryCatch</a></span><span class="op">(</span>error <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">e</span><span class="op">)</span> <span class="st">"An error"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "An error"</span></code></pre></div>
+<p>There are a relatively wide class of functions with this behaviour,
+including <code><a href="https://rdrr.io/r/base/try.html">try()</a></code>, <code><a href="https://rdrr.io/r/base/message.html">suppressMessages()</a></code>, and <code><a href="https://rdrr.io/r/base/warning.html">suppressWarnings()</a></code>
+in base R.</p>
+</li>
+</ol>
+</div>
+</div>
+<div id="quando-non-usare-la-pipe" class="section level2">
+<h2>
+<span class="header-section-number">18.3</span> Quando non usare la pipe<a class="anchor" aria-label="anchor" href="#quando-non-usare-la-pipe"><i class="fas fa-link"></i></a>
+</h2>
+<p>La pipe è uno strumento potente, ma non è l’unico strumento a vostra disposizione, e non risolve tutti i problemi! Le pipe sono utili soprattutto per riscrivere una sequenza lineare di operazioni abbastanza breve. Penso che dovreste cercare un altro strumento quando:</p>
+<ul>
+<li><p>Le vostre pipe sono più lunghe di (diciamo) dieci passi. In questo caso, create
+oggetti intermedi con nomi significativi. Questo renderà il debug più facile,
+perché potete controllare più facilmente i risultati intermedi, e rende
+più facile capire il vostro codice, perché i nomi delle variabili possono aiutare
+comunicare l’intento.</p></li>
+<li><p>Avete più ingressi o uscite. Se non c’è un oggetto primario
+che viene trasformato, ma due o più oggetti che vengono combinati insieme,
+non usate la pipe.</p></li>
+<li><p>State iniziando a pensare ad un grafo diretto con una complessa struttura di dipendenza.
+struttura di dipendenza complessa. Le pipe sono fondamentalmente lineari ed esprimere
+relazioni complesse con esse produrrà tipicamente codice confuso.</p></li>
+</ul>
+</div>
+<div id="altri-strumenti-di-magrittr" class="section level2">
+<h2>
+<span class="header-section-number">18.4</span> Altri strumenti di magrittr<a class="anchor" aria-label="anchor" href="#altri-strumenti-di-magrittr"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tutti i pacchetti del tidyverse rendono automaticamente disponibile <code>%&gt;%</code>, quindi normalmente non si carica magrittr esplicitamente. Tuttavia, ci sono alcuni altri strumenti utili all’interno di magrittr che potresti voler provare:</p>
+<ul>
+<li>
+<p>Quando si lavora con tubi più complessi, a volte è utile chiamare una
+funzione per i suoi effetti collaterali. Forse volete stampare l’oggetto corrente
+corrente, o tracciarlo, o salvarlo su disco. Molte volte, tali funzioni non
+non restituiscono nulla, terminando effettivamente la pipe.</p>
+<p>Per aggirare questo problema, potete usare la pipe “tee”. <code>%T&gt;%</code> funziona come
+<code>%&gt;%</code> eccetto che restituisce il lato sinistro invece del lato destro
+lato destro. Si chiama “tee” perché è come un tubo letterale a forma di T.</p>
+<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt;  NULL</span>
+
+<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/tee.html">%T&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt;  num [1:50, 1:2] -0.387 -0.785 -1.057 -0.796 -1.756 ...</span></code></pre></div>
+<p><img src="pipes_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;"><img src="pipes_files/figure-html/unnamed-chunk-12-2.png" width="70%" style="display: block; margin: auto;"></p>
+</li>
+<li>
+<p>Se state lavorando con funzioni che non hanno un’API basata su data frame<br>
+(cioè gli passate singoli vettori, non un frame di dati ed espressioni
+da valutare nel contesto di quel frame di dati), potreste trovare <code>%$%</code>
+utile. Esso “esplode” le variabili in un frame di dati in modo che possiate
+riferirsi ad esse in modo esplicito. Questo è utile quando si lavora con molte funzioni
+in R di base:</p>
+<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">disp</span>, <span class="va">mpg</span><span class="op">)</span>
+<span class="co">#&gt; [1] -0.8475514</span></code></pre></div>
+</li>
+<li>
+<p>Per l’assegnazione magrittr fornisce l’operatore <code>%&lt;&gt;%</code> che permette di
+sostituire il codice come:</p>
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="va">cyl</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>con</p>
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span>cyl <span class="op">=</span> <span class="va">cyl</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>Non sono un fan di questo operatore perché penso che l’assegnazione sia un’operazione così
+speciale che dovrebbe essere sempre chiaro quando avviene.
+Secondo me, un po’ di duplicazione (cioè ripetere il
+nome dell’oggetto due volte) va bene per rendere l’assegnazione
+più esplicito.</p>
+</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></div>
+<div class="next"><a href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#pipe"><span class="header-section-number">18</span> Pipe</a></li>
+<li>
+<a class="nav-link" href="#introduzione-11"><span class="header-section-number">18.1</span> Introduzione</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#prerequisiti-11"><span class="header-section-number">18.1.1</span> Prerequisiti</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#alternative-di-pipe"><span class="header-section-number">18.2</span> Alternative di pipe</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#passi-intermedi"><span class="header-section-number">18.2.1</span> Passi intermedi</a></li>
+<li><a class="nav-link" href="#sovrascrivere-loriginale"><span class="header-section-number">18.2.2</span> Sovrascrivere l’originale</a></li>
+<li><a class="nav-link" href="#composizione-di-funzioni"><span class="header-section-number">18.2.3</span> Composizione di funzioni</a></li>
+<li><a class="nav-link" href="#usa-la-pipe"><span class="header-section-number">18.2.4</span> Usa la pipe</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#quando-non-usare-la-pipe"><span class="header-section-number">18.3</span> Quando non usare la pipe</a></li>
+<li><a class="nav-link" href="#altri-strumenti-di-magrittr"><span class="header-section-number">18.4</span> Altri strumenti di magrittr</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/pipes.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/pipes.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

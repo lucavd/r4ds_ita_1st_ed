@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>19 Funzioni | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="19.1 Introduzione Uno dei modi migliori per migliorare il proprio raggio d’azione come scienziato dei dati è scrivere funzioni. Le funzioni permettono di automatizzare compiti comuni in un modo...">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="19 Funzioni | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app/funzioni.html">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="19.1 Introduzione Uno dei modi migliori per migliorare il proprio raggio d’azione come scienziato dei dati è scrivere funzioni. Le funzioni permettono di automatizzare compiti comuni in un modo...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="19 Funzioni | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="19.1 Introduzione Uno dei modi migliori per migliorare il proprio raggio d’azione come scienziato dei dati è scrivere funzioni. Le funzioni permettono di automatizzare compiti comuni in un modo...">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="active" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="funzioni" class="section level1">
+<h1>
+<span class="header-section-number">19</span> Funzioni<a class="anchor" aria-label="anchor" href="#funzioni"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduzione-12" class="section level2">
+<h2>
+<span class="header-section-number">19.1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione-12"><i class="fas fa-link"></i></a>
+</h2>
+<p>Uno dei modi migliori per migliorare il proprio raggio d’azione come scienziato dei dati è scrivere funzioni. Le funzioni permettono di automatizzare compiti comuni in un modo più potente e generale del copia-e-incolla. Scrivere una funzione ha tre grandi vantaggi rispetto al copia-e-incolla:</p>
+<ol style="list-style-type: decimal">
+<li><p>Potete dare ad una funzione un nome evocativo che rende il vostro codice più facile da
+capire.</p></li>
+<li><p>Quando i requisiti cambiano, hai solo bisogno di aggiornare il codice in un posto, invece di
+invece che in molti.</p></li>
+<li><p>Si elimina la possibilità di fare errori accidentali quando si copia e
+incollare (cioè aggiornare un nome di variabile in un posto, ma non in un altro).</p></li>
+</ol>
+<p>Scrivere buone funzioni è un viaggio lungo una vita. Anche dopo aver usato R per molti anni, imparo ancora nuove tecniche e modi migliori di affrontare vecchi problemi. L’obiettivo di questo capitolo non è quello di insegnarvi ogni dettaglio esoterico delle funzioni, ma di farvi iniziare con alcuni consigli pragmatici che potete applicare immediatamente.</p>
+<p>Oltre a consigli pratici per scrivere funzioni, questo capitolo vi dà anche alcuni suggerimenti su come stilizzare il vostro codice. Un buono stile del codice è come una corretta punteggiatura. Si può gestire anche senza, ma di sicuro rende le cose più facili da leggere! Come per gli stili di punteggiatura, ci sono molte possibili variazioni. Qui presentiamo lo stile che usiamo nel nostro codice, ma la cosa più importante è essere coerenti.</p>
+<div id="prerequisiti-12" class="section level3">
+<h3>
+<span class="header-section-number">19.1.1</span> Prerequisiti<a class="anchor" aria-label="anchor" href="#prerequisiti-12"><i class="fas fa-link"></i></a>
+</h3>
+<p>L’obiettivo di questo capitolo è scrivere funzioni in R base, quindi non avrete bisogno di altri pacchetti.</p>
+</div>
+</div>
+<div id="quando-dovreste-scrivere-una-funzione" class="section level2">
+<h2>
+<span class="header-section-number">19.2</span> Quando dovreste scrivere una funzione?<a class="anchor" aria-label="anchor" href="#quando-dovreste-scrivere-una-funzione"><i class="fas fa-link"></i></a>
+</h2>
+<p>Dovreste considerare di scrivere una funzione ogni volta che avete copiato e incollato un blocco di codice più di due volte (cioè ora avete tre copie dello stesso codice). Per esempio, date un’occhiata a questo codice. Cosa fa?</p>
+<div class="sourceCode" id="cb443"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,
+  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,
+  c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,
+  d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="va">df</span><span class="op">$</span><span class="va">a</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> 
+  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">b</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">b</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">b</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> 
+  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">b</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">c</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">c</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">c</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> 
+  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">c</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">c</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">d</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">d</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> 
+  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">d</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Potreste essere in grado di capire che questo ridimensiona ogni colonna per avere un intervallo da 0 a 1. Ma avete notato l’errore? Ho fatto un errore quando ho copiato e incollato il codice per <code>df$b</code>: Ho dimenticato di cambiare una <code>a</code> con una <code>b</code>. Estrarre il codice ripetuto in una funzione è una buona idea perché ti impedisce di fare questo tipo di errore.</p>
+<p>Per scrivere una funzione devi prima analizzare il codice. Quanti input ha?</p>
+<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span>
+  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Questo codice ha solo un input: <code>df$a</code>. (Se siete sorpresi che <code>TRUE</code> non sia un input, potete esplorare il perché nell’esercizio seguente). Per rendere gli input più chiari, è una buona idea riscrivere il codice usando variabili temporanee con nomi generici. Qui questo codice richiede solo un singolo vettore numerico, quindi lo chiamerò <code>x</code>:</p>
+<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">a</span>
+<span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;  [1] 0.2892677 0.7509271 0.0000000 0.6781686 0.8530656 1.0000000 0.1716402</span>
+<span class="co">#&gt;  [8] 0.6107464 0.6116181 0.6008793</span></code></pre></div>
+<p>C’è qualche duplicazione in questo codice. Stiamo calcolando l’intervallo dei dati tre volte, quindi ha senso farlo in un solo passo:</p>
+<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">rng</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt;  [1] 0.2892677 0.7509271 0.0000000 0.6781686 0.8530656 1.0000000 0.1716402</span>
+<span class="co">#&gt;  [8] 0.6107464 0.6116181 0.6008793</span></code></pre></div>
+<p>Tirare fuori i calcoli intermedi in variabili con nome è una buona pratica perché rende più chiaro cosa sta facendo il codice. Ora che ho semplificato il codice e controllato che funzioni ancora, posso trasformarlo in una funzione:</p>
+<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rescale01</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">rng</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">rescale01</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.0 0.5 1.0</span></code></pre></div>
+<p>Ci sono tre passi chiave per creare una nuova funzione:</p>
+<ol style="list-style-type: decimal">
+<li><p>Dovete scegliere un <strong>nome</strong> per la funzione. Qui ho usato <code>rescale01</code>.
+perché questa funzione ridimensiona un vettore per farlo stare tra 0 e 1.</p></li>
+<li><p>Si elencano gli input, o <strong>argomenti</strong>, alla funzione all’interno di <code>function</code>.
+Qui abbiamo solo un argomento. Se ne avessimo di più, la chiamata sarebbe come
+<code>funzione(x, y, z)</code>.</p></li>
+<li><p>Mettete il codice che avete sviluppato in <strong>corpo</strong> della funzione, un blocco
+<code>{</code> blocco che segue immediatamente la <code>funzione(...)</code>.</p></li>
+</ol>
+<p>Notate il processo generale: Ho creato la funzione solo dopo aver capito come farla funzionare con un semplice input. È più facile iniziare con del codice funzionante e trasformarlo in una funzione; è più difficile creare una funzione e poi cercare di farla funzionare.</p>
+<p>A questo punto è una buona idea controllare la vostra funzione con alcuni input diversi:</p>
+<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rescale01</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.0 0.5 1.0</span>
+<span class="fu">rescale01</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.00 0.25 0.50   NA 1.00</span></code></pre></div>
+<p>Man mano che scrivete sempre più funzioni, alla fine vorrete convertire questi test informali e interattivi in test formali e automatizzati. Questo processo è chiamato test delle unità. Sfortunatamente, va oltre lo scopo di questo libro, ma potete impararlo in <a href="http://r-pkgs.had.co.nz/tests.html" class="uri">http://r-pkgs.had.co.nz/tests.html</a>.</p>
+<p>Possiamo semplificare l’esempio originale ora che abbiamo una funzione:</p>
+<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">rescale01</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">a</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">rescale01</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fu">rescale01</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">c</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">rescale01</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">d</span><span class="op">)</span></code></pre></div>
+<p>Rispetto all’originale, questo codice è più facile da capire e abbiamo eliminato una classe di errori di copia e incolla. C’è ancora un bel po’ di duplicazione poiché stiamo facendo la stessa cosa a più colonne. Impareremo come eliminare questa duplicazione in [iterazione], una volta che avrete imparato di più sulle strutture dati di R in <a href="vettori.html#vettori">vettori</a>.</p>
+<p>Un altro vantaggio delle funzioni è che se i nostri requisiti cambiano, dobbiamo fare il cambiamento solo in un posto. Per esempio, potremmo scoprire che alcune delle nostre variabili includono valori infiniti, e <code>rescale01()</code> fallisce:</p>
+<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="cn">Inf</span><span class="op">)</span>
+<span class="fu">rescale01</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt;  [1]   0   0   0   0   0   0   0   0   0   0 NaN</span></code></pre></div>
+<p>Poiché abbiamo estratto il codice in una funzione, abbiamo solo bisogno di fare la correzione in un posto:</p>
+<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rescale01</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, finite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">rng</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">rescale01</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt;  [1] 0.0000000 0.1111111 0.2222222 0.3333333 0.4444444 0.5555556 0.6666667</span>
+<span class="co">#&gt;  [8] 0.7777778 0.8888889 1.0000000       Inf</span></code></pre></div>
+<p>Questa è una parte importante del principio “non ripetersi” (o DRY, ‘Do not Repeat Yourself’). Più ripetizioni avete nel vostro codice, più posti dovete ricordarvi di aggiornare quando le cose cambiano (e cambiano sempre!), e più è probabile che creiate bug nel tempo.</p>
+<div id="esercizi-50" class="section level3">
+<h3>
+<span class="header-section-number">19.2.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-50"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Perché <code>TRUE</code> non è un parametro di <code>rescale01()</code>? 2. Cosa accadrebbe se <code>x</code> contenesse un singolo valore mancante e <code>na.rm</code> fosse <code>FALSE</code>?</p></li>
+<li><p>Nella seconda variante di <code>rescale01()</code>, i valori infiniti sono lasciati invariati. Riscrivi <code>rescale01()</code> in modo che <code>-Inf</code> sia mappato a 0, e <code>Inf</code> sia mappato a 1.</p></li>
+<li>
+<p>Esercitatevi a trasformare i seguenti frammenti di codice in funzioni. Pensate a cosa fa ogni funzione. Come la chiameresti? Di quanti argomenti ha bisogno? Puoi riscriverla per essere più espressiva o meno duplicata?</p>
+<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+</li>
+<li><p>scrivi le tue funzioni per calcolare la varianza e l’asimmetria di un vettore numerico.
+La varianza è definita come
+<span class="math display">\[
+ \mathrm{Var}(x) = \frac{1}{n - 1} \sum_{i=1}^n (x_i - \bar{x}) ^2 \testo{,}
+ \]</span>
+dove <span class="math inline">\(bar{x} = (\sum_i^n x_i) / n\)</span> è la media del campione.
+L’asimmetria è definita come
+<span class="math display">\[
+ \mathrm{Skew}(x) = \frac{frac{1}{n-2}\sinistra(\sum_{i=1}^n(x_i - \bar x)^3\destra)}{mathrm{Var}(x)^{3/2} \testo{.}
+ \]</span></p></li>
+<li><p>Scrivere <code>both_na()</code>, una funzione che prende due vettori della stessa lunghezza
+e restituisce il numero di posizioni che hanno un <code>NA</code> in entrambi i vettori.</p></li>
+<li>
+<p>Cosa fanno le seguenti funzioni? Perché sono utili anche se sono
+sono così corte?</p>
+<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">is_directory</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/file.info.html">file.info</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">$</span><span class="va">isdir</span>
+<span class="va">is_readable</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/file.access.html">file.access</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span></code></pre></div>
+</li>
+<li><p>Leggi il <a href="https://en.wikipedia.org/wiki/Little_Bunny_Foo_Foo">testo completo</a>
+di “Little Bunny Foo Foo”. Ci sono molti doppioni in questa canzone.
+Estendete l’esempio iniziale di piping per ricreare la canzone completa, e usate
+funzioni per ridurre la duplicazione.</p></li>
+</ol>
+</div>
+</div>
+<div id="le-funzioni-sono-per-gli-umani-e-per-i-computer" class="section level2">
+<h2>
+<span class="header-section-number">19.3</span> Le funzioni sono per gli umani e per i computer<a class="anchor" aria-label="anchor" href="#le-funzioni-sono-per-gli-umani-e-per-i-computer"><i class="fas fa-link"></i></a>
+</h2>
+<p>È importante ricordare che le funzioni non sono solo per il computer, ma anche per gli esseri umani. A R non interessa come viene chiamata la vostra funzione, o quali commenti contiene, ma questi sono importanti per i lettori umani. Questa sezione discute alcune cose che dovreste tenere a mente quando scrivete funzioni che gli umani possano capire.</p>
+<p>Il nome di una funzione è importante. Idealmente, il nome della vostra funzione sarà breve, ma evocherà chiaramente ciò che la funzione fa. Questo è difficile! Ma è meglio essere chiari che brevi, poiché il completamento automatico di RStudio rende facile digitare nomi lunghi.</p>
+<p>In generale, i nomi delle funzioni dovrebbero essere verbi, e gli argomenti dovrebbero essere sostantivi. Ci sono alcune eccezioni: i sostantivi vanno bene se la funzione calcola un sostantivo molto noto (ad esempio <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> è meglio di <code>compute_mean()</code>), o accede a qualche proprietà di un oggetto (ad esempio <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> è meglio di <code>get_coefficients()</code>). Un buon segno che un sostantivo potrebbe essere una scelta migliore è se state usando un verbo molto ampio come “get”, “compute”, “calculate”, o “determine”. Usate il vostro miglior giudizio e non abbiate paura di rinominare una funzione se trovate un nome migliore in seguito.</p>
+<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Troppo corto</span>
+<span class="fu">f</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Non è un verbo, o descrittivo</span>
+<span class="fu">my_awesome_function</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Lungo, ma chiaro</span>
+<span class="fu">impute_missing</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">collapse_years</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Se il nome della vostra funzione è composto da più parole, vi consiglio di usare “snake_case”, dove ogni parola minuscola è separata da un underscore. camelCase è un’alternativa popolare. Non importa quale scegliete, l’importante è essere coerenti: scegliete uno o l’altro e mantenetelo. R stesso non è molto coerente, ma non puoi farci niente. Assicuratevi di non cadere nella stessa trappola rendendo il vostro codice il più coerente possibile.</p>
+<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Non farlo mai!</span>
+<span class="va">col_mins</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span>
+<span class="va">rowMaxes</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></code></pre></div>
+<p>Se avete una famiglia di funzioni che fanno cose simili, assicuratevi che abbiano nomi e argomenti coerenti. Usate un prefisso comune per indicare che sono collegate. Questo è meglio di un suffisso comune perché il completamento automatico vi permette di digitare il prefisso e vedere tutti i membri della famiglia.</p>
+<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Buono</span>
+<span class="fu">input_select</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">input_checkbox</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">input_text</span><span class="op">(</span><span class="op">)</span>
+
+<span class="co"># Non così buono</span>
+<span class="fu">select_input</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">checkbox_input</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">text_input</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Un buon esempio di questo design è il pacchetto stringr: se non ricordate esattamente quale funzione vi serve, potete digitare <code>str_</code> e rinfrescarvi la memoria.</p>
+<p>Dove possibile, evitate di sovrascrivere funzioni e variabili esistenti. E’ impossibile farlo in generale perché tanti buoni nomi sono già presi da altri pacchetti, ma evitare i nomi più comuni da R base eviterà la confusione.</p>
+<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Non fatelo!</span>
+<span class="cn">T</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span>
+<span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="va">mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<p>Usate i commenti, linee che iniziano con <code>#</code>, per spiegare il “perché” del vostro codice. Generalmente dovreste evitare commenti che spiegano il “cosa” o il “come”. Se non riesci a capire cosa fa il codice leggendolo, dovresti pensare a come riscriverlo per essere più chiaro. Avete bisogno di aggiungere alcune variabili intermedie con nomi utili? Avete bisogno di separare un sottocomponente di una grande funzione in modo da poterle dare un nome? Tuttavia, il vostro codice non può mai catturare il ragionamento dietro le vostre decisioni: perché avete scelto questo approccio invece di un’alternativa? Cos’altro avete provato che non ha funzionato? È una grande idea catturare questo tipo di pensiero in un commento.</p>
+<p>Un altro uso importante dei commenti è quello di spezzare il tuo file in pezzi facilmente leggibili. Usate lunghe linee di <code>-</code> e <code>=</code> per rendere facile individuare le interruzioni.</p>
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Load data --------------------------------------</span>
+
+<span class="co"># Plot data --------------------------------------</span></code></pre></div>
+<p>RStudio fornisce una scorciatoia da tastiera per creare queste intestazioni (Cmd/Ctrl + Shift + R), e le mostrerà nel drop-down di navigazione del codice in basso a sinistra dell’editor:</p>
+<div class="inline-figure"><img src="screenshots/rstudio-nav.png" width="125" style="display: block; margin: auto;"></div>
+<div id="esercizi-51" class="section level3">
+<h3>
+<span class="header-section-number">19.3.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-51"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>Leggete il codice sorgente di ciascuna delle tre funzioni seguenti, fate un puzzle di ciò che fanno, e poi fate un brainstorming di nomi migliori.</p>
+<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">string</span>, <span class="va">prefix</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">string</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">prefix</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="va">prefix</span>
+<span class="op">}</span>
+<span class="va">f2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">1</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span>
+  <span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span>
+<span class="op">}</span>
+<span class="va">f3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">y</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+</li>
+<li><p>Prendi una funzione che hai scritto recentemente e spendi 5 minuti
+per trovare un nome migliore per essa e per i suoi argomenti.</p></li>
+<li><p>Confrontate e contrastate <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> e <code><a href="https://rdrr.io/pkg/MASS/man/mvrnorm.html">MASS::mvrnorm()</a></code>. Come potreste renderli
+più coerenti?</p></li>
+<li><p>Spiegate perché <code>norm_r()</code>, <code>norm_d()</code> ecc. sarebbero meglio di
+<code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code>, <code><a href="https://rdrr.io/r/stats/Normal.html">dnorm()</a></code>. 2. Inventa un caso per il contrario.</p></li>
+</ol>
+</div>
+</div>
+<div id="esecuzione-condizionale" class="section level2">
+<h2>
+<span class="header-section-number">19.4</span> Esecuzione condizionale<a class="anchor" aria-label="anchor" href="#esecuzione-condizionale"><i class="fas fa-link"></i></a>
+</h2>
+<p>Un’istruzione <code>if</code> ti permette di eseguire del codice in modo condizionale. Si presenta così:</p>
+<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">condition</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># codice eseguito quando la condizione è VERA</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="co"># codice eseguito quando la condizione è FALSA</span>
+<span class="op">}</span></code></pre></div>
+<p>Per avere un aiuto su <code>if</code> dovete circondarlo di backtick: <code><a href="https://rdrr.io/r/base/Control.html">?`if`</a></code>. L’aiuto non è particolarmente utile se non sei già un programmatore esperto, ma almeno sai come arrivarci!</p>
+<p>Ecco una semplice funzione che usa una dichiarazione <code>if</code>. L’obiettivo di questa funzione è di restituire un vettore logico che descriva se ogni elemento di un vettore è nominato o meno.</p>
+<div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">has_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">nms</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">nms</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">nms</span> <span class="op">!=</span> <span class="st">""</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>Questa funzione sfrutta la regola di ritorno standard: una funzione restituisce l’ultimo valore che ha calcolato. Qui si tratta di uno dei due rami dell’istruzione <code>if</code>.</p>
+<div id="condizioni" class="section level3">
+<h3>
+<span class="header-section-number">19.4.1</span> Condizioni<a class="anchor" aria-label="anchor" href="#condizioni"><i class="fas fa-link"></i></a>
+</h3>
+<p>La <code>condizione</code> deve valutare o <code>TRUE</code> o <code>FALSE</code>. Se è un vettore, avrai un messaggio di avvertimento; se è un <code>NA</code>, avrai un errore. Fai attenzione a questi messaggi nel tuo codice:</p>
+<div class="sourceCode" id="cb462"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="cn">NA</span><span class="op">)</span> <span class="op">{</span><span class="op">}</span></code></pre></div>
+<p>Potete usare <code>||</code> (o) e <code>&amp;&amp;</code> (e) per combinare più espressioni logiche. Questi operatori sono “a corto circuito”: non appena <code>||</code> vede il primo <code>TRUE</code> restituisce <code>TRUE</code> senza calcolare nient’altro. Non appena <code>&amp;&amp;</code> vede il primo <code>FALSE</code> restituisce <code>FALSE</code>. Non dovreste mai usare <code>|</code> o <code>&amp;</code> in una dichiarazione <code>if</code>: queste sono operazioni vettoriali che si applicano a valori multipli (ecco perché le usate in <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>). Se avete un vettore logico, potete usare <code><a href="https://rdrr.io/r/base/any.html">any()</a></code> o <code><a href="https://rdrr.io/r/base/all.html">all()</a></code> per farlo collassare ad un singolo valore.</p>
+<p>Fate attenzione quando testate l’uguaglianza. <code>==</code> è vettoriale, il che significa che è facile ottenere più di un output. Controllate che la lunghezza sia già 1, collassate con <code><a href="https://rdrr.io/r/base/all.html">all()</a></code> o <code><a href="https://rdrr.io/r/base/any.html">any()</a></code>, o usate la non vettorializzata <code><a href="https://rdrr.io/r/base/identical.html">identical()</a></code>. <code><a href="https://rdrr.io/r/base/identical.html">identical()</a></code> è molto rigoroso: restituisce sempre o un singolo <code>TRUE</code> o un singolo <code>FALSE</code>, e non coordina i tipi. Questo significa che dovete fare attenzione quando confrontate interi e doppi:</p>
+<div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>Bisogna anche diffidare dei numeri in virgola mobile:</p>
+<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="va">x</span> <span class="op">==</span> <span class="fl">2</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="va">x</span> <span class="op">-</span> <span class="fl">2</span>
+<span class="co">#&gt; [1] 4.440892e-16</span></code></pre></div>
+<p>Usate invece <code><a href="https://dplyr.tidyverse.org/reference/near.html">dplyr::near()</a></code> per i confronti, come descritto in <a href="transform.html#confronti">confronti</a>.</p>
+<p>E ricordate, <code>x == NA</code> non fa nulla di utile!</p>
+</div>
+<div id="condizioni-multiple" class="section level3">
+<h3>
+<span class="header-section-number">19.4.2</span> Condizioni multiple<a class="anchor" aria-label="anchor" href="#condizioni-multiple"><i class="fas fa-link"></i></a>
+</h3>
+<p>Puoi concatenare più dichiarazioni if insieme:</p>
+<div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">this</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># fai quello</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">that</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># fai quell'altro</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="co"># </span>
+<span class="op">}</span></code></pre></div>
+<p>Ma se vi ritrovate con una serie molto lunga di dichiarazioni <code>if</code> concatenate, dovreste considerare la riscrittura. Una tecnica utile è la funzione <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>. Vi permette di valutare il codice selezionato in base alla posizione o al nome.</p>
+<pre><code>#&gt; function(x, y, op) {
+#&gt;   switch(op,
+#&gt;     plus = x + y,
+#&gt;     minus = x - y,
+#&gt;     times = x * y,
+#&gt;     divide = x / y,
+#&gt;     stop("Unknown op!")
+#&gt;   )
+#&gt; }</code></pre>
+<p>Un’altra funzione utile che spesso può eliminare lunghe catene di istruzioni <code>if</code> è <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code>. Viene usata per discretizzare le variabili continue.</p>
+</div>
+<div id="stile-del-codice" class="section level3">
+<h3>
+<span class="header-section-number">19.4.3</span> Stile del codice<a class="anchor" aria-label="anchor" href="#stile-del-codice"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sia <code>if</code> che <code>function</code> dovrebbero (quasi) sempre essere seguite da parentesi graffe (<code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>), e il contenuto dovrebbe essere indentato di due spazi. Questo rende più facile vedere la gerarchia nel tuo codice scorrendo il margine sinistro.</p>
+<p>Una parentesi graffa di apertura non dovrebbe mai andare sulla propria linea e dovrebbe essere sempre seguita da una nuova linea. Una parentesi graffa di chiusura dovrebbe sempre andare sulla propria riga, a meno che non sia seguita da <code>else</code>. Fai sempre rientrare il codice all’interno delle parentesi graffe.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="funzioni.html#cb467-1"></a><span class="co"># Buono</span></span>
+<span id="cb467-2"><a href="funzioni.html#cb467-2"></a><span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug) {</span>
+<span id="cb467-3"><a href="funzioni.html#cb467-3"></a>  <span class="kw">message</span>(<span class="st">"Y is negative"</span>)</span>
+<span id="cb467-4"><a href="funzioni.html#cb467-4"></a>}</span>
+<span id="cb467-5"><a href="funzioni.html#cb467-5"></a></span>
+<span id="cb467-6"><a href="funzioni.html#cb467-6"></a><span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb467-7"><a href="funzioni.html#cb467-7"></a>  <span class="kw">log</span>(x)</span>
+<span id="cb467-8"><a href="funzioni.html#cb467-8"></a>} <span class="cf">else</span> {</span>
+<span id="cb467-9"><a href="funzioni.html#cb467-9"></a>  y <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb467-10"><a href="funzioni.html#cb467-10"></a>}</span>
+<span id="cb467-11"><a href="funzioni.html#cb467-11"></a></span>
+<span id="cb467-12"><a href="funzioni.html#cb467-12"></a><span class="co"># Cattivo</span></span>
+<span id="cb467-13"><a href="funzioni.html#cb467-13"></a><span class="cf">if</span> (y <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;&amp;</span><span class="st"> </span>debug)</span>
+<span id="cb467-14"><a href="funzioni.html#cb467-14"></a><span class="kw">message</span>(<span class="st">"Y is negative"</span>)</span>
+<span id="cb467-15"><a href="funzioni.html#cb467-15"></a></span>
+<span id="cb467-16"><a href="funzioni.html#cb467-16"></a><span class="cf">if</span> (y <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb467-17"><a href="funzioni.html#cb467-17"></a>  <span class="kw">log</span>(x)</span>
+<span id="cb467-18"><a href="funzioni.html#cb467-18"></a>} </span>
+<span id="cb467-19"><a href="funzioni.html#cb467-19"></a><span class="cf">else</span> {</span>
+<span id="cb467-20"><a href="funzioni.html#cb467-20"></a>  y <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb467-21"><a href="funzioni.html#cb467-21"></a>}</span></code></pre></div>
+<p>Va bene non usare le parentesi graffe se hai una dichiarazione <code>if</code> molto breve che può stare su una sola riga:</p>
+<div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="kw">if</span> <span class="op">(</span><span class="va">y</span> <span class="op">&lt;</span> <span class="fl">20</span><span class="op">)</span> <span class="st">"Too low"</span> <span class="kw">else</span> <span class="st">"Too high"</span></code></pre></div>
+<p>Lo raccomando solo per dichiarazioni molto brevi “if”. Altrimenti, la forma completa è più facile da leggere:</p>
+<div class="sourceCode" id="cb469"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">y</span> <span class="op">&lt;</span> <span class="fl">20</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Too low"</span> 
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"Too high"</span>
+<span class="op">}</span></code></pre></div>
+</div>
+<div id="esercizi-52" class="section level3">
+<h3>
+<span class="header-section-number">19.4.4</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-52"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Qual è la differenza tra <code>if</code> e <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>? Leggete attentamente l’aiuto
+e costruisci tre esempi che illustrino le differenze chiave.</p></li>
+<li><p>Scrivi una funzione di saluto che dica “buongiorno”, “buon pomeriggio”,
+o “buona sera”, a seconda dell’ora del giorno. (Suggerimento: usate un argomento
+che sia predefinito a <code><a href="https://lubridate.tidyverse.org/reference/now.html">lubridate::now()</a></code>. Questo renderà
+più facile testare la vostra funzione).</p></li>
+<li><p>Implementare una funzione <code>fizzbuzz</code>. Prende un singolo numero come input. Se
+il numero è divisibile per tre, restituisce “fizz”. Se è divisibile per
+cinque, restituisce “buzz”. Se è divisibile per tre e per cinque, restituisce
+“fizzbuzz”. Altrimenti, restituisce il numero. Assicuratevi di scrivere prima
+codice funzionante prima di creare la funzione.</p></li>
+<li>
+<p>Come potreste usare <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> per semplificare questo insieme di dichiarazioni if-else annidate?</p>
+<div class="sourceCode" id="cb470"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">temp</span> <span class="op">&lt;=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+  <span class="st">"freezing"</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">temp</span> <span class="op">&lt;=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
+  <span class="st">"cold"</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">temp</span> <span class="op">&lt;=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">{</span>
+  <span class="st">"cool"</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">temp</span> <span class="op">&lt;=</span> <span class="fl">30</span><span class="op">)</span> <span class="op">{</span>
+  <span class="st">"warm"</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="st">"hot"</span>
+<span class="op">}</span></code></pre></div>
+<p>Come cambierebbe la chiamata a <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> se avessi usato <code>&lt;</code> invece di <code>&lt;=</code>?
+Qual è l’altro vantaggio principale di <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> per questo problema? (Suggerimento:
+cosa succede se hai molti valori in <code>temp</code>?)</p>
+</li>
+<li><p>Cosa succede se usate <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code> con valori numerici?</p></li>
+<li>
+<p>Cosa fa questa chiamata <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>? 2. Cosa succede se <code>x</code> è “e”?</p>
+<div class="sourceCode" id="cb471"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span><span class="va">x</span>, 
+  a <span class="op">=</span> ,
+  b <span class="op">=</span> <span class="st">"ab"</span>,
+  c <span class="op">=</span> ,
+  d <span class="op">=</span> <span class="st">"cd"</span>
+<span class="op">)</span></code></pre></div>
+<p>Sperimentate, poi leggete attentamente la documentazione.</p>
+</li>
+</ol>
+</div>
+</div>
+<div id="argomenti-delle-funzioni" class="section level2">
+<h2>
+<span class="header-section-number">19.5</span> Argomenti delle funzioni<a class="anchor" aria-label="anchor" href="#argomenti-delle-funzioni"><i class="fas fa-link"></i></a>
+</h2>
+<p>Gli argomenti di una funzione rientrano tipicamente in due grandi insiemi: un insieme fornisce i <strong>dati</strong> su cui calcolare, e l’altro fornisce argomenti che controllano i <strong>dettagli</strong> del calcolo. Per esempio:</p>
+<ul>
+<li><p>In <code><a href="https://rdrr.io/r/base/Log.html">log()</a></code>, i dati sono <code>x</code>, e il dettaglio è la <code>base</code> del logaritmo.</p></li>
+<li><p>In <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, i dati sono <code>x</code>, e i dettagli sono quanti dati tagliare
+dalle estremità (<code>trim</code>) e come gestire i valori mancanti (<code>na.rm</code>).</p></li>
+<li><p>In <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>, i dati sono <code>x</code> e <code>y</code>, e i dettagli del test sono
+<code>alternative</code>, <code>mu</code>, <code>paired</code>, <code>var.equal</code>, e <code>conf.level</code>.</p></li>
+<li><p>In <code><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c()</a></code> potete fornire qualsiasi numero di stringhe a <code>...</code>, e i dettagli
+della concatenazione sono controllati da <code>sep</code> e <code>collapse</code>.</p></li>
+</ul>
+<p>Generalmente, gli argomenti di dati dovrebbero venire per primi. Gli argomenti di dettaglio dovrebbero andare alla fine, e di solito dovrebbero avere valori predefiniti. Si specifica un valore predefinito nello stesso modo in cui si chiama una funzione con un argomento con nome:</p>
+<div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Calcolare l'intervallo di confidenza intorno alla media usando l'approssimazione normale</span>
+<span class="va">mean_ci</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">conf</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">conf</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="va">se</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">alpha</span> <span class="op">/</span> <span class="fl">2</span>, <span class="fl">1</span> <span class="op">-</span> <span class="va">alpha</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
+<span class="fu">mean_ci</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.4976111 0.6099594</span>
+<span class="fu">mean_ci</span><span class="op">(</span><span class="va">x</span>, conf <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.4799599 0.6276105</span></code></pre></div>
+<p>Il valore di default dovrebbe essere quasi sempre il valore più comune. Le poche eccezioni a questa regola hanno a che fare con la sicurezza. Per esempio, ha senso che <code>na.rm</code> abbia come valore predefinito <code>FALSE</code> perché i valori mancanti sono importanti. Anche se <code>na.rm = TRUE</code> è quello che di solito mettete nel vostro codice, è una cattiva idea ignorare silenziosamente i valori mancanti per default.</p>
+<p>Quando chiamate una funzione, di solito omettete i nomi degli argomenti dei dati, perché sono usati così comunemente. Se sovrascrivete il valore predefinito di un argomento di dettaglio, dovreste usare il nome completo:</p>
+<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># Bad</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, , <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>, <span class="cn">TRUE</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Potete riferirvi ad un argomento con il suo unico prefisso (ad esempio <code>mean(x, n = TRUE)</code>), ma questo è generalmente meglio evitarlo, date le possibilità di confusione.</p>
+<p>Notate che quando chiamate una funzione, dovreste mettere uno spazio intorno a <code>=</code> nelle chiamate di funzione, e mettere sempre uno spazio dopo una virgola, non prima (proprio come nel normale inglese). Usare gli spazi bianchi rende più facile scremare la funzione per i componenti importanti.</p>
+<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Buono</span>
+<span class="va">average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">feet</span> <span class="op">/</span> <span class="fl">12</span> <span class="op">+</span> <span class="va">inches</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># Cattivo</span>
+<span class="va">average</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">feet</span><span class="op">/</span><span class="fl">12</span><span class="op">+</span><span class="va">inches</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div id="scegliere-i-nomi" class="section level3">
+<h3>
+<span class="header-section-number">19.5.1</span> Scegliere i nomi<a class="anchor" aria-label="anchor" href="#scegliere-i-nomi"><i class="fas fa-link"></i></a>
+</h3>
+<p>Anche i nomi degli argomenti sono importanti. A R non importa, ma ai lettori del vostro codice (compresi i futuri voi!) sì. Generalmente dovreste preferire nomi più lunghi e descrittivi, ma ci sono una manciata di nomi molto comuni e molto brevi. Vale la pena memorizzarli:</p>
+<ul>
+<li>
+<code>x</code>, <code>y</code>, <code>z</code>: vettori. * <code>w</code>: un vettore di pesi. * <code>df</code>: un data frame. * <code>i</code>, <code>j</code>: indici numerici (tipicamente righe e colonne). * <code>n</code>: lunghezza, o numero di righe. * <code>p</code>: numero di colonne.</li>
+</ul>
+<p>Altrimenti, considerate la corrispondenza dei nomi degli argomenti nelle funzioni R esistenti. Per esempio, usate <code>na.rm</code> per determinare se i valori mancanti devono essere rimossi.</p>
+</div>
+<div id="controllo-dei-valori" class="section level3">
+<h3>
+<span class="header-section-number">19.5.2</span> Controllo dei valori<a class="anchor" aria-label="anchor" href="#controllo-dei-valori"><i class="fas fa-link"></i></a>
+</h3>
+<p>Quando inizierete a scrivere più funzioni, alla fine arriverete al punto in cui non ricorderete esattamente come funziona la vostra funzione. A questo punto è facile chiamare la vostra funzione con input non validi. Per evitare questo problema, è spesso utile rendere espliciti i vincoli. Per esempio, immaginate di aver scritto alcune funzioni per calcolare statistiche sommarie ponderate:</p>
+<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wt_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="va">w</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">wt_var</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu">wt_mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span> <span class="op">*</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">mu</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="va">wt_sd</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu">wt_var</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Cosa succede se <code>x</code> e <code>w</code> non hanno la stessa lunghezza?</p>
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">wt_mean</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; [1] 7.666667</span></code></pre></div>
+<p>In questo caso, a causa delle regole di riciclaggio dei vettori di R, non otteniamo un errore.</p>
+<p>È buona pratica controllare le precondizioni importanti e lanciare un errore (con <code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code>), se non sono vere:</p>
+<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wt_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"`x` and `w` must be the same length"</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Fate attenzione a non esagerare. C’è un compromesso tra quanto tempo spendete per rendere la vostra funzione robusta e quanto tempo spendete per scriverla. Per esempio, se hai aggiunto anche un argomento <code>na.rm</code>, probabilmente non lo controllerei attentamente:</p>
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wt_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">is.logical</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"`na.rm` must be logical"</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"`na.rm` must be length 1"</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">!=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"`x` and `w` must be the same length"</span>, call. <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="op">}</span>
+  
+  <span class="kw">if</span> <span class="op">(</span><span class="va">na.rm</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">miss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span>
+    <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="op">!</span><span class="va">miss</span><span class="op">]</span>
+    <span class="va">w</span> <span class="op">&lt;-</span> <span class="va">w</span><span class="op">[</span><span class="op">!</span><span class="va">miss</span><span class="op">]</span>
+  <span class="op">}</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Questo è un sacco di lavoro extra per un piccolo guadagno aggiuntivo. Un utile compromesso è il built-in <code><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot()</a></code>: controlla che ogni argomento sia <code>TRUE</code>, e produce un generico messaggio di errore in caso contrario.</p>
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wt_mean</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span>, <span class="va">na.rm</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">is.logical</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">na.rm</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span><span class="op">)</span>
+  
+  <span class="kw">if</span> <span class="op">(</span><span class="va">na.rm</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">miss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span>
+    <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="op">!</span><span class="va">miss</span><span class="op">]</span>
+    <span class="va">w</span> <span class="op">&lt;-</span> <span class="va">w</span><span class="op">[</span><span class="op">!</span><span class="va">miss</span><span class="op">]</span>
+  <span class="op">}</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">wt_mean</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">1</span>, na.rm <span class="op">=</span> <span class="st">"foo"</span><span class="op">)</span>
+<span class="co">#&gt; Error in wt_mean(1:6, 6:1, na.rm = "foo"): is.logical(na.rm) is not TRUE</span></code></pre></div>
+<p>Si noti che quando si usa <code><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot()</a></code> si afferma ciò che dovrebbe essere vero piuttosto che controllare ciò che potrebbe essere sbagliato.</p>
+</div>
+<div id="dot-dot-dot" class="section level3">
+<h3>
+<span class="header-section-number">19.5.3</span> Dot-dot-dot (…)<a class="anchor" aria-label="anchor" href="#dot-dot-dot"><i class="fas fa-link"></i></a>
+</h3>
+<p>Molte funzioni in R accettano un numero arbitrario di input:</p>
+<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; [1] 55</span>
+<span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">"f"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "abcdef"</span></code></pre></div>
+<p>Come funzionano queste funzioni? Si basano su un argomento speciale: <code>...</code> (pronunciato dot-dot-dot). Questo argomento speciale cattura qualsiasi numero di argomenti che non sono altrimenti abbinati.</p>
+<p>È utile perché è possibile inviare questi <code>...</code> ad un’altra funzione. Questo è un utile catch-all se la vostra funzione avvolge principalmente un’altra funzione. Per esempio, di solito creo queste funzioni helper che avvolgono <code><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c()</a></code>:</p>
+<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">commas</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span><span class="op">)</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="va">...</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>
+<span class="fu">commas</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] "a, b, c, d, e, f, g, h, i, j"</span>
+
+<span class="va">rule</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span>, <span class="va">pad</span> <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">title</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
+  <span class="va">width</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"width"</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span> <span class="op">-</span> <span class="fl">5</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">title</span>, <span class="st">" "</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_dup.html">str_dup</a></span><span class="op">(</span><span class="va">pad</span>, <span class="va">width</span><span class="op">)</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">rule</span><span class="op">(</span><span class="st">"Important output"</span><span class="op">)</span>
+<span class="co">#&gt; Important output -----------------------------------------------------------</span></code></pre></div>
+<p>Qui <code>...</code> mi permette di inoltrare qualsiasi argomento che non voglio trattare a <code><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c()</a></code>. È una tecnica molto comoda. Ma ha un prezzo: qualsiasi argomento scritto male non genererà un errore. Questo rende facile che gli errori di battitura passino inosservati:</p>
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, na.mr <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] 4</span></code></pre></div>
+<p>Se volete solo catturare i valori del <code>...</code>, usate <code>list(...)</code>.</p>
+</div>
+<div id="valutazione-pigra-lazy-evaluation" class="section level3">
+<h3>
+<span class="header-section-number">19.5.4</span> Valutazione pigra (lazy evaluation)<a class="anchor" aria-label="anchor" href="#valutazione-pigra-lazy-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Gli argomenti in R sono valutati pigramente: non sono calcolati finché non sono necessari. Questo significa che se non sono mai usati, non sono mai chiamati. Questa è un’importante proprietà di R come linguaggio di programmazione, ma generalmente non è importante quando si scrivono le proprie funzioni per l’analisi dei dati. Potete leggere di più sulla valutazione pigra a <a href="http://adv-r.had.co.nz/Functions.html#lazy-evaluation" class="uri">http://adv-r.had.co.nz/Functions.html#lazy-evaluation</a>.</p>
+</div>
+<div id="esercizi-53" class="section level3">
+<h3>
+<span class="header-section-number">19.5.5</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-53"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Cosa fa <code>commas(letters, collapse = "-")</code>? Perché?</p></li>
+<li><p>Sarebbe bello se tu potessi fornire più caratteri all’argomento <code>pad</code>,
+per esempio <code>rule("Titolo", pad = "-+")</code>. Perché attualmente questo non funziona? Come
+si potrebbe risolvere?</p></li>
+<li><p>Cosa fa l’argomento <code>trim</code> di <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>? Quando potreste usarlo?</p></li>
+<li><p>Il valore predefinito per l’argomento <code>metodo</code> di <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> è
+<code>c("pearson", "kendall", "spearman")</code>. Cosa significa? Quale
+valore è usato per default?</p></li>
+</ol>
+</div>
+</div>
+<div id="valori-di-ritorno" class="section level2">
+<h2>
+<span class="header-section-number">19.6</span> Valori di ritorno<a class="anchor" aria-label="anchor" href="#valori-di-ritorno"><i class="fas fa-link"></i></a>
+</h2>
+<p>Capire cosa dovrebbe restituire la vostra funzione è di solito semplice: è il motivo per cui avete creato la funzione in primo luogo! Ci sono due cose da considerare quando si restituisce un valore:</p>
+<ol style="list-style-type: decimal">
+<li><p>Restituire in anticipo rende la vostra funzione più facile da leggere?</p></li>
+<li><p>Potete rendere la vostra funzione ‘pipeable’ (usabile con una pipe)?</p></li>
+</ol>
+<div id="dichiarazioni-di-ritorno-esplicite" class="section level3">
+<h3>
+<span class="header-section-number">19.6.1</span> Dichiarazioni di ritorno esplicite<a class="anchor" aria-label="anchor" href="#dichiarazioni-di-ritorno-esplicite"><i class="fas fa-link"></i></a>
+</h3>
+<p>Il valore restituito dalla funzione è di solito l’ultima affermazione che valuta, ma potete scegliere di tornare in anticipo usando <code><a href="https://rdrr.io/r/base/function.html">return()</a></code>. Penso che sia meglio salvare l’uso di <code><a href="https://rdrr.io/r/base/function.html">return()</a></code> per segnalare che si può tornare in anticipo con una soluzione più semplice. Una ragione comune per farlo è perché gli input sono vuoti:</p>
+<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">complicated_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span> <span class="op">||</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>
+  <span class="op">}</span>
+    
+  <span class="co"># Codice complicato qui</span>
+<span class="op">}</span></code></pre></div>
+<p>Un’altra ragione è che avete una dichiarazione <code>if</code> con un blocco complesso e un blocco semplice. Per esempio, potreste scrivere un’istruzione if come questa:</p>
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="co"># fare </span>
+    <span class="co"># qualcosa</span>
+    <span class="co"># che</span>
+    <span class="co"># prende</span>
+    <span class="co"># molte</span>
+    <span class="co"># linee</span>
+    <span class="co"># per </span>
+    <span class="co"># essere</span>
+    <span class="co"># espresso</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="co"># restituire qualcosa di breve</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>Ma se il primo blocco è molto lungo, quando si arriva al <code>else</code>, si è dimenticata la <code>condizione</code>. Un modo per riscriverlo è usare un ritorno anticipato per il caso semplice:</p>
+<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">something_short</span><span class="op">)</span>
+  <span class="op">}</span>
+
+    <span class="co"># fare </span>
+    <span class="co"># qualcosa</span>
+    <span class="co"># che</span>
+    <span class="co"># prende</span>
+    <span class="co"># molte</span>
+    <span class="co"># linee</span>
+    <span class="co"># per </span>
+    <span class="co"># essere</span>
+    <span class="co"># espresso</span>
+<span class="op">}</span></code></pre></div>
+<p>Questo tende a rendere il codice più facile da capire, perché non avete bisogno di così tanto contesto per capirlo.</p>
+</div>
+<div id="scrivere-funzioni-pipeable-usabili-con-la-pipe" class="section level3">
+<h3>
+<span class="header-section-number">19.6.2</span> Scrivere funzioni ‘pipeable’ (usabili con la pipe)<a class="anchor" aria-label="anchor" href="#scrivere-funzioni-pipeable-usabili-con-la-pipe"><i class="fas fa-link"></i></a>
+</h3>
+<p>Se volete scrivere le vostre funzioni pipeable, è importante pensare al valore di ritorno. Conoscere il tipo di oggetto del valore di ritorno significherà che la vostra pipeline “funzionerà”. Per esempio, con dplyr e tidyr il tipo di oggetto è il data frame.</p>
+<p>Ci sono due tipi base di funzioni pipeable: le trasformazioni e gli effetti collaterali. Con <strong>trasformazioni</strong>, un oggetto viene passato come primo argomento della funzione e viene restituito un oggetto modificato. Con <strong>effetti collaterali</strong>, l’oggetto passato non viene trasformato. Invece, la funzione esegue un’azione sull’oggetto, come disegnare una grafico o salvare un file. Le funzioni effetti collaterali dovrebbero restituire “invisibilmente” il primo argomento, in modo che mentre non vengono stampate possono ancora essere utilizzate in una pipe. Per esempio, questa semplice funzione stampa il numero di valori mancanti in un frame di dati:</p>
+<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">show_missings</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Missing values: "</span>, <span class="va">n</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+  
+  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Se lo chiamiamo interattivamente, l’opzione <code><a href="https://rdrr.io/r/base/invisible.html">invisible()</a></code> significa che l’input <code>df</code> non viene stampato:</p>
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">show_missings</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt; Missing values: 0</span></code></pre></div>
+<p>Ma c’è ancora, solo che non è stampato di default:</p>
+<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">show_missings</span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span> 
+<span class="co">#&gt; Missing values: 0</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] "data.frame"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] 32 11</span></code></pre></div>
+<p>E possiamo ancora usarlo in una pipe:</p>
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">show_missings</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mpg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">&lt;</span> <span class="fl">20</span>, <span class="cn">NA</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">show_missings</span><span class="op">(</span><span class="op">)</span> 
+<span class="co">#&gt; Missing values: 0</span>
+<span class="co">#&gt; Missing values: 18</span></code></pre></div>
+</div>
+</div>
+<div id="ambiente" class="section level2">
+<h2>
+<span class="header-section-number">19.7</span> Ambiente<a class="anchor" aria-label="anchor" href="#ambiente"><i class="fas fa-link"></i></a>
+</h2>
+<p>L’ultimo componente di una funzione è il suo ambiente. Questo non è qualcosa che dovete capire a fondo quando iniziate a scrivere funzioni. Tuttavia, è importante conoscere un po’ gli ambienti perché sono cruciali per il funzionamento delle funzioni. L’ambiente di una funzione controlla come R trova il valore associato ad un nome. Per esempio, prendete questa funzione:</p>
+<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
+<span class="op">}</span> </code></pre></div>
+<p>In molti linguaggi di programmazione, questo sarebbe un errore, perché <code>y</code> non è definito all’interno della funzione. In R, questo è un codice valido perché R usa delle regole chiamate <strong>lexical scoping</strong> per trovare il valore associato ad un nome. Poiché <code>y</code> non è definito all’interno della funzione, R cercherà nell’ <strong>ambiente</strong> dove la funzione è stata definita:</p>
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">100</span>
+<span class="fu">f</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; [1] 110</span>
+
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1000</span>
+<span class="fu">f</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1010</span></code></pre></div>
+<p>Questo comportamento sembra una ricetta per i bug, e in effetti si dovrebbe evitare di creare deliberatamente funzioni come questa, ma in generale non causa troppi problemi (soprattutto se si riavvia regolarmente R per arrivare a una tabula rasa).</p>
+<p>Il vantaggio di questo comportamento è che dal punto di vista del linguaggio permette a R di essere molto coerente. Ogni nome viene cercato usando lo stesso insieme di regole. Per <code>f()</code> questo include il comportamento di due cose che potreste non aspettarvi: <code>{</code> e <code>+</code>. Questo vi permette di fare cose subdole come:</p>
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">`+`</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1.1</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   3 3.3 </span>
+<span class="co">#&gt; 100 900</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">`+`</span><span class="op">)</span></code></pre></div>
+<p>Questo è un fenomeno comune in R. R pone pochi limiti al vostro potere. Potete fare molte cose che non potete fare in altri linguaggi di programmazione. Potete fare molte cose che il 99% delle volte sono estremamente sconsigliate (come sovrascrivere il funzionamento dell’addizione!). Ma questa potenza e flessibilità è ciò che rende possibili strumenti come ggplot2 e dplyr. Imparare come usare al meglio questa flessibilità va oltre lo scopo di questo libro, ma si può leggere in <a href="http://adv-r.had.co.nz"><em>Advanced R</em></a>.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="pipe.html"><span class="header-section-number">18</span> Pipe</a></div>
+<div class="next"><a href="vettori.html"><span class="header-section-number">20</span> Vettori</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#funzioni"><span class="header-section-number">19</span> Funzioni</a></li>
+<li>
+<a class="nav-link" href="#introduzione-12"><span class="header-section-number">19.1</span> Introduzione</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#prerequisiti-12"><span class="header-section-number">19.1.1</span> Prerequisiti</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#quando-dovreste-scrivere-una-funzione"><span class="header-section-number">19.2</span> Quando dovreste scrivere una funzione?</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-50"><span class="header-section-number">19.2.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#le-funzioni-sono-per-gli-umani-e-per-i-computer"><span class="header-section-number">19.3</span> Le funzioni sono per gli umani e per i computer</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-51"><span class="header-section-number">19.3.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#esecuzione-condizionale"><span class="header-section-number">19.4</span> Esecuzione condizionale</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#condizioni"><span class="header-section-number">19.4.1</span> Condizioni</a></li>
+<li><a class="nav-link" href="#condizioni-multiple"><span class="header-section-number">19.4.2</span> Condizioni multiple</a></li>
+<li><a class="nav-link" href="#stile-del-codice"><span class="header-section-number">19.4.3</span> Stile del codice</a></li>
+<li><a class="nav-link" href="#esercizi-52"><span class="header-section-number">19.4.4</span> Esercizi</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#argomenti-delle-funzioni"><span class="header-section-number">19.5</span> Argomenti delle funzioni</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#scegliere-i-nomi"><span class="header-section-number">19.5.1</span> Scegliere i nomi</a></li>
+<li><a class="nav-link" href="#controllo-dei-valori"><span class="header-section-number">19.5.2</span> Controllo dei valori</a></li>
+<li><a class="nav-link" href="#dot-dot-dot"><span class="header-section-number">19.5.3</span> Dot-dot-dot (…)</a></li>
+<li><a class="nav-link" href="#valutazione-pigra-lazy-evaluation"><span class="header-section-number">19.5.4</span> Valutazione pigra (lazy evaluation)</a></li>
+<li><a class="nav-link" href="#esercizi-53"><span class="header-section-number">19.5.5</span> Esercizi</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#valori-di-ritorno"><span class="header-section-number">19.6</span> Valori di ritorno</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dichiarazioni-di-ritorno-esplicite"><span class="header-section-number">19.6.1</span> Dichiarazioni di ritorno esplicite</a></li>
+<li><a class="nav-link" href="#scrivere-funzioni-pipeable-usabili-con-la-pipe"><span class="header-section-number">19.6.2</span> Scrivere funzioni ‘pipeable’ (usabili con la pipe)</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#ambiente"><span class="header-section-number">19.7</span> Ambiente</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/functions.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/functions.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

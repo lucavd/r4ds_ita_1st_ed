@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>27 R Markdown | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="27.1 Introduzione R Markdown fornisce un framework di authoring unificato per la scienza dei dati, che combina il codice, i risultati e i commenti in prosa. I documenti R Markdown sono...">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="27 R Markdown | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app/r-markdown.html">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="27.1 Introduzione R Markdown fornisce un framework di authoring unificato per la scienza dei dati, che combina il codice, i risultati e i commenti in prosa. I documenti R Markdown sono...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="27 R Markdown | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="27.1 Introduzione R Markdown fornisce un framework di authoring unificato per la scienza dei dati, che combina il codice, i risultati e i commenti in prosa. I documenti R Markdown sono...">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="active" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-markdown" class="section level1">
+<h1>
+<span class="header-section-number">27</span> R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduzione-18" class="section level2">
+<h2>
+<span class="header-section-number">27.1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione-18"><i class="fas fa-link"></i></a>
+</h2>
+<p>R Markdown fornisce un framework di authoring unificato per la scienza dei dati, che combina il codice, i risultati e i commenti in prosa. I documenti R Markdown sono completamente riproducibili e supportano decine di formati di output, come PDF, file Word, presentazioni e altro ancora.</p>
+<p>I file R Markdown sono progettati per essere utilizzati in tre modi:</p>
+<ol style="list-style-type: decimal">
+<li><p>Per comunicare ai decisori, che vogliono concentrarsi sulle conclusioni,
+non sul codice che sta dietro l’analisi.</p></li>
+<li><p>Per collaborare con altri data scientist (compreso il futuro te stesso!), che sono interessati sia alle vostre conclusioni che al modo in cui le avete elaborate.
+che sono interessati sia alle vostre conclusioni che al modo in cui le avete raggiunte (cioè il codice).
+il codice).</p></li>
+<li><p>Come ambiente in cui “fare” scienza dei dati, come un moderno taccuino di laboratorio
+di laboratorio dove è possibile registrare non solo ciò che si è fatto, ma anche ciò che si è pensato.
+pensiero.</p></li>
+</ol>
+<p>R Markdown integra una serie di pacchetti R e di strumenti esterni. Ciò significa che l’aiuto non è in genere disponibile attraverso <code>?</code>. Invece, mentre lavorate a questo capitolo e utilizzate R Markdown in futuro, tenete a portata di mano queste risorse:</p>
+<ul>
+<li><p>R Markdown Cheat Sheet: <em>Help &gt; Cheatsheets &gt; R Markdown Cheat Sheet</em>,</p></li>
+<li><p>Guida di riferimento a R Markdown: <em>Help &gt; Cheatsheets &gt; R Markdown Reference Guide</em>.
+Guida_.</p></li>
+</ul>
+<p>Entrambi i fogli informativi sono disponibili anche all’indirizzo <a href="https://rstudio.com/resources/cheatsheets/" class="uri">https://rstudio.com/resources/cheatsheets/</a>.</p>
+<div id="prerequisiti-18" class="section level3">
+<h3>
+<span class="header-section-number">27.1.1</span> Prerequisiti<a class="anchor" aria-label="anchor" href="#prerequisiti-18"><i class="fas fa-link"></i></a>
+</h3>
+<p>È necessario il pacchetto <strong>rmarkdown</strong>, ma non è necessario installarlo o caricarlo esplicitamente, poiché RStudio fa automaticamente entrambe le cose quando necessario.</p>
+</div>
+</div>
+<div id="nozioni-di-base-di-r-markdown" class="section level2">
+<h2>
+<span class="header-section-number">27.2</span> Nozioni di base di R Markdown<a class="anchor" aria-label="anchor" href="#nozioni-di-base-di-r-markdown"><i class="fas fa-link"></i></a>
+</h2>
+<p>Questo è un file R Markdown, un file di testo semplice con estensione <code>.Rmd</code>:</p>
+<pre><code>---
+title: "Diamond sizes"
+date: 2016-08-25
+output: html_document
+---
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(dplyr)
+
+smaller &lt;- diamonds %&gt;% 
+  filter(carat &lt;= 2.5)
+```
+
+We have data about `r nrow(diamonds)` diamonds. Only 
+`r nrow(diamonds) - nrow(smaller)` are larger than
+2.5 carats. The distribution of the remainder is shown
+below:
+
+```{r, echo = FALSE}
+smaller %&gt;% 
+  ggplot(aes(carat)) + 
+  geom_freqpoly(binwidth = 0.01)
+```</code></pre>
+<p>Contiene tre importanti tipi di contenuti:</p>
+<ol style="list-style-type: decimal">
+<li>Un’intestazione (opzionale) __YAML circondata da <code>---</code>s.</li>
+<li>
+<strong>Chunks</strong> di codice R circondati da <code>```</code>.</li>
+<li>Testo mescolato con una semplice formattazione del testo come <code># heading</code> e <code>_italics_</code>.</li>
+</ol>
+<p>Quando si apre un `.Rmd’, si ottiene un’interfaccia di blocco note in cui il codice e l’output sono interlacciati. È possibile eseguire ciascun pezzo di codice facendo clic sull’icona Esegui (simile a un pulsante di riproduzione nella parte superiore del pezzo) o premendo Cmd/Ctrl + Maiusc + Invio. RStudio esegue il codice e visualizza i risultati in linea con il codice:</p>
+<div class="inline-figure"><img src="rmarkdown/diamond-sizes-notebook.png" width="75%" style="display: block; margin: auto;"></div>
+<p>Per produrre un rapporto completo contenente tutto il testo, il codice e i risultati, fare clic su “Knit” o premere Cmd/Ctrl + Shift + K. È possibile farlo anche in modo programmatico con <code>rmarkdown::render("1-example.Rmd")</code>. In questo modo si visualizza il rapporto nel riquadro del visualizzatore e si crea un file HTML autonomo che si può condividere con altri.</p>
+<div class="inline-figure"><img src="rmarkdown/diamond-sizes-report.png" width="75%" style="display: block; margin: auto;"></div>
+<p>Quando si <strong>knit</strong> il documento, R Markdown invia il file .Rmd a <strong>knitr</strong>, <a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a>, che esegue tutti i pezzi di codice e crea un nuovo documento markdown (.md) che include il codice e il suo output. Il file markdown generato da knitr viene poi elaborato da <strong>pandoc</strong>, <a href="http://pandoc.org/" class="uri">http://pandoc.org/</a>, che è responsabile della creazione del file finito. Il vantaggio di questo flusso di lavoro in due fasi è che si può creare un’ampia gamma di formati di output, come si vedrà in <a href="formati-di-r-markdown.html#formati-di-r-markdown">Formati di R markdown</a>.</p>
+<div class="inline-figure"><img src="images/RMarkdownFlow.png" width="75%" style="display: block; margin: auto;"></div>
+<p>Per iniziare a creare il proprio file `.Rmd’, selezionare <em>File &gt; New File &gt; R Markdown…</em> nella barra dei menu. RStudio lancerà una procedura guidata che potrete utilizzare per pre-popolare il vostro file con contenuti utili che vi ricorderanno come funzionano le caratteristiche principali di R Markdown.</p>
+<p>Le sezioni seguenti approfondiscono i tre componenti di un documento R Markdown: il testo markdown, i pezzi di codice e l’intestazione YAML.</p>
+<div id="esercizi-71" class="section level3">
+<h3>
+<span class="header-section-number">27.2.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-71"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Creare un nuovo blocco note utilizzando <em>File &gt; New File &gt; R Notebook</em>. Leggere le
+istruzioni. Esercitatevi a eseguire i pezzi. Verificare che sia possibile modificare
+il codice, eseguirlo nuovamente e vedere l’output modificato.</p></li>
+<li><p>Create un nuovo documento R Markdown con <em>File &gt; New File &gt; R Markdown…</em>.
+Lavorare a maglia facendo clic sul pulsante appropriato. Lavorare con la scorciatoia da tastiera appropriata.
+tastiera appropriata. Verificare che sia possibile modificare l’input
+e vedere l’aggiornamento dell’output.</p></li>
+<li><p>Confrontate e confrontate i file R notebook e R markdown creati in precedenza.
+sopra. In che modo gli output sono simili? In che modo sono diversi? Come sono
+gli input sono simili? In che modo sono diversi? Cosa succede se
+copiare l’intestazione YAML da uno all’altro?</p></li>
+<li><p>Creare un nuovo documento R Markdown per ognuno dei tre formati incorporati
+formati incorporati: HTML, PDF e Word. Lavorate a maglia ciascuno dei tre documenti.
+In che modo l’output differisce? In cosa differisce l’input? (Potrebbe essere necessario
+installare LaTeX per creare l’output PDF — RStudio vi chiederà se è necessario).
+vi chiederà se ciò è necessario).</p></li>
+</ol>
+</div>
+</div>
+<div id="formattazione-del-testo-con-markdown" class="section level2">
+<h2>
+<span class="header-section-number">27.3</span> Formattazione del testo con Markdown<a class="anchor" aria-label="anchor" href="#formattazione-del-testo-con-markdown"><i class="fas fa-link"></i></a>
+</h2>
+<p>La prosa nei file <code>.Rmd</code> è scritta in Markdown, un insieme leggero di convenzioni per la formattazione dei file di testo. Markdown è stato progettato per essere facile da leggere e da scrivere. È anche molto facile da imparare. La guida che segue mostra come utilizzare il Markdown di Pandoc, una versione leggermente estesa di Markdown che R Markdown comprende.</p>
+<pre><code>Text formatting 
+------------------------------------------------------------
+
+*italic*  or _italic_
+**bold**   __bold__
+`code`
+superscript^2^ and subscript~2~
+
+Headings
+------------------------------------------------------------
+
+# 1st Level Header
+
+## 2nd Level Header
+
+### 3rd Level Header
+
+Lists
+------------------------------------------------------------
+
+*   Bulleted list item 1
+
+*   Item 2
+
+    * Item 2a
+
+    * Item 2b
+
+1.  Numbered list item 1
+
+1.  Item 2. The numbers are incremented automatically in the output.
+
+Links and images
+------------------------------------------------------------
+
+&lt;http://example.com&gt;
+
+[linked phrase](http://example.com)
+
+![optional caption text](path/to/img.png)
+
+Tables 
+------------------------------------------------------------
+
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell</code></pre>
+<p>Il modo migliore per impararle è semplicemente provarle. Ci vorrà qualche giorno, ma presto diventeranno una seconda natura e non sarà più necessario pensarci. In caso di dimenticanza, è possibile accedere a un pratico foglio di riferimento con <em>Help &gt; Markdown Quick Reference</em>.</p>
+<div id="esercizi-72" class="section level3">
+<h3>
+<span class="header-section-number">27.3.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-72"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Mettete in pratica quanto appreso creando un breve curriculum vitae. Il titolo dovrebbe essere
+il vostro nome, e dovreste includere titoli per (almeno) l’istruzione o l’impiego.
+occupazione. Ciascuna delle sezioni deve includere un elenco puntato di
+lavori/diplomi. Evidenziate l’anno in grassetto.</p></li>
+<li>
+<p>Utilizzando la guida rapida di R Markdown, capire come fare:</p>
+<ol style="list-style-type: decimal">
+<li>Aggiungere una nota a piè di pagina.</li>
+<li>Aggiungere una regola orizzontale.</li>
+<li>Aggiungere una citazione a blocchi.</li>
+</ol>
+</li>
+<li><p>Copiare e incollare il contenuto di <code>diamond-sizes.Rmd</code> da
+<a href="https://github.com/hadley/r4ds/tree/master/rmarkdown" class="uri">https://github.com/hadley/r4ds/tree/master/rmarkdown</a> in un documento
+R in un documento markdown locale. Verificate che sia possibile eseguirlo, quindi aggiungete del testo dopo il
+poligono di frequenza che descrive le sue caratteristiche più evidenti.</p></li>
+</ol>
+</div>
+</div>
+<div id="pezzi-di-codice" class="section level2">
+<h2>
+<span class="header-section-number">27.4</span> Pezzi di codice<a class="anchor" aria-label="anchor" href="#pezzi-di-codice"><i class="fas fa-link"></i></a>
+</h2>
+<p>Per eseguire del codice all’interno di un documento R Markdown, è necessario inserire un chunk. Ci sono tre modi per farlo:</p>
+<ol style="list-style-type: decimal">
+<li><p>La scorciatoia da tastiera Cmd/Ctrl + Alt + I</p></li>
+<li><p>L’icona del pulsante “Inserisci” nella barra degli strumenti dell’editor.</p></li>
+<li><p>Digitando manualmente i delimitatori di pezzi <code>```{r}</code> e <code>```</code>.</p></li>
+</ol>
+<p>Ovviamente, vi consiglio di imparare la scorciatoia da tastiera. Vi farà risparmiare molto tempo nel lungo periodo!</p>
+<p>Potete continuare a eseguire il codice utilizzando la scorciatoia da tastiera che ormai (spero!) conoscete e amate: Cmd/Ctrl + Invio. Tuttavia, i chunk hanno una nuova scorciatoia da tastiera: Cmd/Ctrl + Shift + Invio, che esegue tutto il codice contenuto nel gruppo. Pensate a un gruppo come a una funzione. Un chunk dovrebbe essere relativamente autonomo e focalizzato su un singolo compito.</p>
+<p>Le sezioni seguenti descrivono l’intestazione del chunk, che consiste in <code>```{r</code>, seguito da un nome opzionale del chunk, seguito da opzioni separate da virgole, seguite da <code>}</code>. Segue il codice R e la fine del chunk è indicata da un ultimo <code>```</code>.</p>
+<div id="nome-del-chunk" class="section level3">
+<h3>
+<span class="header-section-number">27.4.1</span> Nome del chunk<a class="anchor" aria-label="anchor" href="#nome-del-chunk"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ai chunk può essere dato un nome opzionale: <code>```{r by-name}</code>. Questo ha tre vantaggi:</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Si può navigare più facilmente verso specifici chunk usando il navigatore di codice a discesa in basso a sinistra.
+navigatore di codice in basso a sinistra nell’editor di script:</p>
+<div class="inline-figure"><img src="screenshots/rmarkdown-chunk-nav.png" width="30%" style="display: block; margin: auto;"></div>
+</li>
+<li><p>I grafici prodotti dai chunks avranno nomi utili che li renderanno
+più facili da usare altrove. Maggiori informazioni in <a href="grafici-per-la-comunicazione.html#altre-opzioni-importanti">altre opzioni importanti</a>.</p></li>
+<li><p>È possibile impostare reti di pezzi memorizzati nella cache per evitare di rieseguire costose
+calcoli costosi a ogni esecuzione. Per saperne di più, si veda più avanti.</p></li>
+</ol>
+<p>C’è un nome di chunk che implica un comportamento speciale: <code>setup</code>. Quando si è in modalità notebook, il chunk chiamato setup viene eseguito automaticamente una volta, prima che venga eseguito qualsiasi altro codice.</p>
+</div>
+<div id="opzioni-dei-chunk" class="section level3">
+<h3>
+<span class="header-section-number">27.4.2</span> Opzioni dei chunk<a class="anchor" aria-label="anchor" href="#opzioni-dei-chunk"><i class="fas fa-link"></i></a>
+</h3>
+<p>L’output dei chunk può essere personalizzato con le <strong>opzioni</strong>, argomenti forniti all’intestazione dei chunk. Knitr fornisce quasi 60 opzioni che possono essere utilizzate per personalizzare i chunk di codice. In questa sede tratteremo le opzioni più importanti, che verranno utilizzate di frequente. L’elenco completo è disponibile all’indirizzo <a href="http://yihui.name/knitr/options/" class="uri">http://yihui.name/knitr/options/</a>.</p>
+<p>L’insieme più importante di opzioni controlla se il blocco di codice viene eseguito e quali risultati vengono inseriti nel report finito:</p>
+<ul>
+<li><p><code>eval = FALSE</code> impedisce che il codice venga valutato. (E ovviamente se il codice
+codice non viene eseguito, non verrà generato alcun risultato). Questo è utile per
+visualizzare un esempio di codice, o per disabilitare un grande blocco di codice senza
+commentare ogni riga.</p></li>
+<li><p><code>include = FALSE</code> esegue il codice, ma non mostra il codice o i risultati nel documento finale.
+nel documento finale. Usare questa opzione per il codice di configurazione che non si vuole
+ingombrare il rapporto.</p></li>
+<li><p><code>echo = FALSE</code> impedisce al codice, ma non ai risultati, di apparire nel file finale.
+file finito. Usare questa opzione quando si scrivono rapporti destinati a persone che non vogliono
+non vogliono vedere il codice R sottostante.</p></li>
+<li><p><code>messaggio = FALSE</code> o <code>avvertimento = FALSE</code> impedisce che i messaggi o gli avvertimenti
+di apparire nel file finito.</p></li>
+<li><p><code>risultati = 'hide'</code> nasconde l’output stampato; <code>fig.show = 'hide'</code> nasconde i
+trame.</p></li>
+<li><p><code>error = TRUE</code> fa sì che il rendering continui anche se il codice restituisce un errore.
+Questo è raramente qualcosa che si vuole includere nella versione finale del report.
+del report, ma può essere molto utile se si ha la necessità di eseguire il debug di ciò che
+cosa sta succedendo all’interno di <code>.Rmd</code>. È anche utile se si sta insegnando R
+e si vuole includere deliberatamente un errore. L’impostazione predefinita, <code>errore = FALSO</code>, fa sì che
+fa sì che il knitting fallisca se c’è un singolo errore nel documento.</p></li>
+</ul>
+<p>La tabella seguente riassume i tipi di output che ciascuna opzione sopprime:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Option</th>
+<th>Run code</th>
+<th>Show code</th>
+<th>Output</th>
+<th>Plots</th>
+<th>Messages</th>
+<th>Warnings</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>eval = FALSE</code></td>
+<td>-</td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td><code>include = FALSE</code></td>
+<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td><code>echo = FALSE</code></td>
+<td></td>
+<td>-</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>results = "hide"</code></td>
+<td></td>
+<td></td>
+<td>-</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>fig.show = "hide"</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>message = FALSE</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>warning = FALSE</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="tabelle" class="section level3">
+<h3>
+<span class="header-section-number">27.4.3</span> Tabelle<a class="anchor" aria-label="anchor" href="#tabelle"><i class="fas fa-link"></i></a>
+</h3>
+<p>Per impostazione predefinita, R Markdown stampa frame e matrici di dati come li vedreste nella console:</p>
+<div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>
+<span class="co">#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
+<span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
+<span class="co">#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
+<span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
+<span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></code></pre></div>
+<p>Se si preferisce che i dati siano visualizzati con una formattazione aggiuntiva, si può usare la funzione <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable</a></code>. Il codice seguente genera la tabella <a href="r-markdown.html#tab:kable">27.1</a>.</p>
+<div class="sourceCode" id="cb723"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>
+  <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>, 
+  caption <span class="op">=</span> <span class="st">"A knitr kable."</span>
+<span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<caption>
+<span id="tab:kable">Table 27.1: </span>A knitr kable.</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table></div>
+<p>Si legga la documentazione di <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">?knitr::kable</a></code> per vedere gli altri modi in cui si può personalizzare la tabella. Per una personalizzazione ancora più profonda, considerate i pacchetti <strong>xtable</strong>, <strong>stargazer</strong>, <strong>pander</strong>, <strong>tables</strong> e <strong>ascii</strong>. Ognuno di essi fornisce una serie di strumenti per restituire tabelle formattate da codice R.</p>
+<p>Esiste anche una ricca serie di opzioni per controllare il modo in cui le figure vengono incorporate. Queste opzioni sono illustrate in [salvare le trame].</p>
+</div>
+<div id="caching" class="section level3">
+<h3>
+<span class="header-section-number">27.4.4</span> Caching<a class="anchor" aria-label="anchor" href="#caching"><i class="fas fa-link"></i></a>
+</h3>
+<p>Normalmente, ogni maglia di un documento parte da una base completamente pulita. Questo è ottimo per la riproducibilità, perché assicura che ogni calcolo importante sia stato catturato nel codice. Tuttavia, può essere doloroso se si hanno alcuni calcoli che richiedono molto tempo. La soluzione è <code>cache = TRUE</code>. Se impostata, questa opzione salva l’output del chunk in un file su disco con un nome speciale. Nelle esecuzioni successive, knitr controllerà se il codice è cambiato e, in caso contrario, riutilizzerà i risultati in cache.</p>
+<p>Il sistema di cache deve essere usato con attenzione, perché per impostazione predefinita si basa solo sul codice, non sulle sue dipendenze. Per esempio, qui il chunk <code>processed_data</code> dipende dal chunk <code>raw_data</code>:</p>
+<pre><code>```{r raw_data}
+rawdata &lt;- readr::read_csv("a_very_large_file.csv")
+```
+
+```{r processed_data, cache = TRUE}
+processed_data &lt;- rawdata %&gt;% 
+  filter(!is.na(import_var)) %&gt;% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```</code></pre>
+<p>Mettere in cache il chunk <code>processed_data</code> significa che verrà rieseguito se la pipeline di dplyr viene modificata, ma non verrà rieseguito se la chiamata <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> cambia. È possibile evitare questo problema con l’opzione chunk <code>dependson</code>:</p>
+<pre><code>```{r processed_data, cache = TRUE, dependson = "raw_data"}
+processed_data &lt;- rawdata %&gt;% 
+  filter(!is.na(import_var)) %&gt;% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```</code></pre>
+<p><code>dependson</code> deve contenere un vettore di caratteri di <em>ogni</em> chunk da cui il chunk in cache dipende. Knitr aggiornerà i risultati del chunk in cache ogni volta che rileverà che una delle sue dipendenze è cambiata.</p>
+<p>Si noti che i chunk non verranno aggiornati se <code>a_very_large_file.csv</code> cambia, perché la cache di Knitr tiene traccia solo dei cambiamenti all’interno del file <code>.Rmd</code>. Se si vuole tenere traccia anche delle modifiche a quel file, si può usare l’opzione <code>cache.extra</code>. Si tratta di un’espressione R arbitraria che invalida la cache ogni volta che viene modificata. Una buona funzione da usare è <code><a href="https://rdrr.io/r/base/file.info.html">file.info()</a></code>: restituisce una serie di informazioni sul file, compresa l’ultima modifica. Quindi si può scrivere:</p>
+<pre><code>```{r raw_data, cache.extra = file.info("a_very_large_file.csv")}
+rawdata &lt;- readr::read_csv("a_very_large_file.csv")
+```</code></pre>
+<p>Quando le strategie di cache diventano progressivamente più complicate, è una buona idea svuotare regolarmente tutte le cache con <code><a href="https://rdrr.io/pkg/knitr/man/clean_cache.html">knitr::clean_cache()</a></code>.</p>
+<p>Ho usato il consiglio di <a href="https://twitter.com/drob/status/738786604731490304">David Robinson</a> per dare un nome a questi chunk: ogni chunk ha il nome dell’oggetto primario che crea. Questo rende più facile la comprensione della specifica <code>dependson</code>.</p>
+</div>
+<div id="opzioni-globali" class="section level3">
+<h3>
+<span class="header-section-number">27.4.5</span> Opzioni globali<a class="anchor" aria-label="anchor" href="#opzioni-globali"><i class="fas fa-link"></i></a>
+</h3>
+<p>Lavorando di più con knitr, si scoprirà che alcune delle opzioni predefinite dei chunk non sono adatte alle proprie esigenze e si vorrà cambiarle. È possibile farlo chiamando <code>knitr::opts_chunk$set()</code> in un pezzo di codice. Per esempio, quando scrivo libri e tutorial, imposto:</p>
+<div class="sourceCode" id="cb727"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
+  comment <span class="op">=</span> <span class="st">"#&gt;"</span>,
+  collapse <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
+<p>Questo utilizza la formattazione dei commenti che preferisco e garantisce che il codice e l’output siano strettamente legati. D’altra parte, se si stesse preparando una relazione, si potrebbe impostare:</p>
+<div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
+  echo <span class="op">=</span> <span class="cn">FALSE</span>
+<span class="op">)</span></code></pre></div>
+<p>Questo nasconderà il codice per impostazione predefinita, mostrando solo le parti che si sceglie deliberatamente di mostrare (con <code>echo = TRUE</code>). Si potrebbe pensare di impostare <code>message = FALSE</code> e <code>warning = FALSE</code>, ma questo renderebbe più difficile il debug dei problemi, perché non si vedrebbe alcun messaggio nel documento finale.</p>
+</div>
+<div id="codice-in-linea" class="section level3">
+<h3>
+<span class="header-section-number">27.4.6</span> Codice in linea<a class="anchor" aria-label="anchor" href="#codice-in-linea"><i class="fas fa-link"></i></a>
+</h3>
+<p>Esiste un altro modo per incorporare codice R in un documento R Markdown: direttamente nel testo, con: <code>`r `</code>. Questo può essere molto utile se si citano le proprietà dei dati nel testo. Per esempio, nel documento di esempio che ho usato all’inizio del capitolo, avevo:</p>
+<blockquote>
+<p>Abbiamo dati sui diamanti di <code>`r nrow(diamonds)`</code>.
+Solo <code>`r nrow(diamonds) - nrow(smaller)`</code> sono più grandi di
+di 2,5 carati. La distribuzione dei rimanenti è mostrata di seguito:</p>
+</blockquote>
+<p>Quando il report viene lavorato a maglia, i risultati di questi calcoli vengono inseriti nel testo:</p>
+<blockquote>
+<p>Abbiamo dati su 53940 diamanti. Solo 126 sono più grandi di
+2,5 carati. La distribuzione dei rimanenti è mostrata di seguito:</p>
+</blockquote>
+<p>Quando si inseriscono numeri nel testo, <code><a href="https://rdrr.io/r/base/format.html">format()</a></code> è un amico. Permette di impostare il numero di <code>cifre', in modo da non stampare con una precisione ridicola, e un</code>big.mark’ per rendere i numeri più facili da leggere. Spesso le combino in una funzione di aiuto:</p>
+<div class="sourceCode" id="cb729"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">comma</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>
+<span class="fu">comma</span><span class="op">(</span><span class="fl">3452345</span><span class="op">)</span>
+<span class="co">#&gt; [1] "3,452,345"</span>
+<span class="fu">comma</span><span class="op">(</span><span class="fl">.12358124331</span><span class="op">)</span>
+<span class="co">#&gt; [1] "0.12"</span></code></pre></div>
+</div>
+<div id="esercizi-73" class="section level3">
+<h3>
+<span class="header-section-number">27.4.7</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-73"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Aggiungere una sezione che esplori come le dimensioni dei diamanti variano in base al taglio, al colore e alla purezza,
+e chiarezza. Si supponga di scrivere una relazione per qualcuno che non conosce R.
+R, e invece di impostare <code>echo = FALSE</code> su ogni pezzo, impostate un’opzione globale.
+globale.</p></li>
+<li><p>Scaricare <code>diamond-sizes.Rmd</code> da
+<a href="https://github.com/hadley/r4ds/tree/master/rmarkdown" class="uri">https://github.com/hadley/r4ds/tree/master/rmarkdown</a>. Aggiungete una sezione
+che descriva i 20 diamanti più grandi, inclusa una tabella che mostri i loro
+gli attributi più importanti.</p></li>
+<li><p>Modificare <code>diamonds-sizes.Rmd</code> per utilizzare <code>comma()</code> per produrre un output ben
+formattato. Includere anche la percentuale di diamanti
+più grandi di 2,5 carati.</p></li>
+<li><p>Impostare una rete di pezzi dove <code>d</code> dipende da <code>c</code> e <code>b</code>, e
+sia <code>b</code> che <code>c</code> dipendono da <code>a</code>. Fate in modo che ogni chunk stampi <code><a href="https://lubridate.tidyverse.org/reference/now.html">lubridate::now()</a></code>,
+impostare <code>cache = TRUE</code>, quindi verificare la comprensione della cache.</p></li>
+</ol>
+</div>
+</div>
+<div id="risoluzione-dei-problemi" class="section level2">
+<h2>
+<span class="header-section-number">27.5</span> Risoluzione dei problemi<a class="anchor" aria-label="anchor" href="#risoluzione-dei-problemi"><i class="fas fa-link"></i></a>
+</h2>
+<p>La risoluzione dei problemi dei documenti R Markdown può essere impegnativa, perché non ci si trova più in un ambiente R interattivo, e sarà necessario imparare alcuni nuovi trucchi. La prima cosa da fare è ricreare il problema in una sessione interattiva. Riavviate R, quindi “Esegui tutti i pezzi” (dal menu Codice, sotto la voce Esegui regione) o con la scorciatoia da tastiera Ctrl + Alt + R. Se siete fortunati, questo ricreerà il problema e potrete capire cosa sta succedendo in modo interattivo.</p>
+<p>Se questo non aiuta, deve esserci qualcosa di diverso tra l’ambiente interattivo e l’ambiente markdown di R. È necessario sistemare l’ambiente interattivo e l’ambiente markdown. È necessario esplorare sistematicamente le opzioni. La differenza più comune è la directory di lavoro: la directory di lavoro di un markdown R è la directory in cui risiede. Verificate che la directory di lavoro sia quella che vi aspettate includendo <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> in un chunk.</p>
+<p>Successivamente, si deve fare un brainstorming di tutte le cose che potrebbero causare il bug. È necessario verificare sistematicamente che siano gli stessi nella sessione R e nella sessione R markdown. Il modo più semplice per farlo è impostare <code>error = TRUE</code> sul pezzo che causa il problema, quindi usare <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> e <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> per verificare che le impostazioni siano quelle previste.</p>
+</div>
+<div id="intestazione-yaml" class="section level2">
+<h2>
+<span class="header-section-number">27.6</span> Intestazione YAML<a class="anchor" aria-label="anchor" href="#intestazione-yaml"><i class="fas fa-link"></i></a>
+</h2>
+<p>È possibile controllare molte altre impostazioni dell’intero documento modificando i parametri dell’intestazione YAML. Ci si potrebbe chiedere cosa significhi YAML: è “un altro linguaggio di markup”, progettato per rappresentare dati gerarchici in modo facile da leggere e scrivere per gli esseri umani. R Markdown lo usa per controllare molti dettagli dell’output. Qui ne discuteremo due: i parametri del documento e le bibliografie.</p>
+<div id="parametri" class="section level3">
+<h3>
+<span class="header-section-number">27.6.1</span> Parametri<a class="anchor" aria-label="anchor" href="#parametri"><i class="fas fa-link"></i></a>
+</h3>
+<p>I documenti R Markdown possono includere uno o più parametri i cui valori possono essere impostati durante il rendering del report. I parametri sono utili quando si vuole riproporre lo stesso report con valori diversi per vari input chiave. Ad esempio, si possono produrre rapporti di vendita per filiale, risultati di esami per studente o riepiloghi demografici per paese. Per dichiarare uno o più parametri, utilizzare il campo <code>params</code>.</p>
+<p>Questo esempio utilizza il parametro <code>my_class</code> per determinare la classe di auto da visualizzare:</p>
+<pre><code>---
+output: html_document
+params:
+  my_class: "suv"
+---
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(dplyr)
+
+class &lt;- mpg %&gt;% filter(class == params$my_class)
+```
+
+# Fuel economy for `r params$my_class`s
+
+```{r, message = FALSE}
+ggplot(class, aes(displ, hwy)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+```</code></pre>
+<p>Come si può vedere, i parametri sono disponibili all’interno dei pezzi di codice come un elenco di sola lettura chiamato <code>params</code>.</p>
+<p>È possibile scrivere vettori atomici direttamente nell’intestazione YAML. È anche possibile eseguire espressioni R arbitrarie, anteponendo al valore del parametro <code>!r</code>. Questo è un buon modo per specificare parametri di data/ora.</p>
+<div class="sourceCode" id="cb731"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb731-1"><a href="r-markdown.html#cb731-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb731-2"><a href="r-markdown.html#cb731-2"></a><span class="at">  </span><span class="fu">start</span><span class="kw">:</span><span class="at"> !r lubridate::ymd("2015-01-01")</span></span>
+<span id="cb731-3"><a href="r-markdown.html#cb731-3"></a><span class="at">  </span><span class="fu">snapshot</span><span class="kw">:</span><span class="at"> !r lubridate::ymd_hms("2015-01-01 12:30:00")</span></span></code></pre></div>
+<p>In RStudio, è possibile fare clic sull’opzione “Knit with Parameters” nel menu a discesa Knit per impostare i parametri, eseguire il rendering e visualizzare l’anteprima del report in un unico passaggio di facile utilizzo. È possibile personalizzare la finestra di dialogo impostando altre opzioni nell’intestazione. Per ulteriori dettagli, vedere <a href="http://rmarkdown.rstudio.com/developer_parameterized_reports.html#parameter_user_interfaces" class="uri">http://rmarkdown.rstudio.com/developer_parameterized_reports.html#parameter_user_interfaces</a>.</p>
+<p>In alternativa, se è necessario produrre molti rapporti parametrati, si può chiamare <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> con un elenco di <code>parametri</code>:</p>
+<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"fuel-economy.Rmd"</span>, params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>my_class <span class="op">=</span> <span class="st">"suv"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>È particolarmente potente in combinazione con <code>purrr:pwalk()</code>. L’esempio seguente crea un report per ogni valore di <code>classe</code> trovato in <code>mpg</code>. Per prima cosa si crea un frame di dati con una riga per ogni classe, indicando il <code>nome del file</code> del report e i <code>parametri</code>:</p>
+<div class="sourceCode" id="cb733"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">reports</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
+  class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">class</span><span class="op">)</span>,
+  filename <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"fuel-economy-"</span>, <span class="va">class</span>, <span class="st">".html"</span><span class="op">)</span>,
+  params <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">class</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>my_class <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">reports</span>
+<span class="co">#&gt; # A tibble: 7 × 3</span>
+<span class="co">#&gt;   class   filename                  params          </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                     &lt;list&gt;          </span>
+<span class="co">#&gt; 1 compact fuel-economy-compact.html &lt;named list [1]&gt;</span>
+<span class="co">#&gt; 2 midsize fuel-economy-midsize.html &lt;named list [1]&gt;</span>
+<span class="co">#&gt; 3 suv     fuel-economy-suv.html     &lt;named list [1]&gt;</span>
+<span class="co">#&gt; 4 2seater fuel-economy-2seater.html &lt;named list [1]&gt;</span>
+<span class="co">#&gt; 5 minivan fuel-economy-minivan.html &lt;named list [1]&gt;</span>
+<span class="co">#&gt; 6 pickup  fuel-economy-pickup.html  &lt;named list [1]&gt;</span>
+<span class="co">#&gt; # … with 1 more row</span></code></pre></div>
+<p>Quindi si abbinano i nomi delle colonne ai nomi degli argomenti di <code>render()</code> e si usa il metodo <strong>parallel</strong> di Purrr per chiamare <code>render()</code> una volta per ogni riga:</p>
+<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">reports</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>output_file <span class="op">=</span> <span class="va">filename</span>, <span class="va">params</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pwalk</a></span><span class="op">(</span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="va"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span>, input <span class="op">=</span> <span class="st">"fuel-economy.Rmd"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="bibliografie-e-citazioni" class="section level3">
+<h3>
+<span class="header-section-number">27.6.2</span> Bibliografie e citazioni<a class="anchor" aria-label="anchor" href="#bibliografie-e-citazioni"><i class="fas fa-link"></i></a>
+</h3>
+<p>Pandoc può generare automaticamente citazioni e una bibliografia in diversi stili. Per utilizzare questa funzione, specificare un file di bibliografia utilizzando il campo `bibliografia’ nell’intestazione del file. Il campo deve contenere un percorso dalla directory che contiene il file .Rmd al file che contiene la bibliografia:</p>
+<div class="sourceCode" id="cb735"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb735-1"><a href="r-markdown.html#cb735-1"></a><span class="fu">bibliografia</span><span class="kw">:</span><span class="at"> rmarkdown.bib</span></span></code></pre></div>
+<p>È possibile utilizzare molti formati di bibliografia comuni, tra cui BibLaTeX, BibTeX, endnote, medline.</p>
+<p>Per creare una citazione all’interno del file .Rmd, utilizzare una chiave composta da ‘@’ + l’identificatore della citazione dal file di bibliografia. Quindi inserire la citazione tra parentesi quadre. Ecco alcuni esempi:</p>
+<div class="sourceCode" id="cb736"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb736-1"><a href="r-markdown.html#cb736-1"></a>Separare più citazioni con un <span class="bn">`;`</span>: Blah blah [@smith04; @doe99].</span>
+<span id="cb736-2"><a href="r-markdown.html#cb736-2"></a></span>
+<span id="cb736-3"><a href="r-markdown.html#cb736-3"></a>È possibile aggiungere commenti arbitrari all'interno delle parentesi quadre: </span>
+<span id="cb736-4"><a href="r-markdown.html#cb736-4"></a>Blah blah [cfr. @doe99, pp. 33-35; anche @smith04, cap. 1].</span>
+<span id="cb736-5"><a href="r-markdown.html#cb736-5"></a></span>
+<span id="cb736-6"><a href="r-markdown.html#cb736-6"></a>Rimuovere le parentesi quadre per creare una citazione nel testo: @smith04 </span>
+<span id="cb736-7"><a href="r-markdown.html#cb736-7"></a>dice bla, oppure @smith04 [p. 33] dice bla.</span>
+<span id="cb736-8"><a href="r-markdown.html#cb736-8"></a></span>
+<span id="cb736-9"><a href="r-markdown.html#cb736-9"></a>Aggiungere un <span class="bn">`-`</span> prima della citazione per sopprimere il nome dell'autore: </span>
+<span id="cb736-10"><a href="r-markdown.html#cb736-10"></a>Smith dice bla [-@smith04].</span></code></pre></div>
+<p>Quando R Markdown esegue il rendering del file, costruisce e aggiunge una bibliografia alla fine del documento. La bibliografia conterrà tutti i riferimenti citati nel file di bibliografia, ma non conterrà un titolo di sezione. Di conseguenza, è prassi comune terminare il file con un’intestazione di sezione per la bibliografia, come <code># Riferimenti</code> o <code># Bibliografia</code>.</p>
+<p>È possibile modificare lo stile delle citazioni e della bibliografia facendo riferimento a un file CSL (citation style language) nel campo <code>csl</code>:</p>
+<div class="sourceCode" id="cb737"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb737-1"><a href="r-markdown.html#cb737-1"></a><span class="fu">bibliografia</span><span class="kw">:</span><span class="at"> rmarkdown.bib</span></span>
+<span id="cb737-2"><a href="r-markdown.html#cb737-2"></a><span class="fu">CSL</span><span class="kw">:</span><span class="at"> apa.csl</span></span></code></pre></div>
+<p>Come per il campo bibliografia, il file csl deve contenere il percorso del file. Qui assumo che il file csl si trovi nella stessa directory del file .Rmd. Un buon posto dove trovare i file di stile CSL per gli stili di bibliografia più comuni è <a href="http://github.com/citation-style-language/styles" class="uri">http://github.com/citation-style-language/styles</a>.</p>
+</div>
+</div>
+<div id="per-saperne-di-più-2" class="section level2">
+<h2>
+<span class="header-section-number">27.7</span> Per saperne di più<a class="anchor" aria-label="anchor" href="#per-saperne-di-pi%C3%B9-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>R Markdown è ancora relativamente giovane e sta crescendo rapidamente. Il posto migliore per rimanere aggiornati sulle novità è il sito ufficiale di R Markdown: <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>Ci sono due argomenti importanti che non sono stati trattati qui: la collaborazione e i dettagli per comunicare accuratamente le proprie idee ad altri esseri umani. La collaborazione è una parte vitale della moderna scienza dei dati e potete semplificarvi la vita utilizzando strumenti di controllo delle versioni, come Git e GitHub. Vi consigliamo due risorse gratuite che vi insegneranno a conoscere Git:</p>
+<ol style="list-style-type: decimal">
+<li><p>“Happy Git with R”: un’introduzione semplice a Git e GitHub per gli utenti di R, a cura di Jenny Bryan.
+utenti di R, di Jenny Bryan. Il libro è disponibile gratuitamente online:
+<a href="http://happygitwithr.com" class="uri">http://happygitwithr.com</a></p></li>
+<li><p>Il capitolo “Git e GitHub” di <em>R Packages</em>, di Hadley. È anche possibile
+leggerlo gratuitamente online: <a href="http://r-pkgs.had.co.nz/git.html" class="uri">http://r-pkgs.had.co.nz/git.html</a>.</p></li>
+</ol>
+<p>Non ho nemmeno parlato di ciò che dovreste scrivere per comunicare chiaramente i risultati della vostra analisi. Per migliorare la vostra scrittura, vi consiglio di leggere [<em>Style: Lessons in Clarity and Grace</em>] (<a href="https://amzn.com/0134080416" class="uri">https://amzn.com/0134080416</a>) di Joseph M. Williams e Joseph Bizup, oppure [<em>The Sense of Structure: Writing from the Reader’s Perspective</em>] (<a href="https://amzn.com/0205296327" class="uri">https://amzn.com/0205296327</a>) di George Gopen. Entrambi i libri vi aiuteranno a capire la struttura delle frasi e dei paragrafi e vi daranno gli strumenti per rendere più chiara la vostra scrittura. (Questi libri sono piuttosto costosi se acquistati nuovi, ma sono utilizzati da molti corsi di inglese, quindi si trovano molte copie di seconda mano a buon mercato). George Gopen ha anche una serie di brevi articoli sulla scrittura all’indirizzo <a href="https://www.georgegopen.com/the-litigation-articles.html" class="uri">https://www.georgegopen.com/the-litigation-articles.html</a>. Sono rivolti agli avvocati, ma quasi tutto si applica anche agli scienziati dei dati.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></div>
+<div class="next"><a href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-markdown"><span class="header-section-number">27</span> R Markdown</a></li>
+<li>
+<a class="nav-link" href="#introduzione-18"><span class="header-section-number">27.1</span> Introduzione</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#prerequisiti-18"><span class="header-section-number">27.1.1</span> Prerequisiti</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#nozioni-di-base-di-r-markdown"><span class="header-section-number">27.2</span> Nozioni di base di R Markdown</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-71"><span class="header-section-number">27.2.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#formattazione-del-testo-con-markdown"><span class="header-section-number">27.3</span> Formattazione del testo con Markdown</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-72"><span class="header-section-number">27.3.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#pezzi-di-codice"><span class="header-section-number">27.4</span> Pezzi di codice</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#nome-del-chunk"><span class="header-section-number">27.4.1</span> Nome del chunk</a></li>
+<li><a class="nav-link" href="#opzioni-dei-chunk"><span class="header-section-number">27.4.2</span> Opzioni dei chunk</a></li>
+<li><a class="nav-link" href="#tabelle"><span class="header-section-number">27.4.3</span> Tabelle</a></li>
+<li><a class="nav-link" href="#caching"><span class="header-section-number">27.4.4</span> Caching</a></li>
+<li><a class="nav-link" href="#opzioni-globali"><span class="header-section-number">27.4.5</span> Opzioni globali</a></li>
+<li><a class="nav-link" href="#codice-in-linea"><span class="header-section-number">27.4.6</span> Codice in linea</a></li>
+<li><a class="nav-link" href="#esercizi-73"><span class="header-section-number">27.4.7</span> Esercizi</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#risoluzione-dei-problemi"><span class="header-section-number">27.5</span> Risoluzione dei problemi</a></li>
+<li>
+<a class="nav-link" href="#intestazione-yaml"><span class="header-section-number">27.6</span> Intestazione YAML</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#parametri"><span class="header-section-number">27.6.1</span> Parametri</a></li>
+<li><a class="nav-link" href="#bibliografie-e-citazioni"><span class="header-section-number">27.6.2</span> Bibliografie e citazioni</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#per-saperne-di-pi%C3%B9-2"><span class="header-section-number">27.7</span> Per saperne di più</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/rmarkdown.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/rmarkdown.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

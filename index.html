@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Benvenuto | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="Questo libro vi insegnerà come fare data science con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici–e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la ‘gramamtica dei grafici’ (grammar of graphics), la ‘programmazione letterale’ (literate programming) e la ‘ricerca riproducibile’ (reproducible research) per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="Benvenuto | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="Questo libro vi insegnerà come fare data science con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici–e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la ‘gramamtica dei grafici’ (grammar of graphics), la ‘programmazione letterale’ (literate programming) e la ‘ricerca riproducibile’ (reproducible research) per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Benvenuto | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="Questo libro vi insegnerà come fare data science con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici–e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la ‘gramamtica dei grafici’ (grammar of graphics), la ‘programmazione letterale’ (literate programming) e la ‘ricerca riproducibile’ (reproducible research) per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="benvenuto" class="section level1 unnumbered">
+<h1>Benvenuto<a class="anchor" aria-label="anchor" href="#benvenuto"><i class="fas fa-link"></i></a>
+</h1>
+<p><a href="http://amzn.to/2aHLAQ1"><img src="cover.png" alt="Buy from amazon" class="cover" width="250" height="375"></a> Questo è il sito della traduzione italiana del libro <strong>“R for Data Science”</strong>. Questo libro vi insegnerà come fare <em>data science</em> con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici–e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la ‘gramamtica dei grafici’ (<em>grammar of graphics</em>), la ‘programmazione letterale’ (<em>literate programming</em>) e la ‘ricerca riproducibile’ (<em>reproducible research</em>) per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati</p>
+<p>Questo sito è (e sempre sarà) <strong>gratuito</strong>, ed è licenziato sotto <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommercial-NoDerivs 3.0</a>. Se volete una <strong>copia fisica</strong> del libro (in inglese), potete ordinarlo da <a href="http://amzn.to/2aHLAQ1">amazon</a>; è stato pubblicato da O’Reilly nel gennaio 2017. Se vuoi invece <strong>donare qualcosa</strong> puoi fare una donazione alla <a href="https://www.doc.govt.nz/kakapo-donate">Kākāpō Recovery</a>: il <a href="https://www.youtube.com/watch?v=9T1vfsHYiKY">kākāpō</a> (che è riprodotto sulla copertina di R4DS) è un pappagallo nativo della Nuova Zelanda a grave rischio di estinzione; ne sono rimasti solo 213<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;In realtà il codice funziona con il &lt;code&gt;locale&lt;/code&gt; in italiano, ma non con il &lt;code&gt;locale&lt;/code&gt; inglese (SPOILER: manca il puntino sulla “i”, NdT)&lt;/p&gt;"><sup>1</sup></a>.</p>
+<p>R4DS usa un <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a> (versione in italiano visionabile <a href="https://www.contributor-covenant.org/it/version/2/0/code_of_conduct/">qui</a>). Contribuendo a questo libro, accetti di rispettare i suoi termini.</p>
+<div id="nota-sulla-traduzione-italiana" class="section level2 unnumbered">
+<h2>Nota sulla traduzione italiana<a class="anchor" aria-label="anchor" href="#nota-sulla-traduzione-italiana"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Ultimo Aggiornamento</strong> 02 June, 2022</p>
+<p>La traduzione italiana del libro R4DS è stata condotta da <a href="https://lucavd.netlify.app/">Luca Vedovelli</a> su <span class="ul">esplicita autorizzazione</span> dell’autore (Hadley Wickam) e dell’editore O’Reilly che detiene i diritti di traduzione.</p>
+<p>Il motivo che mi ha spinto alla traduzione di un testo fondamentale per chi si avvicina all’ambiente di R e della <em>data science</em> è la volontà di abbattere almeno uno scoglio (la lingua) lungo il loro apprendimento, per permettere al lettore (che io immagino essere una mia studentessa o studente) di concentrarsi sui concetti e tecniche.</p>
+<p>Ho cercato di cambiare il minimo possibile dal libro originale mantenendo i termini inglesi dove i corrispondenti italiani suonavano desueti o ridicoli. Anche link, autori, ringraziamenti sono rimasti inalterati. Anche il codice è rimasto inalterato (ho tradotto solo le note di testo interne al codice).</p>
+<p>La traduzione è stata effettuata sulla <strong>prima edizione</strong> (poi andata in stampa) del libro, quindi non sulla versione aggiornata a oggi (che è un seconda edizione <em>in fieri</em>). Quando verrà pubblicata la seconda edizione del libro, ne farò una seconda traduzione daccapo.</p>
+<p>Potete segnalare errori o suggerimenti (molto apprezzati!) aprendo un pull-request alla <a href="https://github.com/lucavd/r4ds_ita_1st_ed">repository GitHub</a> della traduzione.</p>
+</div>
+<div id="ringraziamenti" class="section level2 unnumbered">
+<h2>Ringraziamenti<a class="anchor" aria-label="anchor" href="#ringraziamenti"><i class="fas fa-link"></i></a>
+</h2>
+<p>R4DS è uno sforzo collaborativo e molte persone hanno contribuito con correzioni e miglioramenti via pull request: adi pradhan (<a href="https://github.com/adidoit">@adidoit</a>), Andrea Gilardi (<a href="https://github.com/agila5">@agila5</a>), Ajay Deonarine (<a href="https://github.com/ajay-d">@ajay-d</a>), <a href="https://github.com/AlanFeder">@AlanFeder</a>, pete (<a href="https://github.com/alonzi">@alonzi</a>), Alex (<a href="https://github.com/ALShum">@ALShum</a>), Andrew Landgraf (<a href="https://github.com/andland">@andland</a>), <a href="https://github.com/andrewmacfarland">@andrewmacfarland</a>, Michael Henry (<a href="https://github.com/aviast">@aviast</a>), Mara Averick (<a href="https://github.com/batpigandme">@batpigandme</a>), Brent Brewington (<a href="https://github.com/bbrewington">@bbrewington</a>), Bill Behrman (<a href="https://github.com/behrman">@behrman</a>), Ben Herbertson (<a href="https://github.com/benherbertson">@benherbertson</a>), Ben Marwick (<a href="https://github.com/benmarwick">@benmarwick</a>), Ben Steinberg (<a href="https://github.com/bensteinberg">@bensteinberg</a>), Brandon Greenwell (<a href="https://github.com/bgreenwell">@bgreenwell</a>), Brett Klamer (<a href="https://github.com/bklamer">@bklamer</a>), Christian Mongeau (<a href="https://github.com/chrMongeau">@chrMongeau</a>), Cooper Morris (<a href="https://github.com/coopermor">@coopermor</a>), Colin Gillespie (<a href="https://github.com/csgillespie">@csgillespie</a>), Rademeyer Vermaak (<a href="https://github.com/csrvermaak">@csrvermaak</a>), Abhinav Singh (<a href="https://github.com/curious-abhinav">@curious-abhinav</a>), Curtis Alexander (<a href="https://github.com/curtisalexander">@curtisalexander</a>), Christian G. Warden (<a href="https://github.com/cwarden">@cwarden</a>), Kenny Darrell (<a href="https://github.com/darrkj">@darrkj</a>), David Rubinger (<a href="https://github.com/davidrubinger">@davidrubinger</a>), David Clark (<a href="https://github.com/DDClark">@DDClark</a>), Derwin McGeary (<a href="https://github.com/derwinmcgeary">@derwinmcgeary</a>), Daniel Gromer (<a href="https://github.com/dgromer">@dgromer</a>), <a href="https://github.com/djbirke">@djbirke</a>, Devin Pastoor (<a href="https://github.com/dpastoor">@dpastoor</a>), Julian During (<a href="https://github.com/duju211">@duju211</a>), Dylan Cashman (<a href="https://github.com/dylancashman">@dylancashman</a>), Dirk Eddelbuettel (<a href="https://github.com/eddelbuettel">@eddelbuettel</a>), Edwin Thoen (<a href="https://github.com/EdwinTh">@EdwinTh</a>), Ahmed El-Gabbas (<a href="https://github.com/elgabbas">@elgabbas</a>), Eric Watt (<a href="https://github.com/ericwatt">@ericwatt</a>), Erik Erhardt (<a href="https://github.com/erikerhardt">@erikerhardt</a>), Etienne B. Racine (<a href="https://github.com/etiennebr">@etiennebr</a>), Everett Robinson (<a href="https://github.com/evjrob">@evjrob</a>), Flemming Villalona (<a href="https://github.com/flemingspace">@flemingspace</a>), Floris Vanderhaeghe (<a href="https://github.com/florisvdh">@florisvdh</a>), Garrick Aden-Buie (<a href="https://github.com/gadenbuie">@gadenbuie</a>), Garrett Grolemund (<a href="https://github.com/garrettgman">@garrettgman</a>), Josh Goldberg (<a href="https://github.com/GoldbergData">@GoldbergData</a>), bahadir cankardes (<a href="https://github.com/gridgrad">@gridgrad</a>), Gustav W Delius (<a href="https://github.com/gustavdelius">@gustavdelius</a>), Hadley Wickham (<a href="https://github.com/hadley">@hadley</a>), Hao Chen (<a href="https://github.com/hao-trivago">@hao-trivago</a>), Harris McGehee (<a href="https://github.com/harrismcgehee">@harrismcgehee</a>), Hengni Cai (<a href="https://github.com/hengnicai">@hengnicai</a>), Ian Sealy (<a href="https://github.com/iansealy">@iansealy</a>), Ian Lyttle (<a href="https://github.com/ijlyttle">@ijlyttle</a>), Ivan Krukov (<a href="https://github.com/ivan-krukov">@ivan-krukov</a>), Jacob Kaplan (<a href="https://github.com/jacobkap">@jacobkap</a>), Jazz Weisman (<a href="https://github.com/jazzlw">@jazzlw</a>), John D. Storey (<a href="https://github.com/jdstorey">@jdstorey</a>), Jeff Boichuk (<a href="https://github.com/jeffboichuk">@jeffboichuk</a>), Gregory Jefferis (<a href="https://github.com/jefferis">@jefferis</a>), 蒋雨蒙 (<a href="https://github.com/JeldorPKU">@JeldorPKU</a>), Jennifer (Jenny) Bryan (<a href="https://github.com/jennybc">@jennybc</a>), Jen Ren (<a href="https://github.com/jenren">@jenren</a>), Jeroen Janssens (<a href="https://github.com/jeroenjanssens">@jeroenjanssens</a>), Jim Hester (<a href="https://github.com/jimhester">@jimhester</a>), JJ Chen (<a href="https://github.com/jjchern">@jjchern</a>), Joanne Jang (<a href="https://github.com/joannejang">@joannejang</a>), John Sears (<a href="https://github.com/johnsears">@johnsears</a>), <a href="https://github.com/jonathanflint">@jonathanflint</a>, Jon Calder (<a href="https://github.com/jonmcalder">@jonmcalder</a>), Jonathan Page (<a href="https://github.com/jonpage">@jonpage</a>), Justinas Petuchovas (<a href="https://github.com/jpetuchovas">@jpetuchovas</a>), Jose Roberto Ayala Solares (<a href="https://github.com/jroberayalas">@jroberayalas</a>), Julia Stewart Lowndes (<a href="https://github.com/jules32">@jules32</a>), Sonja (<a href="https://github.com/kaetschap">@kaetschap</a>), Kara Woo (<a href="https://github.com/karawoo">@karawoo</a>), Katrin Leinweber (<a href="https://github.com/katrinleinweber">@katrinleinweber</a>), Karandeep Singh (<a href="https://github.com/kdpsingh">@kdpsingh</a>), Kyle Humphrey (<a href="https://github.com/khumph">@khumph</a>), Kirill Sevastyanenko (<a href="https://github.com/kirillseva">@kirillseva</a>), <a href="https://github.com/koalabearski">@koalabearski</a>, Kirill Müller (<a href="https://github.com/krlmlr">@krlmlr</a>), Noah Landesberg (<a href="https://github.com/landesbergn">@landesbergn</a>), <a href="https://github.com/lindbrook">@lindbrook</a>, Mauro Lepore (<a href="https://github.com/maurolepore">@maurolepore</a>), Mark Beveridge (<a href="https://github.com/mbeveridge">@mbeveridge</a>), Matt Herman (<a href="https://github.com/mfherman">@mfherman</a>), Mine Cetinkaya-Rundel (<a href="https://github.com/mine-cetinkaya-rundel">@mine-cetinkaya-rundel</a>), Matthew Hendrickson (<a href="https://github.com/mjhendrickson">@mjhendrickson</a>), <a href="https://github.com/MJMarshall">@MJMarshall</a>, Mustafa Ascha (<a href="https://github.com/mustafaascha">@mustafaascha</a>), Nelson Areal (<a href="https://github.com/nareal">@nareal</a>), Nate Olson (<a href="https://github.com/nate-d-olson">@nate-d-olson</a>), Nathanael (<a href="https://github.com/nateaff">@nateaff</a>), Nick Clark (<a href="https://github.com/nickclark1000">@nickclark1000</a>), <a href="https://github.com/nickelas">@nickelas</a>, Nirmal Patel (<a href="https://github.com/nirmalpatel">@nirmalpatel</a>), Nina Munkholt Jakobsen (<a href="https://github.com/nmjakobsen">@nmjakobsen</a>), Jakub Nowosad (<a href="https://github.com/Nowosad">@Nowosad</a>), Peter Hurford (<a href="https://github.com/peterhurford">@peterhurford</a>), Patrick Kennedy (<a href="https://github.com/pkq">@pkq</a>), Radu Grosu (<a href="https://github.com/radugrosu">@radugrosu</a>), Ranae Dietzel (<a href="https://github.com/Ranae">@Ranae</a>), Robin Gertenbach (<a href="https://github.com/rgertenbach">@rgertenbach</a>), Richard Zijdeman (<a href="https://github.com/rlzijdeman">@rlzijdeman</a>), Robin (<a href="https://github.com/Robinlovelace">@Robinlovelace</a>), Emily Robinson (<a href="https://github.com/robinsones">@robinsones</a>), Rohan Alexander (<a href="https://github.com/RohanAlexander">@RohanAlexander</a>), Romero Morais (<a href="https://github.com/RomeroBarata">@RomeroBarata</a>), Albert Y. Kim (<a href="https://github.com/rudeboybert">@rudeboybert</a>), Saghir (<a href="https://github.com/saghirb">@saghirb</a>), Jonas (<a href="https://github.com/sauercrowd">@sauercrowd</a>), Robert Schuessler (<a href="https://github.com/schuess">@schuess</a>), Seamus McKinsey (<a href="https://github.com/seamus-mckinsey">@seamus-mckinsey</a>), <a href="https://github.com/seanpwilliams">@seanpwilliams</a>, Luke Smith (<a href="https://github.com/seasmith">@seasmith</a>), Matthew Sedaghatfar (<a href="https://github.com/sedaghatfar">@sedaghatfar</a>), Sebastian Kraus (<a href="https://github.com/sekR4">@sekR4</a>), Sam Firke (<a href="https://github.com/sfirke">@sfirke</a>), Shannon Ellis (<a href="https://github.com/ShanEllis">@ShanEllis</a>), <a href="https://github.com/shoili">@shoili</a>, S’busiso Mkhondwane (<a href="https://github.com/sibusiso16">@sibusiso16</a>), <a href="https://github.com/spirgel">@spirgel</a>, Steven M. Mortimer (<a href="https://github.com/StevenMMortimer">@StevenMMortimer</a>), Stéphane Guillou (<a href="https://github.com/stragu">@stragu</a>), Sergiusz Bleja (<a href="https://github.com/svenski">@svenski</a>), Tal Galili (<a href="https://github.com/talgalili">@talgalili</a>), Tim Waterhouse (<a href="https://github.com/timwaterhouse">@timwaterhouse</a>), TJ Mahr (<a href="https://github.com/tjmahr">@tjmahr</a>), Thomas Klebel (<a href="https://github.com/tklebel">@tklebel</a>), Tom Prior (<a href="https://github.com/tomjamesprior">@tomjamesprior</a>), Terence Teo (<a href="https://github.com/tteo">@tteo</a>), Will Beasley (<a href="https://github.com/wibeasley">@wibeasley</a>), <a href="https://github.com/yahwes">@yahwes</a>, Yihui Xie (<a href="https://github.com/yihui">@yihui</a>), Yiming (Paul) Li (<a href="https://github.com/yimingli">@yimingli</a>), Hiroaki Yutani (<a href="https://github.com/yutannihilation">@yutannihilation</a>), <a href="https://github.com/zeal626">@zeal626</a>, Azza Ahmed (<a href="https://github.com/zo0z">@zo0z</a>)</p>
+<p>R4DS è ospitato da <a href="https://www.netlify.com" class="uri">https://www.netlify.com</a> come parte del loro supporto al software e alla comunità open source.</p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="next"><a href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#benvenuto">Benvenuto</a></li>
+<li><a class="nav-link" href="#nota-sulla-traduzione-italiana">Nota sulla traduzione italiana</a></li>
+<li><a class="nav-link" href="#ringraziamenti">Ringraziamenti</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

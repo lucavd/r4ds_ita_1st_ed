@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Visualizzazione | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="3.1 Introduzione  “The simple graph has brought more information to the data analyst’s mind than any other device.” “Un semplice grafico ha portato alla mente dell’analista di dati più...">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="3 Visualizzazione | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app/visualizzazione.html">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="3.1 Introduzione  “The simple graph has brought more information to the data analyst’s mind than any other device.” “Un semplice grafico ha portato alla mente dell’analista di dati più...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Visualizzazione | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="3.1 Introduzione  “The simple graph has brought more information to the data analyst’s mind than any other device.” “Un semplice grafico ha portato alla mente dell’analista di dati più...">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="active" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="visualizzazione" class="section level1">
+<h1>
+<span class="header-section-number">3</span> Visualizzazione<a class="anchor" aria-label="anchor" href="#visualizzazione"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduzione-1" class="section level2">
+<h2>
+<span class="header-section-number">3.1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione-1"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>“The simple graph has brought more information to the data analyst’s mind
+than any other device.”</p>
+<p>“Un semplice grafico ha portato alla mente dell’analista di dati più informazioni
+che qualsiasi altro strumento.” — John Tukey</p>
+</blockquote>
+<p>Questo capitolo vi insegnerà come visualizzare i vostri dati usando ggplot2. R ha diversi sistemi per creare grafici, ma ggplot2 è uno dei più eleganti e versatili. ggplot2 implementa la <strong>grammatica della grafica</strong>, un sistema coerente per descrivere e costruire grafici. Con ggplot2, si può fare di più e più velocemente imparando un sistema e applicandolo in molti contesti.</p>
+<p>Se volete saperne di più sui fondamenti teorici di ggplot2 prima di iniziare, vi consiglio di leggere “The Layered Grammar of Graphics”, <a href="http://vita.had.co.nz/papers/layered-grammar.pdf" class="uri">http://vita.had.co.nz/papers/layered-grammar.pdf</a>.</p>
+<div id="prerequisiti-1" class="section level3">
+<h3>
+<span class="header-section-number">3.1.1</span> Prerequisiti<a class="anchor" aria-label="anchor" href="#prerequisiti-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Questo capitolo si concentra su ggplot2, uno dei membri principali del tidyverse. Per accedere ai set di dati, alle pagine di aiuto e alle funzioni che useremo in questo capitolo, caricate il tidyverse eseguendo questo codice:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span>
+<span class="co">#&gt; ✔ ggplot2 3.3.5     ✔ purrr   0.3.4</span>
+<span class="co">#&gt; ✔ tibble  3.1.6     ✔ dplyr   1.0.7</span>
+<span class="co">#&gt; ✔ tidyr   1.1.4     ✔ stringr 1.4.0</span>
+<span class="co">#&gt; ✔ readr   2.1.1     ✔ forcats 0.5.1</span>
+<span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
+<span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
+<span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></code></pre></div>
+<p>Questa linea di codice carica il nucleo del tidyverse; pacchetti che userete in quasi tutte le analisi dei dati. Vi dice anche quali funzioni del tidyverse sono in conflitto con le funzioni in R base (o da altri pacchetti che potreste aver caricato).</p>
+<p>Se eseguite questo codice e ottenete il messaggio di errore “there is no package called ‘tidyverse’” (oppure in italiano, “non c’è nessun pacchetto chiamato ‘tiduverse’”), dovrete prima installarlo, poi eseguire <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> ancora una volta.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<p>È necessario installare un pacchetto solo una volta, ma è necessario ricaricarlo ogni volta che si avvia una nuova sessione.</p>
+<p>Se abbiamo bisogno di essere espliciti sulla provenienza di una funzione (o di un set di dati), useremo la forma speciale <code>package::function()</code>. Per esempio, <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot2::ggplot()</a></code> dice esplicitamente che stiamo usando la funzione <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> del pacchetto ggplot2.</p>
+</div>
+</div>
+<div id="primi-passi" class="section level2">
+<h2>
+<span class="header-section-number">3.2</span> Primi passi<a class="anchor" aria-label="anchor" href="#primi-passi"><i class="fas fa-link"></i></a>
+</h2>
+<p>Usiamo il nostro primo grafico per rispondere ad una domanda: Le auto con grandi motori usano più carburante delle auto con piccoli motori? Probabilmente avete già una risposta, ma cercate di rendere la vostra risposta precisa. Com’è la relazione tra la dimensione del motore e l’efficienza del carburante? È positiva? Negativa? Lineare? Non lineare?</p>
+<div id="il-data-frame-mpg" class="section level3">
+<h3>
+<span class="header-section-number">3.2.1</span> Il data frame <code>mpg</code><a class="anchor" aria-label="anchor" href="#il-data-frame-mpg"><i class="fas fa-link"></i></a>
+</h3>
+<p>Puoi testare la tua risposta con il <strong>data frame</strong> di <code>mpg</code> che si trova in ggplot2 (cioè <code><a href="https://ggplot2.tidyverse.org/reference/mpg.html">ggplot2::mpg</a></code>). Un data frame è una collezione rettangolare di variabili (nelle colonne) e osservazioni (nelle righe). <code>mpg</code> contiene osservazioni raccolte dalla US Environmental Protection Agency su 38 modelli di auto.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mpg</span>
+<span class="co">#&gt; # A tibble: 234 × 11</span>
+<span class="co">#&gt;   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class </span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; </span>
+<span class="co">#&gt; 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…</span>
+<span class="co">#&gt; 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…</span>
+<span class="co">#&gt; 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…</span>
+<span class="co">#&gt; 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…</span>
+<span class="co">#&gt; 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…</span>
+<span class="co">#&gt; 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…</span>
+<span class="co">#&gt; # … with 228 more rows</span></code></pre></div>
+<p>Tra le variabili in <code>mpg</code> ci sono:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>displ</code>, la dimensione del motore di un’auto, in litri.</p></li>
+<li><p><code>hwy</code>, l’efficienza del carburante di un’auto in autostrada, in miglia per gallone (mpg).
+Un’auto con un basso rendimento del carburante consuma più carburante di un’auto con un alto
+efficienza del carburante quando percorrono la stessa distanza.</p></li>
+</ol>
+<p>Per saperne di più su <code>mpg</code>, apri la sua pagina di aiuto eseguendo <code><a href="https://ggplot2.tidyverse.org/reference/mpg.html">?mpg</a></code>.</p>
+</div>
+<div id="creazione-di-un-ggplot" class="section level3">
+<h3>
+<span class="header-section-number">3.2.2</span> Creazione di un ggplot<a class="anchor" aria-label="anchor" href="#creazione-di-un-ggplot"><i class="fas fa-link"></i></a>
+</h3>
+<p>Per tracciare <code>mpg</code>, esegui questo codice per mettere <code>displ</code> sull’asse x e <code>hwy</code> sull’asse y:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Il grafico mostra una associazione negativa tra la dimensione del motore (<code>displ</code>) e l’efficienza del carburante (<code>hwy</code>). In altre parole, le auto con grandi motori usano più carburante. Questo conferma o confuta la tua ipotesi sull’efficienza del carburante e la dimensione del motore?</p>
+<p>Con ggplot2, si inizia un grafico con la funzione <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>. La funzione <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> crea un sistema di coordinate a cui è possibile aggiungere dei livelli. Il primo argomento di <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> è il set di dati da usare nel grafico. Quindi <code>ggplot(data = mpg)</code> crea un grafico vuoto, ma non è molto interessante quindi non lo mostrerò qui.</p>
+<p>Completate il vostro grafico aggiungendo uno o più livelli a <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>. La funzione <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> aggiunge un livello di punti al vostro grafico, che crea uno scatterplot. ggplot2 è dotato di molte funzioni geom che aggiungono ciascuna un diverso tipo di livello ad un grafico. Ne impareremo un bel po’ in questo capitolo.</p>
+<p>Ogni funzione <code>geom</code> in ggplot2 prende un argomento <code>mapping</code>. Questo definisce come le variabili del tuo set di dati sono mappate alle proprietà visive. L’argomento <code>mapping</code> è sempre abbinato a <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>, e gli argomenti <code>x</code> e <code>y</code> di <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> specificano quali variabili mappare sugli assi x e y. ggplot2 cerca le variabili mappate nell’argomento <code>data</code>, in questo caso, <code>mpg</code>.</p>
+</div>
+<div id="un-modello-di-grafico" class="section level3">
+<h3>
+<span class="header-section-number">3.2.3</span> Un modello di grafico<a class="anchor" aria-label="anchor" href="#un-modello-di-grafico"><i class="fas fa-link"></i></a>
+</h3>
+<p>Trasformiamo questo codice in un template riutilizzabile per fare grafici con ggplot2. Per fare un grafico, sostituire le sezioni tra parentesi nel codice qui sotto con un set di dati, una funzione <code>geom</code>, o un insieme di mappature.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="visualizzazione.html#cb11-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-2"><a href="visualizzazione.html#cb11-2"></a><span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="op">&lt;</span>MAPPINGS<span class="op">&gt;</span>))</span></code></pre></div>
+<p>Il resto di questo capitolo vi mostrerà come completare ed estendere questo modello per fare diversi tipi di grafici. Inizieremo con il componente <code>&lt;MAPPINGS&gt;</code>.</p>
+</div>
+<div id="esercizi" class="section level3">
+<h3>
+<span class="header-section-number">3.2.4</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Esegui <code>ggplot(data = mpg)</code>. Cosa vedi?</p></li>
+<li><p>Quante righe ci sono in <code>mpg</code>? Quante colonne?</p></li>
+<li><p>Cosa descrive la variabile <code>drv</code>? Leggete l’aiuto per <code><a href="https://ggplot2.tidyverse.org/reference/mpg.html">?mpg</a></code> per scoprirlo
+scoprire.</p></li>
+<li><p>Fai un grafico di dispersione di <code>hwy</code> rispetto a <code>cyl</code>.</p></li>
+<li><p>Cosa succede se fai un grafico di dispersione di <code>class</code> vs <code>drv</code>? Perché è
+il grafico non è utile?</p></li>
+</ol>
+</div>
+</div>
+<div id="mappature-estetiche" class="section level2">
+<h2>
+<span class="header-section-number">3.3</span> Mappature estetiche<a class="anchor" aria-label="anchor" href="#mappature-estetiche"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>“The greatest value of a picture is when it forces us to notice what we
+never expected to see.” — John Tukey</p>
+<p>“Il più grande valore di un’immagine è che ci forza a notare quello che non
+ci aspettavamo di vedere.” — John Tukey</p>
+</blockquote>
+<p>Nel grafico qui sotto, un gruppo di punti (evidenziato in rosso) sembra cadere al di fuori della tendenza lineare. Queste auto hanno un chilometraggio superiore a quello che ci si potrebbe aspettare. Come puoi spiegare queste auto?</p>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Ipotizziamo che le auto siano ibride. Un modo per verificare questa ipotesi è guardare il valore di “classe” per ogni auto. La variabile <code>class</code> del dataset <code>mpg</code> classifica le auto in gruppi come compatte, medie e SUV. Se i punti in eccesso sono auto ibride, dovrebbero essere classificati come auto compatte o, forse, auto subcompatte (tieni presente che questi dati sono stati raccolti prima che i camion e i SUV ibridi diventassero popolari).</p>
+<p>Si può aggiungere una terza variabile, come “classe”, ad uno scatterplot bidimensionale mappandola ad una <strong>estetica</strong> (‘aestetics’, come in <code>aes</code>, NdT). Un’estetica è una proprietà visiva degli oggetti nel vostro grafico. Le estetiche includono cose come la dimensione, la forma o il colore dei tuoi punti. Puoi visualizzare un punto (come quello sotto) in modi diversi cambiando i valori delle sue proprietà estetiche. Dato che abbiamo già usato la parola “valore” per descrivere i dati, usiamo la parola “livello” per descrivere le proprietà estetiche. Qui cambiamo i livelli di dimensione, forma e colore di un punto per renderlo piccolo, triangolare o blu:</p>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Puoi trasmettere informazioni sui tuoi dati mappando l’estetica del tuo grafico alle variabili del tuo set di dati. Per esempio, puoi mappare i colori dei tuoi punti sulla variabile <code>class</code> per rivelare la classe di ogni auto.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>(Se preferite l’inglese britannico, come Hadley, potete usare <code>colour</code> invece di <code>color</code>).</p>
+<p>Per mappare un’estetica ad una variabile, bisogna associare il nome dell’estetica al nome della variabile all’interno di <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>. ggplot2 assegnerà automaticamente un livello unico dell’estetica (qui un colore unico) ad ogni valore unico della variabile, un processo noto come <strong>scaling</strong>. ggplot2 aggiungerà anche una legenda che spiega quali livelli corrispondono a quali valori.</p>
+<p>I colori rivelano che molti dei punti insoliti sono auto a due posti. Queste auto non sembrano ibride, e sono, infatti, auto sportive! Le auto sportive hanno grandi motori come i SUV e i pick-up, ma corpi piccoli come le auto medie e compatte, il che migliora il loro consumo di carburante. Con il senno di poi, è improbabile che queste auto siano ibride, dato che hanno grandi motori.</p>
+<p>Nell’esempio precedente, abbiamo mappato la “classe” all’estetica del colore, ma avremmo potuto mappare la “classe” all’estetica delle dimensioni allo stesso modo. In questo caso, la dimensione esatta di ogni punto rivelerebbe la sua appartenenza di classe. Abbiamo un <em>warning</em> (‘avviso’) qui, perché mappare una variabile non ordinata (<code>class</code>) ad un’estetica ordinata (<code>size</code>) non è una buona idea.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, size <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Using size for a discrete variable is not advised.</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Oppure avremmo potuto mappare <code>class</code> all’estetica <em>alpha</em>, che controlla la trasparenza dei punti, o all’estetica shape, che controlla la forma dei punti.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Sinistra</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, alpha <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Destra</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, shape <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-9-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-9-2.png" width="50%"></p>
+<p>Cosa è successo ai SUV? ggplot2 userà solo sei forme alla volta. Per impostazione predefinita, i gruppi aggiuntivi non saranno tracciati quando si usa l’estetica delle forme.</p>
+<p>Per ogni estetica, si usa <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> per associare il nome dell’estetica ad una variabile da visualizzare. La funzione <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> raccoglie tutte le mappature estetiche utilizzate da un livello e le passa all’argomento di mappatura del livello. La sintassi evidenzia un’utile intuizione su <code>x</code> e <code>y</code>: le posizioni x e y di un punto sono esse stesse estetiche, proprietà visive che si possono mappare su variabili per visualizzare informazioni sui dati.</p>
+<p>Una volta mappata un’estetica, ggplot2 si occupa del resto. Seleziona una scala ragionevole da usare con l’estetica, e costruisce una legenda che spiega la mappatura tra livelli e valori. Per le estetiche x e y, ggplot2 non crea una legenda, ma crea una linea d’asse con segni di spunta e un’etichetta. La linea dell’asse funge da legenda; spiega la mappatura tra livelli e valori.</p>
+<p>Potete anche <em>impostare</em> manualmente le proprietà estetiche del vostro geom. Per esempio, possiamo rendere blu tutti i punti del nostro grafico:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Qui, il colore non trasmette informazioni su una variabile, ma cambia solo l’aspetto del grafico. Per impostare un’estetica manualmente, impostate l’estetica per nome come argomento della vostra funzione geom; cioè va <em>fuori</em> da <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>. Dovrete scegliere un livello che abbia senso per quell’estetica:</p>
+<ul>
+<li><p>Il nome di un colore come stringa di caratteri.</p></li>
+<li><p>La dimensione di un punto in mm.</p></li>
+<li><p>La forma di un punto come numero, come mostrato nella figura <a href="visualizzazione.html#fig:shapes">3.1</a>.</p></li>
+</ul>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:shapes"></span>
+<img src="visualize_files/figure-html/shapes-1.png" alt="R ha 25 forme costruite che sono identificate da numeri. Ci sono alcuni apparentemente duplicati: per esempio, 0, 15 e 22 sono tutti quadrati. La differenza deriva dall'interazione dell'estetica del `colore` e del `riempimento`. Le forme vuote (0--14) hanno un bordo determinato dal `colore`; le forme piene (15--20) sono riempite di `colore`; le forme piene (21--24) hanno un bordo di `colore` e sono riempite di `fill`." width="75%"><p class="caption">
+Figure 3.1: R ha 25 forme costruite che sono identificate da numeri. Ci sono alcuni apparentemente duplicati: per esempio, 0, 15 e 22 sono tutti quadrati. La differenza deriva dall’interazione dell’estetica del <code>colore</code> e del <code>riempimento</code>. Le forme vuote (0–14) hanno un bordo determinato dal <code>colore</code>; le forme piene (15–20) sono riempite di <code>colore</code>; le forme piene (21–24) hanno un bordo di <code>colore</code> e sono riempite di <code>fill</code>.
+</p>
+</div>
+<div id="esercizi-1" class="section level3">
+<h3>
+<span class="header-section-number">3.3.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-1"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>Cosa è andato storto in questo codice? Perché i punti non sono blu?</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;"></div>
+</li>
+<li><p>Quali variabili in <code>mpg</code> sono categoriche? Quali variabili sono continue?
+(Suggerimento: digita <code><a href="https://ggplot2.tidyverse.org/reference/mpg.html">?mpg</a></code> per leggere la documentazione del dataset). Come
+puoi vedere queste informazioni quando esegui <code>mpg</code>?</p></li>
+<li><p>Mappate una variabile continua a <code>color</code>, <code>size</code> e <code>shape</code>. Come si comportano
+queste estetiche si comportano diversamente per le variabili categoriche rispetto a quelle continue?
+continue?</p></li>
+<li><p>Cosa succede se si mappa la stessa variabile a più estetiche?</p></li>
+<li><p>Cosa fa l’estetica <code>stroke</code>? Con quali forme funziona?
+(Suggerimento: usa <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">?geom_point</a></code>)</p></li>
+<li><p>Cosa succede se si mappa un’estetica a qualcosa di diverso da un
+variabile, come <code>aes(colour = displ &lt; 5)</code>? Nota, dovrai anche specificare x e y.</p></li>
+</ol>
+</div>
+</div>
+<div id="problemi-comuni" class="section level2">
+<h2>
+<span class="header-section-number">3.4</span> Problemi comuni<a class="anchor" aria-label="anchor" href="#problemi-comuni"><i class="fas fa-link"></i></a>
+</h2>
+<p>Man mano che iniziate ad eseguire il codice R, è probabile che vi imbattiate in problemi. Non preoccupatevi, succede a tutti. Ho scritto codice R per anni, e ogni giorno scrivo ancora codice che non funziona!</p>
+<p>Inizia confrontando attentamente il codice che stai eseguendo con quello del libro. R è estremamente esigente, e un carattere fuori posto può fare la differenza. Assicuratevi che ogni <code>(</code> è abbinato ad un <code>)</code> e ogni <code>"</code> è abbinato ad un altro <code>"</code>. A volte eseguirai il codice e non succede nulla. Controllate la parte sinistra della vostra console: se è un <code>+</code>, significa che R non pensa che abbiate digitato un’espressione completa e sta aspettando che la finiate. In questo caso, di solito è facile ricominciare da zero premendo ESCAPE per interrompere l’elaborazione del comando corrente.</p>
+<p>Un problema comune quando si creano i grafici di ggplot2 è quello di mettere il <code>+</code> nel posto sbagliato: deve arrivare alla fine della linea, non all’inizio. In altre parole, assicuratevi di non aver accidentalmente scritto codice come questo:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> 
+<span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Se sei ancora bloccato, prova l’aiuto. Puoi ottenere aiuto su qualsiasi funzione di R eseguendo <code>?function_name</code> nella console, o selezionando il nome della funzione e premendo F1 in RStudio. Non preoccupatevi se l’aiuto non sembra molto utile - invece saltate giù agli esempi e cercate il codice che corrisponde a quello che state cercando di fare.</p>
+<p>Se questo non aiuta, leggete attentamente il messaggio di errore. A volte la risposta sarà sepolta lì! Ma quando si è nuovi di R, la risposta potrebbe essere nel messaggio di errore ma non si sa ancora come capirlo. Un altro ottimo strumento è Google: provate a cercare su Google il messaggio di errore, perché è probabile che qualcun altro abbia avuto lo stesso problema e abbia trovato aiuto online.</p>
+</div>
+<div id="sfaccettature-facet" class="section level2">
+<h2>
+<span class="header-section-number">3.5</span> Sfaccettature (‘facet’)<a class="anchor" aria-label="anchor" href="#sfaccettature-facet"><i class="fas fa-link"></i></a>
+</h2>
+<p>Un modo per aggiungere variabili aggiuntive è l’estetica. Un altro modo, particolarmente utile per le variabili categoriche, è quello di dividere il vostro grafico in <strong>facet</strong>, sotto-grafici che mostrano ciascuna un sottoinsieme dei dati.</p>
+<p>Per sfaccettare il vostro grafico in base a una singola variabile, usate <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code>. Il primo argomento di <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> dovrebbe essere una formula, creata con <code>~</code> seguita da un nome di variabile (qui “formula” è il nome di una struttura dati in R, non un sinonimo di “equazione”). La variabile che passate a <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> dovrebbe essere discreta.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">class</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Per sfaccettare il tuo grafico sulla combinazione di due variabili, aggiungi <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> alla tua chiamata plot. Il primo argomento di <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> è anch’esso una formula. Questa volta la formula dovrebbe contenere due nomi di variabili separati da una <code>~</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">drv</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Se preferite non fare la sfaccettatura nella dimensione delle righe o delle colonne, usate un <code>.</code> al posto del nome della variabile, per esempio <code>+ facet_grid(. ~ cyl)</code>.</p>
+<div id="esercizi-2" class="section level3">
+<h3>
+<span class="header-section-number">3.5.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-2"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Cosa succede se si effettua la sfaccettatura su una variabile continua?</p></li>
+<li>
+<p>Cosa significano le celle vuote nel grafico con <code>facet_grid(drv ~ cyl)</code>?
+Come si riferiscono a questo grafico?</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">drv</span>, y <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</li>
+<li>
+<p>Che grafici produce il seguente codice? Cosa fa <code>.</code>?</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">drv</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span></code></pre></div>
+</li>
+<li>
+<p>Prendiamo il primo grafico sfaccettato di questa sezione:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">class</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>Quali sono i vantaggi di usare la sfaccettatura invece dell’estetica del colore?
+Quali sono gli svantaggi? Come potrebbe cambiare l’equilibrio se aveste un
+set di dati più grande?</p>
+</li>
+<li><p>Leggi <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">?facet_wrap</a></code>. Cosa fa <code>nrow</code>? Cosa fa <code>ncol</code>? Quali altre opzioni
+opzioni controllano la disposizione dei singoli pannelli? Perché non
+<code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code>ha argomenti <code>nrow</code> e <code>ncol</code>?</p></li>
+<li><p>Quando si usa <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> di solito si dovrebbe mettere la variabile con più
+livelli unici nelle colonne. Perché?</p></li>
+</ol>
+</div>
+</div>
+<div id="oggetti-geometrici" class="section level2">
+<h2>
+<span class="header-section-number">3.6</span> Oggetti geometrici<a class="anchor" aria-label="anchor" href="#oggetti-geometrici"><i class="fas fa-link"></i></a>
+</h2>
+<p>In che modo sono simili questi due grafici?</p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-17-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-17-2.png" width="50%"></p>
+<p>Entrambi i grafici contengono la stessa variabile x, la stessa variabile y, ed entrambi descrivono gli stessi dati. Ma i grafici non sono identici. Ogni grafico usa un oggetto visivo diverso per rappresentare i dati. Nella sintassi di ggplot2, diciamo che usano diversi <strong>geom</strong>.</p>
+<p>Un <strong>geom</strong> è l’oggetto geometrico che un grafico usa per rappresentare i dati. Le persone spesso descrivono i grafici in base al tipo di geom che il grafico usa. Per esempio, i grafici a barre usano geometrie a barre, i grafici a linee usano geometrie a linee, i boxplot usano geometrie boxplot, e così via. Gli scatterplot rompono la tendenza; usano la geometria a punti. Come si vede sopra, si possono usare diverse geometrie per tracciare gli stessi dati. Il grafico a sinistra usa la geometria a punti, mentre il grafico a destra usa la geometria ‘smooth’, una linea continua adattata ai dati.</p>
+<p>Per cambiare la geometria nel vostro grafico, cambiate la funzione <code>geom_</code> che aggiungete a <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>. Per esempio, per fare i grafici di cui sopra, potete usare questo codice:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># left</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># right</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Ogni funzione geom in ggplot2 prende un argomento <code>mapping</code>. Tuttavia, non ogni estetica funziona con ogni geom. Potresti impostare la forma di un punto, ma non potresti impostare la “forma” di una linea. D’altra parte, si <em>potrebbe</em> impostare il tipo di linea ad una linea. <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> disegnerà una linea diversa, con un diverso tipo di linea, per ogni valore unico della variabile che mappate a ‘linetype’.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, linetype <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Qui <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> separa le auto in tre linee basate sul loro valore <code>drv</code>, che descrive la trasmissione dell’auto. Una linea descrive tutti i punti con un valore <code>4</code>, una linea descrive tutti i punti con un valore <code>f</code> e una linea descrive tutti i punti con un valore <code>r</code>. Qui, <code>4</code> sta per quattro ruote motrici, <code>f</code> per la trazione anteriore e <code>r</code> per la trazione posteriore.</p>
+<p>Se questo sembra strano, possiamo renderlo più chiaro sovrapponendo le linee ai dati grezzi e colorando il tutto secondo il <code>drv</code>.</p>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Notate che questo grafico contiene due geometrie nello stesso grafico! Se questo vi fa entusiasmare, allacciate le cinture. Impareremo molto presto come mettere più geom nello stesso grafico.</p>
+<p>ggplot2 fornisce oltre 40 geom, e i pacchetti di estensione ne forniscono ancora di più (vedi <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a> per qualche esempio). Il modo migliore per avere una panoramica completa è il cheatsheet di ggplot2, che potete trovare a <a href="http://rstudio.com/resources/cheatsheets" class="uri">http://rstudio.com/resources/cheatsheets</a>. Per saperne di più su ogni singolo geom, usa lo strumento help: <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">?geom_smooth</a></code>.</p>
+<p>Molti geom, come <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>, usano un singolo oggetto geometrico per visualizzare più righe di dati. Per questi geom, si può impostare l’estetica <code>group</code> su una variabile categorica per disegnare oggetti multipli. ggplot2 disegnerà un oggetto separato per ogni valore unico della variabile di raggruppamento. In pratica, ggplot2 raggrupperà automaticamente i dati per questi geom ogni volta che si mappa un’estetica ad una variabile discreta (come nell’esempio <code>linetype</code>). È conveniente fare affidamento su questa caratteristica perché l’estetica del gruppo da sola non aggiunge una legenda o caratteristiche distintive ai geom.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span>
+              
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, group <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span>
+    
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>
+    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span>,
+    show.legend <span class="op">=</span> <span class="cn">FALSE</span>
+  <span class="op">)</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-21-1.png" width="33%"><img src="visualize_files/figure-html/unnamed-chunk-21-2.png" width="33%"><img src="visualize_files/figure-html/unnamed-chunk-21-3.png" width="33%"></p>
+<p>Per visualizzare più geom in uno stesso grafico, aggiungete più funzioni geom a <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Questo, tuttavia, introduce qualche duplicazione nel nostro codice. Immaginate di voler cambiare l’asse y per visualizzare <code>cty</code> invece di <code>hwy</code>. Avreste bisogno di cambiare la variabile in due posti, e potreste dimenticare di aggiornarne uno. Potete evitare questo tipo di ripetizioni passando un insieme di mappature a <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>. ggplot2 tratterà queste mappature come mappature globali che si applicano ad ogni geom nel grafico. In altre parole, questo codice produrrà lo stesso grafico del codice precedente:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Se si inseriscono mappature in una funzione geom, ggplot2 le tratterà come mappature locali per il livello. Userà queste mappature per estendere o sovrascrivere le mappature globali <em>per quel solo livello</em>. Questo rende possibile la visualizzazione di diverse estetiche in diversi livelli.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Puoi usare la stessa idea per specificare diversi <code>dati</code> per ogni livello. Qui, la nostra linea continua mostra solo un sottoinsieme del dataset <code>mpg</code>, le auto subcompatte. L’argomento dei dati locali in <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code> sovrascrive l’argomento dei dati globali in <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> solo per quel livello.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">class</span> <span class="op">==</span> <span class="st">"subcompact"</span><span class="op">)</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>(Imparerai come funziona il <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> nel capitolo sulle trasformazioni dei dati: per ora, sappi che questo comando seleziona solo le auto subcompatte).</p>
+<div id="esercizi-3" class="section level3">
+<h3>
+<span class="header-section-number">3.6.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-3"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Quale geom. useresti per disegnare un grafico a linee? Un boxplot?
+Un istogramma? Un grafico ad area?</p></li>
+<li>
+<p>Eseguite questo codice nella vostra testa e prevedete come sarà l’output.
+Poi, esegui il codice in R e controlla le tue previsioni.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+</li>
+<li><p>Cosa fa <code>show.legend = FALSE</code>? Cosa succede se lo rimuovi?<br>
+Perché pensate che l’abbia usato all’inizio del capitolo?</p></li>
+<li><p>Cosa fa l’argomento <code>se</code> di <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>?</p></li>
+<li>
+<p>Questi due grafici avranno un aspetto diverso? Perché/perché no?</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</li>
+<li>
+<p>Ricrea il codice R necessario per generare i seguenti grafici.</p>
+<p><img src="visualize_files/figure-html/unnamed-chunk-28-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-28-2.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-28-3.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-28-4.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-28-5.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-28-6.png" width="50%"></p>
+</li>
+</ol>
+</div>
+</div>
+<div id="trasformazioni-statistiche" class="section level2">
+<h2>
+<span class="header-section-number">3.7</span> Trasformazioni statistiche<a class="anchor" aria-label="anchor" href="#trasformazioni-statistiche"><i class="fas fa-link"></i></a>
+</h2>
+<p>Diamo un’occhiata a un grafico a barre. I grafici a barre sembrano semplici, ma sono interessanti perché rivelano qualcosa di sottile sui grafici. Considerate un grafico a barre di base, disegnato con <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>. Il seguente grafico mostra il numero totale di diamanti nel dataset <code>diamonds</code>, raggruppati per <code>cut</code>. Il dataset <code>diamonds</code> viene fornito in ggplot2 e contiene informazioni su ~54.000 diamanti, inclusi il <code>prezzo</code> (‘price’), la <code>caratura</code> (‘carat’), il <code>colore</code> (‘color’), la <code>chiarezza</code> (‘clarity’) e il <code>taglio</code> (‘cut’) di ogni diamante. Il grafico mostra che sono disponibili più diamanti con tagli di alta qualità che con tagli di bassa qualità.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Sull’asse x, il grafico mostra <code>cut</code>, una variabile di <code>diamonds</code>. Sull’asse y, mostra il conteggio, ma il conteggio non è una variabile in <code>diamonds</code>! Da dove viene il conteggio? Molti grafici, come gli scatterplot, tracciano i valori grezzi del tuo set di dati. Altri grafici, come i grafici a barre, calcolano nuovi valori da tracciare:</p>
+<ul>
+<li><p>I grafici a barre, gli istogrammi e i poligoni di frequenza classificano i tuoi dati
+e poi tracciano i conteggi dei bin (‘contenitore’), il numero di punti che rientrano in ogni bin.</p></li>
+<li><p>Gli smoothers adattano un modello ai tuoi dati e poi tracciano le previsioni del
+modello.</p></li>
+<li><p>I boxplot calcolano un robusto riassunto della distribuzione e poi mostrano un
+riquadro appositamente formattato.</p></li>
+</ul>
+<p>L’algoritmo usato per calcolare nuovi valori per un grafico è chiamato <strong>stat</strong>, abbreviazione di trasformazione statistica. La figura sottostante descrive come funziona questo processo con <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>.</p>
+<div class="inline-figure"><img src="images/visualization-stat-bar.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Puoi sapere quale stat usa un geom ispezionando il valore di default per l’argomento <code>stat</code>. Per esempio, <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">?geom_bar</a></code> mostra che il valore di default per <code>stat</code> è “count”, il che significa che <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> usa <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count()</a></code>. <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count()</a></code> è documentato nella stessa pagina di <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>, e se scorri in basso puoi trovare una sezione chiamata “Computed variables”. Questa descrive come calcola due nuove variabili: <code>count</code> e <code>prop</code>.</p>
+<p>Generalmente puoi usare geom e stats in modo intercambiabile. Per esempio, puoi ricreare il grafico precedente usando <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count()</a></code> invece di <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">stat_count</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Questo funziona perché ogni geom ha una stat predefinita; e ogni stat ha una geom predefinita. Questo significa che in genere si possono usare i geom senza preoccuparsi della trasformazione statistica sottostante. Ci sono tre ragioni per cui potreste aver bisogno di usare una stat esplicitamente:</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Si potrebbe voler sovrascrivere la stat di default. Nel codice qui sotto, cambio
+la stat di <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> da count (il default) a identity. Questo mi permette di
+Questo mi permette di mappare l’altezza delle barre ai valori grezzi di una variabile <span class="math inline">\(y\)</span>.
+Sfortunatamente quando la gente parla di grafici a barre, potrebbe
+riferirsi a questo tipo di grafico a barre, dove l’altezza della barra è già
+presente nei dati, o al precedente grafico a barre dove l’altezza della barra
+è generata dal conteggio delle righe.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">demo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
+  <span class="op">~</span><span class="va">cut</span>,         <span class="op">~</span><span class="va">freq</span>,
+  <span class="st">"Fair"</span>,       <span class="fl">1610</span>,
+  <span class="st">"Good"</span>,       <span class="fl">4906</span>,
+  <span class="st">"Very Good"</span>,  <span class="fl">12082</span>,
+  <span class="st">"Premium"</span>,    <span class="fl">13791</span>,
+  <span class="st">"Ideal"</span>,      <span class="fl">21551</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">demo</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">freq</span><span class="op">)</span>, stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>(Non preoccupatevi di non aver visto <code>&lt;-</code> o <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> prima. Potresti
+indovinare il loro significato dal contesto, e presto imparerai esattamente
+cosa fanno!)</p>
+</li>
+<li>
+<p>Potreste voler sovrascrivere la mappatura predefinita dalle variabili trasformate
+all’estetica. Per esempio, potreste voler visualizzare un grafico a barre di
+proporzioni, piuttosto che il conteggio:</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">stat</a></span><span class="op">(</span><span class="va">prop</span><span class="op">)</span>, group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-33-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Per trovare le variabili calcolate dalla stat, cercate la sezione di aiuto
+intitolata “computed variables”.</p>
+</li>
+<li>
+<p>Potreste voler prestare maggiore attenzione alla trasformazione statistica
+nel vostro codice. Per esempio, potreste usare <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code>, che
+riassume i valori y per ogni unico valore x, per attirare
+l’attenzione sul sommario che state calcolando:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span>
+    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="va">depth</span><span class="op">)</span>,
+    fun.min <span class="op">=</span> <span class="va">min</span>,
+    fun.max <span class="op">=</span> <span class="va">max</span>,
+    fun <span class="op">=</span> <span class="va">median</span>
+  <span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;"></div>
+</li>
+</ol>
+<p>ggplot2 fornisce oltre 20 statistiche da usare. Ogni stat è una funzione, quindi si può ottenere aiuto nel solito modo, ad esempio <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">?stat_bin</a></code>. Per vedere l’elenco completo delle statistiche, provate il cheatsheet di ggplot2.</p>
+<div id="esercizi-4" class="section level3">
+<h3>
+<span class="header-section-number">3.7.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-4"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Qual è il geom di default associato a <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code>? Come potreste
+riscrivere il grafico precedente per usare quella funzione geom al posto della funzione
+funzione stat?</p></li>
+<li><p>Cosa fa <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col()</a></code>? In che modo è diverso da <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>?</p></li>
+<li><p>La maggior parte dei geom e delle statistiche sono in coppia e vengono quasi sempre usati in
+concerto. Leggete la documentazione e fate una lista di tutte le
+coppie. Cosa hanno in comune?</p></li>
+<li><p>Quali variabili calcola <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth()</a></code>? Quali parametri controllano
+il suo comportamento?</p></li>
+<li>
+<p>Nel nostro grafico a barre proporzionali, dobbiamo impostare <code>group = 1</code>. Perché? In altre
+in altre parole, qual è il problema di questi due grafici?</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">prop</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">color</span>, y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html">after_stat</a></span><span class="op">(</span><span class="va">prop</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+<div id="regolazioni-di-posizione" class="section level2">
+<h2>
+<span class="header-section-number">3.8</span> Regolazioni di posizione<a class="anchor" aria-label="anchor" href="#regolazioni-di-posizione"><i class="fas fa-link"></i></a>
+</h2>
+<p>C’è un altro pezzo di magia associato ai grafici a barre. Puoi colorare un grafico a barre usando l’estetica <code>colour</code> o, più utilmente, <code>fill</code>:</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, colour <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-36-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-36-2.png" width="50%"></p>
+<p>Notate cosa succede se si mappa l’estetica di riempimento ad un’altra variabile, come <code>clarity</code>: le barre sono automaticamente impilate. Ogni rettangolo colorato rappresenta una combinazione di <code>cut</code> e <code>clarity</code>.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>L’impilamento viene eseguito automaticamente dalla <strong>regolazione della posizione</strong> specificata dall’argomento <code>position</code>. Se non vuoi un grafico a barre impilate, puoi usare una delle altre tre opzioni: <code>"identity"</code>, <code>"dodge"</code> o <code>"fill"</code>.</p>
+<ul>
+<li>
+<p><code>position = "identity"</code> posizionerà ogni oggetto esattamente dove cade nel
+contesto del grafico. Questo non è molto utile per le barre, perché
+le sovrappone. Per vedere la sovrapposizione dobbiamo rendere le barre
+leggermente trasparenti impostando <code>alpha</code> ad un piccolo valore, o completamente
+trasparente impostando <code>fill = NA</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">5</span>, position <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, colour <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">NA</span>, position <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-38-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-38-2.png" width="50%"></p>
+<p>La regolazione della posizione dell’identità è più utile per i geom 2d, come i punti,
+dove è il default.</p>
+</li>
+<li>
+<p><code>position = "fill"</code> funziona come l’impilamento, ma rende ogni serie di barre impilate
+della stessa altezza. Questo rende più facile confrontare le proporzioni tra
+gruppi.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-39-1.png" width="70%" style="display: block; margin: auto;"></div>
+</li>
+<li>
+<p><code>position = "dodge"</code> posiziona gli oggetti sovrapposti direttamente <em>a fianco</em>, uno accanto all’altro. Questo rende più facile confrontare i valori individuali.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">clarity</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;"></div>
+</li>
+</ul>
+<p>C’è un altro tipo di regolazione che non è utile per i grafici a barre, ma può essere molto utile per gli scatterplot. Ricordate il nostro primo grafico di dispersione. Avete notato che il grafico mostra solo 126 punti, anche se ci sono 234 osservazioni nel set di dati?</p>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>I valori di <code>hwy</code> e <code>displ</code> sono arrotondati così i punti appaiono su una griglia e molti punti si sovrappongono l’un l’altro. Questo problema è noto come <strong>overplotting</strong>. Questa disposizione rende difficile vedere dove si trova la massa dei dati. I punti dei dati sono distribuiti equamente in tutto il grafico, o c’è una combinazione speciale di <code>hwy</code> e <code>displ</code> che contiene 109 valori?</p>
+<p>Puoi evitare questa sovrapposizione impostando la regolazione della posizione su “jitter”. <code>position = "jitter"</code> aggiunge una piccola quantità di rumore casuale ad ogni punto. Questo disperde i punti perché non è probabile che due punti ricevano la stessa quantità di rumore casuale.</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>, position <span class="op">=</span> <span class="st">"jitter"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>L’aggiunta di casualità sembra uno strano modo per migliorare il vostro grafico, ma mentre rende il vostro grafico meno accurato a piccole scale, lo rende <em>più</em> rivelatore a grandi scale. Poiché questa è un’operazione così utile, ggplot2 ha un’abbreviazione per <code>geom_point(position = "jitter")</code>: <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code>.</p>
+<p>Per saperne di più su una regolazione di posizione, guarda la pagina di aiuto associata ad ogni regolazione: <code><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">?position_dodge</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">?position_fill</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_identity.html">?position_identity</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">?position_jitter</a></code>, e <code><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">?position_stack</a></code>.</p>
+<div id="esercizi-5" class="section level3">
+<h3>
+<span class="header-section-number">3.8.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-5"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<p>Qual è il problema di questo grafico? Come potresti migliorarlo?</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-43-1.png" width="70%" style="display: block; margin: auto;"></div>
+</li>
+<li><p>Quali parametri di <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> controllano la quantità di jittering?</p></li>
+<li><p>Confrontate e contrastate <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> con <code><a href="https://ggplot2.tidyverse.org/reference/geom_count.html">geom_count()</a></code>.</p></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Qual è la regolazione predefinita della posizione per <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code>? Create
+una visualizzazione del dataset <code>mpg</code> che lo dimostri.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+<div id="sistemi-di-coordinate" class="section level2">
+<h2>
+<span class="header-section-number">3.9</span> Sistemi di coordinate<a class="anchor" aria-label="anchor" href="#sistemi-di-coordinate"><i class="fas fa-link"></i></a>
+</h2>
+<p>I sistemi di coordinate sono probabilmente la parte più complicata di ggplot2. Il sistema di coordinate predefinito è il sistema di coordinate cartesiane dove le posizioni x e y agiscono indipendentemente per determinare la posizione di ogni punto. Ci sono un certo numero di altri sistemi di coordinate che sono occasionalmente utili.</p>
+<ul>
+<li>
+<p><code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a></code> commuta gli assi x e y. Questo è utile (per esempio),
+se volete dei boxplot orizzontali. È anche utile per le etichette lunghe: è
+difficile farle entrare senza sovrapporle sull’asse x.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">class</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-44-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-44-2.png" width="50%"></p>
+</li>
+<li>
+<p><code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap()</a></code> imposta correttamente il rapporto di aspetto per le mappe. Questo è molto
+importante se state tracciando dati spaziali con ggplot2 (che purtroppo
+non abbiamo lo spazio per trattare in questo libro).</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/map_data.html">map_data</a></span><span class="op">(</span><span class="st">"nz"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nz</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">long</span>, <span class="va">lat</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html">geom_polygon</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">nz</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">long</span>, <span class="va">lat</span>, group <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html">geom_polygon</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"white"</span>, colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-45-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-45-2.png" width="50%"></p>
+</li>
+<li>
+<p><code><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar()</a></code> usa coordinate polari. Le coordinate polari rivelano un’interessante
+interessante connessione tra un grafico a barre e un grafico Coxcomb.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>
+    mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cut</span>, fill <span class="op">=</span> <span class="va">cut</span><span class="op">)</span>, 
+    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,
+    width <span class="op">=</span> <span class="fl">1</span>
+  <span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>aspect.ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+
+<span class="va">bar</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">bar</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="visualize_files/figure-html/unnamed-chunk-46-1.png" width="50%"><img src="visualize_files/figure-html/unnamed-chunk-46-2.png" width="50%"></p>
+</li>
+</ul>
+<div id="esercizi-6" class="section level3">
+<h3>
+<span class="header-section-number">3.9.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-6"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Trasformare un grafico a barre impilato in un grafico a torta usando <code><a href="https://ggplot2.tidyverse.org/reference/coord_polar.html">coord_polar()</a></code>.</p></li>
+<li><p>Cosa fa <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code>? Leggete la documentazione.</p></li>
+<li><p>Qual è la differenza tra <code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap()</a></code> e <code><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_map()</a></code>?</p></li>
+<li>
+<p>Cosa vi dice il grafico qui sotto sulla relazione tra città
+e autostrada? Perché è importante la funzione <code><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed()</a></code>? Che cosa fa
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline()</a></code> fa?</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cty</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="visualize_files/figure-html/unnamed-chunk-47-1.png" width="50%" style="display: block; margin: auto;"></div>
+</li>
+</ol>
+</div>
+</div>
+<div id="la-grammatica-a-strati-dei-grafici" class="section level2">
+<h2>
+<span class="header-section-number">3.10</span> La grammatica a strati dei grafici<a class="anchor" aria-label="anchor" href="#la-grammatica-a-strati-dei-grafici"><i class="fas fa-link"></i></a>
+</h2>
+<p>Nelle sezioni precedenti, si è imparato molto di più che come fare scatterplot, grafici a barre e boxplot. Avete imparato una base che potete usare per fare <em>qualsiasi</em> tipo di grafico con ggplot2. Per vedere questo, aggiungiamo regolazioni di posizione, statistiche, sistemi di coordinate e sfaccettature al nostro modello di codice:</p>
+<pre><code>ggplot(data = &lt;DATA&gt;) + 
+  &lt;GEOM_FUNCTION&gt;(
+     mapping = aes(&lt;MAPPINGS&gt;),
+     stat = &lt;STAT&gt;, 
+     position = &lt;POSITION&gt;
+  ) +
+  &lt;COORDINATE_FUNCTION&gt; +
+  &lt;FACET_FUNCTION&gt;</code></pre>
+<p>Il nostro nuovo modello richiede sette parametri, le parole tra parentesi che appaiono nel modello. In pratica, raramente avrete bisogno di fornire tutti e sette i parametri per fare un grafico, perché ggplot2 fornirà utili impostazioni predefinite per tutto tranne che per i dati, le mappature e la funzione geom.</p>
+<p>I sette parametri nel modello compongono la grammatica dei grafici, un sistema formale per costruire grafici. La grammatica della grafica si basa sull’intuizione che è possibile descrivere in modo univoco <em>qualsiasi</em> grafico come una combinazione di un insieme di dati, un geom, un insieme di mappature, uno stat, una regolazione della posizione, un sistema di coordinate e uno schema di sfaccettatura.</p>
+<p>Per vedere come funziona, considerate come potreste costruire una grafico di base da zero: potreste iniziare con un set di dati e poi trasformarlo nelle informazioni che volete visualizzare (con una stat).</p>
+<div class="inline-figure"><img src="images/visualization-grammar-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Poi, potreste scegliere un oggetto geometrico per rappresentare ogni osservazione nei dati trasformati. Potreste poi usare le proprietà estetiche dei geom. per rappresentare le variabili nei dati. Dovreste mappare i valori di ogni variabile ai livelli di un’estetica.</p>
+<div class="inline-figure"><img src="images/visualization-grammar-2.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Poi si seleziona un sistema di coordinate in cui posizionare i geom. Useresti la posizione degli oggetti (che è di per sé una proprietà estetica) per visualizzare i valori delle variabili x e y. A quel punto, avreste un grafico completo, ma potreste regolare ulteriormente le posizioni dei geom all’interno del sistema di coordinate (un aggiustamento di posizione) o dividere il grafico in sottografici (faceting). Potreste anche estendere il grafico aggiungendo uno o più livelli aggiuntivi, dove ogni livello aggiuntivo utilizza un set di dati, un geom, un set di mappature, una statistica e una regolazione della posizione.</p>
+<div class="inline-figure"><img src="images/visualization-grammar-3.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Potreste usare questo metodo per costruire <em>qualsiasi</em> grafico che immaginiate. In altre parole, potete usare il modello di codice che avete imparato in questo capitolo per costruire centinaia di migliaia di grafici uniche.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></div>
+<div class="next"><a href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#visualizzazione"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li>
+<a class="nav-link" href="#introduzione-1"><span class="header-section-number">3.1</span> Introduzione</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#prerequisiti-1"><span class="header-section-number">3.1.1</span> Prerequisiti</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#primi-passi"><span class="header-section-number">3.2</span> Primi passi</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#il-data-frame-mpg"><span class="header-section-number">3.2.1</span> Il data frame mpg</a></li>
+<li><a class="nav-link" href="#creazione-di-un-ggplot"><span class="header-section-number">3.2.2</span> Creazione di un ggplot</a></li>
+<li><a class="nav-link" href="#un-modello-di-grafico"><span class="header-section-number">3.2.3</span> Un modello di grafico</a></li>
+<li><a class="nav-link" href="#esercizi"><span class="header-section-number">3.2.4</span> Esercizi</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#mappature-estetiche"><span class="header-section-number">3.3</span> Mappature estetiche</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-1"><span class="header-section-number">3.3.1</span> Esercizi</a></li></ul>
+</li>
+<li><a class="nav-link" href="#problemi-comuni"><span class="header-section-number">3.4</span> Problemi comuni</a></li>
+<li>
+<a class="nav-link" href="#sfaccettature-facet"><span class="header-section-number">3.5</span> Sfaccettature (‘facet’)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-2"><span class="header-section-number">3.5.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#oggetti-geometrici"><span class="header-section-number">3.6</span> Oggetti geometrici</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-3"><span class="header-section-number">3.6.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#trasformazioni-statistiche"><span class="header-section-number">3.7</span> Trasformazioni statistiche</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-4"><span class="header-section-number">3.7.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#regolazioni-di-posizione"><span class="header-section-number">3.8</span> Regolazioni di posizione</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-5"><span class="header-section-number">3.8.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#sistemi-di-coordinate"><span class="header-section-number">3.9</span> Sistemi di coordinate</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-6"><span class="header-section-number">3.9.1</span> Esercizi</a></li></ul>
+</li>
+<li><a class="nav-link" href="#la-grammatica-a-strati-dei-grafici"><span class="header-section-number">3.10</span> La grammatica a strati dei grafici</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/visualize.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/visualize.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

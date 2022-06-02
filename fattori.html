@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>15 Fattori | R for Data Science - edizione italiana</title>
+<meta name="author" content="Hadley Wickham and Garrett Grolemund">
+<meta name="description" content="15.1 Introduzione In R, i fattori sono usati per lavorare con variabili categoriche, variabili che hanno un insieme fisso e noto di possibili valori. Sono anche utili quando si vogliono...">
+<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta property="og:title" content="15 Fattori | R for Data Science - edizione italiana">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://r4ds-ita-1st-ed.netlify.app/fattori.html">
+<meta property="og:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<meta property="og:description" content="15.1 Introduzione In R, i fattori sono usati per lavorare con variabili categoriche, variabili che hanno un insieme fisso e noto di possibili valori. Sono anche utili quando si vogliono...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="15 Fattori | R for Data Science - edizione italiana">
+<meta name="twitter:site" content="@lucavd">
+<meta name="twitter:description" content="15.1 Introduzione In R, i fattori sono usati per lavorare con variabili categoriche, variabili che hanno un insieme fisso e noto di possibili valori. Sono anche utili quando si vogliono...">
+<meta name="twitter:image" content="https://r4ds-ita-1st-ed.netlify.app/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1.9000/transition.js"></script><script src="libs/bs3compat-0.3.1.9000/tabs.js"></script><script src="libs/bs3compat-0.3.1.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-115082821-1');
+  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Data Science - edizione italiana</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Benvenuto</a></li>
+<li><a class="" href="introduzione.html"><span class="header-section-number">1</span> Introduzione</a></li>
+<li class="book-part">Esplora</li>
+<li><a class="" href="explore-intro.html"><span class="header-section-number">2</span> Introduzione</a></li>
+<li><a class="" href="visualizzazione.html"><span class="header-section-number">3</span> Visualizzazione</a></li>
+<li><a class="" href="workflow-basi.html"><span class="header-section-number">4</span> Workflow: basi</a></li>
+<li><a class="" href="transform.html"><span class="header-section-number">5</span> Trasformazione</a></li>
+<li><a class="" href="workflow-script.html"><span class="header-section-number">6</span> Workflow: script</a></li>
+<li><a class="" href="analisi-esplorativa.html"><span class="header-section-number">7</span> Analisi esplorativa</a></li>
+<li><a class="" href="workflow-progetti.html"><span class="header-section-number">8</span> Workflow: progetti</a></li>
+<li class="book-part">Wrangle</li>
+<li><a class="" href="wrangle-intro.html"><span class="header-section-number">9</span> Introduzione</a></li>
+<li><a class="" href="tibble.html"><span class="header-section-number">10</span> Tibble</a></li>
+<li><a class="" href="importazione-dei-dati.html"><span class="header-section-number">11</span> Importazione dei dati</a></li>
+<li><a class="" href="tidy-data.html"><span class="header-section-number">12</span> Tidy data</a></li>
+<li><a class="" href="dati-relazionali.html"><span class="header-section-number">13</span> Dati relazionali</a></li>
+<li><a class="" href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></li>
+<li><a class="active" href="fattori.html"><span class="header-section-number">15</span> Fattori</a></li>
+<li><a class="" href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></li>
+<li class="book-part">Programmare</li>
+<li><a class="" href="program-intro.html"><span class="header-section-number">17</span> Introduzione</a></li>
+<li><a class="" href="pipe.html"><span class="header-section-number">18</span> Pipe</a></li>
+<li><a class="" href="funzioni.html"><span class="header-section-number">19</span> Funzioni</a></li>
+<li><a class="" href="vettori.html"><span class="header-section-number">20</span> Vettori</a></li>
+<li><a class="" href="iterazioni.html"><span class="header-section-number">21</span> Iterazioni</a></li>
+<li class="book-part">Model</li>
+<li><a class="" href="model-intro.html"><span class="header-section-number">22</span> Introduzione</a></li>
+<li><a class="" href="modelli-base.html"><span class="header-section-number">23</span> Modelli base</a></li>
+<li><a class="" href="costruire-modelli.html"><span class="header-section-number">24</span> Costruire modelli</a></li>
+<li><a class="" href="molti-modelli.html"><span class="header-section-number">25</span> Molti modelli</a></li>
+<li class="book-part">Comunicare</li>
+<li><a class="" href="communicate-intro.html"><span class="header-section-number">26</span> Introduzione</a></li>
+<li><a class="" href="r-markdown.html"><span class="header-section-number">27</span> R Markdown</a></li>
+<li><a class="" href="grafici-per-la-comunicazione.html"><span class="header-section-number">28</span> Grafici per la comunicazione</a></li>
+<li><a class="" href="formati-di-r-markdown.html"><span class="header-section-number">29</span> Formati di R Markdown</a></li>
+<li><a class="" href="r-markdown-workflow.html"><span class="header-section-number">30</span> R Markdown workflow</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/lucavd/r4ds_ita_1st_ed">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="fattori" class="section level1">
+<h1>
+<span class="header-section-number">15</span> Fattori<a class="anchor" aria-label="anchor" href="#fattori"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduzione-9" class="section level2">
+<h2>
+<span class="header-section-number">15.1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione-9"><i class="fas fa-link"></i></a>
+</h2>
+<p>In R, i fattori sono usati per lavorare con variabili categoriche, variabili che hanno un insieme fisso e noto di possibili valori. Sono anche utili quando si vogliono visualizzare vettori di caratteri in un ordine non alfabetico.</p>
+<p>Storicamente, i fattori erano molto più facili da lavorare rispetto ai caratteri. Di conseguenza, molte delle funzioni in R base convertono automaticamente i caratteri in fattori. Questo significa che i fattori spesso compaiono in posti dove non sono effettivamente utili. Fortunatamente, non dovete preoccuparvi di questo nel tidyverse, e potete concentrarvi sulle situazioni in cui i fattori sono veramente utili.</p>
+<div id="prerequisiti-9" class="section level3">
+<h3>
+<span class="header-section-number">15.1.1</span> Prerequisiti<a class="anchor" aria-label="anchor" href="#prerequisiti-9"><i class="fas fa-link"></i></a>
+</h3>
+<p>Per lavorare con i fattori, useremo il pacchetto <strong>forcats</strong>, che fa parte del nucleo del tidyverse. Fornisce strumenti per trattare con le variabili <strong>cat</strong>egoriche (ed è un anagramma di factors!) usando una vasta gamma di helper per lavorare con i fattori.</p>
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="imparare-di-più" class="section level3">
+<h3>
+<span class="header-section-number">15.1.2</span> Imparare di più<a class="anchor" aria-label="anchor" href="#imparare-di-pi%C3%B9"><i class="fas fa-link"></i></a>
+</h3>
+<p>Se volete saperne di più sui fattori, vi consiglio di leggere il documento di Amelia McNamara e Nicholas Horton, <a href="https://peerj.com/preprints/3163/"><em>Wrangling categorical data in R</em></a>. Questo articolo espone parte della storia discussa in <a href="http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/"><em>stringsAsFactors: An unauthorized biography</em></a> e <a href="http://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh"><em>stringsAsFactors = &lt;sigh&gt;</em></a>, e confronta gli approcci ordinati ai dati categorici delineati in questo libro con i metodi base di R. Una prima versione dell’articolo ha aiutato a motivare e a dare un ambito al pacchetto forcats; grazie Amelia &amp; Nick!</p>
+</div>
+</div>
+<div id="creazione-di-fattori" class="section level2">
+<h2>
+<span class="header-section-number">15.2</span> Creazione di fattori<a class="anchor" aria-label="anchor" href="#creazione-di-fattori"><i class="fas fa-link"></i></a>
+</h2>
+<p>Immaginate di avere una variabile che registra il mese:</p>
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dec"</span>, <span class="st">"Apr"</span>, <span class="st">"Jan"</span>, <span class="st">"Mar"</span><span class="op">)</span></code></pre></div>
+<p>Usare una stringa per registrare questa variabile ha due problemi:</p>
+<ol style="list-style-type: decimal">
+<li>
+<p>Ci sono solo dodici mesi possibili, e non c’è niente che vi salvi
+dagli errori di battitura:</p>
+<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dec"</span>, <span class="st">"Apr"</span>, <span class="st">"Jam"</span>, <span class="st">"Mar"</span><span class="op">)</span></code></pre></div>
+</li>
+<li>
+<p>Non ordina in modo utile:</p>
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Apr" "Dec" "Jan" "Mar"</span></code></pre></div>
+</li>
+</ol>
+<p>Potete risolvere entrambi questi problemi con un fattore. Per creare un fattore dovete iniziare creando una lista dei <strong>livelli</strong> validi:</p>
+<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">month_levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+  <span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>, 
+  <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span>
+<span class="op">)</span></code></pre></div>
+<p>Ora potete creare un fattore:</p>
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x1</span>, levels <span class="op">=</span> <span class="va">month_levels</span><span class="op">)</span>
+<span class="va">y1</span>
+<span class="co">#&gt; [1] Dec Apr Jan Mar</span>
+<span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span>
+<span class="co">#&gt; [1] Jan Mar Apr Dec</span>
+<span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></code></pre></div>
+<p>E tutti i valori non presenti nel set saranno silenziosamente convertiti in NA:</p>
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x2</span>, levels <span class="op">=</span> <span class="va">month_levels</span><span class="op">)</span>
+<span class="va">y2</span>
+<span class="co">#&gt; [1] Dec  Apr  &lt;NA&gt; Mar </span>
+<span class="co">#&gt; Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</span></code></pre></div>
+<p>Se vuoi un avvertimento, puoi usare <code><a href="https://readr.tidyverse.org/reference/parse_factor.html">readr::parse_factor()</a></code>:</p>
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_factor.html">parse_factor</a></span><span class="op">(</span><span class="va">x2</span>, levels <span class="op">=</span> <span class="va">month_levels</span><span class="op">)</span>
+<span class="co">#&gt; Warning: 1 parsing failure.</span>
+<span class="co">#&gt; row col           expected actual</span>
+<span class="co">#&gt;   3  -- value in level set    Jam</span></code></pre></div>
+<p>Se ometti i livelli, saranno presi dai dati in ordine alfabetico:</p>
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
+<span class="co">#&gt; [1] Dec Apr Jan Mar</span>
+<span class="co">#&gt; Levels: Apr Dec Jan Mar</span></code></pre></div>
+<p>A volte si preferisce che l’ordine dei livelli corrisponda all’ordine della prima apparizione nei dati. Potete farlo quando create il fattore impostando i livelli su <code>unique(x)</code>, o dopo il fatto, con <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder()</a></code>:</p>
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">f1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x1</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">f1</span>
+<span class="co">#&gt; [1] Dec Apr Jan Mar</span>
+<span class="co">#&gt; Levels: Dec Apr Jan Mar</span>
+
+<span class="va">f2</span> <span class="op">&lt;-</span> <span class="va">x1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">f2</span>
+<span class="co">#&gt; [1] Dec Apr Jan Mar</span>
+<span class="co">#&gt; Levels: Dec Apr Jan Mar</span></code></pre></div>
+<p>Se hai bisogno di accedere direttamente all’insieme dei livelli validi, puoi farlo con <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code>:</p>
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">f2</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Dec" "Apr" "Jan" "Mar"</span></code></pre></div>
+</div>
+<div id="indagine-sociale-generale" class="section level2">
+<h2>
+<span class="header-section-number">15.3</span> Indagine sociale generale<a class="anchor" aria-label="anchor" href="#indagine-sociale-generale"><i class="fas fa-link"></i></a>
+</h2>
+<p>Per il resto di questo capitolo, ci concentreremo su <code><a href="https://forcats.tidyverse.org/reference/gss_cat.html">forcats::gss_cat</a></code>. Si tratta di un campione di dati dal <a href="http://gss.norc.org">General Social Survey</a>, che è un sondaggio di lunga data negli Stati Uniti condotto dall’organizzazione di ricerca indipendente NORC dell’Università di Chicago. Il sondaggio ha migliaia di domande, quindi in <code>gss_cat</code> ne ho selezionate alcune che illustrano alcune sfide comuni che incontrerete quando lavorate con i fattori.</p>
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span>
+<span class="co">#&gt; # A tibble: 21,483 × 9</span>
+<span class="co">#&gt;    year marital         age race  rincome        partyid   relig  denom  tvhours</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;          &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;    &lt;int&gt;</span>
+<span class="co">#&gt; 1  2000 Never married    26 White $8000 to 9999  Ind,near… Prote… South…      12</span>
+<span class="co">#&gt; 2  2000 Divorced         48 White $8000 to 9999  Not str … Prote… Bapti…      NA</span>
+<span class="co">#&gt; 3  2000 Widowed          67 White Not applicable Independ… Prote… No de…       2</span>
+<span class="co">#&gt; 4  2000 Never married    39 White Not applicable Ind,near… Ortho… Not a…       4</span>
+<span class="co">#&gt; 5  2000 Divorced         25 White Not applicable Not str … None   Not a…       1</span>
+<span class="co">#&gt; 6  2000 Married          25 White $20000 - 24999 Strong d… Prote… South…      NA</span>
+<span class="co">#&gt; # … with 21,477 more rows</span></code></pre></div>
+<p>(Ricorda, poiché questo set di dati è fornito da un pacchetto, puoi ottenere maggiori informazioni sulle variabili con <code><a href="https://forcats.tidyverse.org/reference/gss_cat.html">?gss_cat</a></code>).</p>
+<p>Quando i fattori sono memorizzati in una tibble, non puoi vedere i loro livelli così facilmente. Un modo per vederli è con <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code>:</p>
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">race</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 × 2</span>
+<span class="co">#&gt;   race      n</span>
+<span class="co">#&gt;   &lt;fct&gt; &lt;int&gt;</span>
+<span class="co">#&gt; 1 Other  1959</span>
+<span class="co">#&gt; 2 Black  3129</span>
+<span class="co">#&gt; 3 White 16395</span></code></pre></div>
+<p>O con un grafico a barre:</p>
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gss_cat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">race</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="factors_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Per impostazione predefinita, ggplot2 elimina i livelli che non hanno alcun valore. Potete forzarne la visualizzazione con:</p>
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">gss_cat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">race</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="factors_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Questi livelli rappresentano valori validi che semplicemente non si sono verificati in questo set di dati. Sfortunatamente, dplyr non ha ancora un’opzione <code>drop</code>, ma la avrà in futuro.</p>
+<p>Quando si lavora con i fattori, le due operazioni più comuni sono cambiare l’ordine dei livelli e cambiare i valori dei livelli. Queste operazioni sono descritte nelle sezioni seguenti.</p>
+<div id="esercizio" class="section level3">
+<h3>
+<span class="header-section-number">15.3.1</span> Esercizio<a class="anchor" aria-label="anchor" href="#esercizio"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Esplora la distribuzione del <code>reddito</code> (reddito dichiarato). Cosa rende il
+grafico a barre predefinito difficile da capire? Come potresti migliorare il grafico?</p></li>
+<li><p>Qual è il <code>relig</code> più comune in questo sondaggio? Qual è il più
+comune <code>partyid</code>?</p></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>A quale <code>relig</code> si applica il <code>denom</code> (denominazione)? Come puoi scoprirlo
+con una tabella? Come puoi scoprirlo con una visualizzazione?</li>
+</ol></li>
+</ol>
+</div>
+</div>
+<div id="modificare-lordine-dei-fattori" class="section level2">
+<h2>
+<span class="header-section-number">15.4</span> Modificare l’ordine dei fattori<a class="anchor" aria-label="anchor" href="#modificare-lordine-dei-fattori"><i class="fas fa-link"></i></a>
+</h2>
+<p>Spesso è utile cambiare l’ordine dei livelli dei fattori in una visualizzazione. Per esempio, immaginate di voler esplorare il numero medio di ore trascorse a guardare la TV al giorno nelle varie religioni:</p>
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">relig_summary</span> <span class="op">&lt;-</span> <span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">relig</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    tvhours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">tvhours</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">relig_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">tvhours</span>, <span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="factors_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>È difficile interpretare questo grafico perché non c’è uno schema generale. Possiamo migliorarlo riordinando i livelli di <code>relig</code> usando <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code>. <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code> prende tre argomenti:</p>
+<ul>
+<li>
+<code>f</code>, il fattore di cui volete modificare i livelli.</li>
+<li>
+<code>x</code>, un vettore numerico che volete usare per riordinare i livelli.</li>
+<li>Opzionalmente, <code>fun</code>, una funzione che viene usata se ci sono più valori di
+<code>x</code> per ogni valore di <code>f</code>. Il valore predefinito è <code>median</code>.</li>
+</ul>
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">relig_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">tvhours</span>, <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">relig</span>, <span class="va">tvhours</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="factors_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Riordinare la religione rende molto più facile vedere che le persone nella categoria “Non so” guardano molta più TV, e l’Induismo e altre religioni orientali ne guardano molto meno.</p>
+<p>Quando cominciate a fare trasformazioni più complicate, vi consiglio di spostarle fuori da <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> e in un passo separato <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>. Per esempio, potreste riscrivere il grafico di cui sopra come:</p>
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">relig_summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>relig <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">relig</span>, <span class="va">tvhours</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">tvhours</span>, <span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>E se creassimo un grafico simile guardando come l’età media varia a seconda del livello di reddito dichiarato?</p>
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rincome_summary</span> <span class="op">&lt;-</span> <span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">rincome</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    tvhours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">tvhours</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
+    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rincome_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span>, <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">rincome</span>, <span class="va">age</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="factors_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Qui, riordinare arbitrariamente i livelli non è una buona idea! Questo perché <code>rincome</code> ha già un ordine di principio con cui non dovremmo scherzare. Riservate <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder()</a></code> ai fattori i cui livelli sono ordinati arbitrariamente.</p>
+<p>Tuttavia, ha senso mettere “Non applicabile” davanti agli altri livelli speciali. Potete usare <code><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel()</a></code>. Prende un fattore, <code>f</code>, e poi un qualsiasi numero di livelli che volete spostare all’inizio della riga.</p>
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rincome_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span>, <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">rincome</span>, <span class="st">"Not applicable"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="factors_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Perché pensi che l’età media per “Non applicabile” sia così alta?</p>
+<p>Un altro tipo di riordino è utile quando si colorano le linee di un grafico. <code><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder2()</a></code> riordina il fattore in base ai valori <code>y</code> associati ai valori <code>x</code> più grandi. Questo rende il grafico più facile da leggere perché i colori delle linee si allineano alla legenda.</p>
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">by_age</span> <span class="op">&lt;-</span> <span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">marital</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">by_age</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">prop</span>, colour <span class="op">=</span> <span class="va">marital</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">by_age</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">prop</span>, colour <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder2</a></span><span class="op">(</span><span class="va">marital</span>, <span class="va">age</span>, <span class="va">prop</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"marital"</span><span class="op">)</span></code></pre></div>
+<p><img src="factors_files/figure-html/unnamed-chunk-20-1.png" width="50%"><img src="factors_files/figure-html/unnamed-chunk-20-2.png" width="50%"></p>
+<p>Infine, per i grafici a barre, puoi usare <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq()</a></code> per ordinare i livelli in frequenza crescente: questo è il tipo più semplice di riordino perché non ha bisogno di variabili extra. Potreste volerlo combinare con <code><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev()</a></code>.</p>
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>marital <span class="op">=</span> <span class="va">marital</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_rev.html">fct_rev</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">marital</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="factors_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div id="esercizi-45" class="section level3">
+<h3>
+<span class="header-section-number">15.4.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-45"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Ci sono alcuni numeri sospettosamente alti in <code>tvhours</code>. La media è un buon
+riassunto?</p></li>
+<li><p>Per ogni fattore in <code>gss_cat</code> identifica se l’ordine dei livelli è
+arbitrario o di principio.</p></li>
+<li><p>Perché lo spostamento di “Non applicabile” all’inizio dei livelli lo ha spostato in
+in fondo al grafico?</p></li>
+</ol>
+</div>
+</div>
+<div id="modificare-i-livelli-dei-fattori" class="section level2">
+<h2>
+<span class="header-section-number">15.5</span> Modificare i livelli dei fattori<a class="anchor" aria-label="anchor" href="#modificare-i-livelli-dei-fattori"><i class="fas fa-link"></i></a>
+</h2>
+<p>Più potente che cambiare l’ordine dei livelli è cambiare i loro valori. Questo ti permette di chiarire le etichette per la pubblicazione e di far collassare i livelli per visualizzazioni di alto livello. Lo strumento più generale e potente è <code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>. Ti permette di ricodificare, o cambiare, il valore di ogni livello. Per esempio, prendete il <code>gss_cat$partyid</code>:</p>
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">partyid</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 10 × 2</span>
+<span class="co">#&gt;   partyid                n</span>
+<span class="co">#&gt;   &lt;fct&gt;              &lt;int&gt;</span>
+<span class="co">#&gt; 1 No answer            154</span>
+<span class="co">#&gt; 2 Don't know             1</span>
+<span class="co">#&gt; 3 Other party          393</span>
+<span class="co">#&gt; 4 Strong republican   2314</span>
+<span class="co">#&gt; 5 Not str republican  3032</span>
+<span class="co">#&gt; 6 Ind,near rep        1791</span>
+<span class="co">#&gt; # … with 4 more rows</span></code></pre></div>
+<p>I livelli sono concisi e incoerenti. Modifichiamoli per essere più lunghi e usare una costruzione parallela.</p>
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>partyid <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode</a></span><span class="op">(</span><span class="va">partyid</span>,
+    <span class="st">"Republican, strong"</span>    <span class="op">=</span> <span class="st">"Strong republican"</span>,
+    <span class="st">"Republican, weak"</span>      <span class="op">=</span> <span class="st">"Not str republican"</span>,
+    <span class="st">"Independent, near rep"</span> <span class="op">=</span> <span class="st">"Ind,near rep"</span>,
+    <span class="st">"Independent, near dem"</span> <span class="op">=</span> <span class="st">"Ind,near dem"</span>,
+    <span class="st">"Democrat, weak"</span>        <span class="op">=</span> <span class="st">"Not str democrat"</span>,
+    <span class="st">"Democrat, strong"</span>      <span class="op">=</span> <span class="st">"Strong democrat"</span>
+  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">partyid</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 10 × 2</span>
+<span class="co">#&gt;   partyid                   n</span>
+<span class="co">#&gt;   &lt;fct&gt;                 &lt;int&gt;</span>
+<span class="co">#&gt; 1 No answer               154</span>
+<span class="co">#&gt; 2 Don't know                1</span>
+<span class="co">#&gt; 3 Other party             393</span>
+<span class="co">#&gt; 4 Republican, strong     2314</span>
+<span class="co">#&gt; 5 Republican, weak       3032</span>
+<span class="co">#&gt; 6 Independent, near rep  1791</span>
+<span class="co">#&gt; # … with 4 more rows</span></code></pre></div>
+<p><code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code> lascerà i livelli che non sono esplicitamente menzionati così come sono, e ti avvertirà se accidentalmente fai riferimento ad un livello che non esiste.</p>
+<p>Per combinare i gruppi, puoi assegnare più livelli vecchi allo stesso livello nuovo:</p>
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>partyid <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode</a></span><span class="op">(</span><span class="va">partyid</span>,
+    <span class="st">"Republican, strong"</span>    <span class="op">=</span> <span class="st">"Strong republican"</span>,
+    <span class="st">"Republican, weak"</span>      <span class="op">=</span> <span class="st">"Not str republican"</span>,
+    <span class="st">"Independent, near rep"</span> <span class="op">=</span> <span class="st">"Ind,near rep"</span>,
+    <span class="st">"Independent, near dem"</span> <span class="op">=</span> <span class="st">"Ind,near dem"</span>,
+    <span class="st">"Democrat, weak"</span>        <span class="op">=</span> <span class="st">"Not str democrat"</span>,
+    <span class="st">"Democrat, strong"</span>      <span class="op">=</span> <span class="st">"Strong democrat"</span>,
+    <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"No answer"</span>,
+    <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"Don't know"</span>,
+    <span class="st">"Other"</span>                 <span class="op">=</span> <span class="st">"Other party"</span>
+  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">partyid</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 8 × 2</span>
+<span class="co">#&gt;   partyid                   n</span>
+<span class="co">#&gt;   &lt;fct&gt;                 &lt;int&gt;</span>
+<span class="co">#&gt; 1 Other                   548</span>
+<span class="co">#&gt; 2 Republican, strong     2314</span>
+<span class="co">#&gt; 3 Republican, weak       3032</span>
+<span class="co">#&gt; 4 Independent, near rep  1791</span>
+<span class="co">#&gt; 5 Independent            4119</span>
+<span class="co">#&gt; 6 Independent, near dem  2499</span>
+<span class="co">#&gt; # … with 2 more rows</span></code></pre></div>
+<p>Dovete usare questa tecnica con attenzione: se raggruppate insieme categorie che sono veramente diverse finirete per ottenere risultati fuorvianti.</p>
+<p>Se volete collassare molti livelli, <code><a href="https://forcats.tidyverse.org/reference/fct_collapse.html">fct_collapse()</a></code> è un’utile variante di <code><a href="https://forcats.tidyverse.org/reference/fct_recode.html">fct_recode()</a></code>. Per ogni nuova variabile, potete fornire un vettore di vecchi livelli:</p>
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>partyid <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_collapse.html">fct_collapse</a></span><span class="op">(</span><span class="va">partyid</span>,
+    other <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No answer"</span>, <span class="st">"Don't know"</span>, <span class="st">"Other party"</span><span class="op">)</span>,
+    rep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Strong republican"</span>, <span class="st">"Not str republican"</span><span class="op">)</span>,
+    ind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Ind,near rep"</span>, <span class="st">"Independent"</span>, <span class="st">"Ind,near dem"</span><span class="op">)</span>,
+    dem <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Not str democrat"</span>, <span class="st">"Strong democrat"</span><span class="op">)</span>
+  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">partyid</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 4 × 2</span>
+<span class="co">#&gt;   partyid     n</span>
+<span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1 other     548</span>
+<span class="co">#&gt; 2 rep      5346</span>
+<span class="co">#&gt; 3 ind      8409</span>
+<span class="co">#&gt; 4 dem      7180</span></code></pre></div>
+<p>A volte si vuole semplicemente mettere insieme tutti i piccoli gruppi per rendere più semplice un grafico o una tabella. Questo è il compito di <code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump()</a></code>:</p>
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>relig <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump</a></span><span class="op">(</span><span class="va">relig</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">relig</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 × 2</span>
+<span class="co">#&gt;   relig          n</span>
+<span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;</span>
+<span class="co">#&gt; 1 Protestant 10846</span>
+<span class="co">#&gt; 2 Other      10637</span></code></pre></div>
+<p>Il comportamento predefinito è quello di raggruppare progressivamente i gruppi più piccoli, assicurandosi che l’aggregato sia ancora il gruppo più piccolo. In questo caso non è molto utile: è vero che la maggioranza degli americani in questo sondaggio sono protestanti, ma probabilmente abbiamo esagerato.</p>
+<p>Invece, possiamo usare il parametro <code>n</code> per specificare quanti gruppi (esclusi gli altri) vogliamo mantenere:</p>
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gss_cat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>relig <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump</a></span><span class="op">(</span><span class="va">relig</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">relig</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 10 × 2</span>
+<span class="co">#&gt;    relig                       n</span>
+<span class="co">#&gt;    &lt;fct&gt;                   &lt;int&gt;</span>
+<span class="co">#&gt;  1 Protestant              10846</span>
+<span class="co">#&gt;  2 Catholic                 5124</span>
+<span class="co">#&gt;  3 None                     3523</span>
+<span class="co">#&gt;  4 Christian                 689</span>
+<span class="co">#&gt;  5 Other                     458</span>
+<span class="co">#&gt;  6 Jewish                    388</span>
+<span class="co">#&gt;  7 Buddhism                  147</span>
+<span class="co">#&gt;  8 Inter-nondenominational   109</span>
+<span class="co">#&gt;  9 Moslem/islam              104</span>
+<span class="co">#&gt; 10 Orthodox-christian         95</span></code></pre></div>
+<div id="esercizi-46" class="section level3">
+<h3>
+<span class="header-section-number">15.5.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-46"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Come sono cambiate nel tempo le proporzioni di persone che si identificano come Democratici, Repubblicani e
+indipendenti sono cambiate nel tempo?</p></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Come si può far collassare il “reddito” in un piccolo insieme di categorie?</li>
+</ol></li>
+</ol>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="stringhe.html"><span class="header-section-number">14</span> Stringhe</a></div>
+<div class="next"><a href="date-e-tempi.html"><span class="header-section-number">16</span> Date e tempi</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#fattori"><span class="header-section-number">15</span> Fattori</a></li>
+<li>
+<a class="nav-link" href="#introduzione-9"><span class="header-section-number">15.1</span> Introduzione</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#prerequisiti-9"><span class="header-section-number">15.1.1</span> Prerequisiti</a></li>
+<li><a class="nav-link" href="#imparare-di-pi%C3%B9"><span class="header-section-number">15.1.2</span> Imparare di più</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#creazione-di-fattori"><span class="header-section-number">15.2</span> Creazione di fattori</a></li>
+<li>
+<a class="nav-link" href="#indagine-sociale-generale"><span class="header-section-number">15.3</span> Indagine sociale generale</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizio"><span class="header-section-number">15.3.1</span> Esercizio</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#modificare-lordine-dei-fattori"><span class="header-section-number">15.4</span> Modificare l’ordine dei fattori</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-45"><span class="header-section-number">15.4.1</span> Esercizi</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#modificare-i-livelli-dei-fattori"><span class="header-section-number">15.5</span> Modificare i livelli dei fattori</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#esercizi-46"><span class="header-section-number">15.5.1</span> Esercizi</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/lucavd/r4ds_ita_1st_ed/blob/master/factors.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/lucavd/r4ds_ita_1st_ed/edit/master/factors.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Data Science - edizione italiana</strong>" was written by Hadley Wickham and Garrett Grolemund. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
