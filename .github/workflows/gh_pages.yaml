@@ -34,6 +34,9 @@ jobs:
           path: _bookdown_files
           key: bookdown-${{ hashFiles('**/*Rmd') }}
           restore-keys: bookdown-
+      - name: Install curl
+        run: Rscript -e 'install.packages(c("curl"))'
+
 
       - name: Build site
         run: bookdown::render_book("index.Rmd", quiet = TRUE)
