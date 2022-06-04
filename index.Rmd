@@ -1,9 +1,9 @@
 ---
 knit: "bookdown::render_book"
 title: "R for Data Science - edizione italiana"
-author: "Hadley Wickham and Garrett Grolemund"
+author: "Hadley Wickham e Garrett Grolemund"
 description: "Questo libro vi insegnerà come fare _data science_ con R: imparerete come importare i vostri dati in R, metterli nella struttura più utile, trasformarli, visualizzarli e modellarli. In questo libro, troverete una serie di tecniche per la scienza dei dati. Proprio come un chimico impara a pulire le provette e a rifornire un laboratorio, voi imparerete a pulire i dati e a disegnare i grafici--e molte altre cose ancora. Queste sono le abilità che permettono alla scienza dei dati di realizzarsi, e qui troverete le migliori pratiche per fare ognuna di queste cose con R. Imparerete come usare la 'gramamtica dei grafici' (_grammar of graphics_), la 'programmazione letterale' (_literate programming_) e la 'ricerca riproducibile' (_reproducible research_) per risparmiare tempo. Imparerete anche come gestire le risorse cognitive per facilitare le scoperte quando si maneggiano, si visualizzano e si esplorano i dati"
-url: 'https\://r4ds-ita-1st-ed.netlify.app'
+url: 'http\://it.r4ds.hadley.nz/'
 github-repo: lucavd/r4ds_ita_1st_ed
 twitter-handle: lucavd
 cover-image: cover.png
