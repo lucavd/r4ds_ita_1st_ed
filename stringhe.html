@@ -124,7 +124,8 @@
 <p>È possibile creare stringhe con apici singoli o doppi. A differenza di altri linguaggi, non c’è differenza di comportamento. Raccomando di usare sempre <code>"</code>, a meno che non vogliate creare una stringa che contenga più <code>"</code>.</p>
 <div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">string1</span> <span class="op">&lt;-</span> <span class="st">"Questa è una stringa"</span>
-<span class="va">string2</span> <span class="op">&lt;-</span> <span class="st">'If I want to include a "quote" inside a string, I use single quotes'</span> <span class="co"># non traducibile (altrimenti non si capisce l'esempio)</span></code></pre></div>
+<span class="va">string2</span> <span class="op">&lt;-</span> <span class="st">'If I want to include a "quote" inside a string, I use single quotes'</span> 
+<span class="co"># non traducibile (altrimenti non si capisce l'esempio)</span></code></pre></div>
 <p>Se dimenticate di chiudere una citazione, vedrete <code>+</code>, il carattere di continuazione:</p>
 <pre><code>&gt; "Questa è una stringa senza virgolette di chiusura
 + 
@@ -228,9 +229,9 @@
 <span class="va">x</span>
 <span class="co">#&gt; [1] "apple"  "banana" "pear"</span></code></pre></div>
 </div>
-<div id="locales" class="section level3">
+<div id="locale" class="section level3">
 <h3>
-<span class="header-section-number">14.2.4</span> Locales<a class="anchor" aria-label="anchor" href="#locales"><i class="fas fa-link"></i></a>
+<span class="header-section-number">14.2.4</span> Locale<a class="anchor" aria-label="anchor" href="#locale"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sopra ho usato <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_lower()</a></code> per cambiare il testo in minuscolo. Puoi anche usare <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_upper()</a></code> o <code><a href="https://stringr.tidyverse.org/reference/case.html">str_to_title()</a></code>. Tuttavia, cambiare le maiuscole è più complicato di quanto possa sembrare a prima vista, perché lingue diverse hanno regole diverse per cambiare le maiuscole. Puoi scegliere quale insieme di regole usare specificando un locale:</p>
 <div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
@@ -1228,7 +1229,7 @@ l’ordinamento?</p></li>
 <li><a class="nav-link" href="#lunghezza-della-stringa"><span class="header-section-number">14.2.1</span> Lunghezza della stringa</a></li>
 <li><a class="nav-link" href="#combinazione-di-stringhe"><span class="header-section-number">14.2.2</span> Combinazione di stringhe</a></li>
 <li><a class="nav-link" href="#sottoscrizione-di-stringhe"><span class="header-section-number">14.2.3</span> Sottoscrizione di stringhe</a></li>
-<li><a class="nav-link" href="#locales"><span class="header-section-number">14.2.4</span> Locales</a></li>
+<li><a class="nav-link" href="#locale"><span class="header-section-number">14.2.4</span> Locale</a></li>
 <li><a class="nav-link" href="#esercizi-32"><span class="header-section-number">14.2.5</span> Esercizi</a></li>
 </ul>
 </li>

@@ -20,7 +20,8 @@ library(tidyverse)
 
 ```r
 string1 <- "Questa è una stringa"
-string2 <- 'If I want to include a "quote" inside a string, I use single quotes' # non traducibile (altrimenti non si capisce l'esempio)
+string2 <- 'If I want to include a "quote" inside a string, I use single quotes' 
+# non traducibile (altrimenti non si capisce l'esempio)
 ```
 
 Se dimenticate di chiudere una citazione, vedrete `+`, il carattere di continuazione:
@@ -181,7 +182,7 @@ x
 #> [1] "apple"  "banana" "pear"
 ```
 
-### Locales
+### Locale
 
 Sopra ho usato `str_to_lower()` per cambiare il testo in minuscolo. Puoi anche usare `str_to_upper()` o `str_to_title()`. Tuttavia, cambiare le maiuscole è più complicato di quanto possa sembrare a prima vista, perché lingue diverse hanno regole diverse per cambiare le maiuscole. Puoi scegliere quale insieme di regole usare specificando un locale:
 

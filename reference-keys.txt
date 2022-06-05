@@ -186,7 +186,7 @@ nozioni-di-base-sulle-stringhe
 lunghezza-della-stringa
 combinazione-di-stringhe
 sottoscrizione-di-stringhe
-locales
+locale
 esercizi-32
 corrispondenza-di-schemi-con-le-espressioni-regolari
 corrispondenze-di-base
