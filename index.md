@@ -17,14 +17,14 @@ documentclass: book
 
 Questo sito è (e sempre sarà) **gratuito**, ed è licenziato sotto [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/us/). Se volete una **copia fisica** del libro (in inglese), potete ordinarlo da [amazon](http://amzn.to/2aHLAQ1); è stato pubblicato da O'Reilly nel gennaio 2017. Se vuoi invece **donare qualcosa** puoi fare una donazione alla [Kākāpō Recovery](https://www.doc.govt.nz/kakapo-donate): il [kākāpō](https://www.youtube.com/watch?v=9T1vfsHYiKY) (che è riprodotto sulla copertina di R4DS) è un pappagallo nativo della Nuova Zelanda a grave rischio di estinzione; ne sono rimasti solo 213[^index-1].
 
-[^index-1]: Nel dicembre 2021 (inizio della traduzione) ne sono rimasti solo 201 (NdT)
+Nel dicembre 2021 (inizio della traduzione) ne sono rimasti solo 201 (NdT)[^index-1] 
 
 R4DS usa un [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html) (versione in italiano visionabile [qui](https://www.contributor-covenant.org/it/version/2/0/code_of_conduct/)). Contribuendo a questo libro, accetti di rispettare i suoi termini.
 
 ## Nota sulla traduzione italiana {.unnumbered}
 
 
-**Ultimo Aggiornamento** 05 June, 2022
+**Ultimo Aggiornamento** 06 June, 2022
 
 La traduzione italiana del libro R4DS è stata condotta da [Luca Vedovelli](https://lucavd.netlify.app/) su [esplicita autorizzazione]{.ul} dell'autore (Hadley Wickam) e dell'editore O'Reilly che detiene i diritti di traduzione.
 

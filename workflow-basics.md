@@ -148,7 +148,7 @@ Qui puoi vedere tutti gli oggetti che hai creato.
 
 ## Esercizi
 
-1.  Perché questo codice non funziona?[^index-3]
+1.  Perché questo codice non funziona?[^index-1]
 
     
     ```r
