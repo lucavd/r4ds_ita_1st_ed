@@ -280,8 +280,8 @@ str_view(c("abc", "a.c", "bef"), "a\\.c")
 ```
 
 ```{=html}
-<div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>bef<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-36aa3d2a04d42bbc2145" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>bef<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Se `\` è usato come carattere di escape nelle espressioni regolari, come si fa a far corrispondere un letterale `\`? Beh, devi fare l'escape, creando l'espressione regolare `\\`. Per creare questa espressione regolare, hai bisogno di usare una stringa, che deve anche fare l'escape di `\`. Questo significa che per far corrispondere un letterale `\` hai bisogno di scrivere `"\\\\"` --- hai bisogno di quattro backslash per corrispondere a uno!
@@ -393,20 +393,20 @@ str_view(c("abc", "a.c", "a*c", "a c"), "a[.]c")
 ```
 
 ```{=html}
-<div id="htmlwidget-e5c8c404fe174e4c81bd" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e5c8c404fe174e4c81bd">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>a*c<\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-25c3e940e6859592f801" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-25c3e940e6859592f801">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>a*c<\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
 ```
 
 ```{=html}
-<div id="htmlwidget-36aa3d2a04d42bbc2145" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li><span class='match'>a*c<\/span><\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3f27c09be0c60bb52829" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3f27c09be0c60bb52829">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li><span class='match'>a*c<\/span><\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 str_view(c("abc", "a.c", "a*c", "a c"), "a[ ]")
 ```
 
 ```{=html}
-<div id="htmlwidget-febe03efa1a2d8d52a86" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-febe03efa1a2d8d52a86">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li>a*c<\/li>\n  <li><span class='match'>a <\/span>c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-416566eb193bf50d04e6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-416566eb193bf50d04e6">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li>a*c<\/li>\n  <li><span class='match'>a <\/span>c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Questo funziona per la maggior parte (ma non per tutti) i metacaratteri regex: `$` `.` `|` `?` `*` `+` `(` `)` `[` `{`. Sfortunatamente, alcuni caratteri hanno un significato speciale anche all'interno di una classe di caratteri e devono essere gestiti con escape di backslash: `]` `\` `^` e `-`.
@@ -461,20 +461,20 @@ str_view(x, "CC?")
 ```
 
 ```{=html}
-<div id="htmlwidget-1fb4450895fe099f74a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1fb4450895fe099f74a1">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d11fc4360aa0230696d7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d11fc4360aa0230696d7">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 str_view(x, "CC+")
 ```
 
 ```{=html}
-<div id="htmlwidget-10b3b7155e8045a1b2ad" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-10b3b7155e8045a1b2ad">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-21c7483268bafca56cec" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-21c7483268bafca56cec">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 str_view(x, 'C[LX]+')
 ```
 
 ```{=html}
-<div id="htmlwidget-4018eef1a407a0df6b52" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4018eef1a407a0df6b52">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MDCC<span class='match'>CLXXX<\/span>VIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1834a22cd196f3aa03a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1834a22cd196f3aa03a1">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MDCC<span class='match'>CLXXX<\/span>VIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Notate che la precedenza di questi operatori è alta, quindi potete scrivere: `colou?r` per abbinare sia l'ortografia americana che quella britannica. Ciò significa che la maggior parte degli usi avrà bisogno di parentesi, come `bana(na)+`.
@@ -493,19 +493,19 @@ str_view(x, "C{2}")
 
 ```{=html}
 <div id="htmlwidget-28515d92cb327f90c9eb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-28515d92cb327f90c9eb">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-28515d92cb327f90c9eb">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 str_view(x, "C{2,}")
 ```
 
 ```{=html}
 <div id="htmlwidget-0caf26d4e3c00206b0c5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0caf26d4e3c00206b0c5">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-0caf26d4e3c00206b0c5">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 str_view(x, "C{2,3}")
 ```
 
 ```{=html}
 <div id="htmlwidget-da0b268a2927f570ebf3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-da0b268a2927f570ebf3">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-da0b268a2927f570ebf3">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 Per default queste corrispondenze sono "avide": corrisponderanno alla stringa più lunga possibile. Potete renderle "pigre", facendo corrispondere la stringa più corta possibile mettendo un `?` dopo di esse. Questa è una caratteristica avanzata delle espressioni regolari, ma è utile sapere che esiste:
@@ -517,13 +517,13 @@ str_view(x, 'C{2,3}?')
 
 ```{=html}
 <div id="htmlwidget-0ed12bb554391c49c2e3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ed12bb554391c49c2e3">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-0ed12bb554391c49c2e3">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 str_view(x, 'C[LX]+?')
 ```
 
 ```{=html}
 <div id="htmlwidget-ec658d41f8c4f2d124e9" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec658d41f8c4f2d124e9">{"x":{"html":"<ul>\n  <li>1888 is the longest year in Roman numerals: MDCC<span class='match'>CL<\/span>XXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-ec658d41f8c4f2d124e9">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MDCC<span class='match'>CL<\/span>XXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 ```
 
 #### Esercizi
@@ -1214,9 +1214,9 @@ Ci sono altre tre funzioni che puoi usare al posto di `regex()`:
       times = 20
     )
     #> Unit: microseconds
-    #>   expr     min      lq     mean   median      uq     max neval
-    #>  fixed 111.243 127.750 186.6002 143.6405 239.083 415.857    20
-    #>  regex 350.396 373.981 483.7899 443.3895 557.511 929.115    20
+    #>   expr   min     lq    mean median    uq   max neval
+    #>  fixed  52.7  57.30  87.425  69.45  82.3 387.0    20
+    #>  regex 260.5 263.55 283.050 266.05 271.6 548.4    20
     ```
     
     Attenzione all'uso di `fixed()` con dati non inglesi. È problematico perché ci sono spesso più modi di rappresentare lo stesso carattere. Per esempio, ci sono due modi per definire "á": o come un singolo carattere o come una "a" più un accento:
@@ -1262,16 +1262,16 @@ Ci sono altre tre funzioni che puoi usare al posto di `regex()`:
     ```r
     stringi::stri_locale_info()
     #> $Language
-    #> [1] "en"
+    #> [1] "c"
     #> 
     #> $Country
-    #> [1] "US"
+    #> [1] ""
     #> 
     #> $Variant
     #> [1] ""
     #> 
     #> $Name
-    #> [1] "en_US"
+    #> [1] "c"
     ```
     
     Lo svantaggio di `coll()` è la velocità; poiché le regole per riconoscere quali

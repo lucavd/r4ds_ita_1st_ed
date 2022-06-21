@@ -137,8 +137,8 @@ Quando sei agli inizi con R, l'errore più facile da fare è usare `=` invece di
 
 ```r
 filter(flights, month = 1)
-#> Error: Problem with `filter()` input `..1`.
-#> ✖ Input `..1` is named.
+#> Error in `filter()`:
+#> ! We detected a named input.
 #> ℹ This usually means that you've used `=` instead of `==`.
 #> ℹ Did you mean `month == 1`?
 ```
@@ -719,7 +719,8 @@ La funzione `summarise()` non è estremamente utile a meno che non la accoppiamo
 ```r
 by_day <- group_by(flights, year, month, day)
 summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
 #> # A tibble: 365 × 4
 #> # Groups:   year, month [12]
 #>    year month   day delay
@@ -800,7 +801,8 @@ Vi sarete chiesti quale sia l'argomento `na.rm` che abbiamo usato sopra. Cosa su
 flights %>% 
   group_by(year, month, day) %>% 
   summarise(mean = mean(dep_delay))
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
 #> # A tibble: 365 × 4
 #> # Groups:   year, month [12]
 #>    year month   day  mean
@@ -821,7 +823,8 @@ Abbiamo un sacco di valori mancanti! Questo perché le funzioni di aggregazione 
 flights %>% 
   group_by(year, month, day) %>% 
   summarise(mean = mean(dep_delay, na.rm = TRUE))
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
 #> # A tibble: 365 × 4
 #> # Groups:   year, month [12]
 #>    year month   day  mean
@@ -845,7 +848,8 @@ not_cancelled <- flights %>%
 not_cancelled %>% 
   group_by(year, month, day) %>% 
   summarise(mean = mean(dep_delay))
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
 #> # A tibble: 365 × 4
 #> # Groups:   year, month [12]
 #>    year month   day  mean
@@ -955,16 +959,16 @@ Questo ha anche importanti implicazioni per i ranghi. Se si ordina ingenuamente 
 ```r
 batters %>% 
   arrange(desc(ba))
-#> # A tibble: 19,898 × 3
+#> # A tibble: 20,166 × 3
 #>   playerID     ba    ab
 #>   <chr>     <dbl> <int>
 #> 1 abramge01     1     1
-#> 2 alanirj01     1     1
-#> 3 alberan01     1     1
-#> 4 banisje01     1     1
-#> 5 bartocl01     1     1
-#> 6 bassdo01      1     1
-#> # … with 19,892 more rows
+#> 2 alberan01     1     1
+#> 3 banisje01     1     1
+#> 4 bartocl01     1     1
+#> 5 bassdo01      1     1
+#> 6 birasst01     1     2
+#> # … with 20,160 more rows
 ```
 
 Potete trovare una buona spiegazione di questo problema in <http://varianceexplained.org/r/empirical_bayes_baseball/> e <http://www.evanmiller.org/how-not-to-sort-by-average-rating.html>.
@@ -989,7 +993,8 @@ Usare solo le medie, i conteggi e la somma può portarvi molto lontano, ma R for
         avg_delay1 = mean(arr_delay),
         avg_delay2 = mean(arr_delay[arr_delay > 0]) # the average positive delay
       )
-    #> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+    #> `summarise()` has grouped output by 'year', 'month'. You can override using the
+    #> `.groups` argument.
     #> # A tibble: 365 × 5
     #> # Groups:   year, month [12]
     #>    year month   day avg_delay1 avg_delay2
@@ -1041,7 +1046,8 @@ Usare solo le medie, i conteggi e la somma può portarvi molto lontano, ma R for
         first = min(dep_time),
         last = max(dep_time)
       )
-    #> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+    #> `summarise()` has grouped output by 'year', 'month'. You can override using the
+    #> `.groups` argument.
     #> # A tibble: 365 × 5
     #> # Groups:   year, month [12]
     #>    year month   day first  last
@@ -1069,7 +1075,8 @@ Usare solo le medie, i conteggi e la somma può portarvi molto lontano, ma R for
         first_dep = first(dep_time), 
         last_dep = last(dep_time)
       )
-    #> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+    #> `summarise()` has grouped output by 'year', 'month'. You can override using the
+    #> `.groups` argument.
     #> # A tibble: 365 × 5
     #> # Groups:   year, month [12]
     #>    year month   day first_dep last_dep
@@ -1181,7 +1188,8 @@ Usare solo le medie, i conteggi e la somma può portarvi molto lontano, ma R for
     not_cancelled %>% 
       group_by(year, month, day) %>% 
       summarise(n_early = sum(dep_time < 500))
-    #> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+    #> `summarise()` has grouped output by 'year', 'month'. You can override using the
+    #> `.groups` argument.
     #> # A tibble: 365 × 4
     #> # Groups:   year, month [12]
     #>    year month   day n_early
@@ -1198,7 +1206,8 @@ Usare solo le medie, i conteggi e la somma può portarvi molto lontano, ma R for
     not_cancelled %>% 
       group_by(year, month, day) %>% 
       summarise(hour_prop = mean(arr_delay > 60))
-    #> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+    #> `summarise()` has grouped output by 'year', 'month'. You can override using the
+    #> `.groups` argument.
     #> # A tibble: 365 × 4
     #> # Groups:   year, month [12]
     #>    year month   day hour_prop
@@ -1220,7 +1229,8 @@ Quando si raggruppa per variabili multiple, ogni riepilogo si stacca da un livel
 ```r
 daily <- group_by(flights, year, month, day)
 (per_day   <- summarise(daily, flights = n()))
-#> `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.
+#> `summarise()` has grouped output by 'year', 'month'. You can override using the
+#> `.groups` argument.
 #> # A tibble: 365 × 4
 #> # Groups:   year, month [12]
 #>    year month   day flights
@@ -1233,7 +1243,8 @@ daily <- group_by(flights, year, month, day)
 #> 6  2013     1     6     832
 #> # … with 359 more rows
 (per_month <- summarise(per_day, flights = sum(flights)))
-#> `summarise()` has grouped output by 'year'. You can override using the `.groups` argument.
+#> `summarise()` has grouped output by 'year'. You can override using the
+#> `.groups` argument.
 #> # A tibble: 12 × 3
 #> # Groups:   year [1]
 #>    year month flights

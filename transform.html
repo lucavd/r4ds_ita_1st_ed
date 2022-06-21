@@ -7,7 +7,7 @@
 <title>5 Trasformazione | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="5.1 Introduzione La visualizzazione è uno strumento importante per la generare intuizioni, ma è raro che si ottengano i dati esattamente nella forma giusta di cui si ha bisogno. Spesso avrete...">
-<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
 <meta property="og:title" content="5 Trasformazione | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/transform.html">
@@ -25,7 +25,7 @@
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -221,8 +221,8 @@ usando i nomi delle variabili (senza virgolette).</p></li>
 <p>Quando sei agli inizi con R, l’errore più facile da fare è usare <code>=</code> invece di <code>==</code> quando si verifica l’uguaglianza. Quando questo accade otterrete un errore informativo:</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">flights</span>, month <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; Error: Problem with `filter()` input `..1`.</span>
-<span class="co">#&gt; ✖ Input `..1` is named.</span>
+<span class="co">#&gt; Error in `filter()`:</span>
+<span class="co">#&gt; ! We detected a named input.</span>
 <span class="co">#&gt; ℹ This usually means that you've used `=` instead of `==`.</span>
 <span class="co">#&gt; ℹ Did you mean `month == 1`?</span></code></pre></div>
 <p>C’è un altro problema comune che potresti incontrare quando usi <code>==</code>: i numeri in virgola mobile. Questi risultati potrebbero sorprenderti!</p>
@@ -721,7 +721,8 @@ gestire i pareggi? Leggete attentamente la documentazione per <code><a href="htt
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">by_day</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">flights</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span>
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="va">by_day</span>, delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 4</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day delay</span>
@@ -787,7 +788,8 @@ due volte più lontano del prossimo aeroporto più vicino.</p></li>
 <code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 4</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day  mean</span>
@@ -804,7 +806,8 @@ due volte più lontano del prossimo aeroporto più vicino.</p></li>
 <code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 4</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day  mean</span>
@@ -824,7 +827,8 @@ due volte più lontano del prossimo aeroporto più vicino.</p></li>
 <span class="va">not_cancelled</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 4</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day  mean</span>
@@ -907,16 +911,16 @@ e ovviamente sceglieranno i loro migliori giocatori.</p></li>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">batters</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">ba</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 19,898 × 3</span>
+<span class="co">#&gt; # A tibble: 20,166 × 3</span>
 <span class="co">#&gt;   playerID     ba    ab</span>
 <span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1 abramge01     1     1</span>
-<span class="co">#&gt; 2 alanirj01     1     1</span>
-<span class="co">#&gt; 3 alberan01     1     1</span>
-<span class="co">#&gt; 4 banisje01     1     1</span>
-<span class="co">#&gt; 5 bartocl01     1     1</span>
-<span class="co">#&gt; 6 bassdo01      1     1</span>
-<span class="co">#&gt; # … with 19,892 more rows</span></code></pre></div>
+<span class="co">#&gt; 2 alberan01     1     1</span>
+<span class="co">#&gt; 3 banisje01     1     1</span>
+<span class="co">#&gt; 4 bartocl01     1     1</span>
+<span class="co">#&gt; 5 bassdo01      1     1</span>
+<span class="co">#&gt; 6 birasst01     1     2</span>
+<span class="co">#&gt; # … with 20,160 more rows</span></code></pre></div>
 <p>Potete trovare una buona spiegazione di questo problema in <a href="http://varianceexplained.org/r/empirical_bayes_baseball/" class="uri">http://varianceexplained.org/r/empirical_bayes_baseball/</a> e <a href="http://www.evanmiller.org/how-not-to-sort-by-average-rating.html" class="uri">http://www.evanmiller.org/how-not-to-sort-by-average-rating.html</a>.</p>
 </div>
 <div id="summarise-funs" class="section level3">
@@ -939,7 +943,8 @@ su di esso in <a href="vettori.html#vector-subsetting">sottoinsiemi</a>.</p>
     avg_delay1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span>,
     avg_delay2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">[</span><span class="va">arr_delay</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span><span class="op">)</span> <span class="co"># the average positive delay</span>
   <span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 5</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day avg_delay1 avg_delay2</span>
@@ -987,7 +992,8 @@ e inferiore al restante 75%.</p>
     first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span>,
     last <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 5</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day first  last</span>
@@ -1013,7 +1019,8 @@ trovare la prima e l’ultima partenza per ogni giorno:</p>
     first_dep <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">first</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span>, 
     last_dep <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html">last</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 5</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day first_dep last_dep</span>
@@ -1109,7 +1116,8 @@ Questo rende <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> e 
 <span class="va">not_cancelled</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_early <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">dep_time</span> <span class="op">&lt;</span> <span class="fl">500</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 4</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day n_early</span>
@@ -1126,7 +1134,8 @@ Questo rende <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> e 
 <span class="va">not_cancelled</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>hour_prop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">&gt;</span> <span class="fl">60</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 4</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day hour_prop</span>
@@ -1149,7 +1158,8 @@ Questo rende <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> e 
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">flights</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span>
 <span class="op">(</span><span class="va">per_day</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="va">daily</span>, flights <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year', 'month'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 365 × 4</span>
 <span class="co">#&gt; # Groups:   year, month [12]</span>
 <span class="co">#&gt;    year month   day flights</span>
@@ -1162,7 +1172,8 @@ Questo rende <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> e 
 <span class="co">#&gt; 6  2013     1     6     832</span>
 <span class="co">#&gt; # … with 359 more rows</span>
 <span class="op">(</span><span class="va">per_month</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="va">per_day</span>, flights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">flights</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 12 × 3</span>
 <span class="co">#&gt; # Groups:   year [1]</span>
 <span class="co">#&gt;    year month flights</span>

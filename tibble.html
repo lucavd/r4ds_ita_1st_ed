@@ -7,7 +7,7 @@
 <title>10 Tibble | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="10.1 Introduzione In questo libro lavoriamo con i “tibble” invece dei tradizionali data.frame di R. I tibble sono data frame, ma modificano alcuni vecchi comportamenti per renderci la vita un po’...">
-<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
 <meta property="og:title" content="10 Tibble | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/tibble.html">
@@ -25,7 +25,7 @@
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -200,12 +200,12 @@
 <span class="co">#&gt; # A tibble: 1,000 × 5</span>
 <span class="co">#&gt;   a                   b              c     d e    </span>
 <span class="co">#&gt;   &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1 2021-12-13 23:10:28 2021-12-20     1 0.368 n    </span>
-<span class="co">#&gt; 2 2021-12-14 17:15:37 2021-12-25     2 0.612 l    </span>
-<span class="co">#&gt; 3 2021-12-14 11:39:16 2022-01-04     3 0.415 p    </span>
-<span class="co">#&gt; 4 2021-12-14 01:00:34 2022-01-03     4 0.212 m    </span>
-<span class="co">#&gt; 5 2021-12-13 21:24:50 2021-12-31     5 0.733 i    </span>
-<span class="co">#&gt; 6 2021-12-14 08:25:47 2021-12-27     6 0.460 n    </span>
+<span class="co">#&gt; 1 2022-06-21 23:28:11 2022-06-28     1 0.368 n    </span>
+<span class="co">#&gt; 2 2022-06-22 17:33:21 2022-07-03     2 0.612 l    </span>
+<span class="co">#&gt; 3 2022-06-22 11:57:00 2022-07-13     3 0.415 p    </span>
+<span class="co">#&gt; 4 2022-06-22 01:18:17 2022-07-12     4 0.212 m    </span>
+<span class="co">#&gt; 5 2022-06-21 21:42:34 2022-07-09     5 0.733 i    </span>
+<span class="co">#&gt; 6 2022-06-22 08:43:31 2022-07-05     6 0.460 n    </span>
 <span class="co">#&gt; # … with 994 more rows</span></code></pre></div>
 <p>Le tibble sono progettate in modo da non sovraccaricare accidentalmente la vostra console quando stampate grandi frame di dati. Ma a volte avete bisogno di più output rispetto alla visualizzazione di default. Ci sono alcune opzioni che possono aiutare.</p>
 <p>Per prima cosa, potete esplicitamente <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> il data frame e controllare il numero di righe (<code>n</code>) e la <code>larghezza</code> della visualizzazione. La <code>larghezza = Inf</code> visualizzerà tutte le colonne:</p>

@@ -610,7 +610,7 @@ ggplot(mpg, aes(displ, hwy)) + geom_point()
 
 ```r
 ggsave("my-plot.pdf")
-#> Saving 7 x 4.33 in image
+#> Saving 7 x 4.32 in image
 ```
 
 

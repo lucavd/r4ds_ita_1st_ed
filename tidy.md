@@ -348,8 +348,9 @@ Come avrete capito dai loro nomi, `pivot_wider()` e `pivot_longer()` sono comple
     ```r
     table4a %>% 
       pivot_longer(c(1999, 2000), names_to = "year", values_to = "cases")
-    #> Error: Can't subset columns that don't exist.
-    #> ✖ Locations 1999 and 2000 don't exist.
+    #> Error in `loc_validate()`:
+    #> ! Can't subset columns past the end.
+    #> ℹ Locations 1999 and 2000 don't exist.
     #> ℹ There are only 3 columns.
     ```
 

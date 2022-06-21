@@ -7,7 +7,7 @@
 <title>20 Vettori | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="20.1 Introduzione Finora questo libro si è concentrato sulle tibble e sui pacchetti che lavorano con esse. Ma quando inizierete a scrivere le vostre funzioni e a scavare più a fondo in R, avrete...">
-<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
 <meta property="og:title" content="20 Vettori | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/vettori.html">
@@ -25,7 +25,7 @@
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -469,9 +469,10 @@ dove ci si aspetta un vettore intero.</p></li>
 <p>Mentre il riciclo vettoriale può essere usato per creare codice molto succinto e intelligente, può anche nascondere silenziosamente dei problemi. Per questo motivo, le funzioni vettoriali di tidyverse daranno errore quando si ricicla qualcosa che non sia uno scalare. Se volete riciclare, dovrete farlo voi stessi con <code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>:</p>
 <div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; Error: Tibble columns must have compatible sizes.</span>
-<span class="co">#&gt; * Size 4: Existing data.</span>
-<span class="co">#&gt; * Size 2: Column `y`.</span>
+<span class="co">#&gt; Error:</span>
+<span class="co">#&gt; ! Tibble columns must have compatible sizes.</span>
+<span class="co">#&gt; • Size 4: Existing data.</span>
+<span class="co">#&gt; • Size 2: Column `y`.</span>
 <span class="co">#&gt; ℹ Only values of size one are recycled.</span>
 
 <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
@@ -785,7 +786,7 @@ Potete ottenere e impostare i valori dei singoli attributi con <code><a href="ht
 <code class="sourceCode R"><span class="va">as.Date</span>
 <span class="co">#&gt; function (x, ...) </span>
 <span class="co">#&gt; UseMethod("as.Date")</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fa0ff471c78&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x55ba511e1548&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:base&gt;</span></code></pre></div>
 <p>La chiamata a “UseMethod” significa che questa è una funzione generica, e chiamerà uno specifico <strong>method</strong>, una funzione, basata sulla classe del primo argomento. (Tutti i metodi sono funzioni; non tutte le funzioni sono metodi). Potete elencare tutti i metodi di un generico con <code>metodi()</code>:</p>
 <div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
@@ -809,7 +810,7 @@ Potete ottenere e impostare i valori dei singoli attributi con <code><a href="ht
 <span class="co">#&gt;     else stop(gettextf("do not know how to convert '%s' to class %s", </span>
 <span class="co">#&gt;         deparse1(substitute(x)), dQuote("Date")), domain = NA)</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fa0fd4b33e0&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x55ba4ee8f2f0&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:base&gt;</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/getS3method.html">getS3method</a></span><span class="op">(</span><span class="st">"as.Date"</span>, <span class="st">"numeric"</span><span class="op">)</span>
 <span class="co">#&gt; function (x, origin, ...) </span>
@@ -823,7 +824,7 @@ Potete ottenere e impostare i valori dei singoli attributi con <code><a href="ht
 <span class="co">#&gt;     }</span>
 <span class="co">#&gt;     as.Date(origin, ...) + x</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x7fa105b67e88&gt;</span>
+<span class="co">#&gt; &lt;bytecode: 0x55ba4ee956c0&gt;</span>
 <span class="co">#&gt; &lt;environment: namespace:base&gt;</span></code></pre></div>
 <p>Il più importante generico S3 è <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>: controlla come l’oggetto viene stampato quando si digita il suo nome sulla console. Altri generici importanti sono le funzioni di subsetting <code>[</code>, <code>[[</code>, e <code>$</code>.</p>
 </div>

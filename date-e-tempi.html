@@ -7,7 +7,7 @@
 <title>16 Date e tempi | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="16.1 Introduzione Questo capitolo vi mostrerà come lavorare con date e orari in R. A prima vista, date e orari sembrano semplici. Li usate tutto il tempo nella vostra vita normale e non sembrano...">
-<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
 <meta property="og:title" content="16 Date e tempi | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/date-e-tempi.html">
@@ -25,7 +25,7 @@
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -145,9 +145,9 @@ che sia un nome molto utile.</p></li>
 <p>Per ottenere la data o la data-ora corrente potete usare <code><a href="https://lubridate.tidyverse.org/reference/now.html">today()</a></code> o <code><a href="https://lubridate.tidyverse.org/reference/now.html">now()</a></code>:</p>
 <div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2021-12-13"</span>
+<span class="co">#&gt; [1] "2022-06-21"</span>
 <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2021-12-13 21:15:33 UTC"</span></code></pre></div>
+<span class="co">#&gt; [1] "2022-06-21 21:32:37 UTC"</span></code></pre></div>
 <p>Altrimenti, ci sono tre modi per creare una data/ora:</p>
 <ul>
 <li>Da una stringa.</li>
@@ -266,9 +266,9 @@ O in un solo giorno:</div>
 <p>Potresti voler passare da una data-ora a una data. Questo è il lavoro di <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code> e <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>:</p>
 <div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2021-12-13 UTC"</span>
+<span class="co">#&gt; [1] "2022-06-21 UTC"</span>
 <span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2021-12-13"</span></code></pre></div>
+<span class="co">#&gt; [1] "2022-06-21"</span></code></pre></div>
 <p>A volte otterrete data/ora come offset numerico dalla “Unix Epoch”, 1970-01-01. Se l’offset è in secondi, usate <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code>; se è in giorni, usate <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>.</p>
 <div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span>
@@ -465,11 +465,11 @@ Suggerimento: create una variabile binaria che vi dica se un volo
 <code class="sourceCode R"><span class="co"># How old is Hadley?</span>
 <span class="va">h_age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">19791014</span><span class="op">)</span>
 <span class="va">h_age</span>
-<span class="co">#&gt; Time difference of 15401 days</span></code></pre></div>
+<span class="co">#&gt; Time difference of 15591 days</span></code></pre></div>
 <p>Un oggetto di classe difftime registra un intervallo di tempo di secondi, minuti, ore, giorni o settimane. Questa ambiguità può rendere difftime un po’ doloroso lavorarci, così lubridate fornisce un’alternativa che usa sempre i secondi: la <strong>durata</strong>.</p>
 <div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as.duration.html">as.duration</a></span><span class="op">(</span><span class="va">h_age</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1330646400s (~42.17 years)"</span></code></pre></div>
+<span class="co">#&gt; [1] "1347062400s (~42.69 years)"</span></code></pre></div>
 <p>Le durate hanno un mucchio di costruttori convenienti:</p>
 <div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dseconds</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>
@@ -652,7 +652,7 @@ quanti anni hai in anni.</p></li>
 <p>E vedere la lista completa di tutti i nomi dei fusi orari con <code><a href="https://rdrr.io/r/base/timezones.html">OlsonNames()</a></code>:</p>
 <div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 595</span>
+<span class="co">#&gt; [1] 608</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"</span>
 <span class="co">#&gt; [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</span></code></pre></div>

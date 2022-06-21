@@ -7,7 +7,7 @@
 <title>12 Tidy data | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="12.1 Introduzione  “Le famiglie felici sono tutte uguali; ogni famiglia infelice è infelice a modo suo”. — Leo Tolstoy  “Le serie di dati ordinate sono tutte uguali, ma ogni serie di dati...">
-<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
 <meta property="og:title" content="12 Tidy data | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/tidy-data.html">
@@ -25,7 +25,7 @@
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -421,8 +421,9 @@ Considerate attentamente il seguente esempio:</p>
 <div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">table4a</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1999</span>, <span class="fl">2000</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span>
-<span class="co">#&gt; Error: Can't subset columns that don't exist.</span>
-<span class="co">#&gt; ✖ Locations 1999 and 2000 don't exist.</span>
+<span class="co">#&gt; Error in `loc_validate()`:</span>
+<span class="co">#&gt; ! Can't subset columns past the end.</span>
+<span class="co">#&gt; ℹ Locations 1999 and 2000 don't exist.</span>
 <span class="co">#&gt; ℹ There are only 3 columns.</span></code></pre></div>
 </li>
 <li>

@@ -305,9 +305,10 @@ Mentre il riciclo vettoriale può essere usato per creare codice molto succinto 
 
 ```r
 tibble(x = 1:4, y = 1:2)
-#> Error: Tibble columns must have compatible sizes.
-#> * Size 4: Existing data.
-#> * Size 2: Column `y`.
+#> Error:
+#> ! Tibble columns must have compatible sizes.
+#> • Size 4: Existing data.
+#> • Size 2: Column `y`.
 #> ℹ Only values of size one are recycled.
 
 tibble(x = 1:4, y = rep(1:2, 2))
@@ -679,7 +680,7 @@ Ecco come appare una tipica funzione generica:
 as.Date
 #> function (x, ...) 
 #> UseMethod("as.Date")
-#> <bytecode: 0x7fa0ff471c78>
+#> <bytecode: 0x55ba511e1548>
 #> <environment: namespace:base>
 ```
 
@@ -712,7 +713,7 @@ getS3method("as.Date", "default")
 #>     else stop(gettextf("do not know how to convert '%s' to class %s", 
 #>         deparse1(substitute(x)), dQuote("Date")), domain = NA)
 #> }
-#> <bytecode: 0x7fa0fd4b33e0>
+#> <bytecode: 0x55ba4ee8f2f0>
 #> <environment: namespace:base>
 getS3method("as.Date", "numeric")
 #> function (x, origin, ...) 
@@ -726,7 +727,7 @@ getS3method("as.Date", "numeric")
 #>     }
 #>     as.Date(origin, ...) + x
 #> }
-#> <bytecode: 0x7fa105b67e88>
+#> <bytecode: 0x55ba4ee956c0>
 #> <environment: namespace:base>
 ```
 

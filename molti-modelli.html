@@ -7,7 +7,7 @@
 <title>25 Molti modelli | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="25.1 Introduzione In questo capitolo imparerete tre potenti idee che vi aiuteranno a lavorare con un gran numero di modelli con facilità: Usare molti modelli semplici per capire meglio insiemi di...">
-<meta name="generator" content="bookdown 0.26.3 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
 <meta property="og:title" content="25 Molti modelli | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/molti-modelli.html">
@@ -25,7 +25,7 @@
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -319,14 +319,14 @@ strutture dati.</p></li>
 <span class="va">resids</span>
 <span class="co">#&gt; # A tibble: 1,704 × 9</span>
 <span class="co">#&gt; # Groups:   country, continent [142]</span>
-<span class="co">#&gt;   country     continent data       model   year lifeExp    pop gdpPercap   resid</span>
-<span class="co">#&gt;   &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;     &lt;list&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Afghanistan Asia      &lt;tibble [… &lt;lm&gt;    1952    28.8 8.43e6      779. -1.11  </span>
-<span class="co">#&gt; 2 Afghanistan Asia      &lt;tibble [… &lt;lm&gt;    1957    30.3 9.24e6      821. -0.952 </span>
-<span class="co">#&gt; 3 Afghanistan Asia      &lt;tibble [… &lt;lm&gt;    1962    32.0 1.03e7      853. -0.664 </span>
-<span class="co">#&gt; 4 Afghanistan Asia      &lt;tibble [… &lt;lm&gt;    1967    34.0 1.15e7      836. -0.0172</span>
-<span class="co">#&gt; 5 Afghanistan Asia      &lt;tibble [… &lt;lm&gt;    1972    36.1 1.31e7      740.  0.674 </span>
-<span class="co">#&gt; 6 Afghanistan Asia      &lt;tibble [… &lt;lm&gt;    1977    38.4 1.49e7      786.  1.65  </span>
+<span class="co">#&gt;   country     continent data     model   year lifeExp      pop gdpPercap   resid</span>
+<span class="co">#&gt;   &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;   &lt;list&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;    1952    28.8  8425333      779. -1.11  </span>
+<span class="co">#&gt; 2 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;    1957    30.3  9240934      821. -0.952 </span>
+<span class="co">#&gt; 3 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;    1962    32.0 10267083      853. -0.664 </span>
+<span class="co">#&gt; 4 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;    1967    34.0 11537966      836. -0.0172</span>
+<span class="co">#&gt; 5 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;    1972    36.1 13079460      740.  0.674 </span>
+<span class="co">#&gt; 6 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;    1977    38.4 14880372      786.  1.65  </span>
 <span class="co">#&gt; # … with 1,698 more rows</span></code></pre></div>
 <p>Si noti che ogni colonna regolare è ripetuta una volta per ogni riga della tibla annidata.</p>
 <p>Ora che abbiamo una struttura di dati regolare, possiamo tracciare i residui:</p>
@@ -365,17 +365,17 @@ strutture dati.</p></li>
   <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">glance</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 142 × 17</span>
 <span class="co">#&gt; # Groups:   country, continent [142]</span>
-<span class="co">#&gt;   country  continent data   model resids r.squared adj.r.squared sigma statistic</span>
-<span class="co">#&gt;   &lt;fct&gt;    &lt;fct&gt;     &lt;list&gt; &lt;lis&gt; &lt;list&gt;     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Afghani… Asia      &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.948         0.942 1.22      181. </span>
-<span class="co">#&gt; 2 Albania  Europe    &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.911         0.902 1.98      102. </span>
-<span class="co">#&gt; 3 Algeria  Africa    &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.985         0.984 1.32      662. </span>
-<span class="co">#&gt; 4 Angola   Africa    &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.888         0.877 1.41       79.1</span>
-<span class="co">#&gt; 5 Argenti… Americas  &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.996         0.995 0.292    2246. </span>
-<span class="co">#&gt; 6 Austral… Oceania   &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.980         0.978 0.621     481. </span>
-<span class="co">#&gt; # … with 136 more rows, and 8 more variables: p.value &lt;dbl&gt;, df &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   logLik &lt;dbl&gt;, AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;,</span>
-<span class="co">#&gt; #   nobs &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt;   country     continent data     model  resids   r.squared adj.r.squared sigma</span>
+<span class="co">#&gt;   &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;   &lt;list&gt; &lt;list&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.948         0.942 1.22 </span>
+<span class="co">#&gt; 2 Albania     Europe    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.911         0.902 1.98 </span>
+<span class="co">#&gt; 3 Algeria     Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.985         0.984 1.32 </span>
+<span class="co">#&gt; 4 Angola      Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.888         0.877 1.41 </span>
+<span class="co">#&gt; 5 Argentina   Americas  &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.996         0.995 0.292</span>
+<span class="co">#&gt; 6 Australia   Oceania   &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.980         0.978 0.621</span>
+<span class="co">#&gt; # … with 136 more rows, and 9 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   df &lt;dbl&gt;, logLik &lt;dbl&gt;, AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   df.residual &lt;int&gt;, nobs &lt;int&gt;</span></code></pre></div>
 <p>Questo non è esattamente l’output che vogliamo, perché include ancora tutte le colonne della lista. Questo è il comportamento predefinito quando <code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code> lavora su frame di dati a riga singola. Per sopprimere queste colonne usiamo <code>.drop = TRUE</code>:</p>
 <div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">glance</span> <span class="op">&lt;-</span> <span class="va">by_country</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -388,17 +388,17 @@ strutture dati.</p></li>
 <span class="va">glance</span>
 <span class="co">#&gt; # A tibble: 142 × 17</span>
 <span class="co">#&gt; # Groups:   country, continent [142]</span>
-<span class="co">#&gt;   country  continent data   model resids r.squared adj.r.squared sigma statistic</span>
-<span class="co">#&gt;   &lt;fct&gt;    &lt;fct&gt;     &lt;list&gt; &lt;lis&gt; &lt;list&gt;     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Afghani… Asia      &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.948         0.942 1.22      181. </span>
-<span class="co">#&gt; 2 Albania  Europe    &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.911         0.902 1.98      102. </span>
-<span class="co">#&gt; 3 Algeria  Africa    &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.985         0.984 1.32      662. </span>
-<span class="co">#&gt; 4 Angola   Africa    &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.888         0.877 1.41       79.1</span>
-<span class="co">#&gt; 5 Argenti… Americas  &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.996         0.995 0.292    2246. </span>
-<span class="co">#&gt; 6 Austral… Oceania   &lt;tibb… &lt;lm&gt;  &lt;tibb…     0.980         0.978 0.621     481. </span>
-<span class="co">#&gt; # … with 136 more rows, and 8 more variables: p.value &lt;dbl&gt;, df &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   logLik &lt;dbl&gt;, AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;,</span>
-<span class="co">#&gt; #   nobs &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt;   country     continent data     model  resids   r.squared adj.r.squared sigma</span>
+<span class="co">#&gt;   &lt;fct&gt;       &lt;fct&gt;     &lt;list&gt;   &lt;list&gt; &lt;list&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Afghanistan Asia      &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.948         0.942 1.22 </span>
+<span class="co">#&gt; 2 Albania     Europe    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.911         0.902 1.98 </span>
+<span class="co">#&gt; 3 Algeria     Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.985         0.984 1.32 </span>
+<span class="co">#&gt; 4 Angola      Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.888         0.877 1.41 </span>
+<span class="co">#&gt; 5 Argentina   Americas  &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.996         0.995 0.292</span>
+<span class="co">#&gt; 6 Australia   Oceania   &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;     0.980         0.978 0.621</span>
+<span class="co">#&gt; # … with 136 more rows, and 9 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   df &lt;dbl&gt;, logLik &lt;dbl&gt;, AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   df.residual &lt;int&gt;, nobs &lt;int&gt;</span></code></pre></div>
 <p>(Fate attenzione alle variabili che non sono stampate: c’è un sacco di roba utile lì).</p>
 <p>Con questo quadro di dati in mano, possiamo iniziare a cercare i modelli che non si adattano bene:</p>
 <div class="sourceCode" id="cb697"><pre class="downlit sourceCode r">
@@ -406,17 +406,17 @@ strutture dati.</p></li>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">r.squared</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 142 × 17</span>
 <span class="co">#&gt; # Groups:   country, continent [142]</span>
-<span class="co">#&gt;   country   continent data  model resids r.squared adj.r.squared sigma statistic</span>
-<span class="co">#&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;lis&gt; &lt;lis&gt; &lt;list&gt;     &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Rwanda    Africa    &lt;tib… &lt;lm&gt;  &lt;tibb…    0.0172      -0.0811   6.56     0.175</span>
-<span class="co">#&gt; 2 Botswana  Africa    &lt;tib… &lt;lm&gt;  &lt;tibb…    0.0340      -0.0626   6.11     0.352</span>
-<span class="co">#&gt; 3 Zimbabwe  Africa    &lt;tib… &lt;lm&gt;  &lt;tibb…    0.0562      -0.0381   7.21     0.596</span>
-<span class="co">#&gt; 4 Zambia    Africa    &lt;tib… &lt;lm&gt;  &lt;tibb…    0.0598      -0.0342   4.53     0.636</span>
-<span class="co">#&gt; 5 Swaziland Africa    &lt;tib… &lt;lm&gt;  &lt;tibb…    0.0682      -0.0250   6.64     0.732</span>
-<span class="co">#&gt; 6 Lesotho   Africa    &lt;tib… &lt;lm&gt;  &lt;tibb…    0.0849      -0.00666  5.93     0.927</span>
-<span class="co">#&gt; # … with 136 more rows, and 8 more variables: p.value &lt;dbl&gt;, df &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   logLik &lt;dbl&gt;, AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;,</span>
-<span class="co">#&gt; #   nobs &lt;int&gt;</span></code></pre></div>
+<span class="co">#&gt;   country   continent data     model  resids   r.squared adj.r.squared sigma</span>
+<span class="co">#&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;list&gt;   &lt;list&gt; &lt;list&gt;       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Rwanda    Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;    0.0172      -0.0811   6.56</span>
+<span class="co">#&gt; 2 Botswana  Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;    0.0340      -0.0626   6.11</span>
+<span class="co">#&gt; 3 Zimbabwe  Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;    0.0562      -0.0381   7.21</span>
+<span class="co">#&gt; 4 Zambia    Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;    0.0598      -0.0342   4.53</span>
+<span class="co">#&gt; 5 Swaziland Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;    0.0682      -0.0250   6.64</span>
+<span class="co">#&gt; 6 Lesotho   Africa    &lt;tibble&gt; &lt;lm&gt;   &lt;tibble&gt;    0.0849      -0.00666  5.93</span>
+<span class="co">#&gt; # … with 136 more rows, and 9 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   df &lt;dbl&gt;, logLik &lt;dbl&gt;, AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   df.residual &lt;int&gt;, nobs &lt;int&gt;</span></code></pre></div>
 <p>I modelli peggiori sembrano essere tutti in Africa. Ricontrolliamo questo con un grafico. Qui abbiamo un numero relativamente piccolo di osservazioni e una variabile discreta, quindi <code><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></code> è efficace:</p>
 <div class="sourceCode" id="cb698"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">glance</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -625,7 +625,8 @@ in un frame di dati annidato in cui si ha una lista-colonna di frame di dati.</p
 <code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'cyl'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'cyl'. You can override using the `.groups`</span>
+<span class="co">#&gt; argument.</span>
 <span class="co">#&gt; # A tibble: 15 × 2</span>
 <span class="co">#&gt; # Groups:   cyl [3]</span>
 <span class="co">#&gt;     cyl     q</span>

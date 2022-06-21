@@ -130,14 +130,14 @@ Per il resto di questo capitolo, ci concentreremo su `forcats::gss_cat`. Si trat
 ```r
 gss_cat
 #> # A tibble: 21,483 × 9
-#>    year marital         age race  rincome        partyid   relig  denom  tvhours
-#>   <int> <fct>         <int> <fct> <fct>          <fct>     <fct>  <fct>    <int>
-#> 1  2000 Never married    26 White $8000 to 9999  Ind,near… Prote… South…      12
-#> 2  2000 Divorced         48 White $8000 to 9999  Not str … Prote… Bapti…      NA
-#> 3  2000 Widowed          67 White Not applicable Independ… Prote… No de…       2
-#> 4  2000 Never married    39 White Not applicable Ind,near… Ortho… Not a…       4
-#> 5  2000 Divorced         25 White Not applicable Not str … None   Not a…       1
-#> 6  2000 Married          25 White $20000 - 24999 Strong d… Prote… South…      NA
+#>    year marital         age race  rincome        partyid     relig denom tvhours
+#>   <int> <fct>         <int> <fct> <fct>          <fct>       <fct> <fct>   <int>
+#> 1  2000 Never married    26 White $8000 to 9999  Ind,near r… Prot… Sout…      12
+#> 2  2000 Divorced         48 White $8000 to 9999  Not str re… Prot… Bapt…      NA
+#> 3  2000 Widowed          67 White Not applicable Independent Prot… No d…       2
+#> 4  2000 Never married    39 White Not applicable Ind,near r… Orth… Not …       4
+#> 5  2000 Divorced         25 White Not applicable Not str de… None  Not …       1
+#> 6  2000 Married          25 White $20000 - 24999 Strong dem… Prot… Sout…      NA
 #> # … with 21,477 more rows
 ```
 

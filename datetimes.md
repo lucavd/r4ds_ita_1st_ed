@@ -46,9 +46,9 @@ Per ottenere la data o la data-ora corrente potete usare `today()` o `now()`:
 
 ```r
 today()
-#> [1] "2021-12-13"
+#> [1] "2022-06-21"
 now()
-#> [1] "2021-12-13 21:15:33 UTC"
+#> [1] "2022-06-21 21:32:37 UTC"
 ```
 
 Altrimenti, ci sono tre modi per creare una data/ora:
@@ -200,9 +200,9 @@ Potresti voler passare da una data-ora a una data. Questo è il lavoro di `as_da
 
 ```r
 as_datetime(today())
-#> [1] "2021-12-13 UTC"
+#> [1] "2022-06-21 UTC"
 as_date(now())
-#> [1] "2021-12-13"
+#> [1] "2022-06-21"
 ```
 
 A volte otterrete data/ora come offset numerico dalla "Unix Epoch", 1970-01-01. Se l'offset è in secondi, usate `as_datetime()`; se è in giorni, usate `as_date()`.
@@ -441,7 +441,7 @@ In R, quando si sottraggono due date, si ottiene un oggetto difftime:
 # How old is Hadley?
 h_age <- today() - ymd(19791014)
 h_age
-#> Time difference of 15401 days
+#> Time difference of 15591 days
 ```
 
 Un oggetto di classe difftime registra un intervallo di tempo di secondi, minuti, ore, giorni o settimane. Questa ambiguità può rendere difftime un po' doloroso lavorarci, così lubridate fornisce un'alternativa che usa sempre i secondi: la __durata__.
@@ -449,7 +449,7 @@ Un oggetto di classe difftime registra un intervallo di tempo di secondi, minuti
 
 ```r
 as.duration(h_age)
-#> [1] "1330646400s (~42.17 years)"
+#> [1] "1347062400s (~42.69 years)"
 ```
 
 Le durate hanno un mucchio di costruttori convenienti:
@@ -685,7 +685,7 @@ E vedere la lista completa di tutti i nomi dei fusi orari con `OlsonNames()`:
 
 ```r
 length(OlsonNames())
-#> [1] 595
+#> [1] 608
 head(OlsonNames())
 #> [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"
 #> [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"
