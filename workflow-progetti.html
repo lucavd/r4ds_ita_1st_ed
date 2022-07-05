@@ -7,7 +7,7 @@
 <title>8 Workflow: progetti | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="Un giorno avrete bisogno di lasciare R, andare a fare qualcos’altro e tornare alla vostra analisi il giorno dopo. Un giorno lavorerete su più analisi contemporaneamente che usano tutte R e volete...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="8 Workflow: progetti | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/workflow-progetti.html">
@@ -132,12 +132,12 @@
 <div class="inline-figure"><img src="screenshots/rstudio-wd.png" width="50%" style="display: block; margin: auto;"></div>
 <p>E potete stamparlo nel codice R eseguendo <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code>:</p>
 <div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/Users/hadley/Documents/r4ds/r4ds"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/Users/hadley/Documents/r4ds/r4ds"</span></span></code></pre></div>
 <p>Come utente principiante di R, va bene lasciare che la vostra directory home, la directory documenti, o qualsiasi altra directory strana sul vostro computer sia la directory di lavoro di R. Ma hai letto sei capitoli di questo libro, e non sei più un principiante. Molto presto dovreste evolvere nell’organizzare i vostri progetti analitici in directory e, quando lavorate su un progetto, impostare la directory di lavoro di R nella directory associata.</p>
 <p><strong>Non ve lo consiglio</strong>, ma potete anche impostare la directory di lavoro dall’interno di R:</p>
 <div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"/path/to/my/CoolProject"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"/path/to/my/CoolProject"</span><span class="op">)</span></span></code></pre></div>
 <p>Ma non dovresti mai farlo perché c’è un modo migliore; un modo che ti mette anche sulla strada per gestire il tuo lavoro di R come un esperto.</p>
 </div>
 <div id="percorsi-e-directory" class="section level2">
@@ -174,18 +174,18 @@ la nozione di una home directory, quindi punta invece alla tua directory dei doc
 <p>Chiama il tuo progetto <code>r4ds</code> e pensa attentamente a quale <em>sottodirectory</em> metti il progetto. Se non lo memorizzate in un posto sensato, sarà difficile trovarlo in futuro!</p>
 <p>Una volta completato questo processo, avrete un nuovo progetto RStudio solo per questo libro. Controllate che la directory “home” del vostro progetto sia la directory di lavoro corrente:</p>
 <div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] /Users/hadley/Documents/r4ds/r4ds</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] /Users/hadley/Documents/r4ds/r4ds</span></span></code></pre></div>
 <p>Ogni volta che si fa riferimento a un file con un percorso relativo, esso lo cercherà qui.</p>
 <p>Ora inserite i seguenti comandi nell’editor di script e salvate il file, chiamandolo “diamonds.R”. Successivamente, esegui lo script completo che salverà un file PDF e CSV nella directory del tuo progetto. Non preoccupatevi dei dettagli, li imparerete più avanti nel libro.</p>
 <div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"diamonds.pdf"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="st">"diamonds.csv"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"diamonds.pdf"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="st">"diamonds.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>Uscire da RStudio. Ispeziona la cartella associata al tuo progetto — nota il file <code>.Rproj</code>. Fai doppio clic su quel file per riaprire il progetto. Notate che tornate al punto in cui avete lasciato: è la stessa directory di lavoro e la stessa cronologia dei comandi, e tutti i file su cui stavate lavorando sono ancora aperti. Poiché hai seguito le mie istruzioni sopra, avrai comunque un ambiente completamente nuovo, garantendoti che stai iniziando con una tabula rasa.</p>
 <p>Nel tuo modo preferito, specifico per il sistema operativo, cerca sul tuo computer <code>diamonds.pdf</code> e troverai il PDF (nessuna sorpresa) ma <em>anche lo script che lo ha creato</em> (<code>diamonds.R</code>). Questa è una grande vittoria! Un giorno vorrete rifare una figura o semplicemente capire da dove viene. Se salvate rigorosamente le figure su file <strong>con il codice R</strong> e mai con il mouse o gli appunti, sarete in grado di riprodurre il vecchio lavoro con facilità!</p>
 </div>
@@ -250,7 +250,7 @@ la nozione di una home directory, quindi punta invece alla tua directory dei doc
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

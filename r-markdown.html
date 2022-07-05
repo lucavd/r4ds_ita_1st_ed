@@ -7,7 +7,7 @@
 <title>27 R Markdown | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="27.1 Introduzione R Markdown fornisce un framework di authoring unificato per la scienza dei dati, che combina il codice, i risultati e i commenti in prosa. I documenti R Markdown sono...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="27 R Markdown | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/r-markdown.html">
@@ -422,19 +422,19 @@ fa sì che il knitting fallisca se c’è un singolo errore nel documento.</p></
 </h3>
 <p>Per impostazione predefinita, R Markdown stampa frame e matrici di dati come li vedreste nella console:</p>
 <div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>
-<span class="co">#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
-<span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span>
-<span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span>
-<span class="co">#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span>
-<span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span>
-<span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span><span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span><span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span><span class="co">#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span><span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span><span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span></code></pre></div>
 <p>Se si preferisce che i dati siano visualizzati con una formattazione aggiuntiva, si può usare la funzione <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable</a></code>. Il codice seguente genera la tabella <a href="r-markdown.html#tab:kable">27.1</a>.</p>
 <div class="sourceCode" id="cb723"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>
-  <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>, 
-  caption <span class="op">=</span> <span class="st">"A knitr kable."</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">]</span>, </span>
+<span>  caption <span class="op">=</span> <span class="st">"A knitr kable."</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <caption>
 <span id="tab:kable">Table 27.1: </span>A knitr kable.</caption>
@@ -563,15 +563,15 @@ rawdata &lt;- readr::read_csv("a_very_large_file.csv")
 </h3>
 <p>Lavorando di più con knitr, si scoprirà che alcune delle opzioni predefinite dei chunk non sono adatte alle proprie esigenze e si vorrà cambiarle. È possibile farlo chiamando <code>knitr::opts_chunk$set()</code> in un pezzo di codice. Per esempio, quando scrivo libri e tutorial, imposto:</p>
 <div class="sourceCode" id="cb727"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
-  comment <span class="op">=</span> <span class="st">"#&gt;"</span>,
-  collapse <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span></span>
+<span>  comment <span class="op">=</span> <span class="st">"#&gt;"</span>,</span>
+<span>  collapse <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Questo utilizza la formattazione dei commenti che preferisco e garantisce che il codice e l’output siano strettamente legati. D’altra parte, se si stesse preparando una relazione, si potrebbe impostare:</p>
 <div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>
-  echo <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span></span>
+<span>  echo <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Questo nasconderà il codice per impostazione predefinita, mostrando solo le parti che si sceglie deliberatamente di mostrare (con <code>echo = TRUE</code>). Si potrebbe pensare di impostare <code>message = FALSE</code> e <code>warning = FALSE</code>, ma questo renderebbe più difficile il debug dei problemi, perché non si vedrebbe alcun messaggio nel documento finale.</p>
 </div>
 <div id="codice-in-linea" class="section level3">
@@ -591,11 +591,11 @@ di 2,5 carati. La distribuzione dei rimanenti è mostrata di seguito:</p>
 </blockquote>
 <p>Quando si inseriscono numeri nel testo, <code><a href="https://rdrr.io/r/base/format.html">format()</a></code> è un amico. Permette di impostare il numero di <code>cifre', in modo da non stampare con una precisione ridicola, e un</code>big.mark’ per rendere i numeri più facili da leggere. Spesso le combino in una funzione di aiuto:</p>
 <div class="sourceCode" id="cb729"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">comma</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span>
-<span class="fu">comma</span><span class="op">(</span><span class="fl">3452345</span><span class="op">)</span>
-<span class="co">#&gt; [1] "3,452,345"</span>
-<span class="fu">comma</span><span class="op">(</span><span class="fl">.12358124331</span><span class="op">)</span>
-<span class="co">#&gt; [1] "0.12"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">comma</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
+<span><span class="fu">comma</span><span class="op">(</span><span class="fl">3452345</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "3,452,345"</span></span>
+<span><span class="fu">comma</span><span class="op">(</span><span class="fl">.12358124331</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "0.12"</span></span></code></pre></div>
 </div>
 <div id="esercizi-73" class="section level3">
 <h3>
@@ -666,30 +666,30 @@ ggplot(class, aes(displ, hwy)) +
 <p>In RStudio, è possibile fare clic sull’opzione “Knit with Parameters” nel menu a discesa Knit per impostare i parametri, eseguire il rendering e visualizzare l’anteprima del report in un unico passaggio di facile utilizzo. È possibile personalizzare la finestra di dialogo impostando altre opzioni nell’intestazione. Per ulteriori dettagli, vedere <a href="http://rmarkdown.rstudio.com/developer_parameterized_reports.html#parameter_user_interfaces" class="uri">http://rmarkdown.rstudio.com/developer_parameterized_reports.html#parameter_user_interfaces</a>.</p>
 <p>In alternativa, se è necessario produrre molti rapporti parametrati, si può chiamare <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> con un elenco di <code>parametri</code>:</p>
 <div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"fuel-economy.Rmd"</span>, params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>my_class <span class="op">=</span> <span class="st">"suv"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"fuel-economy.Rmd"</span>, params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>my_class <span class="op">=</span> <span class="st">"suv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>È particolarmente potente in combinazione con <code>purrr:pwalk()</code>. L’esempio seguente crea un report per ogni valore di <code>classe</code> trovato in <code>mpg</code>. Per prima cosa si crea un frame di dati con una riga per ogni classe, indicando il <code>nome del file</code> del report e i <code>parametri</code>:</p>
 <div class="sourceCode" id="cb733"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">reports</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">class</span><span class="op">)</span>,
-  filename <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"fuel-economy-"</span>, <span class="va">class</span>, <span class="st">".html"</span><span class="op">)</span>,
-  params <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">class</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>my_class <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="va">reports</span>
-<span class="co">#&gt; # A tibble: 7 × 3</span>
-<span class="co">#&gt;   class   filename                  params          </span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                     &lt;list&gt;          </span>
-<span class="co">#&gt; 1 compact fuel-economy-compact.html &lt;named list [1]&gt;</span>
-<span class="co">#&gt; 2 midsize fuel-economy-midsize.html &lt;named list [1]&gt;</span>
-<span class="co">#&gt; 3 suv     fuel-economy-suv.html     &lt;named list [1]&gt;</span>
-<span class="co">#&gt; 4 2seater fuel-economy-2seater.html &lt;named list [1]&gt;</span>
-<span class="co">#&gt; 5 minivan fuel-economy-minivan.html &lt;named list [1]&gt;</span>
-<span class="co">#&gt; 6 pickup  fuel-economy-pickup.html  &lt;named list [1]&gt;</span>
-<span class="co">#&gt; # … with 1 more row</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">reports</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">class</span><span class="op">)</span>,</span>
+<span>  filename <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="st">"fuel-economy-"</span>, <span class="va">class</span>, <span class="st">".html"</span><span class="op">)</span>,</span>
+<span>  params <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">class</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>my_class <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">reports</span></span>
+<span><span class="co">#&gt; # A tibble: 7 × 3</span></span>
+<span><span class="co">#&gt;   class   filename                  params          </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                     &lt;list&gt;          </span></span>
+<span><span class="co">#&gt; 1 compact fuel-economy-compact.html &lt;named list [1]&gt;</span></span>
+<span><span class="co">#&gt; 2 midsize fuel-economy-midsize.html &lt;named list [1]&gt;</span></span>
+<span><span class="co">#&gt; 3 suv     fuel-economy-suv.html     &lt;named list [1]&gt;</span></span>
+<span><span class="co">#&gt; 4 2seater fuel-economy-2seater.html &lt;named list [1]&gt;</span></span>
+<span><span class="co">#&gt; 5 minivan fuel-economy-minivan.html &lt;named list [1]&gt;</span></span>
+<span><span class="co">#&gt; 6 pickup  fuel-economy-pickup.html  &lt;named list [1]&gt;</span></span>
+<span><span class="co">#&gt; # … with 1 more row</span></span></code></pre></div>
 <p>Quindi si abbinano i nomi delle colonne ai nomi degli argomenti di <code>render()</code> e si usa il metodo <strong>parallel</strong> di Purrr per chiamare <code>render()</code> una volta per ogni riga:</p>
 <div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">reports</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>output_file <span class="op">=</span> <span class="va">filename</span>, <span class="va">params</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pwalk</a></span><span class="op">(</span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="va"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span>, input <span class="op">=</span> <span class="st">"fuel-economy.Rmd"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">reports</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>output_file <span class="op">=</span> <span class="va">filename</span>, <span class="va">params</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pwalk</a></span><span class="op">(</span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="va"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span>, input <span class="op">=</span> <span class="st">"fuel-economy.Rmd"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="bibliografie-e-citazioni" class="section level3">
 <h3>
@@ -798,7 +798,7 @@ leggerlo gratuitamente online: <a href="http://r-pkgs.had.co.nz/git.html" class=
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

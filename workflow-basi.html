@@ -7,7 +7,7 @@
 <title>4 Workflow: basi | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="Ora hai un po’ di esperienza nell’esecuzione del codice R. Non vi abbiamo dato molti dettagli, ma ovviamente avete capito le basi, o avreste buttato via questo libro per la frustrazione! La...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="4 Workflow: basi | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/workflow-basi.html">
@@ -111,18 +111,18 @@
 </h2>
 <p>Rivediamo alcune nozioni di base che abbiamo finora omesso nell’interesse di farvi tracciare i grafici il più velocemente possibile. Potete usare R come una calcolatrice:</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span> <span class="op">/</span> <span class="fl">200</span> <span class="op">*</span> <span class="fl">30</span>
-<span class="co">#&gt; [1] 0.15</span>
-<span class="op">(</span><span class="fl">59</span> <span class="op">+</span> <span class="fl">73</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fl">3</span>
-<span class="co">#&gt; [1] 44.66667</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="va">pi</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">1</span> <span class="op">/</span> <span class="fl">200</span> <span class="op">*</span> <span class="fl">30</span></span>
+<span><span class="co">#&gt; [1] 0.15</span></span>
+<span><span class="op">(</span><span class="fl">59</span> <span class="op">+</span> <span class="fl">73</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="fl">3</span></span>
+<span><span class="co">#&gt; [1] 44.66667</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="va">pi</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <p>Puoi creare nuovi oggetti con <code>&lt;-</code>:</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span> <span class="op">*</span> <span class="fl">4</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span> <span class="op">*</span> <span class="fl">4</span></span></code></pre></div>
 <p>Tutte le istruzioni di R in cui si creano oggetti, le istruzioni di <strong>assegnazione</strong>, hanno la stessa forma:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">object_name</span> <span class="op">&lt;-</span> <span class="va">value</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">object_name</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre></div>
 <p>Quando leggete quel codice dite “il nome dell’oggetto ottiene il valore” nella vostra testa.</p>
 <p>Farete molte assegnazioni e <code>&lt;-</code> è un dolore da digitare. Non siate pigri e usate <code>=</code>: funzionerà, ma causerà confusione in seguito. Invece, usa la scorciatoia da tastiera di RStudio: Alt + - (il segno meno). Notate che RStudio circonda automaticamente <code>&lt;-</code> con spazi, che è una buona pratica di formattazione del codice. Il codice è penoso da leggere in una buona giornata, quindi datevi tregua e usate gli spazi.</p>
 </div>
@@ -132,29 +132,29 @@
 </h2>
 <p>I nomi degli oggetti devono iniziare con una lettera e possono contenere solo lettere, numeri, <code>_</code> e <code>.</code>. Vuoi che i nomi dei tuoi oggetti siano descrittivi, quindi avrai bisogno di una convenzione per le parole multiple. Noi raccomandiamo <strong>snake_case</strong> dove separi le parole minuscole con <code>_</code>.</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">io_uso_lo_snake_case</span>
-<span class="va">altrePersoneUsanoIlCamelCase</span>
-<span class="va">alcune.persone.usano.i.punti</span>
-<span class="va">E_poche.Persone_RINUNCIANO.Alle_convenzioni</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">io_uso_lo_snake_case</span></span>
+<span><span class="va">altrePersoneUsanoIlCamelCase</span></span>
+<span><span class="va">alcune.persone.usano.i.punti</span></span>
+<span><span class="va">E_poche.Persone_RINUNCIANO.Alle_convenzioni</span></span></code></pre></div>
 <p>Torneremo sullo stile del codice più tardi, in <a href="funzioni.html#funzioni">funzioni</a>.</p>
 <p>Si può ispezionare un oggetto digitando il suo nome:</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span>
-<span class="co">#&gt; [1] 12</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 12</span></span></code></pre></div>
 <p>Facciamo un’altra assegnazione:</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">this_is_a_really_long_name</span> <span class="op">&lt;-</span> <span class="fl">2.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">this_is_a_really_long_name</span> <span class="op">&lt;-</span> <span class="fl">2.5</span></span></code></pre></div>
 <p>Per ispezionare questo oggetto, provate la funzione di completamento di RStudio: digitate “this”, premete TAB, aggiungete caratteri fino ad avere un prefisso unico, poi premete return.</p>
 <p>Ooops, hai fatto un errore! <code>this_is_a_really_long_name</code> dovrebbe avere valore 3.5 non 2.5. Usa un’altra scorciatoia da tastiera per aiutarti a correggerlo. Digita “this” e poi premi Cmd/Ctrl + ↑. Questo elencherà tutti i comandi che hai digitato che iniziano con quelle lettere. Usa i tasti freccia per navigare, poi premi enter per ridigitare il comando. Cambia 2.5 in 3.5 e rilancia.</p>
 <p>Facciamo un’altra assegnazione:</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">r_rocks</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">^</span> <span class="fl">3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">r_rocks</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">^</span> <span class="fl">3</span></span></code></pre></div>
 <p>Proviamo ad ispezionarlo:</p>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">r_rock</span>
-<span class="co">#&gt; Error: object 'r_rock' not found</span>
-<span class="va">R_rocks</span>
-<span class="co">#&gt; Error: object 'R_rocks' not found</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">r_rock</span></span>
+<span><span class="co">#&gt; Error: object 'r_rock' not found</span></span>
+<span><span class="va">R_rocks</span></span>
+<span><span class="co">#&gt; Error: object 'R_rocks' not found</span></span></code></pre></div>
 <p>C’è un contratto implicito tra voi e R: esso farà il noioso calcolo per voi, ma in cambio voi dovete essere completamente precisi nelle vostre istruzioni. Gli errori di battitura contano. Le maiuscole contano.</p>
 </div>
 <div id="chiamare-le-funzioni" class="section level2">
@@ -163,28 +163,28 @@
 </h2>
 <p>R ha una vasta collezione di funzioni integrate che vengono chiamate in questo modo:</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">function_name</span><span class="op">(</span>arg1 <span class="op">=</span> <span class="va">val1</span>, arg2 <span class="op">=</span> <span class="va">val2</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">function_name</span><span class="op">(</span>arg1 <span class="op">=</span> <span class="va">val1</span>, arg2 <span class="op">=</span> <span class="va">val2</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
 <p>Proviamo ad usare <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> che fa regolari <strong>seq</strong>uenze di numeri e, mentre ci siamo, impariamo altre utili caratteristiche di RStudio. Digitate <code>se</code> e premete TAB. Un popup vi mostra i possibili completamenti. Specificate <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> digitando più (una “q”) per disambiguare, o usando le frecce ↑/↓ per selezionare. Notate il tooltip galleggiante che appare, ricordandovi gli argomenti e lo scopo della funzione. Se volete più aiuto, premete F1 per ottenere tutti i dettagli nella scheda Aiuto (‘Help’) nel pannello in basso a destra.</p>
 <p>Premete ancora una volta TAB quando avete selezionato la funzione che volete. RStudio aggiungerà le corrispondenti parentesi di apertura (<code>(</code>) e di chiusura (<code>)</code>) per voi. Digitate gli argomenti <code>1, 10</code> e premete invio.</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>Digitate questo codice e notate che ottenete un’assistenza simile con le virgolette accoppiate:</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"hello world"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"hello world"</span></span></code></pre></div>
 <p>Le virgolette e le parentesi devono sempre essere in coppia. RStudio fa del suo meglio per aiutarvi, ma è ancora possibile sbagliare e finire con una mancata corrispondenza. Se questo accade, R vi mostrerà il carattere di continuazione “+”:</p>
 <pre><code>&gt; x &lt;- "hello
 +</code></pre>
 <p>Il <code>+</code> vi dice che R sta aspettando altri input; non pensa che abbiate già finito. Di solito significa che avete dimenticato un <code>"</code> o un <code>)</code>. O aggiungi la coppia mancante, o premi ESC per interrompere l’espressione e riprovare.</p>
 <p>Se fai un’assegnazione, non puoi vedere il valore. Sei quindi tentato di ricontrollare immediatamente il risultato:</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="va">y</span>
-<span class="co">#&gt; [1]  1.00  3.25  5.50  7.75 10.00</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">y</span></span>
+<span><span class="co">#&gt; [1]  1.00  3.25  5.50  7.75 10.00</span></span></code></pre></div>
 <p>Questa azione comune può essere abbreviata circondando l’assegnazione con delle parentesi, il che provoca l’assegnazione e la “stampa a schermo”.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1]  1.00  3.25  5.50  7.75 10.00</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  1.00  3.25  5.50  7.75 10.00</span></span></code></pre></div>
 <p>Ora guarda il tuo environment (‘ambiente di lavoro’) nel riquadro in alto a destra:</p>
 <div class="inline-figure"><img src="screenshots/rstudio-env.png" width="597" style="display: block; margin: auto;"></div>
 <p>Qui puoi vedere tutti gli oggetti che hai creato.</p>
@@ -197,9 +197,9 @@
 <li>
 <p>Perché questo codice non funziona?<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;In realtà il codice funziona con il &lt;code&gt;locale&lt;/code&gt; in italiano, ma non con il &lt;code&gt;locale&lt;/code&gt; inglese (SPOILER: manca il puntino sulla “i”, NdT)&lt;/p&gt;"><sup>4</sup></a></p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_variable</span> <span class="op">&lt;-</span> <span class="fl">10</span>
-<span class="va">my_varıable</span>
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'my_varıable' not found</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_variable</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">my_varıable</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'my_varıable' not found</span></span></code></pre></div>
 </li>
 </ol>
 <p>Guardate attentamente! (Questo può sembrare un esercizio inutile, ma
@@ -209,13 +209,13 @@ quando si programma).</p>
 <li>
 <p>Modificate ciascuno dei seguenti comandi R in modo che vengano eseguiti correttamente:</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>dota <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">fliter</span><span class="op">(</span><span class="va">mpg</span>, cyl <span class="op">=</span> <span class="fl">8</span><span class="op">)</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">diamond</span>, <span class="va">carat</span> <span class="op">&gt;</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>dota <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">fliter</span><span class="op">(</span><span class="va">mpg</span>, cyl <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">diamond</span>, <span class="va">carat</span> <span class="op">&gt;</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li><p>Premi Alt + Shift + K. Cosa succede? Come puoi arrivare allo stesso punto
 usando i menu?</p></li>
@@ -264,7 +264,7 @@ usando i menu?</p></li>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

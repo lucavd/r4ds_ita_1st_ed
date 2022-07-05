@@ -7,7 +7,7 @@
 <title>13 Dati relazionali | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="13.1 Introduzione È raro che un’analisi dei dati coinvolga solo una singola tabella di dati. Tipicamente si hanno molte tabelle di dati, e bisogna combinarle per rispondere alle domande che...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="13 Dati relazionali | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/dati-relazionali.html">
@@ -124,8 +124,8 @@ se corrispondono o meno ad un’osservazione nell’altra tabella.</p></li>
 </h3>
 <p>Esploreremo i dati relazionali di <code>nycflights13</code> usando i verbi a due tabelle di dplyr.</p>
 <div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="nycflights13-relational" class="section level2">
@@ -137,63 +137,63 @@ se corrispondono o meno ad un’osservazione nell’altra tabella.</p></li>
 <li>
 <p><code>airlines</code> ti permette di cercare il nome completo del vettore dal suo codice abbreviato:</p>
 <div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">airlines</span>
-<span class="co">#&gt; # A tibble: 16 × 2</span>
-<span class="co">#&gt;   carrier name                    </span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span>
-<span class="co">#&gt; 1 9E      Endeavor Air Inc.       </span>
-<span class="co">#&gt; 2 AA      American Airlines Inc.  </span>
-<span class="co">#&gt; 3 AS      Alaska Airlines Inc.    </span>
-<span class="co">#&gt; 4 B6      JetBlue Airways         </span>
-<span class="co">#&gt; 5 DL      Delta Air Lines Inc.    </span>
-<span class="co">#&gt; 6 EV      ExpressJet Airlines Inc.</span>
-<span class="co">#&gt; # … with 10 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">airlines</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 2</span></span>
+<span><span class="co">#&gt;   carrier name                    </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                   </span></span>
+<span><span class="co">#&gt; 1 9E      Endeavor Air Inc.       </span></span>
+<span><span class="co">#&gt; 2 AA      American Airlines Inc.  </span></span>
+<span><span class="co">#&gt; 3 AS      Alaska Airlines Inc.    </span></span>
+<span><span class="co">#&gt; 4 B6      JetBlue Airways         </span></span>
+<span><span class="co">#&gt; 5 DL      Delta Air Lines Inc.    </span></span>
+<span><span class="co">#&gt; 6 EV      ExpressJet Airlines Inc.</span></span>
+<span><span class="co">#&gt; # … with 10 more rows</span></span></code></pre></div>
 </li>
 <li>
 <p><code>airports</code> dà informazioni su ogni aeroporto, identificato dal codice aeroportuale <code>faa</code>:</p>
 <div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">airports</span>
-<span class="co">#&gt; # A tibble: 1,458 × 8</span>
-<span class="co">#&gt;   faa   name                             lat   lon   alt    tz dst   tzone      </span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      </span>
-<span class="co">#&gt; 1 04G   Lansdowne Airport               41.1 -80.6  1044    -5 A     America/Ne…</span>
-<span class="co">#&gt; 2 06A   Moton Field Municipal Airport   32.5 -85.7   264    -6 A     America/Ch…</span>
-<span class="co">#&gt; 3 06C   Schaumburg Regional             42.0 -88.1   801    -6 A     America/Ch…</span>
-<span class="co">#&gt; 4 06N   Randall Airport                 41.4 -74.4   523    -5 A     America/Ne…</span>
-<span class="co">#&gt; 5 09J   Jekyll Island Airport           31.1 -81.4    11    -5 A     America/Ne…</span>
-<span class="co">#&gt; 6 0A9   Elizabethton Municipal Airport  36.4 -82.2  1593    -5 A     America/Ne…</span>
-<span class="co">#&gt; # … with 1,452 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">airports</span></span>
+<span><span class="co">#&gt; # A tibble: 1,458 × 8</span></span>
+<span><span class="co">#&gt;   faa   name                             lat   lon   alt    tz dst   tzone      </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1 04G   Lansdowne Airport               41.1 -80.6  1044    -5 A     America/Ne…</span></span>
+<span><span class="co">#&gt; 2 06A   Moton Field Municipal Airport   32.5 -85.7   264    -6 A     America/Ch…</span></span>
+<span><span class="co">#&gt; 3 06C   Schaumburg Regional             42.0 -88.1   801    -6 A     America/Ch…</span></span>
+<span><span class="co">#&gt; 4 06N   Randall Airport                 41.4 -74.4   523    -5 A     America/Ne…</span></span>
+<span><span class="co">#&gt; 5 09J   Jekyll Island Airport           31.1 -81.4    11    -5 A     America/Ne…</span></span>
+<span><span class="co">#&gt; 6 0A9   Elizabethton Municipal Airport  36.4 -82.2  1593    -5 A     America/Ne…</span></span>
+<span><span class="co">#&gt; # … with 1,452 more rows</span></span></code></pre></div>
 </li>
 <li>
 <p><code>planes</code> dà informazioni su ogni aereo, identificato dal suo <code>tailnum</code>:</p>
 <div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">planes</span>
-<span class="co">#&gt; # A tibble: 3,322 × 9</span>
-<span class="co">#&gt;   tailnum  year type               manufacturer model engines seats speed engine</span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; </span>
-<span class="co">#&gt; 1 N10156   2004 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…</span>
-<span class="co">#&gt; 2 N102UW   1998 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span>
-<span class="co">#&gt; 3 N103US   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span>
-<span class="co">#&gt; 4 N104UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span>
-<span class="co">#&gt; 5 N10575   2002 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…</span>
-<span class="co">#&gt; 6 N105UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span>
-<span class="co">#&gt; # … with 3,316 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">planes</span></span>
+<span><span class="co">#&gt; # A tibble: 3,322 × 9</span></span>
+<span><span class="co">#&gt;   tailnum  year type               manufacturer model engines seats speed engine</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 N10156   2004 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…</span></span>
+<span><span class="co">#&gt; 2 N102UW   1998 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span></span>
+<span><span class="co">#&gt; 3 N103US   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span></span>
+<span><span class="co">#&gt; 4 N104UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span></span>
+<span><span class="co">#&gt; 5 N10575   2002 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…</span></span>
+<span><span class="co">#&gt; 6 N105UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…</span></span>
+<span><span class="co">#&gt; # … with 3,316 more rows</span></span></code></pre></div>
 </li>
 <li>
 <p><code>weather</code> dà il meteo in ogni aeroporto di NYC per ogni ora:</p>
 <div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">weather</span>
-<span class="co">#&gt; # A tibble: 26,115 × 15</span>
-<span class="co">#&gt;   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed wind_gust</span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4         NA</span>
-<span class="co">#&gt; 2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06        NA</span>
-<span class="co">#&gt; 3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5         NA</span>
-<span class="co">#&gt; 4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7         NA</span>
-<span class="co">#&gt; 5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7         NA</span>
-<span class="co">#&gt; 6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5         NA</span>
-<span class="co">#&gt; # … with 26,109 more rows, and 4 more variables: precip &lt;dbl&gt;, pressure &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">weather</span></span>
+<span><span class="co">#&gt; # A tibble: 26,115 × 15</span></span>
+<span><span class="co">#&gt;   origin  year month   day  hour  temp  dewp humid wind_dir wind_speed wind_gust</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR     2013     1     1     1  39.0  26.1  59.4      270      10.4         NA</span></span>
+<span><span class="co">#&gt; 2 EWR     2013     1     1     2  39.0  27.0  61.6      250       8.06        NA</span></span>
+<span><span class="co">#&gt; 3 EWR     2013     1     1     3  39.0  28.0  64.4      240      11.5         NA</span></span>
+<span><span class="co">#&gt; 4 EWR     2013     1     1     4  39.9  28.0  62.2      250      12.7         NA</span></span>
+<span><span class="co">#&gt; 5 EWR     2013     1     1     5  39.0  28.0  64.4      260      12.7         NA</span></span>
+<span><span class="co">#&gt; 6 EWR     2013     1     1     6  37.9  28.0  67.2      240      11.5         NA</span></span>
+<span><span class="co">#&gt; # … with 26,109 more rows, and 4 more variables: precip &lt;dbl&gt;, pressure &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 </li>
 </ul>
 <p>Un modo per mostrare le relazioni tra le diverse tabelle è un disegno:</p>
@@ -245,50 +245,50 @@ tabella <code>flights</code> dove corrisponde ad ogni volo ad un unico aereo.</p
 <p>Una variabile può essere sia una chiave primaria <em>e</em> una chiave esterna. Per esempio, <code>origin</code> fa parte della chiave primaria <code>weather</code> ed è anche una chiave esterna per la tabella <code>airports</code>.</p>
 <p>Una volta che hai identificato le chiavi primarie nelle tue tabelle, è una buona pratica verificare che esse identifichino davvero in modo univoco ogni osservazione. Un modo per farlo è quello di <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> le chiavi primarie e cercare le voci dove <code>n</code> è maggiore di uno:</p>
 <div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">planes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">tailnum</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 0 × 2</span>
-<span class="co">#&gt; # … with 2 variables: tailnum &lt;chr&gt;, n &lt;int&gt;</span>
-
-<span class="va">weather</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 6</span>
-<span class="co">#&gt;    year month   day  hour origin     n</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013    11     3     1 EWR        2</span>
-<span class="co">#&gt; 2  2013    11     3     1 JFK        2</span>
-<span class="co">#&gt; 3  2013    11     3     1 LGA        2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">planes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">tailnum</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 0 × 2</span></span>
+<span><span class="co">#&gt; # … with 2 variables: tailnum &lt;chr&gt;, n &lt;int&gt;</span></span>
+<span></span>
+<span><span class="va">weather</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 6</span></span>
+<span><span class="co">#&gt;    year month   day  hour origin     n</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1  2013    11     3     1 EWR        2</span></span>
+<span><span class="co">#&gt; 2  2013    11     3     1 JFK        2</span></span>
+<span><span class="co">#&gt; 3  2013    11     3     1 LGA        2</span></span></code></pre></div>
 <p>A volte una tabella non ha una chiave primaria esplicita: ogni riga è un’osservazione, ma nessuna combinazione di variabili la identifica in modo affidabile. Per esempio, qual è la chiave primaria nella tabella <code>flights</code>? Si potrebbe pensare che sia la data più il numero di volo o di coda, ma nessuno dei due è unico:</p>
 <div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">flight</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 29,768 × 5</span>
-<span class="co">#&gt;    year month   day flight     n</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1     1      1     2</span>
-<span class="co">#&gt; 2  2013     1     1      3     2</span>
-<span class="co">#&gt; 3  2013     1     1      4     2</span>
-<span class="co">#&gt; 4  2013     1     1     11     3</span>
-<span class="co">#&gt; 5  2013     1     1     15     2</span>
-<span class="co">#&gt; 6  2013     1     1     21     2</span>
-<span class="co">#&gt; # … with 29,762 more rows</span>
-
-<span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">tailnum</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 64,928 × 5</span>
-<span class="co">#&gt;    year month   day tailnum     n</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1     1 N0EGMQ      2</span>
-<span class="co">#&gt; 2  2013     1     1 N11189      2</span>
-<span class="co">#&gt; 3  2013     1     1 N11536      2</span>
-<span class="co">#&gt; 4  2013     1     1 N11544      3</span>
-<span class="co">#&gt; 5  2013     1     1 N11551      2</span>
-<span class="co">#&gt; 6  2013     1     1 N12540      2</span>
-<span class="co">#&gt; # … with 64,922 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">flight</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 29,768 × 5</span></span>
+<span><span class="co">#&gt;    year month   day flight     n</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1      1     2</span></span>
+<span><span class="co">#&gt; 2  2013     1     1      3     2</span></span>
+<span><span class="co">#&gt; 3  2013     1     1      4     2</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     11     3</span></span>
+<span><span class="co">#&gt; 5  2013     1     1     15     2</span></span>
+<span><span class="co">#&gt; 6  2013     1     1     21     2</span></span>
+<span><span class="co">#&gt; # … with 29,762 more rows</span></span>
+<span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">tailnum</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 64,928 × 5</span></span>
+<span><span class="co">#&gt;    year month   day tailnum     n</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1 N0EGMQ      2</span></span>
+<span><span class="co">#&gt; 2  2013     1     1 N11189      2</span></span>
+<span><span class="co">#&gt; 3  2013     1     1 N11536      2</span></span>
+<span><span class="co">#&gt; 4  2013     1     1 N11544      3</span></span>
+<span><span class="co">#&gt; 5  2013     1     1 N11551      2</span></span>
+<span><span class="co">#&gt; 6  2013     1     1 N12540      2</span></span>
+<span><span class="co">#&gt; # … with 64,922 more rows</span></span></code></pre></div>
 <p>Quando ho iniziato a lavorare con questi dati, avevo ingenuamente supposto che ogni numero di volo sarebbe stato usato solo una volta al giorno: questo avrebbe reso molto più facile comunicare i problemi con un volo specifico. Purtroppo non è così! Se una tabella manca di una chiave primaria, a volte è utile aggiungerne una con <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> e <code><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number()</a></code>. Questo rende più facile far combaciare le osservazioni se avete fatto qualche filtraggio e volete ricontrollare i dati originali. Questa è chiamata una _chiave surrogata__.</p>
 <p>Una chiave primaria e la corrispondente chiave esterna in un’altra tabella formano una <strong>relazione</strong>. Le relazioni sono tipicamente uno-a-molti. Per esempio, ogni volo ha un aereo, ma ogni aereo ha molti voli. In altri dati, occasionalmente vedrete una relazione 1 a 1. Potete pensare a questo come ad un caso speciale di 1-a-molti. Potete modellare le relazioni molti-a-molti con una relazione molti-a-1 più una relazione 1-a-molti. Per esempio, in questi dati c’è una relazione molti-a-molti tra compagnie aeree e aeroporti: ogni compagnia aerea vola in molti aeroporti; ogni aeroporto ospita molte compagnie aeree.</p>
 <div id="esercizi-29" class="section level3">
@@ -329,50 +329,50 @@ che mostra la relazione tra <code>People</code>, <code>Managers</code>, <code>Aw
 <p>Il primo strumento che vedremo per combinare una coppia di tabelle è la <strong>mutating join</strong>. Una mutating join permette di combinare le variabili di due tabelle. Prima abbina le osservazioni in base alle loro chiavi, poi copia le variabili da una tabella all’altra.</p>
 <p>Come <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, le funzioni di join aggiungono le variabili a destra, quindi se avete già molte variabili, le nuove variabili non verranno stampate. Per questi esempi, renderemo più facile vedere cosa succede negli esempi creando un set di dati più ristretto:</p>
 <div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights2</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span><span class="op">:</span><span class="va">day</span>, <span class="va">hour</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">tailnum</span>, <span class="va">carrier</span><span class="op">)</span>
-<span class="va">flights2</span>
-<span class="co">#&gt; # A tibble: 336,776 × 8</span>
-<span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  </span>
-<span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA     </span>
-<span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA     </span>
-<span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA     </span>
-<span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6     </span>
-<span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL     </span>
-<span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA     </span>
-<span class="co">#&gt; # … with 336,770 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights2</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span><span class="op">:</span><span class="va">day</span>, <span class="va">hour</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">tailnum</span>, <span class="va">carrier</span><span class="op">)</span></span>
+<span><span class="va">flights2</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 8</span></span>
+<span><span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA     </span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA     </span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA     </span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6     </span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL     </span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA     </span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows</span></span></code></pre></div>
 <p>(Ricordate, quando siete in RStudio, potete anche usare <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> per evitare questo problema).</p>
 <p>Immaginate di voler aggiungere il nome completo della compagnia aerea ai dati di <code>flights2</code>. Potete combinare i data frame <code>airlines</code> e <code>flights2</code> con <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code>:</p>
 <div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">origin</span>, <span class="op">-</span><span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">airlines</span>, by <span class="op">=</span> <span class="st">"carrier"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 336,776 × 7</span>
-<span class="co">#&gt;    year month   day  hour tailnum carrier name                  </span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                 </span>
-<span class="co">#&gt; 1  2013     1     1     5 N14228  UA      United Air Lines Inc. </span>
-<span class="co">#&gt; 2  2013     1     1     5 N24211  UA      United Air Lines Inc. </span>
-<span class="co">#&gt; 3  2013     1     1     5 N619AA  AA      American Airlines Inc.</span>
-<span class="co">#&gt; 4  2013     1     1     5 N804JB  B6      JetBlue Airways       </span>
-<span class="co">#&gt; 5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.  </span>
-<span class="co">#&gt; 6  2013     1     1     5 N39463  UA      United Air Lines Inc. </span>
-<span class="co">#&gt; # … with 336,770 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">origin</span>, <span class="op">-</span><span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">airlines</span>, by <span class="op">=</span> <span class="st">"carrier"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 7</span></span>
+<span><span class="co">#&gt;    year month   day  hour tailnum carrier name                  </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                 </span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5 N14228  UA      United Air Lines Inc. </span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5 N24211  UA      United Air Lines Inc. </span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5 N619AA  AA      American Airlines Inc.</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5 N804JB  B6      JetBlue Airways       </span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.  </span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5 N39463  UA      United Air Lines Inc. </span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows</span></span></code></pre></div>
 <p>Il risultato dell’unione delle compagnie aeree a flights2 è una variabile aggiuntiva: <code>name</code>. Questo è il motivo per cui chiamo questo tipo di join un join mutante. In questo caso, avreste potuto arrivare allo stesso punto usando <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> e il subsetting di base di R:</p>
 <div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">origin</span>, <span class="op">-</span><span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">airlines</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">carrier</span>, <span class="va">airlines</span><span class="op">$</span><span class="va">carrier</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 336,776 × 7</span>
-<span class="co">#&gt;    year month   day  hour tailnum carrier name                  </span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                 </span>
-<span class="co">#&gt; 1  2013     1     1     5 N14228  UA      United Air Lines Inc. </span>
-<span class="co">#&gt; 2  2013     1     1     5 N24211  UA      United Air Lines Inc. </span>
-<span class="co">#&gt; 3  2013     1     1     5 N619AA  AA      American Airlines Inc.</span>
-<span class="co">#&gt; 4  2013     1     1     5 N804JB  B6      JetBlue Airways       </span>
-<span class="co">#&gt; 5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.  </span>
-<span class="co">#&gt; 6  2013     1     1     5 N39463  UA      United Air Lines Inc. </span>
-<span class="co">#&gt; # … with 336,770 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">origin</span>, <span class="op">-</span><span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="va">airlines</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html">match</a></span><span class="op">(</span><span class="va">carrier</span>, <span class="va">airlines</span><span class="op">$</span><span class="va">carrier</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 7</span></span>
+<span><span class="co">#&gt;    year month   day  hour tailnum carrier name                  </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                 </span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5 N14228  UA      United Air Lines Inc. </span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5 N24211  UA      United Air Lines Inc. </span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5 N619AA  AA      American Airlines Inc.</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5 N804JB  B6      JetBlue Airways       </span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6 N668DN  DL      Delta Air Lines Inc.  </span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5 N39463  UA      United Air Lines Inc. </span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows</span></span></code></pre></div>
 <p>Ma questo è difficile da generalizzare quando si ha bisogno di abbinare più variabili, e richiede una lettura attenta per capire l’intento generale.</p>
 <p>Le sezioni seguenti spiegano, in dettaglio, come funzionano le mutating joins. Comincerete imparando un’utile rappresentazione visiva delle unioni. Poi la useremo per spiegare le quattro funzioni di mutating join: l’inner join e le tre outer join. Quando si lavora con dati reali, le chiavi non sempre identificano in modo univoco le osservazioni, quindi parleremo di cosa succede quando non c’è una corrispondenza unica. Infine, imparerete come dire a dplyr quali variabili sono le chiavi per una data unione.</p>
 <div id="capire-le-unioni" class="section level3">
@@ -382,18 +382,18 @@ che mostra la relazione tra <code>People</code>, <code>Managers</code>, <code>Aw
 <p>Per aiutarvi ad imparare come funzionano le join, userò una rappresentazione visiva:</p>
 <div class="inline-figure"><img src="diagrams/join-setup.png" width="118" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_x</span>,
-     <span class="fl">1</span>, <span class="st">"x1"</span>,
-     <span class="fl">2</span>, <span class="st">"x2"</span>,
-     <span class="fl">3</span>, <span class="st">"x3"</span>
-<span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_y</span>,
-     <span class="fl">1</span>, <span class="st">"y1"</span>,
-     <span class="fl">2</span>, <span class="st">"y2"</span>,
-     <span class="fl">4</span>, <span class="st">"y3"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_x</span>,</span>
+<span>     <span class="fl">1</span>, <span class="st">"x1"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"x2"</span>,</span>
+<span>     <span class="fl">3</span>, <span class="st">"x3"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_y</span>,</span>
+<span>     <span class="fl">1</span>, <span class="st">"y1"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"y2"</span>,</span>
+<span>     <span class="fl">4</span>, <span class="st">"y3"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>La colonna colorata rappresenta la variabile “chiave”: questa è usata per abbinare le righe tra le tabelle. La colonna grigia rappresenta la colonna “valore” che viene portata con sé per il viaggio. In questi esempi mostrerò una singola variabile chiave, ma l’idea si generalizza in modo diretto a chiavi multiple e valori multipli.</p>
 <p>Un join è un modo di collegare ogni riga in <code>x</code> a zero, una o più righe in <code>y</code>. Il diagramma seguente mostra ogni potenziale corrispondenza come un’intersezione di una coppia di linee.</p>
 <div class="inline-figure"><img src="diagrams/join-setup2.png" width="166" style="display: block; margin: auto;"></div>
@@ -410,13 +410,13 @@ che mostra la relazione tra <code>People</code>, <code>Managers</code>, <code>Aw
 <p>(Per essere precisi, questa è una <strong>equijoin</strong> interna perché le chiavi sono abbinate usando l’operatore di uguaglianza. Dato che la maggior parte delle unioni sono equijoin, di solito lasciamo perdere questa specificazione).</p>
 <p>L’output di un join interno è un nuovo data frame che contiene la chiave, i valori x e i valori y. Usiamo <code>by</code> per dire a dplyr quale variabile è la chiave:</p>
 <div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 3</span>
-<span class="co">#&gt;     key val_x val_y</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1     1 x1    y1   </span>
-<span class="co">#&gt; 2     2 x2    y2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;     key val_x val_y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span><span class="co">#&gt; 2     2 x2    y2</span></span></code></pre></div>
 <p>La proprietà più importante di un inner join è che le righe non abbinate non sono incluse nel risultato. Questo significa che generalmente le inner joins non sono appropriate per l’uso in analisi perché è troppo facile perdere osservazioni.</p>
 </div>
 <div id="outer-join" class="section level3">
@@ -449,55 +449,55 @@ che mostra la relazione tra <code>People</code>, <code>Managers</code>, <code>Aw
 <p>Notate che ho messo la colonna chiave in una posizione leggermente diversa nell’output.
 Questo riflette il fatto che la chiave è una chiave primaria in <code>y</code> e una chiave esterna in <code>x</code>.</p>
 <div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_x</span>,
-     <span class="fl">1</span>, <span class="st">"x1"</span>,
-     <span class="fl">2</span>, <span class="st">"x2"</span>,
-     <span class="fl">2</span>, <span class="st">"x3"</span>,
-     <span class="fl">1</span>, <span class="st">"x4"</span>
-<span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_y</span>,
-     <span class="fl">1</span>, <span class="st">"y1"</span>,
-     <span class="fl">2</span>, <span class="st">"y2"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 × 3</span>
-<span class="co">#&gt;     key val_x val_y</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1     1 x1    y1   </span>
-<span class="co">#&gt; 2     2 x2    y2   </span>
-<span class="co">#&gt; 3     2 x3    y2   </span>
-<span class="co">#&gt; 4     1 x4    y1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_x</span>,</span>
+<span>     <span class="fl">1</span>, <span class="st">"x1"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"x2"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"x3"</span>,</span>
+<span>     <span class="fl">1</span>, <span class="st">"x4"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_y</span>,</span>
+<span>     <span class="fl">1</span>, <span class="st">"y1"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"y2"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
+<span><span class="co">#&gt;     key val_x val_y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span><span class="co">#&gt; 3     2 x3    y2   </span></span>
+<span><span class="co">#&gt; 4     1 x4    y1</span></span></code></pre></div>
 </li>
 <li>
 <p>Entrambe le tabelle hanno chiavi duplicate. Questo è di solito un errore perché in nessuna delle due tabelle le chiavi identificano univocamente un’osservazione. Quando si uniscono chiavi duplicate, si ottengono tutte le combinazioni possibili, il prodotto cartesiano:</p>
 <div class="inline-figure"><img src="diagrams/join-many-to-many.png" width="342" style="display: block; margin: auto;"></div>
 <div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_x</span>,
-     <span class="fl">1</span>, <span class="st">"x1"</span>,
-     <span class="fl">2</span>, <span class="st">"x2"</span>,
-     <span class="fl">2</span>, <span class="st">"x3"</span>,
-     <span class="fl">3</span>, <span class="st">"x4"</span>
-<span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_y</span>,
-     <span class="fl">1</span>, <span class="st">"y1"</span>,
-     <span class="fl">2</span>, <span class="st">"y2"</span>,
-     <span class="fl">2</span>, <span class="st">"y3"</span>,
-     <span class="fl">3</span>, <span class="st">"y4"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 × 3</span>
-<span class="co">#&gt;     key val_x val_y</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1     1 x1    y1   </span>
-<span class="co">#&gt; 2     2 x2    y2   </span>
-<span class="co">#&gt; 3     2 x2    y3   </span>
-<span class="co">#&gt; 4     2 x3    y2   </span>
-<span class="co">#&gt; 5     2 x3    y3   </span>
-<span class="co">#&gt; 6     3 x4    y4</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_x</span>,</span>
+<span>     <span class="fl">1</span>, <span class="st">"x1"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"x2"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"x3"</span>,</span>
+<span>     <span class="fl">3</span>, <span class="st">"x4"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">key</span>, <span class="op">~</span><span class="va">val_y</span>,</span>
+<span>     <span class="fl">1</span>, <span class="st">"y1"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"y2"</span>,</span>
+<span>     <span class="fl">2</span>, <span class="st">"y3"</span>,</span>
+<span>     <span class="fl">3</span>, <span class="st">"y4"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, by <span class="op">=</span> <span class="st">"key"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;     key val_x val_y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1     1 x1    y1   </span></span>
+<span><span class="co">#&gt; 2     2 x2    y2   </span></span>
+<span><span class="co">#&gt; 3     2 x2    y3   </span></span>
+<span><span class="co">#&gt; 4     2 x3    y2   </span></span>
+<span><span class="co">#&gt; 5     2 x3    y3   </span></span>
+<span><span class="co">#&gt; 6     3 x4    y4</span></span></code></pre></div>
 </li>
 </ol>
 </div>
@@ -510,21 +510,21 @@ Questo riflette il fatto che la chiave è una chiave primaria in <code>y</code> 
 <li>
 <p>Il valore predefinito, <code>by = NULL</code>, usa tutte le variabili che appaiono in entrambe le tabelle, il cosiddetto <strong>natural</strong> join. Per esempio, le tabelle dei voli e del meteo corrispondono sulle loro variabili comuni: <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code> e <code>origin</code>.</p>
 <div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">weather</span><span class="op">)</span>
-<span class="co">#&gt; Joining, by = c("year", "month", "day", "hour", "origin")</span>
-<span class="co">#&gt; # A tibble: 336,776 × 18</span>
-<span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier  temp  dewp humid</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4</span>
-<span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA       39.9  25.0  54.8</span>
-<span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA       39.0  27.0  61.6</span>
-<span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6       39.0  27.0  61.6</span>
-<span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  25.0  54.8</span>
-<span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA       39.0  28.0  64.4</span>
-<span class="co">#&gt; # … with 336,770 more rows, and 7 more variables: wind_dir &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">weather</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Joining, by = c("year", "month", "day", "hour", "origin")</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 18</span></span>
+<span><span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier  temp  dewp humid</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4</span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA       39.9  25.0  54.8</span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA       39.0  27.0  61.6</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6       39.0  27.0  61.6</span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  25.0  54.8</span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA       39.0  28.0  64.4</span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows, and 7 more variables: wind_dir &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 </li>
 <li>
 <p>Un vettore di caratteri, <code>by = "x"</code>. Questo è come un join naturale, ma usa solo
@@ -532,19 +532,19 @@ alcune delle variabili comuni. Per esempio, <code>flights</code> e <code>planes<
 variabili <code>year</code>, ma significano cose diverse, quindi vogliamo unire solo per
 <code>tailnum</code>.</p>
 <div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">planes</span>, by <span class="op">=</span> <span class="st">"tailnum"</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 336,776 × 16</span>
-<span class="co">#&gt;   year.x month   day  hour origin dest  tailnum carrier year.y type             </span>
-<span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;            </span>
-<span class="co">#&gt; 1   2013     1     1     5 EWR    IAH   N14228  UA        1999 Fixed wing multi…</span>
-<span class="co">#&gt; 2   2013     1     1     5 LGA    IAH   N24211  UA        1998 Fixed wing multi…</span>
-<span class="co">#&gt; 3   2013     1     1     5 JFK    MIA   N619AA  AA        1990 Fixed wing multi…</span>
-<span class="co">#&gt; 4   2013     1     1     5 JFK    BQN   N804JB  B6        2012 Fixed wing multi…</span>
-<span class="co">#&gt; 5   2013     1     1     6 LGA    ATL   N668DN  DL        1991 Fixed wing multi…</span>
-<span class="co">#&gt; 6   2013     1     1     5 EWR    ORD   N39463  UA        2012 Fixed wing multi…</span>
-<span class="co">#&gt; # … with 336,770 more rows, and 6 more variables: manufacturer &lt;chr&gt;,</span>
-<span class="co">#&gt; #   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">planes</span>, by <span class="op">=</span> <span class="st">"tailnum"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 16</span></span>
+<span><span class="co">#&gt;   year.x month   day  hour origin dest  tailnum carrier year.y type             </span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1   2013     1     1     5 EWR    IAH   N14228  UA        1999 Fixed wing multi…</span></span>
+<span><span class="co">#&gt; 2   2013     1     1     5 LGA    IAH   N24211  UA        1998 Fixed wing multi…</span></span>
+<span><span class="co">#&gt; 3   2013     1     1     5 JFK    MIA   N619AA  AA        1990 Fixed wing multi…</span></span>
+<span><span class="co">#&gt; 4   2013     1     1     5 JFK    BQN   N804JB  B6        2012 Fixed wing multi…</span></span>
+<span><span class="co">#&gt; 5   2013     1     1     6 LGA    ATL   N668DN  DL        1991 Fixed wing multi…</span></span>
+<span><span class="co">#&gt; 6   2013     1     1     5 EWR    ORD   N39463  UA        2012 Fixed wing multi…</span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows, and 6 more variables: manufacturer &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</span></span></code></pre></div>
 <p>Si noti che le variabili <code>year</code> (che appaiono in entrambi i data frame di input,
 ma non sono costrette ad essere uguali) sono disambiguate nell’output con
 un suffisso.</p>
@@ -558,33 +558,33 @@ con i dati degli aeroporti che contengono la posizione (<code>lat</code> e <code
 ogni aeroporto. Ogni volo ha un <code>airport</code> di origine e uno di destinazione, quindi
 bisogno di specificare a quale vogliamo unire i dati:</p>
 <div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">airports</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dest"</span> <span class="op">=</span> <span class="st">"faa"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 336,776 × 15</span>
-<span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier name      lat   lon   alt</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA      George…  30.0 -95.3    97</span>
-<span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA      George…  30.0 -95.3    97</span>
-<span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami …  25.8 -80.3     8</span>
-<span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6      &lt;NA&gt;     NA    NA      NA</span>
-<span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL      Hartsf…  33.6 -84.4  1026</span>
-<span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA      Chicag…  42.0 -87.9   668</span>
-<span class="co">#&gt; # … with 336,770 more rows, and 3 more variables: tz &lt;dbl&gt;, dst &lt;chr&gt;,</span>
-<span class="co">#&gt; #   tzone &lt;chr&gt;</span>
-
-<span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">airports</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"origin"</span> <span class="op">=</span> <span class="st">"faa"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 336,776 × 15</span>
-<span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier name      lat   lon   alt</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA      Newark…  40.7 -74.2    18</span>
-<span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA      La Gua…  40.8 -73.9    22</span>
-<span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA      John F…  40.6 -73.8    13</span>
-<span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6      John F…  40.6 -73.8    13</span>
-<span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL      La Gua…  40.8 -73.9    22</span>
-<span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA      Newark…  40.7 -74.2    18</span>
-<span class="co">#&gt; # … with 336,770 more rows, and 3 more variables: tz &lt;dbl&gt;, dst &lt;chr&gt;,</span>
-<span class="co">#&gt; #   tzone &lt;chr&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">airports</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dest"</span> <span class="op">=</span> <span class="st">"faa"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 15</span></span>
+<span><span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier name      lat   lon   alt</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA      George…  30.0 -95.3    97</span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA      George…  30.0 -95.3    97</span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami …  25.8 -80.3     8</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6      &lt;NA&gt;     NA    NA      NA</span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL      Hartsf…  33.6 -84.4  1026</span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA      Chicag…  42.0 -87.9   668</span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows, and 3 more variables: tz &lt;dbl&gt;, dst &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   tzone &lt;chr&gt;</span></span>
+<span></span>
+<span><span class="va">flights2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">airports</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"origin"</span> <span class="op">=</span> <span class="st">"faa"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 15</span></span>
+<span><span class="co">#&gt;    year month   day  hour origin dest  tailnum carrier name      lat   lon   alt</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5 EWR    IAH   N14228  UA      Newark…  40.7 -74.2    18</span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5 LGA    IAH   N24211  UA      La Gua…  40.8 -73.9    22</span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5 JFK    MIA   N619AA  AA      John F…  40.6 -73.8    13</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5 JFK    BQN   N804JB  B6      John F…  40.6 -73.8    13</span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6 LGA    ATL   N668DN  DL      La Gua…  40.8 -73.9    22</span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5 EWR    ORD   N39463  UA      Newark…  40.7 -74.2    18</span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows, and 3 more variables: tz &lt;dbl&gt;, dst &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   tzone &lt;chr&gt;</span></span></code></pre></div>
 </li>
 </ul>
 </div>
@@ -596,12 +596,12 @@ bisogno di specificare a quale vogliamo unire i dati:</p>
 <li>
 <p>Calcola il ritardo medio per destinazione, poi unisciti al data frame <code>airport</code> in modo da poter mostrare la distribuzione spaziale dei ritardi. Ecco un modo semplice per disegnare una mappa degli Stati Uniti:</p>
 <div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">airports</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join</a></span><span class="op">(</span><span class="va">flights</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"faa"</span> <span class="op">=</span> <span class="st">"dest"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/borders.html">borders</a></span><span class="op">(</span><span class="st">"state"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">airports</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join</a></span><span class="op">(</span><span class="va">flights</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"faa"</span> <span class="op">=</span> <span class="st">"dest"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lon</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/borders.html">borders</a></span><span class="op">(</span><span class="st">"state"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_map.html">coord_quickmap</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>(Non preoccupatevi se non capite cosa fa <code><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join()</a></code> — lo imparerete
 imparerete dopo).</p>
 <p>Potreste voler usare la <code>dimensione</code> o il <code>colore</code> dei punti per visualizzare
@@ -688,54 +688,54 @@ e poi usa Google per fare un riferimento incrociato con le condizionir.</p></li>
 </ul>
 <p>Le semi-join sono utili per far corrispondere tabelle di riepilogo filtrate alle righe originali. Per esempio, immaginate di aver trovato le prime dieci destinazioni più popolari:</p>
 <div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">top_dest</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">dest</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="va">top_dest</span>
-<span class="co">#&gt; # A tibble: 10 × 2</span>
-<span class="co">#&gt;   dest      n</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 ORD   17283</span>
-<span class="co">#&gt; 2 ATL   17215</span>
-<span class="co">#&gt; 3 LAX   16174</span>
-<span class="co">#&gt; 4 BOS   15508</span>
-<span class="co">#&gt; 5 MCO   14082</span>
-<span class="co">#&gt; 6 CLT   14064</span>
-<span class="co">#&gt; # … with 4 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">top_dest</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">dest</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">top_dest</span></span>
+<span><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span><span class="co">#&gt;   dest      n</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 ORD   17283</span></span>
+<span><span class="co">#&gt; 2 ATL   17215</span></span>
+<span><span class="co">#&gt; 3 LAX   16174</span></span>
+<span><span class="co">#&gt; 4 BOS   15508</span></span>
+<span><span class="co">#&gt; 5 MCO   14082</span></span>
+<span><span class="co">#&gt; 6 CLT   14064</span></span>
+<span><span class="co">#&gt; # … with 4 more rows</span></span></code></pre></div>
 <p>Ora vuoi trovare ogni volo che è andato a una di queste destinazioni. Potresti costruire tu stesso un filtro:</p>
 <div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dest</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">top_dest</span><span class="op">$</span><span class="va">dest</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 141,145 × 19</span>
-<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1     1      542            540         2      923            850</span>
-<span class="co">#&gt; 2  2013     1     1      554            600        -6      812            837</span>
-<span class="co">#&gt; 3  2013     1     1      554            558        -4      740            728</span>
-<span class="co">#&gt; 4  2013     1     1      555            600        -5      913            854</span>
-<span class="co">#&gt; 5  2013     1     1      557            600        -3      838            846</span>
-<span class="co">#&gt; 6  2013     1     1      558            600        -2      753            745</span>
-<span class="co">#&gt; # … with 141,139 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span>
-<span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dest</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">top_dest</span><span class="op">$</span><span class="va">dest</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 141,145 × 19</span></span>
+<span><span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1      542            540         2      923            850</span></span>
+<span><span class="co">#&gt; 2  2013     1     1      554            600        -6      812            837</span></span>
+<span><span class="co">#&gt; 3  2013     1     1      554            558        -4      740            728</span></span>
+<span><span class="co">#&gt; 4  2013     1     1      555            600        -5      913            854</span></span>
+<span><span class="co">#&gt; 5  2013     1     1      557            600        -3      838            846</span></span>
+<span><span class="co">#&gt; 6  2013     1     1      558            600        -2      753            745</span></span>
+<span><span class="co">#&gt; # … with 141,139 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>Ma è difficile estendere questo approccio a più variabili. Per esempio, immagina di aver trovato i 10 giorni con i più alti ritardi medi. Come costruireste la dichiarazione del filtro che usa <code>year</code>, <code>month</code> e <code>day</code> per abbinarlo a <code>flight</code>?</p>
 <p>Invece puoi usare una semi-join, che collega le due tabelle come una mutating join, ma invece di aggiungere nuove colonne, mantiene solo le righe in <code>x</code> che hanno una corrispondenza in <code>y</code>:</p>
 <div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join</a></span><span class="op">(</span><span class="va">top_dest</span><span class="op">)</span>
-<span class="co">#&gt; Joining, by = "dest"</span>
-<span class="co">#&gt; # A tibble: 141,145 × 19</span>
-<span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span>
-<span class="co">#&gt; 1  2013     1     1      542            540         2      923            850</span>
-<span class="co">#&gt; 2  2013     1     1      554            600        -6      812            837</span>
-<span class="co">#&gt; 3  2013     1     1      554            558        -4      740            728</span>
-<span class="co">#&gt; 4  2013     1     1      555            600        -5      913            854</span>
-<span class="co">#&gt; 5  2013     1     1      557            600        -3      838            846</span>
-<span class="co">#&gt; 6  2013     1     1      558            600        -2      753            745</span>
-<span class="co">#&gt; # … with 141,139 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span>
-<span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join</a></span><span class="op">(</span><span class="va">top_dest</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Joining, by = "dest"</span></span>
+<span><span class="co">#&gt; # A tibble: 141,145 × 19</span></span>
+<span><span class="co">#&gt;    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1      542            540         2      923            850</span></span>
+<span><span class="co">#&gt; 2  2013     1     1      554            600        -6      812            837</span></span>
+<span><span class="co">#&gt; 3  2013     1     1      554            558        -4      740            728</span></span>
+<span><span class="co">#&gt; 4  2013     1     1      555            600        -5      913            854</span></span>
+<span><span class="co">#&gt; 5  2013     1     1      557            600        -3      838            846</span></span>
+<span><span class="co">#&gt; 6  2013     1     1      558            600        -2      753            745</span></span>
+<span><span class="co">#&gt; # … with 141,139 more rows, and 11 more variables: arr_delay &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</span></span></code></pre></div>
 <p>Graficamente, una semi-unione appare così:</p>
 <div class="inline-figure"><img src="diagrams/join-semi.png" width="307" style="display: block; margin: auto;"></div>
 <p>Solo l’esistenza di una corrispondenza è importante; non ha importanza quale osservazione viene abbinata. Questo significa che i filtering joins non duplicano mai le righe come fanno i mutating joins:</p>
@@ -744,19 +744,19 @@ e poi usa Google per fare un riferimento incrociato con le condizionir.</p></li>
 <div class="inline-figure"><img src="diagrams/join-anti.png" width="307" style="display: block; margin: auto;"></div>
 <p>Gli anti-join sono utili per diagnosticare le mancate corrispondenze. Per esempio, quando si collegano <code>flights</code> e <code>planes</code>, si potrebbe essere interessati a sapere che ci sono molti <code>flights</code> che non hanno una corrispondenza in <code>planes</code>:</p>
 <div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">planes</span>, by <span class="op">=</span> <span class="st">"tailnum"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">tailnum</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 722 × 2</span>
-<span class="co">#&gt;   tailnum     n</span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;</span>
-<span class="co">#&gt; 1 &lt;NA&gt;     2512</span>
-<span class="co">#&gt; 2 N725MQ    575</span>
-<span class="co">#&gt; 3 N722MQ    513</span>
-<span class="co">#&gt; 4 N723MQ    507</span>
-<span class="co">#&gt; 5 N713MQ    483</span>
-<span class="co">#&gt; 6 N735MQ    396</span>
-<span class="co">#&gt; # … with 716 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">planes</span>, by <span class="op">=</span> <span class="st">"tailnum"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">tailnum</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 722 × 2</span></span>
+<span><span class="co">#&gt;   tailnum     n</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 &lt;NA&gt;     2512</span></span>
+<span><span class="co">#&gt; 2 N725MQ    575</span></span>
+<span><span class="co">#&gt; 3 N722MQ    513</span></span>
+<span><span class="co">#&gt; 4 N723MQ    507</span></span>
+<span><span class="co">#&gt; 5 N713MQ    483</span></span>
+<span><span class="co">#&gt; 6 N735MQ    396</span></span>
+<span><span class="co">#&gt; # … with 716 more rows</span></span></code></pre></div>
 <div id="esercizi-31" class="section level3">
 <h3>
 <span class="header-section-number">13.5.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-31"><i class="fas fa-link"></i></a>
@@ -801,9 +801,9 @@ generale.</p>
 <p>Per esempio, l’altitudine e la longitudine identificano in modo unico ogni aeroporto,
 ma non sono buoni identificatori!</p>
 <div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">airports</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">alt</span>, <span class="va">lon</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 0 × 3</span>
-<span class="co">#&gt; # … with 3 variables: alt &lt;dbl&gt;, lon &lt;dbl&gt;, n &lt;int&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">airports</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">alt</span>, <span class="va">lon</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 0 × 3</span></span>
+<span><span class="co">#&gt; # … with 3 variables: alt &lt;dbl&gt;, lon &lt;dbl&gt;, n &lt;int&gt;</span></span></code></pre></div>
 </li>
 <li><p>Controllare che nessuna delle variabili della chiave primaria sia mancante. Se
 un valore è mancante allora non può identificare un’osservazione!</p></li>
@@ -834,44 +834,44 @@ se volete eliminare le righe che non hanno una corrispondenza.</p>
 </ul>
 <p>Dati questi semplici dati:</p>
 <div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>,
-   <span class="fl">1</span>,  <span class="fl">1</span>,
-   <span class="fl">2</span>,  <span class="fl">1</span>
-<span class="op">)</span>
-<span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>,
-   <span class="fl">1</span>,  <span class="fl">1</span>,
-   <span class="fl">1</span>,  <span class="fl">2</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>,</span>
+<span>   <span class="fl">1</span>,  <span class="fl">1</span>,</span>
+<span>   <span class="fl">2</span>,  <span class="fl">1</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>,</span>
+<span>   <span class="fl">1</span>,  <span class="fl">1</span>,</span>
+<span>   <span class="fl">1</span>,  <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Le quattro possibilità sono:</p>
 <div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">intersect</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 × 2</span>
-<span class="co">#&gt;       x     y</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1</span>
-
-<span class="co"># Notate che otteniamo 3 righe, non 4</span>
-<span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">union</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 2</span>
-<span class="co">#&gt;       x     y</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1</span>
-<span class="co">#&gt; 2     2     1</span>
-<span class="co">#&gt; 3     1     2</span>
-
-<span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 × 2</span>
-<span class="co">#&gt;       x     y</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     2     1</span>
-
-<span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">df2</span>, <span class="va">df1</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 × 2</span>
-<span class="co">#&gt;       x     y</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">intersect</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span><span class="co">#&gt;       x     y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     1</span></span>
+<span></span>
+<span><span class="co"># Notate che otteniamo 3 righe, non 4</span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">union</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span><span class="co">#&gt;       x     y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     1</span></span>
+<span><span class="co">#&gt; 2     2     1</span></span>
+<span><span class="co">#&gt; 3     1     2</span></span>
+<span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span><span class="co">#&gt;       x     y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     2     1</span></span>
+<span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">df2</span>, <span class="va">df1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span><span class="co">#&gt;       x     y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     2</span></span></code></pre></div>
 
 </div>
 </div>
@@ -937,7 +937,7 @@ se volete eliminare le righe che non hanno una corrispondenza.</p>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -7,7 +7,7 @@
 <title>20 Vettori | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="20.1 Introduzione Finora questo libro si è concentrato sulle tibble e sui pacchetti che lavorano con esse. Ma quando inizierete a scrivere le vostre funzioni e a scavare più a fondo in R, avrete...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="20 Vettori | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/vettori.html">
@@ -115,7 +115,7 @@
 </h3>
 <p>Il focus di questo capitolo è sulle strutture dati di base di R, quindi non è essenziale caricare alcun pacchetto. Tuttavia, useremo una manciata di funzioni del pacchetto <strong>purrr</strong> per evitare alcune incongruenze in R base.</p>
 <div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="nozioni-di-base-sui-vettori" class="section level2">
@@ -145,17 +145,17 @@ Figure 20.1: The hierarchy of R’s vector types
 <li>
 <p>Il suo <strong>tipo</strong>, che potete determinare con <code><a href="https://rdrr.io/r/base/typeof.html">typeof()</a></code>.</p>
 <div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">letters</span><span class="op">)</span>
-<span class="co">#&gt; [1] "character"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; [1] "integer"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">letters</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "character"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "integer"</span></span></code></pre></div>
 </li>
 <li>
 <p>La sua <strong>length</strong>, che potete determinare con <code><a href="https://rdrr.io/r/base/length.html">length()</a></code>.</p>
 <div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 </li>
 </ol>
 <p>I vettori possono anche contenere metadati aggiuntivi arbitrari sotto forma di attributi. Questi attributi sono usati per creare <strong>vettori aumentati</strong> che si basano su comportamenti aggiuntivi. Ci sono tre tipi importanti di vettori aumentati:</p>
@@ -177,11 +177,11 @@ Figure 20.1: The hierarchy of R’s vector types
 </h3>
 <p>I vettori logici sono il tipo più semplice di vettore atomico perché possono assumere solo tre possibili valori: <code>FALSE</code>, <code>TRUE</code> e <code>NA</code>. I vettori logici sono solitamente costruiti con operatori di confronto, come descritto in [comparatori]. Puoi anche crearli a mano con <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>:</p>
 <div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">0</span>
-<span class="co">#&gt;  [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span><span class="op">)</span>
-<span class="co">#&gt; [1]  TRUE  TRUE FALSE    NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">3</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span><span class="co">#&gt;  [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  TRUE  TRUE FALSE    NA</span></span></code></pre></div>
 </div>
 <div id="numerico" class="section level3">
 <h3>
@@ -189,22 +189,22 @@ Figure 20.1: The hierarchy of R’s vector types
 </h3>
 <p>I vettori interi e doppi sono conosciuti collettivamente come vettori numerici. In R, i numeri sono doppi per default. Per fare un intero, metti una <code>L</code> dopo il numero:</p>
 <div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "double"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span>
-<span class="co">#&gt; [1] "integer"</span>
-<span class="fl">1.5L</span>
-<span class="co">#&gt; [1] 1.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "double"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "integer"</span></span>
+<span><span class="fl">1.5L</span></span>
+<span><span class="co">#&gt; [1] 1.5</span></span></code></pre></div>
 <p>La distinzione tra interi e double non è solitamente importante, ma ci sono due importanti differenze di cui dovreste essere consapevoli:</p>
 <ol style="list-style-type: decimal">
 <li>
 <p>I double sono approssimazioni. I double rappresentano numeri in virgola mobile che non possono essere sempre rappresentati con precisione con una quantità fissa di memoria. Questo significa che dovreste considerare tutti i double come approssimazioni. Per esempio, cos’è il quadrato della radice quadrata di due?</p>
 <div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span>
-<span class="va">x</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="va">x</span> <span class="op">-</span> <span class="fl">2</span>
-<span class="co">#&gt; [1] 4.440892e-16</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="va">x</span> <span class="op">-</span> <span class="fl">2</span></span>
+<span><span class="co">#&gt; [1] 4.440892e-16</span></span></code></pre></div>
 <p>Questo comportamento è comune quando si lavora con i numeri in virgola mobile: la maggior parte
 calcoli includono qualche errore di approssimazione. Invece di confrontare i numeri in virgola mobile
 in virgola mobile usando <code>==</code>, dovreste usare <code><a href="https://dplyr.tidyverse.org/reference/near.html">dplyr::near()</a></code> che permette
@@ -214,8 +214,8 @@ qualche tolleranza numerica.</p>
 <p>Gli interi hanno un valore speciale: <code>NA</code>, mentre i double ne hanno quattro:
 <code>NA</code>, <code>NaN</code>, <code>Inf</code> e <code>-Inf</code>. Tutti e tre i valori speciali <code>NaN</code>, <code>Inf</code> e <code>-Inf</code> possono presentarsi durante la divisione:</p>
 <div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">0</span>
-<span class="co">#&gt; [1] -Inf  NaN  Inf</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fl">0</span></span>
+<span><span class="co">#&gt; [1] -Inf  NaN  Inf</span></span></code></pre></div>
 <p>Evita di usare <code>==</code> per controllare questi altri valori speciali. Usate invece le
 funzioni di aiuto <code><a href="https://rdrr.io/r/base/is.finite.html">is.finite()</a></code>, <code><a href="https://rdrr.io/r/base/is.finite.html">is.infinite()</a></code>, e <code><a href="https://rdrr.io/r/base/is.finite.html">is.nan()</a></code>:</p>
 <table class="table table-sm">
@@ -267,13 +267,13 @@ funzioni di aiuto <code><a href="https://rdrr.io/r/base/is.finite.html">is.finit
 <p>I vettori di caratteri sono il tipo più complesso di vettore atomico, perché ogni elemento di un vettore di caratteri è una stringa, e una stringa può contenere una quantità arbitraria di dati.</p>
 <p>Hai già imparato molto su come lavorare con le stringhe in <a href="stringhe.html#stringhe">stringhe</a>. Qui volevo menzionare una caratteristica importante dell’implementazione delle stringhe sottostanti: R usa un pool globale di stringhe. Questo significa che ogni stringa unica è immagazzinata in memoria solo una volta, e ogni uso della stringa punta a quella rappresentazione. Questo riduce la quantità di memoria necessaria alle stringhe duplicate. Potete vedere questo comportamento in pratica con <code><a href="https://rdrr.io/pkg/pryr/man/object_size.html">pryr::object_size()</a></code>:</p>
 <div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"This is a reasonably long string."</span>
-<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; 152 B</span>
-
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1000</span><span class="op">)</span>
-<span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; 8,144 B</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"This is a reasonably long string."</span></span>
+<span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 152 B</span></span>
+<span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="fu">pryr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pryr/man/object_size.html">object_size</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 8,144 B</span></span></code></pre></div>
 <p><code>y</code> non occupa 1000 volte più memoria di <code>x</code>, perché ogni elemento di <code>y</code> è solo un puntatore a quella stessa stringa. Un puntatore è di 8 byte, quindi 1000 puntatori a una stringa di 152 B sono 8 * 1000 + 152 = 8.14 kB.</p>
 </div>
 <div id="valori-mancanti-4" class="section level3">
@@ -282,14 +282,14 @@ funzioni di aiuto <code><a href="https://rdrr.io/r/base/is.finite.html">is.finit
 </h3>
 <p>Nota che ogni tipo di vettore atomico ha il suo valore mancante:</p>
 <div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="cn">NA</span>            <span class="co"># logical</span>
-<span class="co">#&gt; [1] NA</span>
-<span class="cn">NA_integer_</span>   <span class="co"># integer</span>
-<span class="co">#&gt; [1] NA</span>
-<span class="cn">NA_real_</span>      <span class="co"># double</span>
-<span class="co">#&gt; [1] NA</span>
-<span class="cn">NA_character_</span> <span class="co"># character</span>
-<span class="co">#&gt; [1] NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="cn">NA</span>            <span class="co"># logical</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="cn">NA_integer_</span>   <span class="co"># integer</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="cn">NA_real_</span>      <span class="co"># double</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="cn">NA_character_</span> <span class="co"># character</span></span>
+<span><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 <p>Normalmente non avete bisogno di conoscere questi diversi tipi perché potete sempre usare <code>NA</code> e sarà convertito nel tipo corretto usando le regole di coercizione implicite descritte in seguito. Tuttavia, ci sono alcune funzioni che sono rigide riguardo ai loro input, quindi è utile avere questa conoscenza in tasca in modo da poter essere specifici quando necessario.</p>
 </div>
 <div id="esercizi-54" class="section level3">
@@ -343,26 +343,26 @@ dove ci si aspetta un vettore intero.</p></li>
 <p>Poiché la coercizione esplicita è usata relativamente raramente, ed è in gran parte facile da capire, mi concentrerò sulla coercizione implicita qui.</p>
 <p>Avete già visto il tipo più importante di coercizione implicita: usare un vettore logico in un contesto numerico. In questo caso <code>TRUE</code> è convertito in <code>1</code> e <code>FALSE</code> convertito in <code>0</code>. Ciò significa che la somma di un vettore logico è il numero di veri, e la media di un vettore logico è la proporzione di veri:</p>
 <div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">&gt;</span> <span class="fl">10</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>  <span class="co"># quanti sono maggiori di 10?</span>
-<span class="co">#&gt; [1] 38</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="co"># quale proporzione è maggiore di 10?</span>
-<span class="co">#&gt; [1] 0.38</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">100</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">&gt;</span> <span class="fl">10</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>  <span class="co"># quanti sono maggiori di 10?</span></span>
+<span><span class="co">#&gt; [1] 38</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="co"># quale proporzione è maggiore di 10?</span></span>
+<span><span class="co">#&gt; [1] 0.38</span></span></code></pre></div>
 <p>Potreste vedere del codice (tipicamente più vecchio) che si basa sulla coercizione implicita nella direzione opposta, da intero a logico:</p>
 <div class="sourceCode" id="cb503"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># fa qualcosa</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># fa qualcosa</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>In questo caso, 0 è convertito in <code>FALSE</code> e tutto il resto è convertito in <code>TRUE</code>. Penso che questo renda più difficile capire il tuo codice, e non lo consiglio. Sii invece esplicito: <code>lunghezza(x) &gt; 0</code>.</p>
 <p>È anche importante capire cosa succede quando provate a creare un vettore contenente più tipi con <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>: il tipo più complesso vince sempre.</p>
 <div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "integer"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "double"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "character"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "integer"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "double"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "character"</span></span></code></pre></div>
 <p>Un vettore atomico non può avere un mix di tipi diversi perché il tipo è una proprietà del vettore completo, non dei singoli elementi. Se hai bisogno di mescolare più tipi nello stesso vettore, dovresti usare una lista, che imparerai a conoscere tra poco.</p>
 </div>
 <div id="funzioni-di-test" class="section level3">
@@ -454,44 +454,44 @@ dove ci si aspetta un vettore intero.</p></li>
 <p>Oltre a costringere implicitamente i tipi di vettori ad essere compatibili, R costringerà implicitamente anche la lunghezza dei vettori. Questo è chiamato riciclo dei vettori, perché il vettore più corto viene ripetuto, o riciclato, alla stessa lunghezza del vettore più lungo.</p>
 <p>Questo è generalmente più utile quando si mescolano vettori e “scalari”. Ho messo gli scalari tra virgolette perché R in realtà non ha scalari: invece, un singolo numero è un vettore di lunghezza 1. Poiché non ci sono scalari, la maggior parte delle funzioni built-in sono <strong>vettorizzate</strong>, il che significa che opereranno su un vettore di numeri. Ecco perché, per esempio, questo codice funziona:</p>
 <div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span> <span class="fl">100</span>
-<span class="co">#&gt;  [1] 107 104 103 109 102 101 106 110 105 108</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.5</span>
-<span class="co">#&gt;  [1] FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">+</span> <span class="fl">100</span></span>
+<span><span class="co">#&gt;  [1] 107 104 103 109 102 101 106 110 105 108</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.5</span></span>
+<span><span class="co">#&gt;  [1] FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span></code></pre></div>
 <p>In R, le operazioni matematiche di base lavorano con i vettori. Ciò significa che non dovreste mai aver bisogno di eseguire un’iterazione esplicita quando eseguite semplici calcoli matematici.</p>
 <p>È intuitivo ciò che dovrebbe accadere se si aggiungono due vettori della stessa lunghezza, o un vettore e uno “scalare”, ma cosa succede se si aggiungono due vettori di lunghezza diversa?</p>
 <div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>
-<span class="co">#&gt;  [1]  2  4  4  6  6  8  8 10 10 12</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
+<span><span class="co">#&gt;  [1]  2  4  4  6  6  8  8 10 10 12</span></span></code></pre></div>
 <p>Qui, R espanderà il vettore più breve alla stessa lunghezza del più lungo, il cosiddetto riciclo. Questo è silenzioso tranne quando la lunghezza del più lungo non è un multiplo intero della lunghezza del più corto:</p>
 <div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span></code></pre></div>
 <p>Mentre il riciclo vettoriale può essere usato per creare codice molto succinto e intelligente, può anche nascondere silenziosamente dei problemi. Per questo motivo, le funzioni vettoriali di tidyverse daranno errore quando si ricicla qualcosa che non sia uno scalare. Se volete riciclare, dovrete farlo voi stessi con <code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>:</p>
 <div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; Error:</span>
-<span class="co">#&gt; ! Tibble columns must have compatible sizes.</span>
-<span class="co">#&gt; • Size 4: Existing data.</span>
-<span class="co">#&gt; • Size 2: Column `y`.</span>
-<span class="co">#&gt; ℹ Only values of size one are recycled.</span>
-
-<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 × 2</span>
-<span class="co">#&gt;       x     y</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1     1     1</span>
-<span class="co">#&gt; 2     2     2</span>
-<span class="co">#&gt; 3     3     1</span>
-<span class="co">#&gt; 4     4     2</span>
-
-<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 4 × 2</span>
-<span class="co">#&gt;       x     y</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1     1     1</span>
-<span class="co">#&gt; 2     2     1</span>
-<span class="co">#&gt; 3     3     2</span>
-<span class="co">#&gt; 4     4     2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error:</span></span>
+<span><span class="co">#&gt; ! Tibble columns must have compatible sizes.</span></span>
+<span><span class="co">#&gt; • Size 4: Existing data.</span></span>
+<span><span class="co">#&gt; • Size 2: Column `y`.</span></span>
+<span><span class="co">#&gt; ℹ Only values of size one are recycled.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
+<span><span class="co">#&gt;       x     y</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1     1     1</span></span>
+<span><span class="co">#&gt; 2     2     2</span></span>
+<span><span class="co">#&gt; 3     3     1</span></span>
+<span><span class="co">#&gt; 4     4     2</span></span>
+<span></span>
+<span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
+<span><span class="co">#&gt;       x     y</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1     1     1</span></span>
+<span><span class="co">#&gt; 2     2     1</span></span>
+<span><span class="co">#&gt; 3     3     2</span></span>
+<span><span class="co">#&gt; 4     4     2</span></span></code></pre></div>
 </div>
 <div id="denominazione-dei-vettori" class="section level3">
 <h3>
@@ -499,14 +499,14 @@ dove ci si aspetta un vettore intero.</p></li>
 </h3>
 <p>Tutti i tipi di vettori possono essere nominati. Puoi nominarli durante la creazione con <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>:</p>
 <div class="sourceCode" id="cb509"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="co">#&gt; x y z </span>
-<span class="co">#&gt; 1 2 4</span></code></pre></div>
-<p>O dopo averlo fatto, con <code><a href="https://purrr.tidyverse.org/reference/set_names.html">purrr::set_names()</a></code>:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">2</span>, z <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; x y z </span></span>
+<span><span class="co">#&gt; 1 2 4</span></span></code></pre></div>
+<p>O dopo averlo fatto, con <code><a href="https://rlang.r-lib.org/reference/set_names.html">purrr::set_names()</a></code>:</p>
 <div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://purrr.tidyverse.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; a b c </span>
-<span class="co">#&gt; 1 2 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rlang.r-lib.org/reference/set_names.html">set_names</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; a b c </span></span>
+<span><span class="co">#&gt; 1 2 3</span></span></code></pre></div>
 <p>I vettori nominati sono molto utili per il subsetting, descritto di seguito.</p>
 </div>
 <div id="vector-subsetting" class="section level3">
@@ -520,25 +520,25 @@ dove ci si aspetta un vettore intero.</p></li>
 positivi, tutti negativi o zero.</p>
 <p>Il sottoinsieme con i numeri interi positivi mantiene gli elementi in quelle posizioni:</p>
 <div class="sourceCode" id="cb511"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>, <span class="st">"two"</span>, <span class="st">"three"</span>, <span class="st">"four"</span>, <span class="st">"five"</span><span class="op">)</span>
-<span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; [1] "three" "two"   "five"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>, <span class="st">"two"</span>, <span class="st">"three"</span>, <span class="st">"four"</span>, <span class="st">"five"</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "three" "two"   "five"</span></span></code></pre></div>
 <p>Ripetendo una posizione, si può effettivamente fare un output più lungo dell’input:</p>
 <div class="sourceCode" id="cb512"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; [1] "one"  "one"  "five" "five" "five" "two"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "one"  "one"  "five" "five" "five" "two"</span></span></code></pre></div>
 <p>I valori negativi fanno cadere gli elementi nelle posizioni specificate:</p>
 <div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; [1] "two"  "four"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "two"  "four"</span></span></code></pre></div>
 <p>È un errore mischiare valori positivi e negativi:</p>
 <div class="sourceCode" id="cb514"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; Error in x[c(1, -1)]: only 0's may be mixed with negative subscripts</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; Error in x[c(1, -1)]: only 0's may be mixed with negative subscripts</span></span></code></pre></div>
 <p>Il messaggio di errore menziona il subsetting con zero, che non restituisce alcun valore:</p>
 <div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span>
-<span class="co">#&gt; character(0)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span></span>
+<span><span class="co">#&gt; character(0)</span></span></code></pre></div>
 <p>Questo non è utile molto spesso, ma può essere utile se volete creare
 strutture di dati insolite con cui testare le vostre funzioni.</p>
 </li>
@@ -547,23 +547,23 @@ strutture di dati insolite con cui testare le vostre funzioni.</p>
 valore <code>TRUE</code>. Questo è più spesso utile in combinazione con le
 funzioni di confronto.</p>
 <div class="sourceCode" id="cb516"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span>
-
-<span class="co"># Tutti i valori non mancanti di x</span>
-<span class="va">x</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; [1] 10  3  5  8  1</span>
-
-<span class="co"># Tutti i valori pari (o mancanti!) di x</span>
-<span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span>
-<span class="co">#&gt; [1] 10 NA  8 NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">3</span>, <span class="cn">NA</span>, <span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Tutti i valori non mancanti di x</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 10  3  5  8  1</span></span>
+<span></span>
+<span><span class="co"># Tutti i valori pari (o mancanti!) di x</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 10 NA  8 NA</span></span></code></pre></div>
 </li>
 <li>
 <p>Se avete un vettore di nome, potete sottoinvestirlo con un vettore di caratteri:</p>
 <div class="sourceCode" id="cb517"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>abc <span class="op">=</span> <span class="fl">1</span>, def <span class="op">=</span> <span class="fl">2</span>, xyz <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"xyz"</span>, <span class="st">"def"</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#&gt; xyz def </span>
-<span class="co">#&gt;   5   2</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>abc <span class="op">=</span> <span class="fl">1</span>, def <span class="op">=</span> <span class="fl">2</span>, xyz <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"xyz"</span>, <span class="st">"def"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; xyz def </span></span>
+<span><span class="co">#&gt;   5   2</span></span></code></pre></div>
 <p>Come con gli interi positivi, potete anche usare un vettore di caratteri per
 duplicare singole voci.</p>
 </li>
@@ -588,7 +588,7 @@ la prima.</p></li>
 <li><p>Leggete attentamente la documentazione di <code><a href="https://rdrr.io/r/base/vector.html">is.vector()</a></code>. Cosa verifica effettivamente
 verifica? Perché <code><a href="https://rdrr.io/r/base/is.recursive.html">is.atomic()</a></code> non concorda con la definizione di
 vettori atomici di cui sopra?</p></li>
-<li><p>Confronta e contrasta <code><a href="https://rdrr.io/r/stats/setNames.html">setNames()</a></code> con <code><a href="https://purrr.tidyverse.org/reference/set_names.html">purrr::set_names()</a></code>.</p></li>
+<li><p>Confronta e contrasta <code><a href="https://rdrr.io/r/stats/setNames.html">setNames()</a></code> con <code><a href="https://rlang.r-lib.org/reference/set_names.html">purrr::set_names()</a></code>.</p></li>
 <li>
 <p>Creare funzioni che prendono un vettore come input e restituiscono:</p>
 <ol style="list-style-type: decimal">
@@ -611,59 +611,59 @@ nome che non esiste?</p></li>
 </h2>
 <p>Le liste sono un passo avanti nella complessità rispetto ai vettori atomici, perché le liste possono contenere altre liste. Questo le rende adatte a rappresentare strutture gerarchiche o ad albero. Si crea una lista con <code><a href="https://rdrr.io/r/base/list.html">list()</a></code>:</p>
 <div class="sourceCode" id="cb518"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="va">x</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 <p>Uno strumento molto utile per lavorare con le liste è <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> perché si concentra sulla <strong>struttura</strong>, non sul contenuto.</p>
 <div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ : num 1</span>
-<span class="co">#&gt;  $ : num 2</span>
-<span class="co">#&gt;  $ : num 3</span>
-
-<span class="va">x_named</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, c <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x_named</span><span class="op">)</span>
-<span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ a: num 1</span>
-<span class="co">#&gt;  $ b: num 2</span>
-<span class="co">#&gt;  $ c: num 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ : num 1</span></span>
+<span><span class="co">#&gt;  $ : num 2</span></span>
+<span><span class="co">#&gt;  $ : num 3</span></span>
+<span></span>
+<span><span class="va">x_named</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">2</span>, c <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x_named</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ a: num 1</span></span>
+<span><span class="co">#&gt;  $ b: num 2</span></span>
+<span><span class="co">#&gt;  $ c: num 3</span></span></code></pre></div>
 <p>A differenza dei vettori atomici, <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> può contenere un mix di oggetti:</p>
 <div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fl">1L</span>, <span class="fl">1.5</span>, <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ : chr "a"</span>
-<span class="co">#&gt;  $ : int 1</span>
-<span class="co">#&gt;  $ : num 1.5</span>
-<span class="co">#&gt;  $ : logi TRUE</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fl">1L</span>, <span class="fl">1.5</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 4</span></span>
+<span><span class="co">#&gt;  $ : chr "a"</span></span>
+<span><span class="co">#&gt;  $ : int 1</span></span>
+<span><span class="co">#&gt;  $ : num 1.5</span></span>
+<span><span class="co">#&gt;  $ : logi TRUE</span></span></code></pre></div>
 <p>Le liste possono anche contenere altre liste!</p>
 <div class="sourceCode" id="cb521"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ :List of 2</span>
-<span class="co">#&gt;   ..$ : num 1</span>
-<span class="co">#&gt;   ..$ : num 2</span>
-<span class="co">#&gt;  $ :List of 2</span>
-<span class="co">#&gt;   ..$ : num 3</span>
-<span class="co">#&gt;   ..$ : num 4</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ :List of 2</span></span>
+<span><span class="co">#&gt;   ..$ : num 1</span></span>
+<span><span class="co">#&gt;   ..$ : num 2</span></span>
+<span><span class="co">#&gt;  $ :List of 2</span></span>
+<span><span class="co">#&gt;   ..$ : num 3</span></span>
+<span><span class="co">#&gt;   ..$ : num 4</span></span></code></pre></div>
 <div id="visualizzazione-delle-liste" class="section level3">
 <h3>
 <span class="header-section-number">20.5.1</span> Visualizzazione delle liste<a class="anchor" aria-label="anchor" href="#visualizzazione-delle-liste"><i class="fas fa-link"></i></a>
 </h3>
 <p>Per spiegare le funzioni di manipolazione delle liste più complicate, è utile avere una rappresentazione visiva delle liste. Per esempio, prendete queste tre liste:</p>
 <div class="sourceCode" id="cb522"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Li disegnerò come segue:</p>
 <div class="inline-figure"><img src="diagrams/lists-structure.png" width="75%" style="display: block; margin: auto;"></div>
 <p>Ci sono tre principi:</p>
@@ -682,39 +682,39 @@ una proprietà importante nell’esempio.</p></li>
 </h3>
 <p>Ci sono tre modi per suddividere una lista, che illustrerò con una lista chiamata <code>a</code>:</p>
 <div class="sourceCode" id="cb523"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b <span class="op">=</span> <span class="st">"a string"</span>, c <span class="op">=</span> <span class="va">pi</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, b <span class="op">=</span> <span class="st">"a string"</span>, c <span class="op">=</span> <span class="va">pi</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
 <p><code>[</code> estrae una sotto-lista. Il risultato sarà sempre una lista.</p>
 <div class="sourceCode" id="cb524"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ a: int [1:3] 1 2 3</span>
-<span class="co">#&gt;  $ b: chr "a string"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; List of 1</span>
-<span class="co">#&gt;  $ d:List of 2</span>
-<span class="co">#&gt;   ..$ : num -1</span>
-<span class="co">#&gt;   ..$ : num -5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ a: int [1:3] 1 2 3</span></span>
+<span><span class="co">#&gt;  $ b: chr "a string"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 1</span></span>
+<span><span class="co">#&gt;  $ d:List of 2</span></span>
+<span><span class="co">#&gt;   ..$ : num -1</span></span>
+<span><span class="co">#&gt;   ..$ : num -5</span></span></code></pre></div>
 <p>Come con i vettori, potete sottoporre a subset un vettore logico, intero o di caratteri.</p>
 </li>
 <li>
 <p><code>[[</code> estrae un singolo componente da una lista. Rimuove un livello di gerarchia dalla lista.</p>
 <div class="sourceCode" id="cb525"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;  int [1:3] 1 2 3</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ : num -1</span>
-<span class="co">#&gt;  $ : num -5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  int [1:3] 1 2 3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ : num -1</span></span>
+<span><span class="co">#&gt;  $ : num -5</span></span></code></pre></div>
 </li>
 <li>
 <p><code>$</code> è un’abbreviazione per estrarre elementi nominati di una lista. Funziona in modo simile a <code>[[</code> eccetto che non c’è bisogno di usare le virgolette.</p>
 <div class="sourceCode" id="cb526"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a</span><span class="op">$</span><span class="va">a</span>
-<span class="co">#&gt; [1] 1 2 3</span>
-<span class="va">a</span><span class="op">[[</span><span class="st">"a"</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; [1] 1 2 3</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">a</span><span class="op">$</span><span class="va">a</span></span>
+<span><span class="co">#&gt; [1] 1 2 3</span></span>
+<span><span class="va">a</span><span class="op">[[</span><span class="st">"a"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3</span></span></code></pre></div>
 </li>
 </ul>
 <p>La distinzione tra <code>[</code> e <code>[[</code> è davvero importante per le liste, perché <code>[[</code> si addentra nella lista mentre <code>[</code> restituisce una nuova lista più piccola. Confrontate il codice e l’output di cui sopra con la rappresentazione visiva nella figura <a href="vettori.html#fig:lists-subsetting">20.2</a>.</p>
@@ -764,17 +764,17 @@ Quali sono le differenze chiave tra una lista e una tibla?</p></li>
 <p>Ogni vettore può contenere metadati aggiuntivi arbitrari attraverso i suoi <strong>attributes</strong>. Puoi pensare agli attributi come a una lista di vettori denominata che può essere allegata a qualsiasi oggetto.
 Potete ottenere e impostare i valori dei singoli attributi con <code><a href="https://rdrr.io/r/base/attr.html">attr()</a></code> o vederli tutti insieme con <code><a href="https://rdrr.io/r/base/attributes.html">attributes()</a></code>.</p>
 <div class="sourceCode" id="cb527"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"greeting"</span><span class="op">)</span>
-<span class="co">#&gt; NULL</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"greeting"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Hi!"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"farewell"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Bye!"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; $greeting</span>
-<span class="co">#&gt; [1] "Hi!"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $farewell</span>
-<span class="co">#&gt; [1] "Bye!"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NULL</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"greeting"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Hi!"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"farewell"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"Bye!"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $greeting</span></span>
+<span><span class="co">#&gt; [1] "Hi!"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $farewell</span></span>
+<span><span class="co">#&gt; [1] "Bye!"</span></span></code></pre></div>
 <p>Ci sono tre attributi molto importanti che vengono utilizzati per implementare parti fondamentali di R:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -783,49 +783,49 @@ Potete ottenere e impostare i valori dei singoli attributi con <code><a href="ht
 <p>Avete visto i nomi sopra, e non parleremo di dimensioni perché non usiamo matrici in questo libro. Resta da descrivere la classe, che controlla il funzionamento delle <strong>funzioni generiche</strong>. Le funzioni generiche sono la chiave per la programmazione orientata agli oggetti in R, perché fanno sì che le funzioni si comportino diversamente per diverse classi di input. Una discussione dettagliata della programmazione orientata agli oggetti va oltre lo scopo di questo libro, ma potete leggerne di più in <em>Advanced R</em> a <a href="http://adv-r.had.co.nz/OO-essentials.html#s3" class="uri">http://adv-r.had.co.nz/OO-essentials.html#s3</a>.</p>
 <p>Ecco come appare una tipica funzione generica:</p>
 <div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">as.Date</span>
-<span class="co">#&gt; function (x, ...) </span>
-<span class="co">#&gt; UseMethod("as.Date")</span>
-<span class="co">#&gt; &lt;bytecode: 0x55ba511e1548&gt;</span>
-<span class="co">#&gt; &lt;environment: namespace:base&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">as.Date</span></span>
+<span><span class="co">#&gt; function (x, ...) </span></span>
+<span><span class="co">#&gt; UseMethod("as.Date")</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55ba511e1548&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: namespace:base&gt;</span></span></code></pre></div>
 <p>La chiamata a “UseMethod” significa che questa è una funzione generica, e chiamerà uno specifico <strong>method</strong>, una funzione, basata sulla classe del primo argomento. (Tutti i metodi sono funzioni; non tutte le funzioni sono metodi). Potete elencare tutti i metodi di un generico con <code>metodi()</code>:</p>
 <div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/methods.html">methods</a></span><span class="op">(</span><span class="st">"as.Date"</span><span class="op">)</span>
-<span class="co">#&gt; [1] as.Date.character   as.Date.default     as.Date.factor     </span>
-<span class="co">#&gt; [4] as.Date.numeric     as.Date.POSIXct     as.Date.POSIXlt    </span>
-<span class="co">#&gt; [7] as.Date.vctrs_sclr* as.Date.vctrs_vctr*</span>
-<span class="co">#&gt; see '?methods' for accessing help and source code</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html">methods</a></span><span class="op">(</span><span class="st">"as.Date"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] as.Date.character   as.Date.default     as.Date.factor     </span></span>
+<span><span class="co">#&gt; [4] as.Date.numeric     as.Date.POSIXct     as.Date.POSIXlt    </span></span>
+<span><span class="co">#&gt; [7] as.Date.vctrs_sclr* as.Date.vctrs_vctr*</span></span>
+<span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
 <p>Per esempio, se <code>x</code> è un vettore di caratteri, <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date()</a></code> chiamerà <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date.character()</a></code>; se è un fattore, chiamerà <code><a href="https://rdrr.io/r/base/as.Date.html">as.Date.factor()</a></code>.</p>
 <p>Potete vedere l’implementazione specifica di un metodo con <code><a href="https://rdrr.io/r/utils/getS3method.html">getS3method()</a></code>:</p>
 <div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/getS3method.html">getS3method</a></span><span class="op">(</span><span class="st">"as.Date"</span>, <span class="st">"default"</span><span class="op">)</span>
-<span class="co">#&gt; function (x, ...) </span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     if (inherits(x, "Date")) </span>
-<span class="co">#&gt;         x</span>
-<span class="co">#&gt;     else if (is.null(x)) </span>
-<span class="co">#&gt;         .Date(numeric())</span>
-<span class="co">#&gt;     else if (is.logical(x) &amp;&amp; all(is.na(x))) </span>
-<span class="co">#&gt;         .Date(as.numeric(x))</span>
-<span class="co">#&gt;     else stop(gettextf("do not know how to convert '%s' to class %s", </span>
-<span class="co">#&gt;         deparse1(substitute(x)), dQuote("Date")), domain = NA)</span>
-<span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x55ba4ee8f2f0&gt;</span>
-<span class="co">#&gt; &lt;environment: namespace:base&gt;</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/getS3method.html">getS3method</a></span><span class="op">(</span><span class="st">"as.Date"</span>, <span class="st">"numeric"</span><span class="op">)</span>
-<span class="co">#&gt; function (x, origin, ...) </span>
-<span class="co">#&gt; {</span>
-<span class="co">#&gt;     if (missing(origin)) {</span>
-<span class="co">#&gt;         if (!length(x)) </span>
-<span class="co">#&gt;             return(.Date(numeric()))</span>
-<span class="co">#&gt;         if (!any(is.finite(x))) </span>
-<span class="co">#&gt;             return(.Date(x))</span>
-<span class="co">#&gt;         stop("'origin' must be supplied")</span>
-<span class="co">#&gt;     }</span>
-<span class="co">#&gt;     as.Date(origin, ...) + x</span>
-<span class="co">#&gt; }</span>
-<span class="co">#&gt; &lt;bytecode: 0x55ba4ee956c0&gt;</span>
-<span class="co">#&gt; &lt;environment: namespace:base&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/getS3method.html">getS3method</a></span><span class="op">(</span><span class="st">"as.Date"</span>, <span class="st">"default"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function (x, ...) </span></span>
+<span><span class="co">#&gt; {</span></span>
+<span><span class="co">#&gt;     if (inherits(x, "Date")) </span></span>
+<span><span class="co">#&gt;         x</span></span>
+<span><span class="co">#&gt;     else if (is.null(x)) </span></span>
+<span><span class="co">#&gt;         .Date(numeric())</span></span>
+<span><span class="co">#&gt;     else if (is.logical(x) &amp;&amp; all(is.na(x))) </span></span>
+<span><span class="co">#&gt;         .Date(as.numeric(x))</span></span>
+<span><span class="co">#&gt;     else stop(gettextf("do not know how to convert '%s' to class %s", </span></span>
+<span><span class="co">#&gt;         deparse1(substitute(x)), dQuote("Date")), domain = NA)</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55ba4ee8f2f0&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: namespace:base&gt;</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/getS3method.html">getS3method</a></span><span class="op">(</span><span class="st">"as.Date"</span>, <span class="st">"numeric"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; function (x, origin, ...) </span></span>
+<span><span class="co">#&gt; {</span></span>
+<span><span class="co">#&gt;     if (missing(origin)) {</span></span>
+<span><span class="co">#&gt;         if (!length(x)) </span></span>
+<span><span class="co">#&gt;             return(.Date(numeric()))</span></span>
+<span><span class="co">#&gt;         if (!any(is.finite(x))) </span></span>
+<span><span class="co">#&gt;             return(.Date(x))</span></span>
+<span><span class="co">#&gt;         stop("'origin' must be supplied")</span></span>
+<span><span class="co">#&gt;     }</span></span>
+<span><span class="co">#&gt;     as.Date(origin, ...) + x</span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55ba4ee956c0&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: namespace:base&gt;</span></span></code></pre></div>
 <p>Il più importante generico S3 è <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>: controlla come l’oggetto viene stampato quando si digita il suo nome sulla console. Altri generici importanti sono le funzioni di subsetting <code>[</code>, <code>[[</code>, e <code>$</code>.</p>
 </div>
 <div id="vettori-incrementati" class="section level2">
@@ -846,15 +846,15 @@ Potete ottenere e impostare i valori dei singoli attributi con <code><a href="ht
 </h3>
 <p>I fattori sono progettati per rappresentare dati categorici che possono assumere un insieme fisso di possibili valori. I fattori sono costruiti sopra gli interi e hanno un attributo levels:</p>
 <div class="sourceCode" id="cb531"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ab"</span>, <span class="st">"cd"</span>, <span class="st">"ab"</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ab"</span>, <span class="st">"cd"</span>, <span class="st">"ef"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] "integer"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; $levels</span>
-<span class="co">#&gt; [1] "ab" "cd" "ef"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] "factor"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ab"</span>, <span class="st">"cd"</span>, <span class="st">"ab"</span><span class="op">)</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ab"</span>, <span class="st">"cd"</span>, <span class="st">"ef"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "integer"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $levels</span></span>
+<span><span class="co">#&gt; [1] "ab" "cd" "ef"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "factor"</span></span></code></pre></div>
 </div>
 <div id="date-e-data-ora" class="section level3">
 <h3>
@@ -862,55 +862,55 @@ Potete ottenere e impostare i valori dei singoli attributi con <code><a href="ht
 </h3>
 <p>Le date in R sono vettori numerici che rappresentano il numero di giorni dal 1° gennaio 1970.</p>
 <div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1971-01-01"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] 365</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] "double"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] "Date"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1971-01-01"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 365</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "double"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "Date"</span></span></code></pre></div>
 <p>I data-ora sono vettori numerici con classe <code>POSIXct</code> che rappresentano il numero di secondi dal 1 gennaio 1970. (Nel caso ve lo steste chiedendo, “POSIXct” sta per “Portable Operating System Interface”, ora del calendario).</p>
 <div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hm</a></span><span class="op">(</span><span class="st">"1970-01-01 01:00"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] 3600</span>
-<span class="co">#&gt; attr(,"tzone")</span>
-<span class="co">#&gt; [1] "UTC"</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; [1] "double"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] "POSIXct" "POSIXt" </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $tzone</span>
-<span class="co">#&gt; [1] "UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hm</a></span><span class="op">(</span><span class="st">"1970-01-01 01:00"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3600</span></span>
+<span><span class="co">#&gt; attr(,"tzone")</span></span>
+<span><span class="co">#&gt; [1] "UTC"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "double"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "POSIXct" "POSIXt" </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $tzone</span></span>
+<span><span class="co">#&gt; [1] "UTC"</span></span></code></pre></div>
 <p>L’attributo <code>tzone</code> è opzionale. Controlla come viene stampata l’ora, non a quale ora assoluta si riferisce.</p>
 <div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"US/Pacific"</span>
-<span class="va">x</span>
-<span class="co">#&gt; [1] "1969-12-31 17:00:00 PST"</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"US/Eastern"</span>
-<span class="va">x</span>
-<span class="co">#&gt; [1] "1969-12-31 20:00:00 EST"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"US/Pacific"</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] "1969-12-31 17:00:00 PST"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"US/Eastern"</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] "1969-12-31 20:00:00 EST"</span></span></code></pre></div>
 <p>C’è un altro tipo di date-times chiamato POSIXlt. Questi sono costruiti sopra le liste con nome:</p>
 <div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; [1] "list"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#&gt; $names</span>
-<span class="co">#&gt;  [1] "sec"    "min"    "hour"   "mday"   "mon"    "year"   "wday"   "yday"  </span>
-<span class="co">#&gt;  [9] "isdst"  "zone"   "gmtoff"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] "POSIXlt" "POSIXt" </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $tzone</span>
-<span class="co">#&gt; [1] "US/Eastern" "EST"        "EDT"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html">as.POSIXlt</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "list"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $names</span></span>
+<span><span class="co">#&gt;  [1] "sec"    "min"    "hour"   "mday"   "mon"    "year"   "wday"   "yday"  </span></span>
+<span><span class="co">#&gt;  [9] "isdst"  "zone"   "gmtoff"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "POSIXlt" "POSIXt" </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $tzone</span></span>
+<span><span class="co">#&gt; [1] "US/Eastern" "EST"        "EDT"</span></span></code></pre></div>
 <p>I POSIXlts sono rari all’interno del tidyverse. Spuntano fuori in R di base, perché sono necessari per estrarre componenti specifici di una data, come l’anno o il mese. Dato che lubridate fornisce degli helper per fare questo, non ne avete bisogno. I POSIXct sono sempre più facili da lavorare, quindi se scoprite di avere un POSIXlt, dovreste sempre convertirlo in un normale data time <code>lubridate::as_date_time()</code>.</p>
 </div>
 <div id="tibble-1" class="section level3">
@@ -919,33 +919,33 @@ Potete ottenere e impostare i valori dei singoli attributi con <code><a href="ht
 </h3>
 <p>Le tibble sono liste aumentate: hanno classe “tbl_df” + “tbl” + “data.frame”, e gli attributi <code>names</code> (colonna) e <code>row.names</code>:</p>
 <div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span>
-<span class="co">#&gt; [1] "list"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $row.names</span>
-<span class="co">#&gt; [1] 1 2 3 4 5</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $names</span>
-<span class="co">#&gt; [1] "x" "y"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "list"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $row.names</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4 5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $names</span></span>
+<span><span class="co">#&gt; [1] "x" "y"</span></span></code></pre></div>
 <p>La differenza tra una tibble e una lista è che tutti gli elementi di un data frame devono essere vettori della stessa lunghezza. Tutte le funzioni che lavorano con le tibble impongono questo vincolo.</p>
 <p>I data.frame tradizionali hanno una struttura molto simile:</p>
 <div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
-<span class="co">#&gt; [1] "list"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
-<span class="co">#&gt; $names</span>
-<span class="co">#&gt; [1] "x" "y"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] "data.frame"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $row.names</span>
-<span class="co">#&gt; [1] 1 2 3 4 5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "list"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $names</span></span>
+<span><span class="co">#&gt; [1] "x" "y"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "data.frame"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $row.names</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4 5</span></span></code></pre></div>
 <p>La differenza principale è la classe. La classe di tibble include “data.frame”, il che significa che le tibble ereditano il comportamento dei normali data frame per default.</p>
 </div>
 <div id="esercizi-57" class="section level3">
@@ -1041,7 +1041,7 @@ colonna di una tibla?</p></li>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

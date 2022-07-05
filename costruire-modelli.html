@@ -7,7 +7,7 @@
 <title>24 Costruire modelli | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="24.1 Introduzione Nel capitolo precedente avete imparato come funzionano i modelli lineari e avete appreso alcuni strumenti di base per capire cosa vi dice un modello sui vostri dati. Il capitolo...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="24 Costruire modelli | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/costruire-modelli.html">
@@ -126,12 +126,12 @@ buttare l’indumento e ricominciare da capo”.</p>
 </h3>
 <p>Useremo gli stessi strumenti del capitolo precedente, ma aggiungeremo alcuni set di dati reali: <code>diamonds</code> da ggplot2, e <code>flights</code> da nycflights13. Avremo anche bisogno di lubridate per lavorare con la data/ora in <code>flights</code>.</p>
 <div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://modelr.tidyverse.org">modelr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>na.action <span class="op">=</span> <span class="va">na.warn</span><span class="op">)</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://modelr.tidyverse.org">modelr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>na.action <span class="op">=</span> <span class="va">na.warn</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="diamond-prices" class="section level2">
@@ -140,9 +140,9 @@ buttare l’indumento e ricominciare da capo”.</p>
 </h2>
 <p>Nei capitoli precedenti abbiamo visto una relazione sorprendente tra la qualità dei diamanti e il loro prezzo: i diamanti di bassa qualità (tagli poveri, colori scadenti e purezza inferiore) hanno prezzi più alti.</p>
 <div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">clarity</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">clarity</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="model-building_files/figure-html/unnamed-chunk-1-1.png" width="70%" style="display: block; margin: auto;"><img src="model-building_files/figure-html/unnamed-chunk-1-2.png" width="70%" style="display: block; margin: auto;"><img src="model-building_files/figure-html/unnamed-chunk-1-3.png" width="70%" style="display: block; margin: auto;"></p>
 <p>Si noti che il peggior colore del diamante è J (leggermente giallo), e la peggiore purezza è I1 (inclusioni visibili a occhio nudo).</p>
 <div id="prezzo-e-caratura" class="section level3">
@@ -151,51 +151,51 @@ buttare l’indumento e ricominciare da capo”.</p>
 </h3>
 <p>Sembra che i diamanti di qualità inferiore abbiano prezzi più alti perché c’è un’importante variabile di confusione: il peso (<code>carat</code>) del diamante. Il peso del diamante è il singolo fattore più importante per determinare il prezzo del diamante, e i diamanti di qualità inferiore tendono ad essere più grandi.</p>
 <div class="sourceCode" id="cb651"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-2-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Possiamo rendere più facile vedere come gli altri attributi di un diamante influenzano il suo <code>price</code> (prezzo) relativo adattando un modello per separare l’effetto della <code>carat</code>(caratura). Ma prima, facciamo un paio di modifiche al dataset dei diamanti per renderlo più facile da lavorare:</p>
 <ol style="list-style-type: decimal">
 <li>Concentrarsi sui diamanti più piccoli di 2,5 carati (99,7% dei dati) 1. 2. Log-transformare le variabili carati e prezzo.</li>
 </ol>
 <div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">carat</span> <span class="op">&lt;=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>lprice <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span>, lcarat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">carat</span> <span class="op">&lt;=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>lprice <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span>, lcarat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Insieme, questi cambiamenti rendono più facile vedere la relazione tra <code>carat</code> e <code>price</code>:</p>
 <div class="sourceCode" id="cb653"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lcarat</span>, <span class="va">lprice</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lcarat</span>, <span class="va">lprice</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>La trasformazione logaritmica è particolarmente utile qui perché rende il modello lineare, e i modelli lineari sono i più facili da lavorare. Facciamo il passo successivo e rimuoviamo questo forte modello lineare. Per prima cosa rendiamo il modello esplicito adattando un modello:</p>
 <div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_diamond</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">lprice</span> <span class="op">~</span> <span class="va">lcarat</span>, data <span class="op">=</span> <span class="va">diamonds2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod_diamond</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">lprice</span> <span class="op">~</span> <span class="va">lcarat</span>, data <span class="op">=</span> <span class="va">diamonds2</span><span class="op">)</span></span></code></pre></div>
 <p>Poi guardiamo cosa ci dice il modello sui dati. Notate che ho ritrasformato le previsioni, annullando la trasformazione logaritmica, in modo da poter sovrapporre le previsioni ai dati grezzi:</p>
 <div class="sourceCode" id="cb655"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span>carat <span class="op">=</span> <span class="fu"><a href="https://modelr.tidyverse.org/reference/seq_range.html">seq_range</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>lcarat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod_diamond</span>, <span class="st">"lprice"</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fl">2</span> <span class="op">^</span> <span class="va">lprice</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span>carat <span class="op">=</span> <span class="fu"><a href="https://modelr.tidyverse.org/reference/seq_range.html">seq_range</a></span><span class="op">(</span><span class="va">carat</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>lcarat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">carat</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod_diamond</span>, <span class="st">"lprice"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>price <span class="op">=</span> <span class="fl">2</span> <span class="op">^</span> <span class="va">lprice</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">carat</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Questo ci dice qualcosa di interessante sui nostri dati. Se crediamo al nostro modello, allora i grandi diamanti sono molto più economici del previsto. Questo probabilmente perché nessun diamante in questo set di dati costa più di 19.000 dollari.</p>
 <p>Ora possiamo guardare i residui, il che verifica che abbiamo rimosso con successo il forte modello lineare:</p>
 <div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod_diamond</span>, <span class="st">"lresid"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lcarat</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod_diamond</span>, <span class="st">"lresid"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lcarat</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>È importante che ora possiamo rifare i nostri grafici motivanti usando questi residui invece di <code>price</code>.</p>
 <div class="sourceCode" id="cb657"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">clarity</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">color</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">clarity</span>, <span class="va">lresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="model-building_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;"><img src="model-building_files/figure-html/unnamed-chunk-8-2.png" width="70%" style="display: block; margin: auto;"><img src="model-building_files/figure-html/unnamed-chunk-8-3.png" width="70%" style="display: block; margin: auto;"></p>
 <p>Ora vediamo la relazione che ci aspettiamo: man mano che la qualità del diamante aumenta, aumenta anche il suo prezzo relativo. Per interpretare l’asse <code>y</code>, dobbiamo pensare a cosa ci dicono i residui e su quale scala si trovano. Un residuo di -1 indica che <code>lprice</code> è stato 1 unità più basso di una previsione basata solo sul suo peso. <span class="math inline">\(2^{-1}\)</span> è 1/2, i punti con un valore di -1 sono la metà del prezzo previsto, e i residui con valore 1 sono il doppio del prezzo previsto.</p>
 </div>
@@ -205,51 +205,51 @@ buttare l’indumento e ricominciare da capo”.</p>
 </h3>
 <p>Se volessimo, potremmo continuare a costruire il nostro modello, spostando gli effetti che abbiamo osservato nel modello per renderli espliciti. Per esempio, potremmo includere “color”, “cut” e “clarity” nel modello in modo da rendere esplicito anche l’effetto di queste tre variabili categoriche:</p>
 <div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_diamond2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">lprice</span> <span class="op">~</span> <span class="va">lcarat</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">cut</span> <span class="op">+</span> <span class="va">clarity</span>, data <span class="op">=</span> <span class="va">diamonds2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod_diamond2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">lprice</span> <span class="op">~</span> <span class="va">lcarat</span> <span class="op">+</span> <span class="va">color</span> <span class="op">+</span> <span class="va">cut</span> <span class="op">+</span> <span class="va">clarity</span>, data <span class="op">=</span> <span class="va">diamonds2</span><span class="op">)</span></span></code></pre></div>
 <p>Questo modello ora include quattro predittori, quindi sta diventando più difficile da visualizzare. Fortunatamente, attualmente sono tutti indipendenti, il che significa che possiamo tracciarli individualmente in quattro grafici. Per rendere il processo un po’ più semplice, useremo l’argomento <code>.model</code> in <code>data_grid</code>:</p>
 <div class="sourceCode" id="cb659"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">cut</span>, .model <span class="op">=</span> <span class="va">mod_diamond2</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod_diamond2</span><span class="op">)</span>
-<span class="va">grid</span>
-<span class="co">#&gt; # A tibble: 5 × 5</span>
-<span class="co">#&gt;   cut       lcarat color clarity  pred</span>
-<span class="co">#&gt;   &lt;ord&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Fair      -0.515 G     VS2      11.2</span>
-<span class="co">#&gt; 2 Good      -0.515 G     VS2      11.3</span>
-<span class="co">#&gt; 3 Very Good -0.515 G     VS2      11.4</span>
-<span class="co">#&gt; 4 Premium   -0.515 G     VS2      11.4</span>
-<span class="co">#&gt; 5 Ideal     -0.515 G     VS2      11.4</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">cut</span>, .model <span class="op">=</span> <span class="va">mod_diamond2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod_diamond2</span><span class="op">)</span></span>
+<span><span class="va">grid</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 5</span></span>
+<span><span class="co">#&gt;   cut       lcarat color clarity  pred</span></span>
+<span><span class="co">#&gt;   &lt;ord&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Fair      -0.515 G     VS2      11.2</span></span>
+<span><span class="co">#&gt; 2 Good      -0.515 G     VS2      11.3</span></span>
+<span><span class="co">#&gt; 3 Very Good -0.515 G     VS2      11.4</span></span>
+<span><span class="co">#&gt; 4 Premium   -0.515 G     VS2      11.4</span></span>
+<span><span class="co">#&gt; 5 Ideal     -0.515 G     VS2      11.4</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">cut</span>, <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Se il modello ha bisogno di variabili che non sono state esplicitamente fornite, <code><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid()</a></code> le riempirà automaticamente con il valore “tipico”. Per le variabili continue, usa la mediana, e per le variabili categoriche usa il valore più comune (o i valori, se c’è un pareggio).</p>
 <div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod_diamond2</span>, <span class="st">"lresid2"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lcarat</span>, <span class="va">lresid2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">diamonds2</span> <span class="op">&lt;-</span> <span class="va">diamonds2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod_diamond2</span>, <span class="st">"lresid2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">lcarat</span>, <span class="va">lresid2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_hex.html">geom_hex</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Questo grafico indica che ci sono alcuni diamanti con residui abbastanza grandi - ricorda che un residuo di 2 indica che il diamante è 4 volte il prezzo che ci aspettavamo. Spesso è utile guardare i valori insoliti singolarmente:</p>
 <div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">diamonds2</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">lresid2</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod_diamond2</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">^</span> <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">price</span>, <span class="va">pred</span>, <span class="va">carat</span><span class="op">:</span><span class="va">table</span>, <span class="va">x</span><span class="op">:</span><span class="va">z</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 16 × 11</span>
-<span class="co">#&gt;   price  pred carat cut     color clarity depth table     x     y     z</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  1013   264  0.25 Fair    F     SI2      54.4    64  4.3   4.23  2.32</span>
-<span class="co">#&gt; 2  1186   284  0.25 Premium G     SI2      59      60  5.33  5.28  3.12</span>
-<span class="co">#&gt; 3  1186   284  0.25 Premium G     SI2      58.8    60  5.33  5.28  3.12</span>
-<span class="co">#&gt; 4  1262  2644  1.03 Fair    E     I1       78.2    54  5.72  5.59  4.42</span>
-<span class="co">#&gt; 5  1415   639  0.35 Fair    G     VS2      65.9    54  5.57  5.53  3.66</span>
-<span class="co">#&gt; 6  1415   639  0.35 Fair    G     VS2      65.9    54  5.57  5.53  3.66</span>
-<span class="co">#&gt; # … with 10 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">diamonds2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">lresid2</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod_diamond2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">^</span> <span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">price</span>, <span class="va">pred</span>, <span class="va">carat</span><span class="op">:</span><span class="va">table</span>, <span class="va">x</span><span class="op">:</span><span class="va">z</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 11</span></span>
+<span><span class="co">#&gt;   price  pred carat cut     color clarity depth table     x     y     z</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  1013   264  0.25 Fair    F     SI2      54.4    64  4.3   4.23  2.32</span></span>
+<span><span class="co">#&gt; 2  1186   284  0.25 Premium G     SI2      59      60  5.33  5.28  3.12</span></span>
+<span><span class="co">#&gt; 3  1186   284  0.25 Premium G     SI2      58.8    60  5.33  5.28  3.12</span></span>
+<span><span class="co">#&gt; 4  1262  2644  1.03 Fair    E     I1       78.2    54  5.72  5.59  4.42</span></span>
+<span><span class="co">#&gt; 5  1415   639  0.35 Fair    G     VS2      65.9    54  5.57  5.53  3.66</span></span>
+<span><span class="co">#&gt; 6  1415   639  0.35 Fair    G     VS2      65.9    54  5.57  5.53  3.66</span></span>
+<span><span class="co">#&gt; # … with 10 more rows</span></span></code></pre></div>
 <p>Non c’è niente che mi salti all’occhio, ma probabilmente vale la pena spendere del tempo per considerare se questo indica un problema con il nostro modello, o se ci sono errori nei dati. Se ci sono errori nei dati, questa potrebbe essere un’opportunità per comprare diamanti che sono stati valutati male.</p>
 </div>
 <div id="esercizi-66" class="section level3">
@@ -271,24 +271,24 @@ C’è qualcosa di insolito in questi diamanti? Sono particolarmente cattivi o b
 </h2>
 <p>Lavoriamo attraverso un processo simile per un set di dati che sembra ancora più semplice a prima vista: il numero di voli che lasciano NYC al giorno. Questo è un dataset davvero piccolo — solo 365 righe e 2 colonne — e non finiremo con un modello completamente realizzato, ma come vedrete, i passi lungo il percorso ci aiuteranno a capire meglio i dati. Iniziamo contando il numero di voli al giorno e visualizzandolo con ggplot2.</p>
 <div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_date</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="va">daily</span>
-<span class="co">#&gt; # A tibble: 365 × 2</span>
-<span class="co">#&gt;   date           n</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 2013-01-01   842</span>
-<span class="co">#&gt; 2 2013-01-02   943</span>
-<span class="co">#&gt; 3 2013-01-03   914</span>
-<span class="co">#&gt; 4 2013-01-04   915</span>
-<span class="co">#&gt; 5 2013-01-05   720</span>
-<span class="co">#&gt; 6 2013-01-06   832</span>
-<span class="co">#&gt; # … with 359 more rows</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_date</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">daily</span></span>
+<span><span class="co">#&gt; # A tibble: 365 × 2</span></span>
+<span><span class="co">#&gt;   date           n</span></span>
+<span><span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 2013-01-01   842</span></span>
+<span><span class="co">#&gt; 2 2013-01-02   943</span></span>
+<span><span class="co">#&gt; 3 2013-01-03   914</span></span>
+<span><span class="co">#&gt; 4 2013-01-04   915</span></span>
+<span><span class="co">#&gt; 5 2013-01-05   720</span></span>
+<span><span class="co">#&gt; 6 2013-01-06   832</span></span>
+<span><span class="co">#&gt; # … with 359 more rows</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;"></div>
 <div id="giorno-della-settimana" class="section level3">
 <h3>
@@ -296,59 +296,59 @@ C’è qualcosa di insolito in questi diamanti? Sono particolarmente cattivi o b
 </h3>
 <p>Capire la tendenza a lungo termine è difficile perché c’è un effetto giorno della settimana molto forte che domina i modelli più sottili. Cominciamo a guardare la distribuzione del numero di voli per giorno della settimana:</p>
 <div class="sourceCode" id="cb663"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Ci sono meno voli nei fine settimana perché la maggior parte dei viaggi è per affari. L’effetto è particolarmente pronunciato il sabato: si potrebbe a volte partire la domenica per una riunione del lunedì mattina, ma è molto raro che si parta il sabato perché si preferisce stare a casa con la propria famiglia.</p>
 <p>Un modo per rimuovere questo forte schema è usare un modello. Per prima cosa, adattiamo il modello e mostriamo le sue previsioni sovrapposte ai dati originali:</p>
 <div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span>
-
-<span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">wday</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod</span>, <span class="st">"n"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">wday</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod</span>, <span class="st">"n"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid</span>, colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Poi calcoliamo e visualizziamo i residui:</p>
 <div class="sourceCode" id="cb665"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
-<span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/geom_ref_line.html">geom_ref_line</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/geom_ref_line.html">geom_ref_line</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;"></div>
 <pre><code>Notate il cambiamento nell'asse y: ora stiamo vedendo la deviazione dal numero previsto di voli, dato il giorno della settimana. Questo grafico è utile perché ora che abbiamo rimosso gran parte del grande effetto del giorno della settimana, possiamo vedere alcuni dei modelli più sottili che rimangono:</code></pre>
 <ol style="list-style-type: decimal">
 <li>
 <p>Il nostro modello sembra fallire a partire da giugno: si può ancora vedere un forte modello regolare che il nostro modello non ha catturato. Disegnare un grafico con una linea per ogni giorno della settimana rende la causa più facile da vedere:</p>
 <div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span>, colour <span class="op">=</span> <span class="va">wday</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/geom_ref_line.html">geom_ref_line</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span>, colour <span class="op">=</span> <span class="va">wday</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/geom_ref_line.html">geom_ref_line</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Il nostro modello non riesce a prevedere accuratamente il numero di voli del sabato: durante l’estate ci sono più voli di quanto ci aspettiamo, e durante l’autunno ce ne sono meno. Vedremo come possiamo fare meglio per catturare questo modello nella prossima sezione.</p>
 </li>
 <li>
 <p>Ci sono alcuni giorni con molti meno voli del previsto:</p>
 <div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">resid</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 11 × 4</span>
-<span class="co">#&gt;   date           n wday  resid</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2013-01-01   842 Tue   -109.</span>
-<span class="co">#&gt; 2 2013-01-20   786 Sun   -105.</span>
-<span class="co">#&gt; 3 2013-05-26   729 Sun   -162.</span>
-<span class="co">#&gt; 4 2013-07-04   737 Thu   -229.</span>
-<span class="co">#&gt; 5 2013-07-05   822 Fri   -145.</span>
-<span class="co">#&gt; 6 2013-09-01   718 Sun   -173.</span>
-<span class="co">#&gt; # … with 5 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">resid</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 11 × 4</span></span>
+<span><span class="co">#&gt;   date           n wday  resid</span></span>
+<span><span class="co">#&gt;   &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2013-01-01   842 Tue   -109.</span></span>
+<span><span class="co">#&gt; 2 2013-01-20   786 Sun   -105.</span></span>
+<span><span class="co">#&gt; 3 2013-05-26   729 Sun   -162.</span></span>
+<span><span class="co">#&gt; 4 2013-07-04   737 Thu   -229.</span></span>
+<span><span class="co">#&gt; 5 2013-07-05   822 Fri   -145.</span></span>
+<span><span class="co">#&gt; 6 2013-09-01   718 Sun   -173.</span></span>
+<span><span class="co">#&gt; # … with 5 more rows</span></span></code></pre></div>
 <p>Se avete familiarità con le festività americane, potreste individuare il Capodanno
 4 luglio, il Ringraziamento e il Natale. Ce ne sono altri che non
 sembrano corrispondere ai giorni festivi. Lavorerai su quelle in uno
@@ -358,12 +358,12 @@ degli esercizi.</p>
 <p>Sembra che ci sia una tendenza a lungo termine più morbida nel corso di un anno.
 Possiamo evidenziare questa tendenza con <code><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth()</a></code>:</p>
 <div class="sourceCode" id="cb669"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/geom_ref_line.html">geom_ref_line</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span>, span <span class="op">=</span> <span class="fl">0.20</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/geom_ref_line.html">geom_ref_line</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>se <span class="op">=</span> <span class="cn">FALSE</span>, span <span class="op">=</span> <span class="fl">0.20</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Ci sono meno voli a gennaio (e dicembre), e più in estate
 (maggio-settembre). Non possiamo fare molto con questo modello quantitativamente, perché
@@ -378,72 +378,72 @@ per trovare delle potenziali spiegazioni.</p>
 </h3>
 <p>Affrontiamo prima il nostro fallimento nel prevedere accuratamente il numero di voli di sabato. Un buon punto di partenza è tornare ai numeri grezzi, concentrandosi sul sabato:</p>
 <div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">wday</span> <span class="op">==</span> <span class="st">"Sat"</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span><span class="cn">NULL</span>, date_breaks <span class="op">=</span> <span class="st">"1 month"</span>, date_labels <span class="op">=</span> <span class="st">"%b"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">wday</span> <span class="op">==</span> <span class="st">"Sat"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span><span class="cn">NULL</span>, date_breaks <span class="op">=</span> <span class="st">"1 month"</span>, date_labels <span class="op">=</span> <span class="st">"%b"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>(Ho usato sia punti che linee per rendere più chiaro cosa sono i dati e cosa l’interpolazione).</p>
 <p>Sospetto che questo modello sia causato dalle vacanze estive: molte persone vanno in vacanza in estate, e alla gente non dispiace viaggiare di sabato per le vacanze. Guardando questo grafico, potremmo indovinare che le vacanze estive vanno da inizio giugno a fine agosto. Questo sembra allinearsi abbastanza bene con i [termini scolastici dello stato] (<a href="http://schools.nyc.gov/Calendar/2013-2014+School+Year+Calendars.htm" class="uri">http://schools.nyc.gov/Calendar/2013-2014+School+Year+Calendars.htm</a>): la pausa estiva nel 2013 era 26 giugno - 9 settembre.</p>
 <p>Perché ci sono più voli di sabato in primavera che in autunno? Ho chiesto ad alcuni amici americani e mi hanno suggerito che è meno comune pianificare le vacanze in famiglia durante l’autunno a causa delle grandi vacanze del Ringraziamento e di Natale. Non abbiamo i dati per saperlo con certezza, ma sembra un’ipotesi di lavoro plausibile.</p>
 <p>Creiamo una variabile “termine” che catturi approssimativamente i tre termini scolastici, e controlliamo il nostro lavoro con un grafico:</p>
 <div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">term</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">date</span>, 
-    breaks <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20130101</span>, <span class="fl">20130605</span>, <span class="fl">20130825</span>, <span class="fl">20140101</span><span class="op">)</span>,
-    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"spring"</span>, <span class="st">"summer"</span>, <span class="st">"fall"</span><span class="op">)</span> 
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>term <span class="op">=</span> <span class="fu">term</span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">wday</span> <span class="op">==</span> <span class="st">"Sat"</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">n</span>, colour <span class="op">=</span> <span class="va">term</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span><span class="cn">NULL</span>, date_breaks <span class="op">=</span> <span class="st">"1 month"</span>, date_labels <span class="op">=</span> <span class="st">"%b"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">term</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">date</span>, </span>
+<span>    breaks <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20130101</span>, <span class="fl">20130605</span>, <span class="fl">20130825</span>, <span class="fl">20140101</span><span class="op">)</span>,</span>
+<span>    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"spring"</span>, <span class="st">"summer"</span>, <span class="st">"fall"</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">daily</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>term <span class="op">=</span> <span class="fu">term</span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">wday</span> <span class="op">==</span> <span class="st">"Sat"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">n</span>, colour <span class="op">=</span> <span class="va">term</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_date.html">scale_x_date</a></span><span class="op">(</span><span class="cn">NULL</span>, date_breaks <span class="op">=</span> <span class="st">"1 month"</span>, date_labels <span class="op">=</span> <span class="st">"%b"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>(Ho modificato manualmente le date per ottenere delle belle pause nel grafico. Usare una visualizzazione per aiutarvi a capire cosa sta facendo la vostra funzione è una tecnica davvero potente e generale).</p>
 <p>È utile vedere come questa nuova variabile influenza gli altri giorni della settimana:</p>
 <div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span>, colour <span class="op">=</span> <span class="va">term</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span>, colour <span class="op">=</span> <span class="va">term</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Sembra che ci sia una variazione significativa tra i termini, quindi è ragionevole inserire un effetto separato del giorno della settimana per ogni termine. Questo migliora il nostro modello, ma non così tanto come potremmo sperare:</p>
 <div class="sourceCode" id="cb673"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span>
-<span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span> <span class="op">*</span> <span class="va">term</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span>
-
-<span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">gather_residuals</a></span><span class="op">(</span>without_term <span class="op">=</span> <span class="va">mod1</span>, with_term <span class="op">=</span> <span class="va">mod2</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span>, colour <span class="op">=</span> <span class="va">model</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span></span>
+<span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span> <span class="op">*</span> <span class="va">term</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">gather_residuals</a></span><span class="op">(</span>without_term <span class="op">=</span> <span class="va">mod1</span>, with_term <span class="op">=</span> <span class="va">mod2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span>, colour <span class="op">=</span> <span class="va">model</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Possiamo vedere il problema sovrapponendo le previsioni del modello ai dati grezzi:</p>
 <div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">term</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod2</span>, <span class="st">"n"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">term</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">term</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod2</span>, <span class="st">"n"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">daily</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">wday</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">term</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Il nostro modello sta trovando l’effetto <em>mean</em>, ma abbiamo molti grandi outlier, quindi la media tende ad essere molto lontana dal valore tipico. Possiamo alleviare questo problema usando un modello che è robusto all’effetto degli outlier: <code><a href="https://rdrr.io/pkg/MASS/man/rlm.html">MASS::rlm()</a></code>. Questo riduce notevolmente l’impatto degli outlier sulle nostre stime e fornisce un modello che fa un buon lavoro per rimuovere il modello del giorno della settimana:</p>
 <div class="sourceCode" id="cb675"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/rlm.html">rlm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span> <span class="op">*</span> <span class="va">term</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span>
-
-<span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod3</span>, <span class="st">"resid"</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/rlm.html">rlm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span> <span class="op">*</span> <span class="va">term</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_residuals.html">add_residuals</a></span><span class="op">(</span><span class="va">mod3</span>, <span class="st">"resid"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Ora è molto più facile vedere la tendenza a lungo termine e gli outlier positivi e negativi.</p>
 </div>
@@ -453,17 +453,17 @@ per trovare delle potenziali spiegazioni.</p>
 </h3>
 <p>Se state sperimentando molti modelli e molte visualizzazioni, è una buona idea raggruppare la creazione delle variabili in una funzione in modo che non ci sia la possibilità di applicare accidentalmente una trasformazione diversa in posti diversi. Per esempio, potremmo scrivere</p>
 <div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">compute_vars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">data</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-      term <span class="op">=</span> <span class="fu">term</span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, 
-      wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-    <span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">compute_vars</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>      term <span class="op">=</span> <span class="fu">term</span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, </span>
+<span>      wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">date</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Un’altra opzione è quella di mettere le trasformazioni direttamente nella formula del modello:</p>
 <div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">wday2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="fu">wday2</span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">*</span> <span class="fu">term</span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wday2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">x</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="fu">wday2</span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">*</span> <span class="fu">term</span><span class="op">(</span><span class="va">date</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span></span></code></pre></div>
 <p>Entrambi gli approcci sono ragionevoli. Rendere esplicita la variabile trasformata è utile se vuoi controllare il tuo lavoro, o usarla in una visualizzazione. Ma non si possono usare facilmente trasformazioni (come le spline) che restituiscono colonne multiple. Includere le trasformazioni nella funzione del modello rende la vita un po’ più facile quando si lavora con molti set di dati diversi, perché il modello è autonomo.</p>
 </div>
 <div id="tempo-dellanno-un-approccio-alternativo" class="section level3">
@@ -472,15 +472,15 @@ per trovare delle potenziali spiegazioni.</p>
 </h3>
 <p>Nella sezione precedente abbiamo usato la nostra conoscenza del dominio (come il periodo scolastico negli Stati Uniti influenza i viaggi) per migliorare il modello. Un’alternativa all’uso esplicito della nostra conoscenza nel modello è quella di dare ai dati più spazio per parlare. Potremmo usare un modello più flessibile e permettergli di catturare il modello che ci interessa. Una semplice tendenza lineare non è adeguata, quindi potremmo provare a usare una spline naturale per adattare una curva liscia attraverso l’anno:</p>
 <div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">splines</span><span class="op">)</span>
-<span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/rlm.html">rlm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/splines/ns.html">ns</a></span><span class="op">(</span><span class="va">date</span>, <span class="fl">5</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span>
-
-<span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">wday</span>, date <span class="op">=</span> <span class="fu"><a href="https://modelr.tidyverse.org/reference/seq_range.html">seq_range</a></span><span class="op">(</span><span class="va">date</span>, n <span class="op">=</span> <span class="fl">13</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">pred</span>, colour <span class="op">=</span> <span class="va">wday</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">splines</span><span class="op">)</span></span>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/rlm.html">rlm</a></span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">wday</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/splines/ns.html">ns</a></span><span class="op">(</span><span class="va">date</span>, <span class="fl">5</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">daily</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/data_grid.html">data_grid</a></span><span class="op">(</span><span class="va">wday</span>, date <span class="op">=</span> <span class="fu"><a href="https://modelr.tidyverse.org/reference/seq_range.html">seq_range</a></span><span class="op">(</span><span class="va">date</span>, n <span class="op">=</span> <span class="fl">13</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://modelr.tidyverse.org/reference/add_predictions.html">add_predictions</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">pred</span>, colour <span class="op">=</span> <span class="va">wday</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="model-building_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Vediamo un forte schema nel numero di voli del sabato. Questo è rassicurante, perché abbiamo visto questo schema anche nei dati grezzi. È un buon segno quando si ottiene lo stesso segnale da approcci diversi.</p>
 </div>
@@ -493,14 +493,14 @@ per trovare delle potenziali spiegazioni.</p>
 <li>
 <p>Cosa rappresentano i tre giorni con alti residui positivi? Come si possono generalizzare questi giorni ad un altro anno?</p>
 <div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">daily</span> <span class="op"><a href="https://modelr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, <span class="va">resid</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 × 5</span>
-<span class="co">#&gt;   date           n wday  resid term </span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;dbl&gt; &lt;fct&gt;</span>
-<span class="co">#&gt; 1 2013-11-30   857 Sat   112.  fall </span>
-<span class="co">#&gt; 2 2013-12-01   987 Sun    95.5 fall </span>
-<span class="co">#&gt; 3 2013-12-28   814 Sat    69.4 fall</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span>, <span class="va">resid</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
+<span><span class="co">#&gt;   date           n wday  resid term </span></span>
+<span><span class="co">#&gt;   &lt;date&gt;     &lt;int&gt; &lt;ord&gt; &lt;dbl&gt; &lt;fct&gt;</span></span>
+<span><span class="co">#&gt; 1 2013-11-30   857 Sat   112.  fall </span></span>
+<span><span class="co">#&gt; 2 2013-12-01   987 Sun    95.5 fall </span></span>
+<span><span class="co">#&gt; 3 2013-12-28   814 Sat    69.4 fall</span></span></code></pre></div>
 </li>
 <li><p>Creare una nuova variabile che divide la variabile <code>wday</code> in termini, ma solo
 per i sabati, cioè dovrebbe avere <code>Thurs</code>, <code>Fri</code>, ma <code>Sat-summer</code>,
@@ -609,7 +609,7 @@ reali di modellazione predittiva.</p>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

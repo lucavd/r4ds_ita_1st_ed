@@ -7,7 +7,7 @@
 <title>29 Formati di R Markdown | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="29.1 Introduzione Finora abbiamo visto R Markdown utilizzato per produrre documenti HTML. Questo capitolo offre una breve panoramica di alcuni dei molti altri tipi di output che si possono...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="29 Formati di R Markdown | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/formati-di-r-markdown.html">
@@ -117,7 +117,7 @@
 <li>
 <p>In modo transitorio, chiamando manualmente <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code>:</p>
 <div class="sourceCode" id="cb772"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"diamond-sizes.Rmd"</span>, output_format <span class="op">=</span> <span class="st">"word_document"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">render</a></span><span class="op">(</span><span class="st">"diamond-sizes.Rmd"</span>, output_format <span class="op">=</span> <span class="st">"word_document"</span><span class="op">)</span></span></code></pre></div>
 <p>Questo è utile se si desidera produrre programmaticamente più tipi di output.</p>
 </li>
 </ol>
@@ -162,7 +162,7 @@ pensata per la condivisione su GitHub.</p></li>
 </ul>
 <p>Ricordate che quando si genera un documento da condividere con i decisori, è possibile disattivare la visualizzazione predefinita del codice impostando le opzioni globali nel chunk di setup:</p>
 <div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Per gli <code>html_document</code> un’altra opzione è quella di rendere i pezzi di codice nascosti per impostazione predefinita, ma visibili con un clic:</p>
 <div class="sourceCode" id="cb776"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb776-1"><a href="formati-di-r-markdown.html#cb776-1"></a><span class="fu">output</span><span class="kw">:</span></span>
 <span id="cb776-2"><a href="formati-di-r-markdown.html#cb776-2"></a><span class="at">  </span><span class="fu">html_document</span><span class="kw">:</span></span>
@@ -276,11 +276,11 @@ diamonds %&gt;%
 </h3>
 <p>L’HTML è un formato interattivo e si può sfruttare questa interattività con <strong>htmlwidgets</strong>, funzioni di R che producono visualizzazioni HTML interattive. Per esempio, prendete la mappa <strong>leaflet</strong> qui sotto. Se state visualizzando questa pagina sul web, potete trascinare la mappa, ingrandirla e rimpicciolirla, ecc. Ovviamente non è possibile farlo in un libro, quindi rmarkdown inserisce automaticamente una schermata statica.</p>
 <div class="sourceCode" id="cb779"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/leaflet/man/leaflet-imports.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span><span class="fl">174.764</span>, <span class="op">-</span><span class="fl">36.877</span>, zoom <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/leaflet/man/leaflet-imports.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/leaflet/man/leaflet-imports.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addMarkers</a></span><span class="op">(</span><span class="fl">174.764</span>, <span class="op">-</span><span class="fl">36.877</span>, popup <span class="op">=</span> <span class="st">"Maungawhau"</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span><span class="fl">174.764</span>, <span class="op">-</span><span class="fl">36.877</span>, zoom <span class="op">=</span> <span class="fl">16</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addMarkers</a></span><span class="op">(</span><span class="fl">174.764</span>, <span class="op">-</span><span class="fl">36.877</span>, popup <span class="op">=</span> <span class="st">"Maungawhau"</span><span class="op">)</span> </span></code></pre></div>
 <div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:70%;height:415.296px;" class="leaflet html-widget"></div>
 <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[-36.877,174.764],16,[]],"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[-36.877,174.764,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Maungawhau",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-36.877,-36.877],"lng":[174.764,174.764]}},"evals":[],"jsHooks":[]}</script><p>Il bello di htmlwidgets è che non è necessario conoscere nulla di HTML o JavaScript per utilizzarli. Tutti i dettagli sono racchiusi all’interno del pacchetto, quindi non c’è bisogno di preoccuparsi.</p>
 <p>Esistono molti pacchetti che forniscono htmlwidget, tra cui:</p>
@@ -305,10 +305,10 @@ serie temporali interattive.</p></li>
 <span id="cb780-3"><a href="formati-di-r-markdown.html#cb780-3"></a><span class="fu">runtime</span><span class="kw">:</span><span class="at"> shiny</span></span></code></pre></div>
 <p>Quindi è possibile utilizzare le funzioni di “input” per aggiungere componenti interattivi al documento:</p>
 <div class="sourceCode" id="cb781"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span>
-
-<span class="fu">textInput</span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"Come ti chiami?"</span><span class="op">)</span>
-<span class="fu">numericInput</span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"Quanti anni hai?"</span>, <span class="cn">NA</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">textInput</span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"Come ti chiami?"</span><span class="op">)</span></span>
+<span><span class="fu">numericInput</span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"Quanti anni hai?"</span>, <span class="cn">NA</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 <p><img src="screenshots/rmarkdown-shiny.png" width="357" style="display: block; margin: auto;">
 È quindi possibile fare riferimento ai valori con <code>input$name</code> e <code>input$age</code>, e il codice che li utilizza verrà automaticamente rieseguito ogni volta che cambiano.</p>
 <p>Non posso mostrarvi un’applicazione shiny dal vivo perché le interazioni di shiny avvengono sul <strong>lato server</strong>. Ciò significa che è possibile scrivere applicazioni interattive senza conoscere JavaScript, ma è necessario un server su cui eseguirle. Questo introduce un problema logistico: Le applicazioni Shiny hanno bisogno di un server Shiny per essere eseguite online. Quando si eseguono le app shiny sul proprio computer, shiny configura automaticamente un server shiny per l’utente, ma è necessario un server shiny pubblico se si vuole pubblicare questo tipo di interattività online. Questo è il compromesso fondamentale di shiny: in un documento shiny si può fare tutto ciò che si può fare in R, ma è necessario che qualcuno utilizzi R.</p>
@@ -439,7 +439,7 @@ Book</em></a> è un ottimo punto di partenza.</p></li>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

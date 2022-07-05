@@ -7,7 +7,7 @@
 <title>10 Tibble | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="10.1 Introduzione In questo libro lavoriamo con i “tibble” invece dei tradizionali data.frame di R. I tibble sono data frame, ma modificano alcuni vecchi comportamenti per renderci la vita un po’...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="10 Tibble | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/tibble.html">
@@ -115,7 +115,7 @@
 </h3>
 <p>In questo capitolo esploreremo il pacchetto <strong>tibble</strong>, parte del core tidyverse.</p>
 <div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="creare-una-tibble" class="section level2">
@@ -124,59 +124,59 @@
 </h2>
 <p>Quasi tutte le funzioni che userete in questo libro producono tibble, poiché le tibble sono una delle caratteristiche unificanti del tidyverse. La maggior parte degli altri pacchetti di R usa normali data frame, quindi potreste voler forzare un data frame in una tibble. Potete farlo con <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code>:</p>
 <div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 150 × 5</span>
-<span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
-<span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  </span>
-<span class="co">#&gt; 1          5.1         3.5          1.4         0.2 setosa </span>
-<span class="co">#&gt; 2          4.9         3            1.4         0.2 setosa </span>
-<span class="co">#&gt; 3          4.7         3.2          1.3         0.2 setosa </span>
-<span class="co">#&gt; 4          4.6         3.1          1.5         0.2 setosa </span>
-<span class="co">#&gt; 5          5           3.6          1.4         0.2 setosa </span>
-<span class="co">#&gt; 6          5.4         3.9          1.7         0.4 setosa </span>
-<span class="co">#&gt; # … with 144 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 150 × 5</span></span>
+<span><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
+<span><span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  </span></span>
+<span><span class="co">#&gt; 1          5.1         3.5          1.4         0.2 setosa </span></span>
+<span><span class="co">#&gt; 2          4.9         3            1.4         0.2 setosa </span></span>
+<span><span class="co">#&gt; 3          4.7         3.2          1.3         0.2 setosa </span></span>
+<span><span class="co">#&gt; 4          4.6         3.1          1.5         0.2 setosa </span></span>
+<span><span class="co">#&gt; 5          5           3.6          1.4         0.2 setosa </span></span>
+<span><span class="co">#&gt; 6          5.4         3.9          1.7         0.4 setosa </span></span>
+<span><span class="co">#&gt; # … with 144 more rows</span></span></code></pre></div>
 <p>Potete creare un nuovo tibble da vettori individuali con <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code>. La funzione <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> ricicla automaticamente gli input di lunghezza 1, e vi permette di fare riferimento alle variabili che avete appena creato, come mostrato qui sotto.</p>
 <div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, 
-  y <span class="op">=</span> <span class="fl">1</span>, 
-  z <span class="op">=</span> <span class="va">x</span> <span class="op">^</span> <span class="fl">2</span> <span class="op">+</span> <span class="va">y</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 × 3</span>
-<span class="co">#&gt;       x     y     z</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1     1     2</span>
-<span class="co">#&gt; 2     2     1     5</span>
-<span class="co">#&gt; 3     3     1    10</span>
-<span class="co">#&gt; 4     4     1    17</span>
-<span class="co">#&gt; 5     5     1    26</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, </span>
+<span>  y <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>  z <span class="op">=</span> <span class="va">x</span> <span class="op">^</span> <span class="fl">2</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 3</span></span>
+<span><span class="co">#&gt;       x     y     z</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1     1     2</span></span>
+<span><span class="co">#&gt; 2     2     1     5</span></span>
+<span><span class="co">#&gt; 3     3     1    10</span></span>
+<span><span class="co">#&gt; 4     4     1    17</span></span>
+<span><span class="co">#&gt; 5     5     1    26</span></span></code></pre></div>
 <p>Se avete già familiarità con <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code>, notate che <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble()</a></code> fa molto meno: non cambia mai il tipo di input (ad esempio non converte mai le stringhe in fattori!), non cambia mai i nomi delle variabili, e non crea mai nomi di righe.</p>
 <p>È possibile che un tibble abbia nomi di colonne che non sono nomi di variabili R validi, anche detti nomi <strong>non-sintattici</strong>. Per esempio, potrebbero non iniziare con una lettera, o potrebbero contenere caratteri insoliti come uno spazio. Per fare riferimento a queste variabili, avete bisogno di circondarle con i backtick, <code>`</code>:</p>
 <div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  `:)` <span class="op">=</span> <span class="st">"smile"</span>, 
-  ` ` <span class="op">=</span> <span class="st">"space"</span>,
-  `2000` <span class="op">=</span> <span class="st">"number"</span>
-<span class="op">)</span>
-<span class="va">tb</span>
-<span class="co">#&gt; # A tibble: 1 × 3</span>
-<span class="co">#&gt;   `:)`  ` `   `2000`</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; </span>
-<span class="co">#&gt; 1 smile space number</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  `:)` <span class="op">=</span> <span class="st">"smile"</span>, </span>
+<span>  ` ` <span class="op">=</span> <span class="st">"space"</span>,</span>
+<span>  `2000` <span class="op">=</span> <span class="st">"number"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">tb</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 3</span></span>
+<span><span class="co">#&gt;   `:)`  ` `   `2000`</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 smile space number</span></span></code></pre></div>
 <p>Avrete anche bisogno dei backtick quando lavorerete con queste variabili in altri pacchetti, come ggplot2, dplyr e tidyr.</p>
 <p>Un altro modo per creare un tibble è con <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code>, abbreviazione di <strong>tr</strong>ansposed tibble. <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble()</a></code> è personalizzato per l’inserimento dei dati nel codice: le intestazioni delle colonne sono definite da formule (cioè iniziano con <code>~</code>), e le voci sono separate da virgole. Questo rende possibile la disposizione di piccole quantità di dati in forma facilmente leggibile.</p>
 <div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
-  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">z</span>,
-  <span class="co">#--|--|----</span>
-  <span class="st">"a"</span>, <span class="fl">2</span>, <span class="fl">3.6</span>,
-  <span class="st">"b"</span>, <span class="fl">1</span>, <span class="fl">8.5</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 3</span>
-<span class="co">#&gt;   x         y     z</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 a         2   3.6</span>
-<span class="co">#&gt; 2 b         1   8.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>  <span class="op">~</span><span class="va">x</span>, <span class="op">~</span><span class="va">y</span>, <span class="op">~</span><span class="va">z</span>,</span>
+<span>  <span class="co">#--|--|----</span></span>
+<span>  <span class="st">"a"</span>, <span class="fl">2</span>, <span class="fl">3.6</span>,</span>
+<span>  <span class="st">"b"</span>, <span class="fl">1</span>, <span class="fl">8.5</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span><span class="co">#&gt;   x         y     z</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 a         2   3.6</span></span>
+<span><span class="co">#&gt; 2 b         1   8.5</span></span></code></pre></div>
 <p>Spesso aggiungo un commento (la linea che inizia con <code>#</code>), per rendere davvero chiaro dove si trova l’intestazione.</p>
 </div>
 <div id="tibble-vs.-data.frame" class="section level2">
@@ -190,28 +190,28 @@
 </h3>
 <p>Le tibble hanno un metodo di stampa raffinato che mostra solo le prime 10 righe e tutte le colonne che si adattano allo schermo. Questo rende molto più facile lavorare con grandi quantità di dati. Oltre al suo nome, ogni colonna riporta il suo tipo, una bella caratteristica presa in prestito da <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>:</p>
 <div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  a <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">86400</span>,
-  b <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">30</span>,
-  c <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1e3</span>,
-  d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span>,
-  e <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">1e3</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1,000 × 5</span>
-<span class="co">#&gt;   a                   b              c     d e    </span>
-<span class="co">#&gt;   &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span>
-<span class="co">#&gt; 1 2022-06-21 23:28:11 2022-06-28     1 0.368 n    </span>
-<span class="co">#&gt; 2 2022-06-22 17:33:21 2022-07-03     2 0.612 l    </span>
-<span class="co">#&gt; 3 2022-06-22 11:57:00 2022-07-13     3 0.415 p    </span>
-<span class="co">#&gt; 4 2022-06-22 01:18:17 2022-07-12     4 0.212 m    </span>
-<span class="co">#&gt; 5 2022-06-21 21:42:34 2022-07-09     5 0.733 i    </span>
-<span class="co">#&gt; 6 2022-06-22 08:43:31 2022-07-05     6 0.460 n    </span>
-<span class="co">#&gt; # … with 994 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  a <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">86400</span>,</span>
+<span>  b <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span> <span class="op">*</span> <span class="fl">30</span>,</span>
+<span>  c <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1e3</span>,</span>
+<span>  d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1e3</span><span class="op">)</span>,</span>
+<span>  e <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="fl">1e3</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1,000 × 5</span></span>
+<span><span class="co">#&gt;   a                   b              c     d e    </span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 2022-06-21 23:28:11 2022-06-28     1 0.368 n    </span></span>
+<span><span class="co">#&gt; 2 2022-06-22 17:33:21 2022-07-03     2 0.612 l    </span></span>
+<span><span class="co">#&gt; 3 2022-06-22 11:57:00 2022-07-13     3 0.415 p    </span></span>
+<span><span class="co">#&gt; 4 2022-06-22 01:18:17 2022-07-12     4 0.212 m    </span></span>
+<span><span class="co">#&gt; 5 2022-06-21 21:42:34 2022-07-09     5 0.733 i    </span></span>
+<span><span class="co">#&gt; 6 2022-06-22 08:43:31 2022-07-05     6 0.460 n    </span></span>
+<span><span class="co">#&gt; # … with 994 more rows</span></span></code></pre></div>
 <p>Le tibble sono progettate in modo da non sovraccaricare accidentalmente la vostra console quando stampate grandi frame di dati. Ma a volte avete bisogno di più output rispetto alla visualizzazione di default. Ci sono alcune opzioni che possono aiutare.</p>
 <p>Per prima cosa, potete esplicitamente <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> il data frame e controllare il numero di righe (<code>n</code>) e la <code>larghezza</code> della visualizzazione. La <code>larghezza = Inf</code> visualizzerà tutte le colonne:</p>
 <div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, width <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code></pre></div>
 <p>Potete anche controllare il comportamento di stampa predefinito impostando le opzioni:</p>
 <ul>
 <li><p><code>options(tibble.print_max = n, tibble.print_min = m)</code>: se più di <code>n</code>
@@ -223,8 +223,8 @@ della larghezza dello schermo.</p></li>
 <p>Puoi vedere una lista completa di opzioni guardando l’aiuto del pacchetto con <code><a href="https://tibble.tidyverse.org/reference/tibble-package.html">package?tibble</a></code>.</p>
 <p>Un’ultima opzione è quella di usare il visualizzatore di dati integrato in RStudio per ottenere una vista a scorrimento dell’intero set di dati. Questo è spesso utile alla fine di una lunga catena di manipolazioni.</p>
 <div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="subsetting" class="section level3">
 <h3>
@@ -232,26 +232,26 @@ della larghezza dello schermo.</p></li>
 </h3>
 <p>Finora tutti gli strumenti che avete imparato hanno lavorato con data frame completi. Se volete estrarre una singola variabile, avete bisogno di alcuni nuovi strumenti, <code>$</code> e <code>[[</code>. <code>[[</code> può estrarre per nome o per posizione; <code>$</code> estrae solo per nome, ma è un po’ meno digitabile.</p>
 <div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,
-  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co"># Extract by name</span>
-<span class="va">df</span><span class="op">$</span><span class="va">x</span>
-<span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span>
-<span class="va">df</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span>
-
-<span class="co"># Extract by position</span>
-<span class="va">df</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>,</span>
+<span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Extract by name</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span></span>
+<span><span class="va">df</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span></span>
+<span></span>
+<span><span class="co"># Extract by position</span></span>
+<span><span class="va">df</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span></span></code></pre></div>
 <p>Per usarli in una pipe, dovrete usare il segnaposto speciale <code>.</code>:</p>
 <div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="va">.</span><span class="op">$</span><span class="va">x</span>
-<span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span>
-<span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="va">.</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="va">.</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span></span>
+<span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="va">.</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 0.73296674 0.23436542 0.66035540 0.03285612 0.46049161</span></span></code></pre></div>
 <p>Rispetto a un <code>data.frame</code>, le tibble sono più rigide: non fanno mai corrispondenze parziali e generano un avviso se la colonna a cui si sta cercando di accedere non esiste.</p>
 </div>
 </div>
@@ -261,8 +261,8 @@ della larghezza dello schermo.</p></li>
 </h2>
 <p>Alcune vecchie funzioni non funzionano con le tibble. Se incontrate una di queste funzioni, usate <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code> per trasformare un tibble in un <code>data.frame</code>:</p>
 <div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "data.frame"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "data.frame"</span></span></code></pre></div>
 <p>La ragione principale per cui alcune vecchie funzioni non funzionano con tibble è la funzione <code>[</code>. Non usiamo molto la funzione <code>[</code> in questo libro perché <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> e <code><a href="https://dplyr.tidyverse.org/reference/select.html">dplyr::select()</a></code> vi permettono di risolvere gli stessi problemi con un codice più chiaro (ma ne imparerete qualcosa in <a href="vettori.html#vector-subsetting">sottoinsiemi di vettori</a>). Con i data frame di base di R, <code>[</code> a volte restituisce un data frame e a volte un vettore. Con le tibble, <code>[</code> restituisce sempre un’altra tibble.</p>
 </div>
 <div id="esercizi-20" class="section level2">
@@ -277,10 +277,10 @@ che è un normale data frame).</p></li>
 tibble equivalente. Cosa c’è di diverso? Perché i comportamenti predefiniti dei data frame
 vi causano frustrazione?</p>
 <div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>abc <span class="op">=</span> <span class="fl">1</span>, xyz <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span>
-<span class="va">df</span><span class="op">$</span><span class="va">x</span>
-<span class="va">df</span><span class="op">[</span>, <span class="st">"xyz"</span><span class="op">]</span>
-<span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"xyz"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>abc <span class="op">=</span> <span class="fl">1</span>, xyz <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">x</span></span>
+<span><span class="va">df</span><span class="op">[</span>, <span class="st">"xyz"</span><span class="op">]</span></span>
+<span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"xyz"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 </li>
 <li><p>Se avete il nome di una variabile memorizzata in un oggetto, ad esempio <code>var &lt;- "mpg"</code>,
 come potete estrarre la variabile di riferimento da una tibla?</p></li>
@@ -293,10 +293,10 @@ come potete estrarre la variabile di riferimento da una tibla?</p></li>
 <li><p>Rinominare le colonne in <code>one</code>, <code>two</code> e <code>three</code>.</p></li>
 </ol>
 <div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">annoying</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
-  `1` <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,
-  `2` <span class="op">=</span> <span class="va">`1`</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">`1`</span><span class="op">)</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">annoying</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  `1` <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>  `2` <span class="op">=</span> <span class="va">`1`</span> <span class="op">*</span> <span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">`1`</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </li>
 <li><p>Cosa fa <code><a href="https://tibble.tidyverse.org/reference/enframe.html">tibble::enframe()</a></code>? Quando potreste usarlo?</p></li>
 <li><p>Quale opzione controlla quanti nomi di colonna aggiuntivi vengono stampati
@@ -353,7 +353,7 @@ a piè di pagina di una tibble?</p></li>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

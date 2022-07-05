@@ -7,7 +7,7 @@
 <title>16 Date e tempi | R for Data Science - edizione italiana</title>
 <meta name="author" content="Hadley Wickham e Garrett Grolemund">
 <meta name="description" content="16.1 Introduzione Questo capitolo vi mostrerà come lavorare con date e orari in R. A prima vista, date e orari sembrano semplici. Li usate tutto il tempo nella vostra vita normale e non sembrano...">
-<meta name="generator" content="bookdown 0.27.1 with bs4_book()">
+<meta name="generator" content="bookdown 0.27.2 with bs4_book()">
 <meta property="og:title" content="16 Date e tempi | R for Data Science - edizione italiana">
 <meta property="og:type" content="book">
 <meta property="og:url" content="http://it.r4ds.hadley.nz/date-e-tempi.html">
@@ -121,10 +121,10 @@
 </h3>
 <p>Questo capitolo si concentrerà sul pacchetto <strong>lubridate</strong>, che rende più facile lavorare con le date e gli orari in R. lubridate non fa parte del core tidyverse perché ne avete bisogno solo quando lavorate con le date/gli orari. Avremo anche bisogno di nycflights13 per i dati di pratica.</p>
 <div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="creare-dateore" class="section level2">
@@ -144,10 +144,10 @@ che sia un nome molto utile.</p></li>
 <p>Dovreste sempre usare il tipo di dati più semplice possibile che funzioni per le vostre esigenze. Questo significa che se potete usare una data invece di una data-ora, dovreste farlo. Le date-ora sono sostanzialmente più complicate a causa della necessità di gestire i fusi orari, su cui torneremo alla fine del capitolo.</p>
 <p>Per ottenere la data o la data-ora corrente potete usare <code><a href="https://lubridate.tidyverse.org/reference/now.html">today()</a></code> o <code><a href="https://lubridate.tidyverse.org/reference/now.html">now()</a></code>:</p>
 <div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2022-06-21"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2022-06-21 21:32:37 UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2022-06-21"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2022-06-21 21:32:37 UTC"</span></span></code></pre></div>
 <p>Altrimenti, ci sono tre modi per creare una data/ora:</p>
 <ul>
 <li>Da una stringa.</li>
@@ -161,26 +161,26 @@ che sia un nome molto utile.</p></li>
 </h3>
 <p>I dati di data/ora spesso si presentano come stringhe. Hai visto un approccio per analizzare le stringhe in date-ora in <a href="importazione-dei-dati.html#readr-datetimes">date-ore</a>. Un altro approccio è quello di usare gli helper forniti da lubridate. Essi elaborano automaticamente il formato una volta che si specifica l’ordine del componente. Per usarli, identificate l’ordine in cui anno, mese e giorno appaiono nelle vostre date, poi disponete “y”, “m” e “d” nello stesso ordine. Questo vi dà il nome della funzione lubridate che analizzerà la vostra data. Per esempio:</p>
 <div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2017-01-31"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-31"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"January 31st, 2017"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-31"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="st">"31-Jan-2017"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-31"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2017-01-31"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-31"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="st">"January 31st, 2017"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-31"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">dmy</a></span><span class="op">(</span><span class="st">"31-Jan-2017"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-31"</span></span></code></pre></div>
 <p>Queste funzioni accettano anche numeri non quotati. Questo è il modo più conciso per creare un singolo oggetto data/ora, come potrebbe essere necessario quando si filtrano dati data/ora. La funzione <code><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd()</a></code> è breve e non ambigua:</p>
 <div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20170131</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-31"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20170131</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-31"</span></span></code></pre></div>
 <p><code><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd()</a></code> e amici creano date. Per creare una data-ora, aggiungete un trattino basso e uno o più di “h”, “m” e “s” al nome della funzione di analisi:</p>
 <div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2017-01-31 20:11:59"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-31 20:11:59 UTC"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">mdy_hm</a></span><span class="op">(</span><span class="st">"01/31/2017 08:01"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-31 08:01:00 UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2017-01-31 20:11:59"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-31 20:11:59 UTC"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">mdy_hm</a></span><span class="op">(</span><span class="st">"01/31/2017 08:01"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-31 08:01:00 UTC"</span></span></code></pre></div>
 <p>Potete anche forzare la creazione di una data-ora da una data fornendo un fuso orario:</p>
 <div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20170131</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-31 UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20170131</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-31 UTC"</span></span></code></pre></div>
 </div>
 <div id="da-componenti-individuali" class="section level3">
 <h3>
@@ -188,74 +188,74 @@ che sia un nome molto utile.</p></li>
 </h3>
 <p>Invece di una singola stringa, a volte avrete i singoli componenti della data-ora sparsi su più colonne. Questo è quello che abbiamo nei dati dei voli:</p>
 <div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 336,776 × 5</span>
-<span class="co">#&gt;    year month   day  hour minute</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1  2013     1     1     5     15</span>
-<span class="co">#&gt; 2  2013     1     1     5     29</span>
-<span class="co">#&gt; 3  2013     1     1     5     40</span>
-<span class="co">#&gt; 4  2013     1     1     5     45</span>
-<span class="co">#&gt; 5  2013     1     1     6      0</span>
-<span class="co">#&gt; 6  2013     1     1     5     58</span>
-<span class="co">#&gt; # … with 336,770 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 5</span></span>
+<span><span class="co">#&gt;    year month   day  hour minute</span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5     15</span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5     29</span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5     40</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5     45</span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6      0</span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5     58</span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows</span></span></code></pre></div>
 <p>Per creare una data/ora da questo tipo di input, usate <code><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_date()</a></code> per le date, o <code><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime()</a></code> per le date-ora:</p>
 <div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>departure <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 336,776 × 6</span>
-<span class="co">#&gt;    year month   day  hour minute departure          </span>
-<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dttm&gt;             </span>
-<span class="co">#&gt; 1  2013     1     1     5     15 2013-01-01 05:15:00</span>
-<span class="co">#&gt; 2  2013     1     1     5     29 2013-01-01 05:29:00</span>
-<span class="co">#&gt; 3  2013     1     1     5     40 2013-01-01 05:40:00</span>
-<span class="co">#&gt; 4  2013     1     1     5     45 2013-01-01 05:45:00</span>
-<span class="co">#&gt; 5  2013     1     1     6      0 2013-01-01 06:00:00</span>
-<span class="co">#&gt; 6  2013     1     1     5     58 2013-01-01 05:58:00</span>
-<span class="co">#&gt; # … with 336,770 more rows</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>departure <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 6</span></span>
+<span><span class="co">#&gt;    year month   day  hour minute departure          </span></span>
+<span><span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dttm&gt;             </span></span>
+<span><span class="co">#&gt; 1  2013     1     1     5     15 2013-01-01 05:15:00</span></span>
+<span><span class="co">#&gt; 2  2013     1     1     5     29 2013-01-01 05:29:00</span></span>
+<span><span class="co">#&gt; 3  2013     1     1     5     40 2013-01-01 05:40:00</span></span>
+<span><span class="co">#&gt; 4  2013     1     1     5     45 2013-01-01 05:45:00</span></span>
+<span><span class="co">#&gt; 5  2013     1     1     6      0 2013-01-01 06:00:00</span></span>
+<span><span class="co">#&gt; 6  2013     1     1     5     58 2013-01-01 05:58:00</span></span>
+<span><span class="co">#&gt; # … with 336,770 more rows</span></span></code></pre></div>
 <p>Facciamo la stessa cosa per ciascuna delle quattro colonne del tempo in <code>flights</code>. I tempi sono rappresentati in un formato un po’ strano, quindi usiamo l’aritmetica dei moduli per estrarre le componenti di ore e minuti. Una volta create le variabili data-ora, mi concentro sulle variabili che esploreremo nel resto del capitolo.</p>
 <div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">make_datetime_100</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">time</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">100</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">100</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">flights_dt</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    dep_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_time</span><span class="op">)</span>,
-    arr_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">arr_time</span><span class="op">)</span>,
-    sched_dep_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">sched_dep_time</span><span class="op">)</span>,
-    sched_arr_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">sched_arr_time</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"delay"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"time"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">flights_dt</span>
-<span class="co">#&gt; # A tibble: 328,063 × 9</span>
-<span class="co">#&gt;   origin dest  dep_delay arr_delay dep_time            sched_dep_time     </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             </span>
-<span class="co">#&gt; 1 EWR    IAH           2        11 2013-01-01 05:17:00 2013-01-01 05:15:00</span>
-<span class="co">#&gt; 2 LGA    IAH           4        20 2013-01-01 05:33:00 2013-01-01 05:29:00</span>
-<span class="co">#&gt; 3 JFK    MIA           2        33 2013-01-01 05:42:00 2013-01-01 05:40:00</span>
-<span class="co">#&gt; 4 JFK    BQN          -1       -18 2013-01-01 05:44:00 2013-01-01 05:45:00</span>
-<span class="co">#&gt; 5 LGA    ATL          -6       -25 2013-01-01 05:54:00 2013-01-01 06:00:00</span>
-<span class="co">#&gt; 6 EWR    ORD          -4        12 2013-01-01 05:54:00 2013-01-01 05:58:00</span>
-<span class="co">#&gt; # … with 328,057 more rows, and 3 more variables: arr_time &lt;dttm&gt;,</span>
-<span class="co">#&gt; #   sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">make_datetime_100</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">time</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://lubridate.tidyverse.org/reference/make_datetime.html">make_datetime</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">100</span>, <span class="va">time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">flights_dt</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    dep_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_time</span><span class="op">)</span>,</span>
+<span>    arr_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">arr_time</span><span class="op">)</span>,</span>
+<span>    sched_dep_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">sched_dep_time</span><span class="op">)</span>,</span>
+<span>    sched_arr_time <span class="op">=</span> <span class="fu">make_datetime_100</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">sched_arr_time</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"delay"</span><span class="op">)</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">ends_with</a></span><span class="op">(</span><span class="st">"time"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">flights_dt</span></span>
+<span><span class="co">#&gt; # A tibble: 328,063 × 9</span></span>
+<span><span class="co">#&gt;   origin dest  dep_delay arr_delay dep_time            sched_dep_time     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             </span></span>
+<span><span class="co">#&gt; 1 EWR    IAH           2        11 2013-01-01 05:17:00 2013-01-01 05:15:00</span></span>
+<span><span class="co">#&gt; 2 LGA    IAH           4        20 2013-01-01 05:33:00 2013-01-01 05:29:00</span></span>
+<span><span class="co">#&gt; 3 JFK    MIA           2        33 2013-01-01 05:42:00 2013-01-01 05:40:00</span></span>
+<span><span class="co">#&gt; 4 JFK    BQN          -1       -18 2013-01-01 05:44:00 2013-01-01 05:45:00</span></span>
+<span><span class="co">#&gt; 5 LGA    ATL          -6       -25 2013-01-01 05:54:00 2013-01-01 06:00:00</span></span>
+<span><span class="co">#&gt; 6 EWR    ORD          -4        12 2013-01-01 05:54:00 2013-01-01 05:58:00</span></span>
+<span><span class="co">#&gt; # … with 328,057 more rows, and 3 more variables: arr_time &lt;dttm&gt;,</span></span>
+<span><span class="co">#&gt; #   sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;</span></span></code></pre></div>
 <p>Con questi dati, posso visualizzare la distribuzione degli orari di partenza durante l’anno:</p>
 <div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">86400</span><span class="op">)</span> <span class="co"># 86400 secondi = 1 giorno</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">86400</span><span class="op">)</span> <span class="co"># 86400 secondi = 1 giorno</span></span></code></pre></div>
 <div class="inline-figure">
 <img src="datetimes_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;">
 O in un solo giorno:</div>
 <div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dep_time</span> <span class="op">&lt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20130102</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">600</span><span class="op">)</span> <span class="co"># 600 s = 10 minuti</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dep_time</span> <span class="op">&lt;</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">20130102</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">600</span><span class="op">)</span> <span class="co"># 600 s = 10 minuti</span></span></code></pre></div>
 <div class="inline-figure"><img src="datetimes_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Notate che quando usate date-ora in un contesto numerico (come in un istogramma), 1 significa 1 secondo, quindi una larghezza di banda di 86400 significa un giorno. Per le date, 1 significa 1 giorno.</p>
 </div>
@@ -265,16 +265,16 @@ O in un solo giorno:</div>
 </h3>
 <p>Potresti voler passare da una data-ora a una data. Questo è il lavoro di <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code> e <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>:</p>
 <div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2022-06-21 UTC"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2022-06-21"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2022-06-21 UTC"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2022-06-21"</span></span></code></pre></div>
 <p>A volte otterrete data/ora come offset numerico dalla “Unix Epoch”, 1970-01-01. Se l’offset è in secondi, usate <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code>; se è in giorni, usate <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>.</p>
 <div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1970-01-01 10:00:00 UTC"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fl">365</span> <span class="op">*</span> <span class="fl">10</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1980-01-01"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1970-01-01 10:00:00 UTC"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fl">365</span> <span class="op">*</span> <span class="fl">10</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1980-01-01"</span></span></code></pre></div>
 </div>
 <div id="esercizi-47" class="section level3">
 <h3>
@@ -284,17 +284,17 @@ O in un solo giorno:</div>
 <li>
 <p>Cosa succede se analizzi una stringa che contiene date non valide?</p>
 <div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2010-10-10"</span>, <span class="st">"bananas"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2010-10-10"</span>, <span class="st">"bananas"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li><p>Cosa fa l’argomento <code>tzone</code> di <code><a href="https://lubridate.tidyverse.org/reference/now.html">today()</a></code>? Perché è importante?</p></li>
 <li>
 <p>Usa la funzione lubridate appropriata per analizzare ciascuna delle seguenti date:</p>
 <div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">d1</span> <span class="op">&lt;-</span> <span class="st">"January 1, 2010"</span>
-<span class="va">d2</span> <span class="op">&lt;-</span> <span class="st">"2015-Mar-07"</span>
-<span class="va">d3</span> <span class="op">&lt;-</span> <span class="st">"06-Jun-2017"</span>
-<span class="va">d4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"August 19 (2015)"</span>, <span class="st">"July 1 (2015)"</span><span class="op">)</span>
-<span class="va">d5</span> <span class="op">&lt;-</span> <span class="st">"12/30/14"</span> <span class="co"># Dec 30, 2014</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="st">"January 1, 2010"</span></span>
+<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="st">"2015-Mar-07"</span></span>
+<span><span class="va">d3</span> <span class="op">&lt;-</span> <span class="st">"06-Jun-2017"</span></span>
+<span><span class="va">d4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"August 19 (2015)"</span>, <span class="st">"July 1 (2015)"</span><span class="op">)</span></span>
+<span><span class="va">d5</span> <span class="op">&lt;-</span> <span class="st">"12/30/14"</span> <span class="co"># Dec 30, 2014</span></span></code></pre></div>
 </li>
 </ol>
 </div>
@@ -310,61 +310,61 @@ O in un solo giorno:</div>
 </h3>
 <p>Potete estrarre singole parti della data con le funzioni di accesso <code><a href="https://lubridate.tidyverse.org/reference/year.html">year()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/month.html">month()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/day.html">mday()</a></code> (giorno del mese), <code><a href="https://lubridate.tidyverse.org/reference/day.html">yday()</a></code> (giorno dell’anno), <code><a href="https://lubridate.tidyverse.org/reference/day.html">wday()</a></code> (giorno della settimana), <code><a href="https://lubridate.tidyverse.org/reference/hour.html">hour()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/minute.html">minute()</a></code>, e <code><a href="https://lubridate.tidyverse.org/reference/second.html">second()</a></code>.</p>
 <div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2016-07-08 12:34:56"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>
-<span class="co">#&gt; [1] 2016</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>
-<span class="co">#&gt; [1] 7</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">mday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>
-<span class="co">#&gt; [1] 8</span>
-
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">yday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>
-<span class="co">#&gt; [1] 190</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>
-<span class="co">#&gt; [1] 6</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2016-07-08 12:34:56"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2016</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 7</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">mday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 8</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">yday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 190</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6</span></span></code></pre></div>
 <p>Per <code><a href="https://lubridate.tidyverse.org/reference/month.html">month()</a></code> e <code><a href="https://lubridate.tidyverse.org/reference/day.html">day()</a></code> potete impostare <code>label = TRUE</code> per restituire il nome abbreviato del mese o del giorno della settimana. Impostate <code>abbr = FALSE</code> per restituire il nome completo.</p>
 <div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">datetime</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; [1] Jul</span>
-<span class="co">#&gt; 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">datetime</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, abbr <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; [1] Friday</span>
-<span class="co">#&gt; 7 Levels: Sunday &lt; Monday &lt; Tuesday &lt; Wednesday &lt; Thursday &lt; ... &lt; Saturday</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">datetime</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Jul</span></span>
+<span><span class="co">#&gt; 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">datetime</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, abbr <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Friday</span></span>
+<span><span class="co">#&gt; 7 Levels: Sunday &lt; Monday &lt; Tuesday &lt; Wednesday &lt; Thursday &lt; ... &lt; Saturday</span></span></code></pre></div>
 <p>Possiamo usare <code><a href="https://lubridate.tidyverse.org/reference/day.html">wday()</a></code> per vedere che più voli partono durante la settimana che nel fine settimana:</p>
 <div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">dep_time</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wday</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>wday <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">dep_time</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wday</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="datetimes_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>C’è un modello interessante se guardiamo il ritardo medio di partenza per minuto all’interno dell’ora. Sembra che i voli che partono nei minuti 20-30 e 50-60 abbiano ritardi molto più bassi rispetto al resto dell’ora!</p>
 <div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>minute <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/minute.html">minute</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">minute</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
-    avg_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">minute</span>, <span class="va">avg_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>minute <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/minute.html">minute</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">minute</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    avg_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">minute</span>, <span class="va">avg_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="datetimes_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>È interessante notare che se guardiamo l’orario di partenza <em>programmato</em> non vediamo un modello così forte:</p>
 <div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sched_dep</span> <span class="op">&lt;-</span> <span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>minute <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/minute.html">minute</a></span><span class="op">(</span><span class="va">sched_dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">minute</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
-    avg_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sched_dep</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">minute</span>, <span class="va">avg_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sched_dep</span> <span class="op">&lt;-</span> <span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>minute <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/minute.html">minute</a></span><span class="op">(</span><span class="va">sched_dep_time</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">minute</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    avg_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sched_dep</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">minute</span>, <span class="va">avg_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="datetimes_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Allora perché vediamo questo schema con gli orari di partenza effettivi? Beh, come molti dati raccolti da esseri umani, c’è un forte pregiudizio verso i voli che partono a orari di partenza “piacevoli”. Fai sempre attenzione a questo tipo di schema ogni volta che lavori con dati che coinvolgono il giudizio umano!</p>
 <div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sched_dep</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">minute</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">sched_dep</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">minute</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="datetimes_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;"></div>
 </div>
 <div id="arrotondamento" class="section level3">
@@ -373,10 +373,10 @@ O in un solo giorno:</div>
 </h3>
 <p>Un approccio alternativo al tracciamento di componenti individuali è quello di arrotondare la data ad un’unità di tempo vicina, con <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date()</a></code>, <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">round_date()</a></code>, e <code><a href="https://lubridate.tidyverse.org/reference/round_date.html">ceiling_date()</a></code>. Ogni funzione prende un vettore di date da aggiustare e poi il nome dell’unità di arrotondamento per difetto (floor), per eccesso (ceiling), o per eccesso. Questo, per esempio, ci permette di tracciare il numero di voli per settimana:</p>
 <div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>week <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">dep_time</span>, <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">week</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>week <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html">floor_date</a></span><span class="op">(</span><span class="va">dep_time</span>, <span class="st">"week"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">week</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="datetimes_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Calcolare la differenza tra una data arrotondata e una non arrotondata può essere particolarmente utile.</p>
 </div>
@@ -386,36 +386,36 @@ O in un solo giorno:</div>
 </h3>
 <p>Potete anche usare ogni funzione di accesso per impostare i componenti di una data/ora:</p>
 <div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2016-07-08 12:34:56"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2016-07-08 12:34:56 UTC"</span>
-
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">2020</span>
-<span class="va">datetime</span>
-<span class="co">#&gt; [1] "2020-07-08 12:34:56 UTC"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">01</span>
-<span class="va">datetime</span>
-<span class="co">#&gt; [1] "2020-01-08 12:34:56 UTC"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>
-<span class="va">datetime</span>
-<span class="co">#&gt; [1] "2020-01-08 13:34:56 UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2016-07-08 12:34:56"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2016-07-08 12:34:56 UTC"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">2020</span></span>
+<span><span class="va">datetime</span></span>
+<span><span class="co">#&gt; [1] "2020-07-08 12:34:56 UTC"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">01</span></span>
+<span><span class="va">datetime</span></span>
+<span><span class="co">#&gt; [1] "2020-01-08 12:34:56 UTC"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="va">datetime</span></span>
+<span><span class="co">#&gt; [1] "2020-01-08 13:34:56 UTC"</span></span></code></pre></div>
 <p>In alternativa, piuttosto che modificare sul posto, potete creare una nuova data-ora con <code><a href="https://rdrr.io/r/stats/update.html">update()</a></code>. Questo permette anche di impostare più valori in una volta.</p>
 <div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">datetime</span>, year <span class="op">=</span> <span class="fl">2020</span>, month <span class="op">=</span> <span class="fl">2</span>, mday <span class="op">=</span> <span class="fl">2</span>, hour <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2020-02-02 02:34:56 UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">datetime</span>, year <span class="op">=</span> <span class="fl">2020</span>, month <span class="op">=</span> <span class="fl">2</span>, mday <span class="op">=</span> <span class="fl">2</span>, hour <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2020-02-02 02:34:56 UTC"</span></span></code></pre></div>
 <p>Se i valori sono troppo grandi, si ribaltano:</p>
 <div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2015-02-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span>mday <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-03-02"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2015-02-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span>hour <span class="op">=</span> <span class="fl">400</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-02-17 16:00:00 UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2015-02-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span>mday <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-03-02"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2015-02-01"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span>hour <span class="op">=</span> <span class="fl">400</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-02-17 16:00:00 UTC"</span></span></code></pre></div>
 <p>Potete usare <code><a href="https://rdrr.io/r/stats/update.html">update()</a></code> per mostrare la distribuzione dei voli nel corso della giornata per ogni giorno dell’anno:</p>
 <div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dep_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">dep_time</span>, yday <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">dep_hour</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dep_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">dep_time</span>, yday <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">dep_hour</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="datetimes_files/figure-html/unnamed-chunk-25-1.png" width="70%" style="display: block; margin: auto;"></div>
 <p>Impostare le componenti più grandi di una data su una costante è una tecnica potente che permette di esplorare i modelli nelle componenti più piccole.</p>
 </div>
@@ -462,48 +462,48 @@ Suggerimento: create una variabile binaria che vi dica se un volo
 </h3>
 <p>In R, quando si sottraggono due date, si ottiene un oggetto difftime:</p>
 <div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># How old is Hadley?</span>
-<span class="va">h_age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">19791014</span><span class="op">)</span>
-<span class="va">h_age</span>
-<span class="co">#&gt; Time difference of 15591 days</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># How old is Hadley?</span></span>
+<span><span class="va">h_age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">19791014</span><span class="op">)</span></span>
+<span><span class="va">h_age</span></span>
+<span><span class="co">#&gt; Time difference of 15591 days</span></span></code></pre></div>
 <p>Un oggetto di classe difftime registra un intervallo di tempo di secondi, minuti, ore, giorni o settimane. Questa ambiguità può rendere difftime un po’ doloroso lavorarci, così lubridate fornisce un’alternativa che usa sempre i secondi: la <strong>durata</strong>.</p>
 <div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as.duration.html">as.duration</a></span><span class="op">(</span><span class="va">h_age</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1347062400s (~42.69 years)"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as.duration.html">as.duration</a></span><span class="op">(</span><span class="va">h_age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1347062400s (~42.69 years)"</span></span></code></pre></div>
 <p>Le durate hanno un mucchio di costruttori convenienti:</p>
 <div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dseconds</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>
-<span class="co">#&gt; [1] "15s"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dminutes</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; [1] "600s (~10 minutes)"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dhours</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "43200s (~12 hours)" "86400s (~1 days)"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt; [1] "0s"                "86400s (~1 days)"  "172800s (~2 days)"</span>
-<span class="co">#&gt; [4] "259200s (~3 days)" "345600s (~4 days)" "432000s (~5 days)"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dweeks</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1814400s (~3 weeks)"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "31557600s (~1 years)"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dseconds</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "15s"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dminutes</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "600s (~10 minutes)"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dhours</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "43200s (~12 hours)" "86400s (~1 days)"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "0s"                "86400s (~1 days)"  "172800s (~2 days)"</span></span>
+<span><span class="co">#&gt; [4] "259200s (~3 days)" "345600s (~4 days)" "432000s (~5 days)"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dweeks</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1814400s (~3 weeks)"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "31557600s (~1 years)"</span></span></code></pre></div>
 <p>Le durate registrano sempre l’intervallo di tempo in secondi. Unità più grandi sono create convertendo minuti, ore, giorni, settimane e anni in secondi al tasso standard (60 secondi in un minuto, 60 minuti in un’ora, 24 ore in un giorno, 7 giorni in una settimana, 365 giorni in un anno).</p>
 <p>È possibile aggiungere e moltiplicare le durate:</p>
 <div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "63115200s (~2 years)"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dweeks</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dhours</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>
-<span class="co">#&gt; [1] "38869200s (~1.23 years)"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "63115200s (~2 years)"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dweeks</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dhours</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "38869200s (~1.23 years)"</span></span></code></pre></div>
 <p>È possibile aggiungere e sottrarre durate a e da giorni:</p>
 <div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tomorrow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="va">last_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tomorrow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">last_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Tuttavia, poiché le durate rappresentano un numero esatto di secondi, a volte si potrebbe ottenere un risultato inaspettato:</p>
 <div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">one_pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2016-03-12 13:00:00"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span>
-
-<span class="va">one_pm</span>
-<span class="co">#&gt; [1] "2016-03-12 13:00:00 EST"</span>
-<span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2016-03-13 14:00:00 EDT"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">one_pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2016-03-12 13:00:00"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">one_pm</span></span>
+<span><span class="co">#&gt; [1] "2016-03-12 13:00:00 EST"</span></span>
+<span><span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2016-03-13 14:00:00 EDT"</span></span></code></pre></div>
 <p>Perché un giorno dopo le 13 del 12 marzo ci sono le 14 del 13 marzo?! Se guardi attentamente la data potresti anche notare che i fusi orari sono cambiati. A causa del DST, il 12 marzo ha solo 23 ore, quindi se aggiungiamo un giorno intero di secondi ci ritroviamo con un orario diverso.</p>
 </div>
 <div id="periodi" class="section level3">
@@ -512,77 +512,77 @@ Suggerimento: create una variabile binaria che vi dica se un volo
 </h3>
 <p>Per risolvere questo problema, lubridate fornisce <strong>periodi</strong>. I periodi sono intervalli di tempo ma non hanno una lunghezza fissa in secondi, invece lavorano con tempi “umani”, come giorni e mesi. Questo permette loro di lavorare in modo più intuitivo:</p>
 <div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">one_pm</span>
-<span class="co">#&gt; [1] "2016-03-12 13:00:00 EST"</span>
-<span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2016-03-13 13:00:00 EDT"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">one_pm</span></span>
+<span><span class="co">#&gt; [1] "2016-03-12 13:00:00 EST"</span></span>
+<span><span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2016-03-13 13:00:00 EDT"</span></span></code></pre></div>
 <p>Come le durate, i periodi possono essere creati con un certo numero di funzioni costruttrici carine.</p>
 <div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">seconds</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>
-<span class="co">#&gt; [1] "15S"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; [1] "10M 0S"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "12H 0M 0S" "24H 0M 0S"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span>
-<span class="co">#&gt; [1] "7d 0H 0M 0S"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1m 0d 0H 0M 0S" "2m 0d 0H 0M 0S" "3m 0d 0H 0M 0S" "4m 0d 0H 0M 0S"</span>
-<span class="co">#&gt; [5] "5m 0d 0H 0M 0S" "6m 0d 0H 0M 0S"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">weeks</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt; [1] "21d 0H 0M 0S"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "1y 0m 0d 0H 0M 0S"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">seconds</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "15S"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "10M 0S"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "12H 0M 0S" "24H 0M 0S"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "7d 0H 0M 0S"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1m 0d 0H 0M 0S" "2m 0d 0H 0M 0S" "3m 0d 0H 0M 0S" "4m 0d 0H 0M 0S"</span></span>
+<span><span class="co">#&gt; [5] "5m 0d 0H 0M 0S" "6m 0d 0H 0M 0S"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">weeks</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "21d 0H 0M 0S"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1y 0m 0d 0H 0M 0S"</span></span></code></pre></div>
 <p>Puoi aggiungere e moltiplicare i periodi:</p>
 <div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">10</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "60m 10d 0H 0M 0S"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt; [1] "50d 25H 2M 0S"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fl">10</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "60m 10d 0H 0M 0S"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">hours</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">minutes</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "50d 25H 2M 0S"</span></span></code></pre></div>
 <p>E, naturalmente, aggiungeteli alle date. Rispetto alle durate, i periodi hanno più probabilità di fare ciò che vi aspettate:</p>
 <div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Un anno bisestile</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2016-12-31 06:00:00 UTC"</span>
-<span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2017-01-01"</span>
-
-<span class="co"># Ora legale</span>
-<span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2016-03-13 14:00:00 EDT"</span>
-<span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2016-03-13 13:00:00 EDT"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Un anno bisestile</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dyears</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2016-12-31 06:00:00 UTC"</span></span>
+<span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="st">"2016-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2017-01-01"</span></span>
+<span></span>
+<span><span class="co"># Ora legale</span></span>
+<span><span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2016-03-13 14:00:00 EDT"</span></span>
+<span><span class="va">one_pm</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2016-03-13 13:00:00 EDT"</span></span></code></pre></div>
 <p>Usiamo i periodi per risolvere una stranezza legata alle date dei nostri voli. Alcuni aerei sembrano essere arrivati a destinazione <em>prima</em> della loro partenza da New York City.</p>
 <div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 10,633 × 9</span>
-<span class="co">#&gt;   origin dest  dep_delay arr_delay dep_time            sched_dep_time     </span>
-<span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             </span>
-<span class="co">#&gt; 1 EWR    BQN           9        -4 2013-01-01 19:29:00 2013-01-01 19:20:00</span>
-<span class="co">#&gt; 2 JFK    DFW          59        NA 2013-01-01 19:39:00 2013-01-01 18:40:00</span>
-<span class="co">#&gt; 3 EWR    TPA          -2         9 2013-01-01 20:58:00 2013-01-01 21:00:00</span>
-<span class="co">#&gt; 4 EWR    SJU          -6       -12 2013-01-01 21:02:00 2013-01-01 21:08:00</span>
-<span class="co">#&gt; 5 EWR    SFO          11       -14 2013-01-01 21:08:00 2013-01-01 20:57:00</span>
-<span class="co">#&gt; 6 LGA    FLL         -10        -2 2013-01-01 21:20:00 2013-01-01 21:30:00</span>
-<span class="co">#&gt; # … with 10,627 more rows, and 3 more variables: arr_time &lt;dttm&gt;,</span>
-<span class="co">#&gt; #   sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; # A tibble: 10,633 × 9</span></span>
+<span><span class="co">#&gt;   origin dest  dep_delay arr_delay dep_time            sched_dep_time     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             </span></span>
+<span><span class="co">#&gt; 1 EWR    BQN           9        -4 2013-01-01 19:29:00 2013-01-01 19:20:00</span></span>
+<span><span class="co">#&gt; 2 JFK    DFW          59        NA 2013-01-01 19:39:00 2013-01-01 18:40:00</span></span>
+<span><span class="co">#&gt; 3 EWR    TPA          -2         9 2013-01-01 20:58:00 2013-01-01 21:00:00</span></span>
+<span><span class="co">#&gt; 4 EWR    SJU          -6       -12 2013-01-01 21:02:00 2013-01-01 21:08:00</span></span>
+<span><span class="co">#&gt; 5 EWR    SFO          11       -14 2013-01-01 21:08:00 2013-01-01 20:57:00</span></span>
+<span><span class="co">#&gt; 6 LGA    FLL         -10        -2 2013-01-01 21:20:00 2013-01-01 21:30:00</span></span>
+<span><span class="co">#&gt; # … with 10,627 more rows, and 3 more variables: arr_time &lt;dttm&gt;,</span></span>
+<span><span class="co">#&gt; #   sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;</span></span></code></pre></div>
 <p>Questi sono voli notturni. Abbiamo usato le stesse informazioni sulla data sia per la partenza che per l’arrivo, ma questi voli sono arrivati il giorno successivo. Possiamo risolvere questo problema aggiungendo <code>days(1)</code> all’orario di arrivo di ogni volo notturno.</p>
 <div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op">&lt;-</span> <span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    overnight <span class="op">=</span> <span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span>,
-    arr_time <span class="op">=</span> <span class="va">arr_time</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="va">overnight</span> <span class="op">*</span> <span class="fl">1</span><span class="op">)</span>,
-    sched_arr_time <span class="op">=</span> <span class="va">sched_arr_time</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="va">overnight</span> <span class="op">*</span> <span class="fl">1</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op">&lt;-</span> <span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    overnight <span class="op">=</span> <span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span>,</span>
+<span>    arr_time <span class="op">=</span> <span class="va">arr_time</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="va">overnight</span> <span class="op">*</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    sched_arr_time <span class="op">=</span> <span class="va">sched_arr_time</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="va">overnight</span> <span class="op">*</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>Ora tutti i nostri voli obbediscono alle leggi della fisica.</p>
 <div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">overnight</span>, <span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 0 × 10</span>
-<span class="co">#&gt; # … with 10 variables: origin &lt;chr&gt;, dest &lt;chr&gt;, dep_delay &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   arr_delay &lt;dbl&gt;, dep_time &lt;dttm&gt;, sched_dep_time &lt;dttm&gt;, arr_time &lt;dttm&gt;,</span>
-<span class="co">#&gt; #   sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;, overnight &lt;lgl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">overnight</span>, <span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; # A tibble: 0 × 10</span></span>
+<span><span class="co">#&gt; # … with 10 variables: origin &lt;chr&gt;, dest &lt;chr&gt;, dep_delay &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   arr_delay &lt;dbl&gt;, dep_time &lt;dttm&gt;, sched_dep_time &lt;dttm&gt;, arr_time &lt;dttm&gt;,</span></span>
+<span><span class="co">#&gt; #   sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;, overnight &lt;lgl&gt;</span></span></code></pre></div>
 </div>
 <div id="intervalli" class="section level3">
 <h3>
@@ -591,17 +591,17 @@ Suggerimento: create una variabile binaria che vi dica se un volo
 <p>È ovvio cosa dovrebbe restituire <code>dyears(1) / ddays(365)</code>: uno, perché le durate sono sempre rappresentate da un numero di secondi, e la durata di un anno è definita come 365 giorni di secondi.</p>
 <p>Cosa dovrebbe restituire <code>years(1) / days(1)</code>? Beh, se l’anno fosse il 2015 dovrebbe restituire 365, ma se fosse il 2016, dovrebbe restituire 366! Non ci sono abbastanza informazioni per lubridate per dare una singola risposta chiara. Quello che fa invece è dare una stima, con un avvertimento:</p>
 <div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 365.25</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 365.25</span></span></code></pre></div>
 <p>Se volete una misura più precisa, dovrete usare un <strong>intervallo</strong>. Un intervallo è una durata con un punto di partenza: questo lo rende preciso e ti permette di determinare esattamente la sua durata:</p>
 <div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">next_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">next_year</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 365</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">next_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">years</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">next_year</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">ddays</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 365</span></span></code></pre></div>
 <p>Per scoprire quanti periodi rientrano in un intervallo, è necessario utilizzare la divisione di interi:</p>
 <div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">next_year</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; [1] 365</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://lubridate.tidyverse.org/reference/interval.html">%--%</a></span> <span class="va">next_year</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html">days</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 365</span></span></code></pre></div>
 </div>
 <div id="riassunto-1" class="section level3">
 <h3>
@@ -646,60 +646,60 @@ quanti anni hai in anni.</p></li>
 <p>Ci si potrebbe chiedere perché il fuso orario usa una città, quando tipicamente si pensa ai fusi orari come associati a un paese o a una regione all’interno di un paese. Questo perché il database IANA deve registrare decenni di regole sui fusi orari. Nel corso dei decenni, i paesi cambiano nome (o si separano) abbastanza frequentemente, ma i nomi delle città tendono a rimanere gli stessi. Un altro problema è che il nome deve riflettere non solo il comportamento attuale, ma anche la storia completa. Per esempio, ci sono fusi orari sia per “America/New_York” che per “America/Detroit”. Queste città usano entrambe l’Eastern Standard Time, ma nel 1969-1972 il Michigan (lo stato in cui si trova Detroit), non seguiva il DST, quindi ha bisogno di un nome diverso. Vale la pena leggere il database grezzo dei fusi orari (disponibile a <a href="http://www.iana.org/time-zones" class="uri">http://www.iana.org/time-zones</a>) solo per leggere alcune di queste storie!</p>
 <p>Potete scoprire quale R pensa che sia il vostro attuale fuso orario con <code><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone()</a></code>:</p>
 <div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "UTC"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">Sys.timezone</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "UTC"</span></span></code></pre></div>
 <p>(Se R non lo sa, otterrai un <code>NA</code>).</p>
 <p>E vedere la lista completa di tutti i nomi dei fusi orari con <code><a href="https://rdrr.io/r/base/timezones.html">OlsonNames()</a></code>:</p>
 <div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] 608</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"</span>
-<span class="co">#&gt; [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 608</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"</span></span>
+<span><span class="co">#&gt; [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</span></span></code></pre></div>
 <p>In R, il fuso orario è un attributo della data-ora che controlla solo la stampa. Per esempio, questi tre oggetti rappresentano lo stesso istante nel tempo:</p>
 <div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="op">(</span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2015-06-01 12:00:00"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-06-01 12:00:00 EDT"</span>
-<span class="op">(</span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2015-06-01 18:00:00"</span>, tz <span class="op">=</span> <span class="st">"Europe/Copenhagen"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-06-01 18:00:00 CEST"</span>
-<span class="op">(</span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2015-06-02 04:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2015-06-02 04:00:00 NZST"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2015-06-01 12:00:00"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-06-01 12:00:00 EDT"</span></span>
+<span><span class="op">(</span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2015-06-01 18:00:00"</span>, tz <span class="op">=</span> <span class="st">"Europe/Copenhagen"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-06-01 18:00:00 CEST"</span></span>
+<span><span class="op">(</span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html">ymd_hms</a></span><span class="op">(</span><span class="st">"2015-06-02 04:00:00"</span>, tz <span class="op">=</span> <span class="st">"Pacific/Auckland"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2015-06-02 04:00:00 NZST"</span></span></code></pre></div>
 <p>Puoi verificare che sono lo stesso tempo usando la sottrazione:</p>
 <div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x1</span> <span class="op">-</span> <span class="va">x2</span>
-<span class="co">#&gt; Time difference of 0 secs</span>
-<span class="va">x1</span> <span class="op">-</span> <span class="va">x3</span>
-<span class="co">#&gt; Time difference of 0 secs</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x1</span> <span class="op">-</span> <span class="va">x2</span></span>
+<span><span class="co">#&gt; Time difference of 0 secs</span></span>
+<span><span class="va">x1</span> <span class="op">-</span> <span class="va">x3</span></span>
+<span><span class="co">#&gt; Time difference of 0 secs</span></span></code></pre></div>
 <p>Se non diversamente specificato, lubridate usa sempre UTC. UTC (Coordinated Universal Time) è il fuso orario standard usato dalla comunità scientifica e approssimativamente equivalente al suo predecessore GMT (Greenwich Mean Time). Non ha DST, il che rende una rappresentazione conveniente per il calcolo. Le operazioni che combinano date-ora, come <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>, spesso non includono il fuso orario. In questo caso, la data-ora sarà visualizzata nel tuo fuso orario locale:</p>
 <div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, <span class="va">x3</span><span class="op">)</span>
-<span class="va">x4</span>
-<span class="co">#&gt; [1] "2015-06-01 12:00:00 EDT" "2015-06-01 12:00:00 EDT"</span>
-<span class="co">#&gt; [3] "2015-06-01 12:00:00 EDT"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span>, <span class="va">x3</span><span class="op">)</span></span>
+<span><span class="va">x4</span></span>
+<span><span class="co">#&gt; [1] "2015-06-01 12:00:00 EDT" "2015-06-01 12:00:00 EDT"</span></span>
+<span><span class="co">#&gt; [3] "2015-06-01 12:00:00 EDT"</span></span></code></pre></div>
 <p>Puoi cambiare il fuso orario in due modi:</p>
 <ul>
 <li>
 <p>Mantenere l’istante nel tempo lo stesso, e cambiare il modo in cui viene visualizzato. Utilizzare questo quando l’istante è corretto, ma si desidera una visualizzazione più naturale.</p>
 <div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x4a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">x4</span>, tzone <span class="op">=</span> <span class="st">"Australia/Lord_Howe"</span><span class="op">)</span>
-<span class="va">x4a</span>
-<span class="co">#&gt; [1] "2015-06-02 02:30:00 +1030" "2015-06-02 02:30:00 +1030"</span>
-<span class="co">#&gt; [3] "2015-06-02 02:30:00 +1030"</span>
-<span class="va">x4a</span> <span class="op">-</span> <span class="va">x4</span>
-<span class="co">#&gt; Time differences in secs</span>
-<span class="co">#&gt; [1] 0 0 0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x4a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/with_tz.html">with_tz</a></span><span class="op">(</span><span class="va">x4</span>, tzone <span class="op">=</span> <span class="st">"Australia/Lord_Howe"</span><span class="op">)</span></span>
+<span><span class="va">x4a</span></span>
+<span><span class="co">#&gt; [1] "2015-06-02 02:30:00 +1030" "2015-06-02 02:30:00 +1030"</span></span>
+<span><span class="co">#&gt; [3] "2015-06-02 02:30:00 +1030"</span></span>
+<span><span class="va">x4a</span> <span class="op">-</span> <span class="va">x4</span></span>
+<span><span class="co">#&gt; Time differences in secs</span></span>
+<span><span class="co">#&gt; [1] 0 0 0</span></span></code></pre></div>
 <p>(Questo illustra anche un’altra sfida dei fusi orari: non sono tutti sfasamenti orari interi!)</p>
 </li>
 <li>
 <p>Cambia l’istante sottostante nel tempo. Usalo quando hai un istante che è stato etichettato con un fuso orario errato, e hai bisogno di correggerlo.</p>
 <div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/force_tz.html">force_tz</a></span><span class="op">(</span><span class="va">x4</span>, tzone <span class="op">=</span> <span class="st">"Australia/Lord_Howe"</span><span class="op">)</span>
-<span class="va">x4b</span>
-<span class="co">#&gt; [1] "2015-06-01 12:00:00 +1030" "2015-06-01 12:00:00 +1030"</span>
-<span class="co">#&gt; [3] "2015-06-01 12:00:00 +1030"</span>
-<span class="va">x4b</span> <span class="op">-</span> <span class="va">x4</span>
-<span class="co">#&gt; Time differences in hours</span>
-<span class="co">#&gt; [1] -14.5 -14.5 -14.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">x4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/force_tz.html">force_tz</a></span><span class="op">(</span><span class="va">x4</span>, tzone <span class="op">=</span> <span class="st">"Australia/Lord_Howe"</span><span class="op">)</span></span>
+<span><span class="va">x4b</span></span>
+<span><span class="co">#&gt; [1] "2015-06-01 12:00:00 +1030" "2015-06-01 12:00:00 +1030"</span></span>
+<span><span class="co">#&gt; [3] "2015-06-01 12:00:00 +1030"</span></span>
+<span><span class="va">x4b</span> <span class="op">-</span> <span class="va">x4</span></span>
+<span><span class="co">#&gt; Time differences in hours</span></span>
+<span><span class="co">#&gt; [1] -14.5 -14.5 -14.5</span></span></code></pre></div>
 </li>
 </ul>
 </div>
@@ -773,7 +773,7 @@ quanti anni hai in anni.</p></li>
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
