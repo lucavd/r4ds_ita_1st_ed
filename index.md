@@ -24,7 +24,7 @@ R4DS usa un [Contributor Code of Conduct](https://contributor-covenant.org/versi
 ## Nota sulla traduzione italiana {.unnumbered}
 
 
-**Ultimo Aggiornamento** 31 August, 2022
+**Ultimo Aggiornamento** 01 September, 2022
 
 La traduzione italiana del libro R4DS è stata condotta da [Luca Vedovelli](https://lucavd.netlify.app/) su [esplicita autorizzazione]{.ul} dell'autore (Hadley Wickam) e dell'editore O'Reilly che detiene i diritti di traduzione.
 
