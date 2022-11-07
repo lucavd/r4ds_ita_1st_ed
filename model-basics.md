@@ -314,6 +314,8 @@ Poi, tracciamo le previsioni. Potreste chiedervi tutto questo lavoro extra rispe
 ggplot(sim1, aes(x)) +
   geom_point(aes(y = y)) +
   geom_line(aes(y = pred), data = grid, colour = "red", size = 1)
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
 ```
 
 <img src="model-basics_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />

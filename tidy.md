@@ -348,7 +348,7 @@ Come avrete capito dai loro nomi, `pivot_wider()` e `pivot_longer()` sono comple
     ```r
     table4a %>% 
       pivot_longer(c(1999, 2000), names_to = "year", values_to = "cases")
-    #> Error in `loc_validate()`:
+    #> Error in `build_longer_spec()`:
     #> ! Can't subset columns past the end.
     #> ℹ Locations 1999 and 2000 don't exist.
     #> ℹ There are only 3 columns.
@@ -664,21 +664,21 @@ C'è una ricchezza di informazioni epidemiologiche in questo set di dati, ma è 
 ```r
 who
 #> # A tibble: 7,240 × 60
-#>   country   iso2  iso3   year new_sp_m014 new_sp_m1524 new_sp_m2534 new_sp_m3544
-#>   <chr>     <chr> <chr> <int>       <int>        <int>        <int>        <int>
-#> 1 Afghanis… AF    AFG    1980          NA           NA           NA           NA
-#> 2 Afghanis… AF    AFG    1981          NA           NA           NA           NA
-#> 3 Afghanis… AF    AFG    1982          NA           NA           NA           NA
-#> 4 Afghanis… AF    AFG    1983          NA           NA           NA           NA
-#> 5 Afghanis… AF    AFG    1984          NA           NA           NA           NA
-#> 6 Afghanis… AF    AFG    1985          NA           NA           NA           NA
-#> # … with 7,234 more rows, and 52 more variables: new_sp_m4554 <int>,
-#> #   new_sp_m5564 <int>, new_sp_m65 <int>, new_sp_f014 <int>,
-#> #   new_sp_f1524 <int>, new_sp_f2534 <int>, new_sp_f3544 <int>,
-#> #   new_sp_f4554 <int>, new_sp_f5564 <int>, new_sp_f65 <int>,
-#> #   new_sn_m014 <int>, new_sn_m1524 <int>, new_sn_m2534 <int>,
-#> #   new_sn_m3544 <int>, new_sn_m4554 <int>, new_sn_m5564 <int>,
-#> #   new_sn_m65 <int>, new_sn_f014 <int>, new_sn_f1524 <int>, …
+#>   country     iso2  iso3   year new_sp…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶
+#>   <chr>       <chr> <chr> <int>    <int>   <int>   <int>   <int>   <int>   <int>
+#> 1 Afghanistan AF    AFG    1980       NA      NA      NA      NA      NA      NA
+#> 2 Afghanistan AF    AFG    1981       NA      NA      NA      NA      NA      NA
+#> 3 Afghanistan AF    AFG    1982       NA      NA      NA      NA      NA      NA
+#> 4 Afghanistan AF    AFG    1983       NA      NA      NA      NA      NA      NA
+#> 5 Afghanistan AF    AFG    1984       NA      NA      NA      NA      NA      NA
+#> 6 Afghanistan AF    AFG    1985       NA      NA      NA      NA      NA      NA
+#> # … with 7,234 more rows, 50 more variables: new_sp_m65 <int>,
+#> #   new_sp_f014 <int>, new_sp_f1524 <int>, new_sp_f2534 <int>,
+#> #   new_sp_f3544 <int>, new_sp_f4554 <int>, new_sp_f5564 <int>,
+#> #   new_sp_f65 <int>, new_sn_m014 <int>, new_sn_m1524 <int>,
+#> #   new_sn_m2534 <int>, new_sn_m3544 <int>, new_sn_m4554 <int>,
+#> #   new_sn_m5564 <int>, new_sn_m65 <int>, new_sn_f014 <int>,
+#> #   new_sn_f1524 <int>, new_sn_f2534 <int>, new_sn_f3544 <int>, …
 ```
 
 Questo è un tipico set di dati della vita reale. Contiene colonne ridondanti, codici variabili strani e molti valori mancanti. In breve, `who` è disordinato, e avremo bisogno di più passi per metterlo in ordine. Come dplyr, tidyr è progettato in modo che ogni funzione faccia bene una cosa. Questo significa che in situazioni reali avrete bisogno di mettere insieme più verbi in una pipeline. 

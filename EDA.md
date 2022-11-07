@@ -311,7 +311,7 @@ Come R, ggplot2 sottoscrive la filosofia che i valori mancanti non dovrebbero ma
 ```r
 ggplot(data = diamonds2, mapping = aes(x = x, y = y)) + 
   geom_point()
-#> Warning: Removed 9 rows containing missing values (geom_point).
+#> Warning: Removed 9 rows containing missing values (`geom_point()`).
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-16-1.png" width="70%" style="display: block; margin: auto;" />
@@ -382,6 +382,8 @@ Per rendere il confronto più facile, dobbiamo scambiare ciò che viene visualiz
 ```r
 ggplot(data = diamonds, mapping = aes(x = price, y = ..density..)) + 
   geom_freqpoly(mapping = aes(colour = cut), binwidth = 500)
+#> Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `after_stat(density)` instead.
 ```
 
 <img src="EDA_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" />

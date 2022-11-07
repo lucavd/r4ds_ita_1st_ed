@@ -68,11 +68,11 @@ diamonds2 <- diamonds %>%
   dplyr::mutate(price_per_carat = price / carat)
 
 pryr::object_size(diamonds)
-#> 3,456,344 B
+#> 3.46 MB
 pryr::object_size(diamonds2)
-#> 3,887,976 B
+#> 3.89 MB
 pryr::object_size(diamonds, diamonds2)
-#> 3,888,552 B
+#> 3.89 MB
 ```
 
 La funzione `pryr::object_size()` dà la memoria occupata da tutti i suoi argomenti. I risultati sembrano controintuitivi all'inizio:
@@ -87,11 +87,11 @@ Come può funzionare? Beh, `diamonds2` ha 10 colonne in comune con `diamonds`: n
 ```r
 diamonds$carat[1] <- NA
 pryr::object_size(diamonds)
-#> 3,456,344 B
+#> 3.46 MB
 pryr::object_size(diamonds2)
-#> 3,887,976 B
+#> 3.89 MB
 pryr::object_size(diamonds, diamonds2)
-#> 4,320,120 B
+#> 4.32 MB
 ```
 
 (Si noti che qui usiamo `pryr::object_size()`, non il built-in `object.size()`. La funzione `object.size()` prende solo un singolo oggetto quindi non può calcolare come i dati sono condivisi tra più oggetti).

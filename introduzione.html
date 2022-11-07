@@ -20,18 +20,18 @@
 <meta name="twitter:image" content="http://it.r4ds.hadley.nz/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0.9000/transition.js"></script><script src="libs/bs3compat-0.4.0.9000/tabs.js"></script><script src="libs/bs3compat-0.4.0.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0.9900/transition.js"></script><script src="libs/bs3compat-0.4.0.9900/tabs.js"></script><script src="libs/bs3compat-0.4.0.9900/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
+<script src="libs/str_view-binding-1.4.1/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'UA-115082821-1');
-  </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-115082821-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
@@ -99,12 +99,12 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduzione" class="section level1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduzione" class="section level1" number="1">
 <h1>
 <span class="header-section-number">1</span> Introduzione<a class="anchor" aria-label="anchor" href="#introduzione"><i class="fas fa-link"></i></a>
 </h1>
 <p>La scienza dei dati (<em>data science</em>) è una disciplina eccitante che permette di trasformare i dati grezzi in comprensione, intuizione e conoscenza. L’obiettivo di “R for Data Science” è di aiutarvi a imparare gli strumenti più importanti in R che vi permetteranno di fare <em>data science</em>. Dopo aver letto questo libro, avrete gli strumenti per affrontare un’ampia varietà di sfide, usando le parti migliori di R.</p>
-<div id="cosa-imparerai" class="section level2">
+<div id="cosa-imparerai" class="section level2" number="1.1">
 <h2>
 <span class="header-section-number">1.1</span> Cosa imparerai<a class="anchor" aria-label="anchor" href="#cosa-imparerai"><i class="fas fa-link"></i></a>
 </h2>
@@ -120,7 +120,7 @@
 <p>Attorno a tutti questi strumenti c’è la programmazione ( <strong>programming</strong> ). La programmazione è uno strumento trasversale che si usa in ogni parte del progetto. Non c’è bisogno di essere un programmatore esperto per essere uno scienziato dei dati, ma imparare di più sulla programmazione ripaga perché diventare un programmatore migliore permette di automatizzare compiti comuni e risolvere nuovi problemi con maggiore facilità.</p>
 <p>Userai questi strumenti in ogni progetto di <em>data science</em>, ma per la maggior parte dei progetti non sono sufficienti. C’è una regola approssimativa 80-20 in gioco; potete affrontare circa l’80% di ogni progetto usando gli strumenti che imparerete in questo libro, ma avrete bisogno di altri strumenti per affrontare il restante 20%. In tutto questo libro ti indicheremo le risorse dove puoi imparare di più.</p>
 </div>
-<div id="come-è-organizzato-questo-libro" class="section level2">
+<div id="come-è-organizzato-questo-libro" class="section level2" number="1.2">
 <h2>
 <span class="header-section-number">1.2</span> Come è organizzato questo libro<a class="anchor" aria-label="anchor" href="#come-%C3%A8-organizzato-questo-libro"><i class="fas fa-link"></i></a>
 </h2>
@@ -143,12 +143,12 @@ interessanti problemi di modellazione.</p></li>
 </ul>
 <p>All’interno di ogni capitolo, cerchiamo di attenerci a uno schema simile: iniziamo con alcuni esempi motivanti in modo che tu possa vedere il quadro generale, e poi ci immergiamo nei dettagli. Ogni sezione del libro è accompagnata da esercizi per aiutarti a mettere in pratica ciò che hai imparato. Anche se si è tentati di saltare gli esercizi, non c’è modo migliore per imparare che fare pratica su problemi reali.</p>
 </div>
-<div id="cosa-non-imparerai" class="section level2">
+<div id="cosa-non-imparerai" class="section level2" number="1.3">
 <h2>
 <span class="header-section-number">1.3</span> Cosa non imparerai<a class="anchor" aria-label="anchor" href="#cosa-non-imparerai"><i class="fas fa-link"></i></a>
 </h2>
 <p>Ci sono alcuni argomenti importanti che questo libro non tratta. Crediamo che sia importante rimanere spietatamente concentrati sull’essenziale in modo da poter essere operativi il più velocemente possibile. Ciò significa che questo libro non può coprire tutti gli argomenti importanti.</p>
-<div id="big-data" class="section level3">
+<div id="big-data" class="section level3" number="1.3.1">
 <h3>
 <span class="header-section-number">1.3.1</span> Big data<a class="anchor" aria-label="anchor" href="#big-data"><i class="fas fa-link"></i></a>
 </h3>
@@ -156,7 +156,7 @@ interessanti problemi di modellazione.</p></li>
 <p>Se i tuoi dati sono ancora più grandi, valuta attentamente se il tuo problema di <em>big data</em> possa essere in realtà un problema di <em>small data</em> sotto mentite spoglie. Mentre i dati completi potrebbero essere grandi, spesso i dati necessari per rispondere a una domanda specifica sono piccoli. Potresti essere in grado di trovare un sottoinsieme, un sottocampione o un riassunto che si adatti alla memoria del tuo PC e che ti permetta comunque di rispondere alla domanda che ti interessa. La sfida in questo caso è trovare i piccoli dati giusti, il che spesso richiede un sacco di prove.</p>
 <p>Un’altra possibilità è che il tuo problema di grandi dati sia in realtà un gran numero di problemi di piccoli dati. Ogni singolo problema potrebbe adattarsi alla memoria, ma ne hai milioni. Per esempio, potresti voler adattare un modello a ogni persona nel tuo set di dati. Questo sarebbe banale se tu avessi solo 10 o 100 persone, ma invece ne hai un milione. Fortunatamente ogni problema è indipendente dagli altri (una configurazione che a volte viene chiamata “imbarazzantemente parallela” ( <em>embarrassingly parallel</em> )), quindi hai solo bisogno di un sistema (come Hadoop o Spark) che ti permetta di inviare diversi set di dati a diversi computer per l’elaborazione. Una volta che hai capito come rispondere alla domanda per un singolo sottoinsieme usando gli strumenti descritti in questo libro, impari nuovi strumenti come sparklyr, rhipe e ddr per risolverla per l’intero set di dati.</p>
 </div>
-<div id="python-julia-e-amici" class="section level3">
+<div id="python-julia-e-amici" class="section level3" number="1.3.2">
 <h3>
 <span class="header-section-number">1.3.2</span> Python, Julia e amici<a class="anchor" aria-label="anchor" href="#python-julia-e-amici"><i class="fas fa-link"></i></a>
 </h3>
@@ -164,13 +164,13 @@ interessanti problemi di modellazione.</p></li>
 <p>Tuttavia, crediamo fortemente che sia meglio padroneggiare uno strumento alla volta. Migliorerai più velocemente se ti immergerai in profondità, piuttosto che sparpagliarti su molti argomenti. Questo non significa che dovrai sapere solo una cosa, solo che in genere imparerai più velocemente se ti atterrai a una cosa alla volta. Dovresti sforzarti di imparare nuove cose durante la tua carriera, ma assicurati che la tua comprensione sia solida prima di passare alla prossima cosa interessante.</p>
 <p>Pensiamo che R sia un ottimo posto per iniziare il tuo viaggio nella scienza dei dati perché è un ambiente progettato da zero per supportarela. R non è solo un linguaggio di programmazione, ma è anche un ambiente interattivo. Per supportare l’interazione, R è un linguaggio molto più flessibile di molti dei suoi colleghi. Questa flessibilità ha i suoi lati negativi, ma il grande vantaggio è quanto sia facile evolvere grammatiche su misura per parti specifiche del processo di <em>data science</em>. Questi mini linguaggi ti aiutano a pensare ai problemi come uno scienziato dei dati, mentre supportano un’interazione fluida tra il tuo cervello e il computer.</p>
 </div>
-<div id="dati-non-rettangolari" class="section level3">
+<div id="dati-non-rettangolari" class="section level3" number="1.3.3">
 <h3>
 <span class="header-section-number">1.3.3</span> Dati non rettangolari<a class="anchor" aria-label="anchor" href="#dati-non-rettangolari"><i class="fas fa-link"></i></a>
 </h3>
 <p>Questo libro si concentra esclusivamente su dati rettangolari: collezioni di valori che sono ciascuno associato a una variabile e a un’osservazione. Ci sono molti insiemi di dati che non rientrano naturalmente in questo paradigma, comprese le immagini, i suoni, gli alberi e il testo. Ma i data frame rettangolari sono estremamente comuni nella scienza e nell’industria, e noi crediamo che siano un ottimo punto di partenza per il tuo viaggio.</p>
 </div>
-<div id="conferma-delle-ipotesi" class="section level3">
+<div id="conferma-delle-ipotesi" class="section level3" number="1.3.4">
 <h3>
 <span class="header-section-number">1.3.4</span> Conferma delle ipotesi<a class="anchor" aria-label="anchor" href="#conferma-delle-ipotesi"><i class="fas fa-link"></i></a>
 </h3>
@@ -189,13 +189,13 @@ strategie che puoi usare per rendere questo più facile in <a href="model-intro.
 <p>È comune pensare alla modellazione ( <strong>modelling</strong> ) come uno strumento per la conferma delle ipotesi, e alla visualizzazione come uno strumento per la generazione di ipotesi. Ma questa è una falsa dicotomia: i modelli sono spesso usati per l’esplorazione, e con un po’ di attenzione si può usare la visualizzazione per la conferma. La differenza chiave è quanto spesso si guarda ogni osservazione: se si guarda solo una volta, è conferma; se si guarda più di una volta, è esplorazione.</p>
 </div>
 </div>
-<div id="prerequisiti" class="section level2">
+<div id="prerequisiti" class="section level2" number="1.4">
 <h2>
 <span class="header-section-number">1.4</span> Prerequisiti<a class="anchor" aria-label="anchor" href="#prerequisiti"><i class="fas fa-link"></i></a>
 </h2>
 <p>Abbiamo fatto alcune supposizioni su ciò che già sai per ottenere il massimo da questo libro. Dovresti essere generalmente alfabetizzato dal punto di vista numerico, ed è utile tu abbia già qualche esperienza di programmazione. Se non hai mai programmato prima, potresti trovare <a href="http://amzn.com/1449359019">Hands on Programming with R</a> di Garrett come utile complemento a questo libro.</p>
 <p>Ci sono quattro cose di cui avrai bisogno per eseguire il codice in questo libro: R, RStudio, una collezione di pacchetti di R chiamata <strong>tidyverse</strong>, e una manciata di altri pacchetti. I pacchetti sono le unità fondamentali del codice R riproducibile. Includono funzioni riutilizzabili, la documentazione che descrive come usarle, e dati di esempio.</p>
-<div id="rstudio" class="section level3">
+<div id="rstudio" class="section level3" number="1.4.1">
 <h3>
 <span class="header-section-number">1.4.1</span> RStudio<a class="anchor" aria-label="anchor" href="#rstudio"><i class="fas fa-link"></i></a>
 </h3>
@@ -204,7 +204,7 @@ strategie che puoi usare per rendere questo più facile in <a href="model-intro.
 <div class="inline-figure"><img src="diagrams/rstudio-console.png" width="75%" style="display: block; margin: auto;"></div>
 <p>Per ora, tutto quello che devi sapere è che digiti il codice R nel pannello della console e premi invio per eseguirlo. Imparerai di più andando avanti!</p>
 </div>
-<div id="il-tidyverse" class="section level3">
+<div id="il-tidyverse" class="section level3" number="1.4.2">
 <h3>
 <span class="header-section-number">1.4.2</span> Il tidyverse<a class="anchor" aria-label="anchor" href="#il-tidyverse"><i class="fas fa-link"></i></a>
 </h3>
@@ -216,18 +216,18 @@ strategie che puoi usare per rendere questo più facile in <a href="model-intro.
 <p>Non sarai in grado di usare le funzioni, gli oggetti e i file di aiuto di un pacchetto finché non lo caricherai con <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>. Una volta che hai installato un pacchetto, puoi caricarlo con la funzione <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span></span>
-<span><span class="co">#&gt; ✔ ggplot2 3.3.6     ✔ purrr   0.3.4</span></span>
-<span><span class="co">#&gt; ✔ tibble  3.1.7     ✔ dplyr   1.0.9</span></span>
-<span><span class="co">#&gt; ✔ tidyr   1.2.0     ✔ stringr 1.4.0</span></span>
-<span><span class="co">#&gt; ✔ readr   2.1.2     ✔ forcats 0.5.1</span></span>
+<span><span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──</span></span>
+<span><span class="co">#&gt; ✔ ggplot2 3.4.0      ✔ purrr   0.3.5 </span></span>
+<span><span class="co">#&gt; ✔ tibble  3.1.8      ✔ dplyr   1.0.10</span></span>
+<span><span class="co">#&gt; ✔ tidyr   1.2.1      ✔ stringr 1.4.1 </span></span>
+<span><span class="co">#&gt; ✔ readr   2.1.3      ✔ forcats 0.5.2 </span></span>
 <span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span></code></pre></div>
 <p>Questo ti dice che tidyverse sta caricando i pacchetti ggplot2, tibble, tidyr, readr, purrr e dplyr. Questi sono considerati il <strong>core</strong> (‘nucleo’) del tidyverse perché li userai in quasi tutte le analisi.</p>
 <p>I pacchetti del tidyverse cambiano abbastanza frequentemente. Puoi vedere se sono disponibili aggiornamenti, e opzionalmente installarli, eseguendo <code><a href="https://tidyverse.tidyverse.org/reference/tidyverse_update.html">tidyverse_update()</a></code>.</p>
 </div>
-<div id="altri-pacchetti" class="section level3">
+<div id="altri-pacchetti" class="section level3" number="1.4.3">
 <h3>
 <span class="header-section-number">1.4.3</span> Altri pacchetti<a class="anchor" aria-label="anchor" href="#altri-pacchetti"><i class="fas fa-link"></i></a>
 </h3>
@@ -238,7 +238,7 @@ strategie che puoi usare per rendere questo più facile in <a href="model-intro.
 <p>Questi pacchetti forniscono dati sui voli aerei, sullo sviluppo mondiale e sul baseball che useremo per illustrare le idee chiave della scienza dei dati.</p>
 </div>
 </div>
-<div id="eseguire-il-codice-r" class="section level2">
+<div id="eseguire-il-codice-r" class="section level2" number="1.5">
 <h2>
 <span class="header-section-number">1.5</span> Eseguire il codice R<a class="anchor" aria-label="anchor" href="#eseguire-il-codice-r"><i class="fas fa-link"></i></a>
 </h2>
@@ -260,7 +260,7 @@ senza parentesi, come <code>flights</code> o <code>x</code>.</p></li>
 il nome del pacchetto seguito da due punti, come <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>, o<br><code><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">nycflights13::flights</a></code>. Anche questo è un codice R valido.</p></li>
 </ul>
 </div>
-<div id="ottenere-aiuto-e-imparare-di-più" class="section level2">
+<div id="ottenere-aiuto-e-imparare-di-più" class="section level2" number="1.6">
 <h2>
 <span class="header-section-number">1.6</span> Ottenere aiuto e imparare di più<a class="anchor" aria-label="anchor" href="#ottenere-aiuto-e-imparare-di-pi%C3%B9"><i class="fas fa-link"></i></a>
 </h2>
@@ -302,7 +302,7 @@ Più corto e più facile è da capire è il tuo codice, e più facile sarà da c
 <p>Dovresti anche spendere un po’ di tempo per prepararti a risolvere i problemi prima che si presentino. Investire un po’ di tempo per imparare R ogni giorno ti ripagherà ampiamente nel lungo periodo. Un modo è quello di seguire quello che Hadley, Garrett, e tutti gli altri a RStudio stanno facendo sul <a href="https://blog.rstudio.org">RStudio blog</a>. Qui è dove pubblichiamo annunci su nuovi pacchetti, nuove caratteristiche dell’IDE, e corsi di persona. Potresti anche seguire Hadley (<a href="https://twitter.com/hadleywickham">@hadleywickham</a>) o Garrett (<a href="https://twitter.com/statgarrett">@statgarrett</a>) su Twitter, o seguire <a href="https://twitter.com/rstudiotips">@rstudiotips</a> per essere aggiornati sulle nuove funzionalità dell’IDE.</p>
 <p>Per stare al passo con la comunità R più in generale, ti consigliamo di leggere <a href="http://www.r-bloggers.com" class="uri">http://www.r-bloggers.com</a>: aggrega oltre 500 blog su R da tutto il mondo. Se sei un utente attivo di Twitter, segui l’hashtag (<a href="https://twitter.com/search?q=%23rstats"><code>#rstats</code></a>). Twitter è uno degli strumenti chiave che Hadley usa per stare al passo con i nuovi sviluppi della comunità.</p>
 </div>
-<div id="ringraziamenti-1" class="section level2">
+<div id="ringraziamenti-1" class="section level2" number="1.7">
 <h2>
 <span class="header-section-number">1.7</span> Ringraziamenti<a class="anchor" aria-label="anchor" href="#ringraziamenti-1"><i class="fas fa-link"></i></a>
 </h2>
@@ -327,7 +327,7 @@ e ha fornito tonnellate di feedback utili.</p></li>
 <p>Questo libro è stato scritto in modo aperto, e molte persone hanno contribuito con pull request per risolvere problemi minori. Un ringraziamento speciale va a tutti coloro che hanno contribuito tramite GitHub:</p>
 <p>Grazie a tutti i collaboratori in ordine alfabetico: <span class="citation">@a-rosenberg</span>, A. s, Abhinav Singh, adi pradhan, Ahmed ElGabbas, Ajay Deonarine, <span class="citation">@AlanFeder</span>, Albert Y. Kim, <span class="citation">@Alex</span>, Andrea Gilardi, Andrew Landgraf, <span class="citation">@andrewmacfarland</span>, Angela Li, Azza Ahmed, bahadir cankardes, <span class="citation">@batpigandme</span>, <span class="citation">@behrman</span>, Ben Herbertson, Ben Marwick, Ben Steinberg, Benjamin Yeh, Bianca Peterson, Bill Behrman, <span class="citation">@BirgerNi</span>, <span class="citation">@boardtc</span>, Brandon Greenwell, Brent Brewington, Brett Klamer, Brian G. Barkley, Charlotte Wickham, Christian G. Warden, Christian Heinrich, Christian Mongeau, Colin Gillespie, Cooper Morris, Curtis Alexander, Daniel Gromer, David Clark, David Rubinger, Derwin McGeary, Devin Pastoor, Dirk Eddelbuettel, <span class="citation">@djbirke</span>, <span class="citation">@DSGeoff</span>, Dylan Cashman, Earl Brown, Edwin Thoen, Eric Watt, Erik Erhardt, Etienne B. Racine, Everett Robinson, Flemming Villalona, Floris Vanderhaeghe, Garrick Aden-Buie, George Wang, Gregory Jefferis, Gustav W Delius, Hao Chen, <span class="citation">@harrismcgehee</span>, Hengni Cai, Hiroaki Yutani, Hojjat Salmasian, Ian Lyttle, Ian Sealy, Ivan Krukov, Jacek Kolacz, Jacob Kaplan, Jakub Nowosad, Jazz Weisman, Jeff Boichuk, Jeffrey Arnold, Jen Ren, Jennifer (Jenny) Bryan, <span class="citation">@jennybc</span>, Jeroen Janssens, Jim Hester, <span class="citation">@jjchern</span>, Joanne Jang, Johannes Gruber, John Blischak, John D. Storey, John Sears, Jon Calder, <span class="citation">@Jonas</span>, Jonathan Page, <span class="citation">@jonathanflint</span>, Jose Roberto Ayala Solares, Josh Goldberg, <span class="citation">@juandering</span>, Julia Stewart Lowndes, Julian During, Justinas Petuchovas, <span class="citation">@kaetschap</span>, Kara de la Marck, Kara Woo, Katrin Leinweber, <span class="citation">@kdpsingh</span>, Kenny Darrell, Kirill Müller, Kirill Sevastyanenko, <span class="citation">@koalabearski</span>, Kunal Marwaha, <span class="citation">@KyleHumphrey</span>, Lawrence Wu, <span class="citation">@lindbrook</span>, Luke Smith, Luke W Johnston, Mara Averick, Maria Paula Caldas, Mark Beveridge, Matt Herman, Matthew Hendrickson, Matthew Sedaghatfar, <span class="citation">@MattWittbrodt</span>, Mauro Lepore, Michael Henry, Mine Cetinkaya-Rundel, <span class="citation">@MJMarshall</span>, Mustafa Ascha, <span class="citation">@nate-d-olson</span>, <span class="citation">@nattalides</span>, Nelson Areal, Nicholas Tierney, Nick Clark, <span class="citation">@nickelas</span>, Nina Munkholt Jakobsen, Nirmal Patel, Nischal Shrestha, Noah Landesberg, <span class="citation">@nwaff</span>, <span class="citation">@OaCantona</span>, Pablo E, Patrick Kennedy, <span class="citation">@Paul</span>, <span class="citation">@pete</span>, Peter Hurford, Rademeyer Vermaak, Radu Grosu, Ranae Dietzel, Riva Quiroga, <span class="citation">@rlzijdeman</span>, Rob Tenorio, Robert Schuessler, <span class="citation">@robertchu03</span>, Robin Gertenbach, <span class="citation">@robinlovelace</span>, <span class="citation">@robinsones</span>, Rohan Alexander, <span class="citation">@RomeroBarata</span>, S’busiso Mkhondwane, <span class="citation">@Saghir</span>, Sam Firke, Seamus McKinsey, <span class="citation">@seamus-mckinsey</span>, <span class="citation">@seanpwilliams</span>, Sebastian Kraus, Shannon Ellis, <span class="citation">@shoili</span>, <span class="citation">@sibusiso16</span>, <span class="citation">@Sophiazj</span>, <span class="citation">@spirgel</span>, Stéphane Guillou, Steve Mortimer, <span class="citation">@svenski</span>, Tal Galili, Terence Teo, Thomas Klebel, Tim Waterhouse, TJ Mahr, Tom Prior, <span class="citation">@twgardner2</span>, Ulrik Lyngs, Will Beasley, <span class="citation">@yahwes</span>, Yihui Xie, Yiming (Paul) Li, Yu Yu Aung, Zach Bogart, <span class="citation">@zeal626</span>, Zhuoer Dong, <span class="citation">@蒋雨蒙</span>.</p>
 </div>
-<div id="colophon" class="section level2">
+<div id="colophon" class="section level2" number="1.8">
 <h2>
 <span class="header-section-number">1.8</span> Colophon<a class="anchor" aria-label="anchor" href="#colophon"><i class="fas fa-link"></i></a>
 </h2>
@@ -337,124 +337,125 @@ e ha fornito tonnellate di feedback utili.</p></li>
 <code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html">session_info</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt;  setting  value</span></span>
-<span><span class="co">#&gt;  version  R version 4.2.0 (2022-04-22)</span></span>
-<span><span class="co">#&gt;  os       Ubuntu 20.04.4 LTS</span></span>
+<span><span class="co">#&gt;  version  R version 4.2.2 (2022-10-31)</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 20.04.5 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
 <span><span class="co">#&gt;  language (EN)</span></span>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2022-06-21</span></span>
-<span><span class="co">#&gt;  pandoc   2.7.3 @ /usr/bin/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt;  date     2022-11-07</span></span>
+<span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt;  package       * version    date (UTC) lib source</span></span>
-<span><span class="co">#&gt;  askpass         1.1        2019-01-13 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  backports       1.4.1      2021-12-13 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  base64enc       0.1-3      2015-07-28 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  bit             4.0.4      2020-08-04 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  bit64           4.0.5      2020-08-30 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  blob            1.2.3      2022-04-10 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  broom           0.8.0      2022-04-13 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  bslib           0.3.1.9000 2022-06-21 [1] Github (rstudio/bslib@52346e3)</span></span>
-<span><span class="co">#&gt;  cachem          1.0.6      2021-08-19 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  callr           3.7.0      2021-04-20 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  cellranger      1.1.0      2016-07-27 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  cli             3.3.0      2022-04-25 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  clipr           0.8.0      2022-02-22 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  colorspace      2.0-3      2022-02-21 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  cpp11           0.4.2      2021-11-30 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  crayon          1.5.1      2022-03-26 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  curl            4.3.2      2021-06-23 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  data.table      1.14.2     2021-09-27 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  DBI             1.1.3      2022-06-18 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  dbplyr          2.2.0      2022-06-05 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  digest          0.6.29     2021-12-01 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  dplyr         * 1.0.9      2022-04-28 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  dtplyr          1.2.1      2022-01-19 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  ellipsis        0.3.2      2021-04-29 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  evaluate        0.15       2022-02-18 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  fansi           1.0.3      2022-03-24 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  farver          2.1.0      2021-02-28 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  fastmap         1.1.0      2021-01-25 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  forcats       * 0.5.1      2021-01-27 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  fs              1.5.2      2021-12-08 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  gargle          1.2.0      2021-07-02 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  generics        0.1.2      2022-01-31 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  ggplot2       * 3.3.6      2022-05-03 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  glue            1.6.2      2022-02-24 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  googledrive     2.0.0      2021-07-08 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  googlesheets4   1.0.0      2021-07-21 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  gtable          0.3.0      2019-03-25 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  haven           2.5.0      2022-04-15 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  highr           0.9        2021-04-16 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  hms             1.1.1      2021-09-26 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  htmltools       0.5.2      2021-08-25 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  httr            1.4.3      2022-05-04 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  ids             1.0.1      2017-05-31 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  isoband         0.2.5      2021-07-13 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  jquerylib       0.1.4      2021-04-26 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  jsonlite        1.8.0      2022-02-22 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  knitr           1.39       2022-04-26 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  labeling        0.4.2      2020-10-20 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  lattice         0.20-45    2021-09-22 [2] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  lifecycle       1.0.1      2021-09-24 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  lubridate       1.8.0      2021-10-07 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  magrittr        2.0.3      2022-03-30 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  MASS            7.3-57     2022-04-22 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  Matrix          1.4-1      2022-03-23 [2] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  memoise         2.0.1      2021-11-26 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  mgcv            1.8-40     2022-03-29 [2] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  mime            0.12       2021-09-28 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  modelr          0.1.8      2020-05-19 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  munsell         0.5.0      2018-06-12 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  nlme            3.1-158    2022-06-15 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  openssl         2.0.2      2022-05-24 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  pillar          1.7.0      2022-02-01 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  processx        3.6.1      2022-06-17 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  progress        1.2.2      2019-05-16 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  ps              1.7.1      2022-06-18 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  purrr         * 0.3.4      2020-04-17 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  R6              2.5.1      2021-08-19 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  rappdirs        0.3.3      2021-01-31 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  RColorBrewer    1.1-3      2022-04-03 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  readr         * 2.1.2      2022-01-30 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  readxl          1.4.0      2022-03-28 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  rematch         1.0.1      2016-04-21 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  rematch2        2.1.2      2020-05-01 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  reprex          2.0.1      2021-08-05 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  rlang           1.0.2      2022-03-04 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  rmarkdown       2.14       2022-04-25 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  rstudioapi      0.13       2020-11-12 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  rvest           1.0.2      2021-10-16 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  sass            0.4.1      2022-03-23 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  scales          1.2.0      2022-04-13 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  selectr         0.4-2      2019-11-20 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  stringi         1.7.6      2021-11-29 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  stringr       * 1.4.0      2019-02-10 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  sys             3.4        2020-07-23 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  tibble        * 3.1.7      2022-05-03 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  tidyr         * 1.2.0      2022-02-01 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  tidyselect      1.1.2      2022-02-21 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  tidyverse     * 1.3.1      2021-04-15 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  tinytex         0.40       2022-06-15 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  tzdb            0.3.0      2022-03-28 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  utf8            1.2.2      2021-07-24 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  uuid            1.1-0      2022-04-19 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  vctrs           0.4.1      2022-04-13 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  viridisLite     0.4.0      2021-04-13 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  vroom           1.5.7      2021-11-30 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  withr           2.5.0      2022-03-03 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  xfun            0.31       2022-05-10 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  xml2            1.3.3      2021-11-30 [1] CRAN (R 4.2.0)</span></span>
-<span><span class="co">#&gt;  yaml            2.3.5      2022-02-21 [1] CRAN (R 4.2.0)</span></span>
+<span><span class="co">#&gt;  askpass         1.1        2019-01-13 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  backports       1.4.1      2021-12-13 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  base64enc       0.1-3      2015-07-28 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  bit             4.0.4      2020-08-04 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  bit64           4.0.5      2020-08-30 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  blob            1.2.3      2022-04-10 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  broom           1.0.1      2022-08-29 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  bslib           0.4.0.9900 2022-11-07 [1] Github (rstudio/bslib@b9d5beb)</span></span>
+<span><span class="co">#&gt;  cachem          1.0.6      2021-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  callr           3.7.3      2022-11-02 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  cellranger      1.1.0      2016-07-27 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  cli             3.4.1      2022-09-23 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  clipr           0.8.0      2022-02-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  colorspace      2.0-3      2022-02-21 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  cpp11           0.4.3      2022-10-12 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  crayon          1.5.2      2022-09-29 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  curl            4.3.3      2022-10-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  data.table      1.14.4     2022-10-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  DBI             1.1.3      2022-06-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  dbplyr          2.2.1      2022-06-27 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  digest          0.6.30     2022-10-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  dplyr         * 1.0.10     2022-09-01 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  dtplyr          1.2.2      2022-08-20 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  ellipsis        0.3.2      2021-04-29 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  evaluate        0.18       2022-11-07 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  fansi           1.0.3      2022-03-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  farver          2.1.1      2022-07-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  fastmap         1.1.0      2021-01-25 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  forcats       * 0.5.2      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  fs              1.5.2      2021-12-08 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  gargle          1.2.1      2022-09-08 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  generics        0.1.3      2022-07-05 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  ggplot2       * 3.4.0      2022-11-04 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  glue            1.6.2      2022-02-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  googledrive     2.0.0      2021-07-08 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  googlesheets4   1.0.1      2022-08-13 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  gtable          0.3.1      2022-09-01 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  haven           2.5.1      2022-08-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  highr           0.9        2021-04-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  hms             1.1.2      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  htmltools       0.5.3.9002 2022-11-07 [1] Github (rstudio/htmltools@8d1dd6a)</span></span>
+<span><span class="co">#&gt;  httr            1.4.4      2022-08-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  ids             1.0.1      2017-05-31 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  isoband         0.2.6      2022-10-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  jquerylib       0.1.4      2021-04-26 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  jsonlite        1.8.3      2022-10-21 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  knitr           1.40       2022-08-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  labeling        0.4.2      2020-10-20 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  lattice         0.20-45    2021-09-22 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  lifecycle       1.0.3      2022-10-07 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  lubridate       1.9.0      2022-11-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  magrittr        2.0.3      2022-03-30 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  MASS            7.3-58.1   2022-08-03 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  Matrix          1.5-1      2022-09-13 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  memoise         2.0.1      2021-11-26 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  mgcv            1.8-41     2022-10-21 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  mime            0.12       2021-09-28 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  modelr          0.1.9      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  munsell         0.5.0      2018-06-12 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  nlme            3.1-160    2022-10-10 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  openssl         2.0.4      2022-10-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  pillar          1.8.1      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  processx        3.8.0      2022-10-26 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  progress        1.2.2      2019-05-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  ps              1.7.2      2022-10-26 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  purrr         * 0.3.5      2022-10-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  R6              2.5.1      2021-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rappdirs        0.3.3      2021-01-31 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  RColorBrewer    1.1-3      2022-04-03 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  readr         * 2.1.3      2022-10-01 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  readxl          1.4.1      2022-08-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rematch         1.0.1      2016-04-21 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rematch2        2.1.2      2020-05-01 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  reprex          2.0.2      2022-08-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rlang           1.0.6      2022-09-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rmarkdown       2.17       2022-10-07 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rstudioapi      0.14       2022-08-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rvest           1.0.3      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  sass            0.4.2      2022-07-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  scales          1.2.1      2022-08-20 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  selectr         0.4-2      2019-11-20 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  stringi         1.7.8      2022-07-11 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  stringr       * 1.4.1      2022-08-20 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  sys             3.4.1      2022-10-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tibble        * 3.1.8      2022-07-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tidyr         * 1.2.1      2022-09-08 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tidyselect      1.2.0      2022-10-10 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tidyverse     * 1.3.2      2022-07-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  timechange      0.1.1      2022-11-04 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tinytex         0.42       2022-09-27 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tzdb            0.3.0      2022-03-28 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  utf8            1.2.2      2021-07-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  uuid            1.1-0      2022-04-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  vctrs           0.5.0      2022-10-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  viridisLite     0.4.1      2022-08-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  vroom           1.6.0      2022-09-30 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  withr           2.5.0      2022-03-03 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  xfun            0.34       2022-10-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  xml2            1.3.3      2021-11-30 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  yaml            2.3.6      2022-10-18 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  [1] /home/runner/.cache/R/renv/library/r4ds_ita_1st_ed-2aac1073/R-4.2/x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#&gt;  [2] /opt/R/4.2.0/lib/R/library</span></span>
+<span><span class="co">#&gt;  [2] /opt/R/4.2.2/lib/R/library</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────</span></span></code></pre></div>
 

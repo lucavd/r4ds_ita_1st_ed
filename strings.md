@@ -1214,9 +1214,9 @@ Ci sono altre tre funzioni che puoi usare al posto di `regex()`:
       times = 20
     )
     #> Unit: microseconds
-    #>   expr   min     lq    mean median    uq   max neval
-    #>  fixed  52.7  57.30  87.425  69.45  82.3 387.0    20
-    #>  regex 260.5 263.55 283.050 266.05 271.6 548.4    20
+    #>   expr   min    lq    mean median     uq   max neval
+    #>  fixed  73.8  86.6 168.515 114.45 166.25 944.6    20
+    #>  regex 353.5 360.6 457.360 443.65 478.60 774.9    20
     ```
     
     Attenzione all'uso di `fixed()` con dati non inglesi. È problematico perché ci sono spesso più modi di rappresentare lo stesso carattere. Per esempio, ci sono due modi per definire "á": o come un singolo carattere o come una "a" più un accento:

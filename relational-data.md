@@ -73,15 +73,15 @@ Useremo il pacchetto nycflights13 per imparare i dati relazionali. nycflights13 
     ```r
     planes
     #> # A tibble: 3,322 × 9
-    #>   tailnum  year type               manufacturer model engines seats speed engine
-    #>   <chr>   <int> <chr>              <chr>        <chr>   <int> <int> <int> <chr> 
-    #> 1 N10156   2004 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…
-    #> 2 N102UW   1998 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
-    #> 3 N103US   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
-    #> 4 N104UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
-    #> 5 N10575   2002 Fixed wing multi … EMBRAER      EMB-…       2    55    NA Turbo…
-    #> 6 N105UW   1999 Fixed wing multi … AIRBUS INDU… A320…       2   182    NA Turbo…
-    #> # … with 3,316 more rows
+    #>   tailnum  year type                    manuf…¹ model engines seats speed engine
+    #>   <chr>   <int> <chr>                   <chr>   <chr>   <int> <int> <int> <chr> 
+    #> 1 N10156   2004 Fixed wing multi engine EMBRAER EMB-…       2    55    NA Turbo…
+    #> 2 N102UW   1998 Fixed wing multi engine AIRBUS… A320…       2   182    NA Turbo…
+    #> 3 N103US   1999 Fixed wing multi engine AIRBUS… A320…       2   182    NA Turbo…
+    #> 4 N104UW   1999 Fixed wing multi engine AIRBUS… A320…       2   182    NA Turbo…
+    #> 5 N10575   2002 Fixed wing multi engine EMBRAER EMB-…       2    55    NA Turbo…
+    #> 6 N105UW   1999 Fixed wing multi engine AIRBUS… A320…       2   182    NA Turbo…
+    #> # … with 3,316 more rows, and abbreviated variable name ¹​manufacturer
     ```
 
 *   `weather` dà il meteo in ogni aeroporto di NYC per ogni ora:
@@ -457,17 +457,17 @@ Finora, le coppie di tabelle sono sempre state unite da una singola variabile, e
       left_join(weather)
     #> Joining, by = c("year", "month", "day", "hour", "origin")
     #> # A tibble: 336,776 × 18
-    #>    year month   day  hour origin dest  tailnum carrier  temp  dewp humid
-    #>   <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <dbl> <dbl> <dbl>
-    #> 1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4
-    #> 2  2013     1     1     5 LGA    IAH   N24211  UA       39.9  25.0  54.8
-    #> 3  2013     1     1     5 JFK    MIA   N619AA  AA       39.0  27.0  61.6
-    #> 4  2013     1     1     5 JFK    BQN   N804JB  B6       39.0  27.0  61.6
-    #> 5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  25.0  54.8
-    #> 6  2013     1     1     5 EWR    ORD   N39463  UA       39.0  28.0  64.4
-    #> # … with 336,770 more rows, and 7 more variables: wind_dir <dbl>,
-    #> #   wind_speed <dbl>, wind_gust <dbl>, precip <dbl>, pressure <dbl>,
-    #> #   visib <dbl>, time_hour <dttm>
+    #>    year month   day  hour origin dest  tailnum carrier  temp  dewp humid wind_…¹
+    #>   <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <dbl> <dbl> <dbl>   <dbl>
+    #> 1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4     260
+    #> 2  2013     1     1     5 LGA    IAH   N24211  UA       39.9  25.0  54.8     250
+    #> 3  2013     1     1     5 JFK    MIA   N619AA  AA       39.0  27.0  61.6     260
+    #> 4  2013     1     1     5 JFK    BQN   N804JB  B6       39.0  27.0  61.6     260
+    #> 5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  25.0  54.8     260
+    #> 6  2013     1     1     5 EWR    ORD   N39463  UA       39.0  28.0  64.4     260
+    #> # … with 336,770 more rows, 6 more variables: wind_speed <dbl>,
+    #> #   wind_gust <dbl>, precip <dbl>, pressure <dbl>, visib <dbl>,
+    #> #   time_hour <dttm>, and abbreviated variable name ¹​wind_dir
     ```
 
   * Un vettore di caratteri, `by = "x"`. Questo è come un join naturale, ma usa solo
@@ -480,16 +480,17 @@ Finora, le coppie di tabelle sono sempre state unite da una singola variabile, e
     flights2 %>% 
       left_join(planes, by = "tailnum")
     #> # A tibble: 336,776 × 16
-    #>   year.x month   day  hour origin dest  tailnum carrier year.y type             
-    #>    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>    <int> <chr>            
-    #> 1   2013     1     1     5 EWR    IAH   N14228  UA        1999 Fixed wing multi…
-    #> 2   2013     1     1     5 LGA    IAH   N24211  UA        1998 Fixed wing multi…
-    #> 3   2013     1     1     5 JFK    MIA   N619AA  AA        1990 Fixed wing multi…
-    #> 4   2013     1     1     5 JFK    BQN   N804JB  B6        2012 Fixed wing multi…
-    #> 5   2013     1     1     6 LGA    ATL   N668DN  DL        1991 Fixed wing multi…
-    #> 6   2013     1     1     5 EWR    ORD   N39463  UA        2012 Fixed wing multi…
-    #> # … with 336,770 more rows, and 6 more variables: manufacturer <chr>,
-    #> #   model <chr>, engines <int>, seats <int>, speed <int>, engine <chr>
+    #>   year.x month   day  hour origin dest  tailnum carrier year.y type      manuf…¹
+    #>    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>    <int> <chr>     <chr>  
+    #> 1   2013     1     1     5 EWR    IAH   N14228  UA        1999 Fixed wi… BOEING 
+    #> 2   2013     1     1     5 LGA    IAH   N24211  UA        1998 Fixed wi… BOEING 
+    #> 3   2013     1     1     5 JFK    MIA   N619AA  AA        1990 Fixed wi… BOEING 
+    #> 4   2013     1     1     5 JFK    BQN   N804JB  B6        2012 Fixed wi… AIRBUS 
+    #> 5   2013     1     1     6 LGA    ATL   N668DN  DL        1991 Fixed wi… BOEING 
+    #> 6   2013     1     1     5 EWR    ORD   N39463  UA        2012 Fixed wi… BOEING 
+    #> # … with 336,770 more rows, 5 more variables: model <chr>, engines <int>,
+    #> #   seats <int>, speed <int>, engine <chr>, and abbreviated variable name
+    #> #   ¹​manufacturer
     ```
 
     Si noti che le variabili `year` (che appaiono in entrambi i data frame di input,
@@ -566,7 +567,7 @@ Finora, le coppie di tabelle sono sempre state unite da una singola variabile, e
 1.  Cosa è successo il 13 giugno 2013? Visualizza lo schema spaziale dei ritardi,
     e poi usa Google per fare un riferimento incrociato con le condizionir.
 
-
+    
 
 ### Altre implementazioni
 
@@ -629,17 +630,18 @@ Ora vuoi trovare ogni volo che è andato a una di queste destinazioni. Potresti 
 flights %>% 
   filter(dest %in% top_dest$dest)
 #> # A tibble: 141,145 × 19
-#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#> 1  2013     1     1      542            540         2      923            850
-#> 2  2013     1     1      554            600        -6      812            837
-#> 3  2013     1     1      554            558        -4      740            728
-#> 4  2013     1     1      555            600        -5      913            854
-#> 5  2013     1     1      557            600        -3      838            846
-#> 6  2013     1     1      558            600        -2      753            745
-#> # … with 141,139 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>    year month   day dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>   <int> <int> <int>    <int>       <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#> 1  2013     1     1      542         540       2     923     850      33 AA     
+#> 2  2013     1     1      554         600      -6     812     837     -25 DL     
+#> 3  2013     1     1      554         558      -4     740     728      12 UA     
+#> 4  2013     1     1      555         600      -5     913     854      19 B6     
+#> 5  2013     1     1      557         600      -3     838     846      -8 B6     
+#> 6  2013     1     1      558         600      -2     753     745       8 AA     
+#> # … with 141,139 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 ```
 
 Ma è difficile estendere questo approccio a più variabili. Per esempio, immagina di aver trovato i 10 giorni con i più alti ritardi medi. Come costruireste la dichiarazione del filtro che usa `year`, `month` e `day` per abbinarlo a `flight`?
@@ -652,17 +654,18 @@ flights %>%
   semi_join(top_dest)
 #> Joining, by = "dest"
 #> # A tibble: 141,145 × 19
-#>    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-#>   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>
-#> 1  2013     1     1      542            540         2      923            850
-#> 2  2013     1     1      554            600        -6      812            837
-#> 3  2013     1     1      554            558        -4      740            728
-#> 4  2013     1     1      555            600        -5      913            854
-#> 5  2013     1     1      557            600        -3      838            846
-#> 6  2013     1     1      558            600        -2      753            745
-#> # … with 141,139 more rows, and 11 more variables: arr_delay <dbl>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
-#> #   air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+#>    year month   day dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+#>   <int> <int> <int>    <int>       <int>   <dbl>   <int>   <int>   <dbl> <chr>  
+#> 1  2013     1     1      542         540       2     923     850      33 AA     
+#> 2  2013     1     1      554         600      -6     812     837     -25 DL     
+#> 3  2013     1     1      554         558      -4     740     728      12 UA     
+#> 4  2013     1     1      555         600      -5     913     854      19 B6     
+#> 5  2013     1     1      557         600      -3     838     846      -8 B6     
+#> 6  2013     1     1      558         600      -2     753     745       8 AA     
+#> # … with 141,139 more rows, 9 more variables: flight <int>, tailnum <chr>,
+#> #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
+#> #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
+#> #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
 ```
 
 Graficamente, una semi-unione appare così:

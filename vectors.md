@@ -144,7 +144,7 @@ pryr::object_size(x)
 
 y <- rep(x, 1000)
 pryr::object_size(y)
-#> 8,144 B
+#> 8.14 kB
 ```
 
 `y` non occupa 1000 volte più memoria di `x`, perché ogni elemento di `y` è solo un puntatore a quella stessa stringa. Un puntatore è di 8 byte, quindi 1000 puntatori a una stringa di 152 B sono 8 * 1000 + 152 = 8.14 kB.
@@ -680,7 +680,7 @@ Ecco come appare una tipica funzione generica:
 as.Date
 #> function (x, ...) 
 #> UseMethod("as.Date")
-#> <bytecode: 0x55ba511e1548>
+#> <bytecode: 0x55cb9eaa21c8>
 #> <environment: namespace:base>
 ```
 
@@ -713,7 +713,7 @@ getS3method("as.Date", "default")
 #>     else stop(gettextf("do not know how to convert '%s' to class %s", 
 #>         deparse1(substitute(x)), dQuote("Date")), domain = NA)
 #> }
-#> <bytecode: 0x55ba4ee8f2f0>
+#> <bytecode: 0x55cb9c31a8e0>
 #> <environment: namespace:base>
 getS3method("as.Date", "numeric")
 #> function (x, origin, ...) 
@@ -727,7 +727,7 @@ getS3method("as.Date", "numeric")
 #>     }
 #>     as.Date(origin, ...) + x
 #> }
-#> <bytecode: 0x55ba4ee956c0>
+#> <bytecode: 0x55cb9c31ec30>
 #> <environment: namespace:base>
 ```
 

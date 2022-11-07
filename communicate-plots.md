@@ -369,7 +369,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_smooth(se = FALSE) +
   theme(legend.position = "bottom") +
   guides(colour = guide_legend(nrow = 1, override.aes = list(size = 4)))
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+#> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
 ```
 
 <img src="communicate-plots_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" />

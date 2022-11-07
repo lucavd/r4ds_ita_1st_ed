@@ -105,6 +105,8 @@ nz %>%
   geom_hline(yintercept = 0, colour = "white", size = 3) + 
   geom_line() + 
   ggtitle("Remaining pattern")
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
 ```
 
 <img src="model-many_files/figure-html/unnamed-chunk-3-1.png" width="33%" /><img src="model-many_files/figure-html/unnamed-chunk-3-2.png" width="33%" /><img src="model-many_files/figure-html/unnamed-chunk-3-3.png" width="33%" />
@@ -285,7 +287,7 @@ resids %>%
   ggplot(aes(year, resid)) +
     geom_line(aes(group = country), alpha = 1 / 3) + 
     geom_smooth(se = FALSE)
-#> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+#> `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
 ```
 
 <img src="model-many_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" />
@@ -312,10 +314,11 @@ Invece di guardare i residui del modello, potremmo guardare alcune misure genera
 ```r
 broom::glance(nz_mod)
 #> # A tibble: 1 × 12
-#>   r.squared adj.r.squared sigma statistic      p.value    df logLik   AIC   BIC
-#>       <dbl>         <dbl> <dbl>     <dbl>        <dbl> <dbl>  <dbl> <dbl> <dbl>
-#> 1     0.954         0.949 0.804      205. 0.0000000541     1  -13.3  32.6  34.1
-#> # … with 3 more variables: deviance <dbl>, df.residual <int>, nobs <int>
+#>   r.squ…¹ adj.r…² sigma stati…³ p.value    df logLik   AIC   BIC devia…⁴ df.re…⁵
+#>     <dbl>   <dbl> <dbl>   <dbl>   <dbl> <dbl>  <dbl> <dbl> <dbl>   <dbl>   <int>
+#> 1   0.954   0.949 0.804    205. 5.41e-8     1  -13.3  32.6  34.1    6.47      10
+#> # … with 1 more variable: nobs <int>, and abbreviated variable names
+#> #   ¹​r.squared, ²​adj.r.squared, ³​statistic, ⁴​deviance, ⁵​df.residual
 ```
 
 Possiamo usare `mutate()` e `unnest()` per creare un frame di dati con una riga per ogni paese:
@@ -327,17 +330,17 @@ by_country %>%
   unnest(glance)
 #> # A tibble: 142 × 17
 #> # Groups:   country, continent [142]
-#>   country     continent data     model  resids   r.squared adj.r.squared sigma
-#>   <fct>       <fct>     <list>   <list> <list>       <dbl>         <dbl> <dbl>
-#> 1 Afghanistan Asia      <tibble> <lm>   <tibble>     0.948         0.942 1.22 
-#> 2 Albania     Europe    <tibble> <lm>   <tibble>     0.911         0.902 1.98 
-#> 3 Algeria     Africa    <tibble> <lm>   <tibble>     0.985         0.984 1.32 
-#> 4 Angola      Africa    <tibble> <lm>   <tibble>     0.888         0.877 1.41 
-#> 5 Argentina   Americas  <tibble> <lm>   <tibble>     0.996         0.995 0.292
-#> 6 Australia   Oceania   <tibble> <lm>   <tibble>     0.980         0.978 0.621
-#> # … with 136 more rows, and 9 more variables: statistic <dbl>, p.value <dbl>,
-#> #   df <dbl>, logLik <dbl>, AIC <dbl>, BIC <dbl>, deviance <dbl>,
-#> #   df.residual <int>, nobs <int>
+#>   country conti…¹ data     model resids   r.squ…² adj.r…³ sigma stati…⁴  p.value
+#>   <fct>   <fct>   <list>   <lis> <list>     <dbl>   <dbl> <dbl>   <dbl>    <dbl>
+#> 1 Afghan… Asia    <tibble> <lm>  <tibble>   0.948   0.942 1.22    181.  9.84e- 8
+#> 2 Albania Europe  <tibble> <lm>  <tibble>   0.911   0.902 1.98    102.  1.46e- 6
+#> 3 Algeria Africa  <tibble> <lm>  <tibble>   0.985   0.984 1.32    662.  1.81e-10
+#> 4 Angola  Africa  <tibble> <lm>  <tibble>   0.888   0.877 1.41     79.1 4.59e- 6
+#> 5 Argent… Americ… <tibble> <lm>  <tibble>   0.996   0.995 0.292  2246.  4.22e-13
+#> 6 Austra… Oceania <tibble> <lm>  <tibble>   0.980   0.978 0.621   481.  8.67e-10
+#> # … with 136 more rows, 7 more variables: df <dbl>, logLik <dbl>, AIC <dbl>,
+#> #   BIC <dbl>, deviance <dbl>, df.residual <int>, nobs <int>, and abbreviated
+#> #   variable names ¹​continent, ²​r.squared, ³​adj.r.squared, ⁴​statistic
 ```
 
 Questo non è esattamente l'output che vogliamo, perché include ancora tutte le colonne della lista. Questo è il comportamento predefinito quando `unnest()` lavora su frame di dati a riga singola. Per sopprimere queste colonne usiamo `.drop = TRUE`:
@@ -348,23 +351,21 @@ glance <- by_country %>%
   mutate(glance = map(model, broom::glance)) %>% 
   unnest(glance, .drop = TRUE)
 #> Warning: The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.
-#> All list-columns are now preserved.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+#> ℹ All list-columns are now preserved.
 glance
 #> # A tibble: 142 × 17
 #> # Groups:   country, continent [142]
-#>   country     continent data     model  resids   r.squared adj.r.squared sigma
-#>   <fct>       <fct>     <list>   <list> <list>       <dbl>         <dbl> <dbl>
-#> 1 Afghanistan Asia      <tibble> <lm>   <tibble>     0.948         0.942 1.22 
-#> 2 Albania     Europe    <tibble> <lm>   <tibble>     0.911         0.902 1.98 
-#> 3 Algeria     Africa    <tibble> <lm>   <tibble>     0.985         0.984 1.32 
-#> 4 Angola      Africa    <tibble> <lm>   <tibble>     0.888         0.877 1.41 
-#> 5 Argentina   Americas  <tibble> <lm>   <tibble>     0.996         0.995 0.292
-#> 6 Australia   Oceania   <tibble> <lm>   <tibble>     0.980         0.978 0.621
-#> # … with 136 more rows, and 9 more variables: statistic <dbl>, p.value <dbl>,
-#> #   df <dbl>, logLik <dbl>, AIC <dbl>, BIC <dbl>, deviance <dbl>,
-#> #   df.residual <int>, nobs <int>
+#>   country conti…¹ data     model resids   r.squ…² adj.r…³ sigma stati…⁴  p.value
+#>   <fct>   <fct>   <list>   <lis> <list>     <dbl>   <dbl> <dbl>   <dbl>    <dbl>
+#> 1 Afghan… Asia    <tibble> <lm>  <tibble>   0.948   0.942 1.22    181.  9.84e- 8
+#> 2 Albania Europe  <tibble> <lm>  <tibble>   0.911   0.902 1.98    102.  1.46e- 6
+#> 3 Algeria Africa  <tibble> <lm>  <tibble>   0.985   0.984 1.32    662.  1.81e-10
+#> 4 Angola  Africa  <tibble> <lm>  <tibble>   0.888   0.877 1.41     79.1 4.59e- 6
+#> 5 Argent… Americ… <tibble> <lm>  <tibble>   0.996   0.995 0.292  2246.  4.22e-13
+#> 6 Austra… Oceania <tibble> <lm>  <tibble>   0.980   0.978 0.621   481.  8.67e-10
+#> # … with 136 more rows, 7 more variables: df <dbl>, logLik <dbl>, AIC <dbl>,
+#> #   BIC <dbl>, deviance <dbl>, df.residual <int>, nobs <int>, and abbreviated
+#> #   variable names ¹​continent, ²​r.squared, ³​adj.r.squared, ⁴​statistic
 ```
 
 (Fate attenzione alle variabili che non sono stampate: c'è un sacco di roba utile lì).
@@ -377,17 +378,17 @@ glance %>%
   arrange(r.squared)
 #> # A tibble: 142 × 17
 #> # Groups:   country, continent [142]
-#>   country   continent data     model  resids   r.squared adj.r.squared sigma
-#>   <fct>     <fct>     <list>   <list> <list>       <dbl>         <dbl> <dbl>
-#> 1 Rwanda    Africa    <tibble> <lm>   <tibble>    0.0172      -0.0811   6.56
-#> 2 Botswana  Africa    <tibble> <lm>   <tibble>    0.0340      -0.0626   6.11
-#> 3 Zimbabwe  Africa    <tibble> <lm>   <tibble>    0.0562      -0.0381   7.21
-#> 4 Zambia    Africa    <tibble> <lm>   <tibble>    0.0598      -0.0342   4.53
-#> 5 Swaziland Africa    <tibble> <lm>   <tibble>    0.0682      -0.0250   6.64
-#> 6 Lesotho   Africa    <tibble> <lm>   <tibble>    0.0849      -0.00666  5.93
-#> # … with 136 more rows, and 9 more variables: statistic <dbl>, p.value <dbl>,
-#> #   df <dbl>, logLik <dbl>, AIC <dbl>, BIC <dbl>, deviance <dbl>,
-#> #   df.residual <int>, nobs <int>
+#>   country conti…¹ data     model resids   r.squ…² adj.r.…³ sigma stati…⁴ p.value
+#>   <fct>   <fct>   <list>   <lis> <list>     <dbl>    <dbl> <dbl>   <dbl>   <dbl>
+#> 1 Rwanda  Africa  <tibble> <lm>  <tibble>  0.0172 -0.0811   6.56   0.175   0.685
+#> 2 Botswa… Africa  <tibble> <lm>  <tibble>  0.0340 -0.0626   6.11   0.352   0.566
+#> 3 Zimbab… Africa  <tibble> <lm>  <tibble>  0.0562 -0.0381   7.21   0.596   0.458
+#> 4 Zambia  Africa  <tibble> <lm>  <tibble>  0.0598 -0.0342   4.53   0.636   0.444
+#> 5 Swazil… Africa  <tibble> <lm>  <tibble>  0.0682 -0.0250   6.64   0.732   0.412
+#> 6 Lesotho Africa  <tibble> <lm>  <tibble>  0.0849 -0.00666  5.93   0.927   0.358
+#> # … with 136 more rows, 7 more variables: df <dbl>, logLik <dbl>, AIC <dbl>,
+#> #   BIC <dbl>, deviance <dbl>, df.residual <int>, nobs <int>, and abbreviated
+#> #   variable names ¹​continent, ²​r.squared, ³​adj.r.squared, ⁴​statistic
 ```
 
 I modelli peggiori sembrano essere tutti in Africa. Ricontrolliamo questo con un grafico. Qui abbiamo un numero relativamente piccolo di osservazioni e una variabile discreta, quindi `geom_jitter()` è efficace:

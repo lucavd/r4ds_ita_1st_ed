@@ -101,6 +101,8 @@ grid <- diamonds2 %>%
 ggplot(diamonds2, aes(carat, price)) + 
   geom_hex(bins = 50) + 
   geom_line(data = grid, colour = "red", size = 1)
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
 ```
 
 <img src="model-building_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" />
@@ -336,7 +338,7 @@ daily %>%
       geom_ref_line(h = 0) + 
       geom_line(colour = "grey50") + 
       geom_smooth(se = FALSE, span = 0.20)
-    #> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+    #> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
     ```
     
     <img src="model-building_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
