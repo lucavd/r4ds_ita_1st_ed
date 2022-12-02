@@ -1334,7 +1334,7 @@ Ci sono due utili funzioni in R base che usano anche le espressioni regolari:
 
 ## stringi
 
-stringr è costruito sopra il pacchetto __stringi__. stringr è utile quando si sta imparando perché espone un insieme minimo di funzioni, che sono state accuratamente scelte per gestire le più comuni funzioni di manipolazione delle stringhe. stringi, d'altra parte, è progettato per essere completo. Contiene quasi tutte le funzioni di cui potreste aver bisogno: stringi ha funzioni 256 per stringr 49.
+stringr è costruito sopra il pacchetto __stringi__. stringr è utile quando si sta imparando perché espone un insieme minimo di funzioni, che sono state accuratamente scelte per gestire le più comuni funzioni di manipolazione delle stringhe. stringi, d'altra parte, è progettato per essere completo. Contiene quasi tutte le funzioni di cui potreste aver bisogno: stringi ha funzioni 256 per stringr 59.
 
 Se ti trovi a lottare per fare qualcosa in stringr, vale la pena dare un'occhiata a stringi. I pacchetti funzionano in modo molto simile, quindi dovresti essere in grado di tradurre la tua conoscenza di stringr in modo naturale. La differenza principale è il prefisso: `str_` contro `stri_`.
 
