@@ -505,7 +505,7 @@ una riga per paese e poi lo abbiamo semi-unito al dataset originale.
 <li><p>Si crea la lista-colonna usando uno dei metodi <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> + <code><a href="https://rdrr.io/r/base/list.html">list()</a></code>,
 o <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> + una funzione di mappa, come descritto in [Creare liste-colonne].</p></li>
 <li><p>Si creano altre colonne-elenco intermedie trasformando le colonne-elenco esistenti con
-colonne della lista con <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code> o <code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code>. Per esempio,
+colonne della lista con <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code> o <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap()</a></code>. Per esempio,
 nel caso di studio precedente, abbiamo creato una lista-colonna di modelli trasformando
 una colonna-elenco di frame di dati.</p></li>
 <li><p>Si semplifica la lista-colonna riducendola a un data frame o a un vettore atomico,
@@ -598,7 +598,7 @@ in un frame di dati annidato in cui si ha una lista-colonna di frame di dati.</p
 <span><span class="co">#&gt; 6 d,e,f,g f    </span></span>
 <span><span class="co">#&gt; # … with 1 more row</span></span></code></pre></div>
 <p>(Se vi trovate ad usare spesso questo schema, assicuratevi di controllare <code><a href="https://tidyr.tidyverse.org/reference/separate_rows.html">tidyr::separate_rows()</a></code> che è un wrapper intorno a questo schema comune).</p>
-<p>Un altro esempio di questo pattern è l’uso di <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code> da purrr. Per esempio, potremmo prendere l’esempio finale da [Invoking different functions] e riscriverlo per usare <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>:</p>
+<p>Un altro esempio di questo pattern è l’uso di <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap()</a></code> da purrr. Per esempio, potremmo prendere l’esempio finale da [Invoking different functions] e riscriverlo per usare <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>:</p>
 <div class="sourceCode" id="cb708"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">f</span>,      <span class="op">~</span><span class="va">params</span>,</span>

@@ -546,7 +546,7 @@ comporre insieme con il tubo.</p></li>
 <li><p>Leggete la documentazione per <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code>. Nel caso 2d, quali due cicli for
 generalizza?</p></li>
 <li><p>Adattate <code>col_summary()</code> in modo che si applichi solo alle colonne numeriche
-Potreste voler iniziare con una funzione <code><a href="https://purrr.tidyverse.org/reference/is_numeric.html">is_numeric()</a></code> che restituisca
+Potreste voler iniziare con una funzione <code>is_numeric()</code> che restituisca
 un vettore logico che ha un TRUE corrispondente ad ogni colonna numerica.</p></li>
 </ol>
 </div>
@@ -799,17 +799,17 @@ funzione anonima.</p></li>
 <p>Purrr fornisce altri due utili avverbi:</p>
 <ul>
 <li>
-<p>Come <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/safely.html">possibly()</a></code> ha sempre successo. È più semplice di <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code>, perché gli si dà un valore predefinito da restituire in caso di errore.</p>
+<p>Come <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/possibly.html">possibly()</a></code> ha sempre successo. È più semplice di <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code>, perché gli si dà un valore predefinito da restituire in caso di errore.</p>
 <div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="st">"a"</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">possibly</a></span><span class="op">(</span><span class="va">log</span>, <span class="cn">NA_real_</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/possibly.html">possibly</a></span><span class="op">(</span><span class="va">log</span>, <span class="cn">NA_real_</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.000000 2.302585       NA</span></span></code></pre></div>
 </li>
 <li>
-<p><code><a href="https://purrr.tidyverse.org/reference/safely.html">quietly()</a></code> svolge un ruolo simile a quello di <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code>, ma invece di catturare gli errori, cattura l’output stampato, i messaggi e gli avvertimenti:</p>
+<p><code><a href="https://purrr.tidyverse.org/reference/quietly.html">quietly()</a></code> svolge un ruolo simile a quello di <code><a href="https://purrr.tidyverse.org/reference/safely.html">safely()</a></code>, ma invece di catturare gli errori, cattura l’output stampato, i messaggi e gli avvertimenti:</p>
 <div class="sourceCode" id="cb578"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">quietly</a></span><span class="op">(</span><span class="va">log</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/quietly.html">quietly</a></span><span class="op">(</span><span class="va">log</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 2</span></span>
 <span><span class="co">#&gt;  $ :List of 4</span></span>
 <span><span class="co">#&gt;   ..$ result  : num 0</span></span>
@@ -828,7 +828,7 @@ funzione anonima.</p></li>
 <h2>
 <span class="header-section-number">21.7</span> Map su più argomenti<a class="anchor" aria-label="anchor" href="#map-su-pi%C3%B9-argomenti"><i class="fas fa-link"></i></a>
 </h2>
-<p>Finora abbiamo mappato lungo un singolo input. Ma spesso avete più input correlati che avete bisogno di iterare in parallelo. Questo è il lavoro delle funzioni <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code> e <code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code>. Per esempio, immaginate di voler simulare alcune normali casuali con mezzi diversi. Sapete come farlo con <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>:</p>
+<p>Finora abbiamo mappato lungo un singolo input. Ma spesso avete più input correlati che avete bisogno di iterare in parallelo. Questo è il lavoro delle funzioni <code><a href="https://purrr.tidyverse.org/reference/map2.html">map2()</a></code> e <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap()</a></code>. Per esempio, immaginate di voler simulare alcune normali casuali con mezzi diversi. Sapete come farlo con <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>:</p>
 <div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">mu</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -867,12 +867,12 @@ funzione anonima.</p></li>
 <span>  <span class="op">}</span></span>
 <span>  <span class="va">out</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Si potrebbe anche immaginare <code>map3()</code>, <code>map4()</code>, <code>map5()</code>, <code>map6()</code> ecc. Invece, purrr fornisce <code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code> che prende una lista di argomenti. Potreste usarlo se voleste variare la media, la deviazione standard e il numero di campioni:</p>
+<p>Si potrebbe anche immaginare <code>map3()</code>, <code>map4()</code>, <code>map5()</code>, <code>map6()</code> ecc. Invece, purrr fornisce <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap()</a></code> che prende una lista di argomenti. Potreste usarlo se voleste variare la media, la deviazione standard e il numero di campioni:</p>
 <div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">args1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span></span>
 <span><span class="va">args1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap</a></span><span class="op">(</span><span class="va">rnorm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap</a></span><span class="op">(</span><span class="va">rnorm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ : num 5.39</span></span>
@@ -880,11 +880,11 @@ funzione anonima.</p></li>
 <span><span class="co">#&gt;  $ : num [1:5] -23.85 -2.96 -6.56 8.46 -5.21</span></span></code></pre></div>
 <p>Questo sembra:</p>
 <div class="inline-figure"><img src="diagrams/lists-pmap-unnamed.png" width="70%" style="display: block; margin: auto;"></div>
-<p>Se non nominate gli elementi della lista, <code><a href="https://purrr.tidyverse.org/reference/map2.html">pmap()</a></code> userà la corrispondenza posizionale quando chiama la funzione. Questo è un po’ fragile e rende il codice più difficile da leggere, quindi è meglio nominare gli argomenti:</p>
+<p>Se non nominate gli elementi della lista, <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap()</a></code> userà la corrispondenza posizionale quando chiama la funzione. Questo è un po’ fragile e rende il codice più difficile da leggere, quindi è meglio nominare gli argomenti:</p>
 <div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">args2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="va">sigma</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
 <span><span class="va">args2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap</a></span><span class="op">(</span><span class="va">rnorm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap</a></span><span class="op">(</span><span class="va">rnorm</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Questo genera chiamate più lunghe, ma più sicure:</p>
 <div class="inline-figure"><img src="diagrams/lists-pmap-named.png" width="70%" style="display: block; margin: auto;"></div>
@@ -897,7 +897,7 @@ funzione anonima.</p></li>
 <span>   <span class="op">-</span><span class="fl">3</span>,    <span class="fl">10</span>,  <span class="fl">5</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">params</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap</a></span><span class="op">(</span><span class="va">rnorm</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pmap.html">pmap</a></span><span class="op">(</span><span class="va">rnorm</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 6.018179</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -953,7 +953,7 @@ funzione anonima.</p></li>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="co">#&gt; [1] "a"</span></span>
 <span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
-<p><code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code> non è generalmente molto utile rispetto a <code><a href="https://purrr.tidyverse.org/reference/map2.html">walk2()</a></code> o <code><a href="https://purrr.tidyverse.org/reference/map2.html">pwalk()</a></code>. Per esempio, se avete una lista di trame e un vettore di nomi di file, potreste usare <code><a href="https://purrr.tidyverse.org/reference/map2.html">pwalk()</a></code> per salvare ogni file nella posizione corrispondente sul disco:</p>
+<p><code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code> non è generalmente molto utile rispetto a <code><a href="https://purrr.tidyverse.org/reference/map2.html">walk2()</a></code> o <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pwalk()</a></code>. Per esempio, se avete una lista di trame e un vettore di nomi di file, potreste usare <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pwalk()</a></code> per salvare ogni file nella posizione corrispondente sul disco:</p>
 <div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -961,8 +961,8 @@ funzione anonima.</p></li>
 <span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html">str_c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">plots</span><span class="op">)</span>, <span class="st">".pdf"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pwalk</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">paths</span>, <span class="va">plots</span><span class="op">)</span>, <span class="va">ggsave</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">walk2()</a></code> e <code><a href="https://purrr.tidyverse.org/reference/map2.html">pwalk()</a></code> restituiscono tutti invisibilmente <code>.x</code>, il primo argomento. Questo li rende adatti all’uso nel mezzo delle pipeline.</p>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/pmap.html">pwalk</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">paths</span>, <span class="va">plots</span><span class="op">)</span>, <span class="va">ggsave</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="https://purrr.tidyverse.org/reference/map.html">walk()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map2.html">walk2()</a></code> e <code><a href="https://purrr.tidyverse.org/reference/pmap.html">pwalk()</a></code> restituiscono tutti invisibilmente <code>.x</code>, il primo argomento. Questo li rende adatti all’uso nel mezzo delle pipeline.</p>
 </div>
 <div id="altri-modelli-di-cicli-for" class="section level2" number="21.9">
 <h2>
