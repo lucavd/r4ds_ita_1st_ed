@@ -315,9 +315,9 @@ strutture dati.</p></li>
 <span><span class="co">#&gt; 5 Argentina   Americas  &lt;tibble [12 × 4]&gt; &lt;lm&gt;   &lt;tibble [12 × 5]&gt;</span></span>
 <span><span class="co">#&gt; 6 Australia   Oceania   &lt;tibble [12 × 4]&gt; &lt;lm&gt;   &lt;tibble [12 × 5]&gt;</span></span>
 <span><span class="co">#&gt; # … with 136 more rows</span></span></code></pre></div>
-<p>Ma come si può tracciare una lista di frame di dati? Invece di lottare per rispondere a questa domanda, trasformiamo di nuovo la lista di data frame in un normale data frame. In precedenza abbiamo usato <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code> per trasformare un data frame regolare in un data frame annidato, e ora facciamo il contrario con <code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code>:</p>
+<p>Ma come si può tracciare una lista di frame di dati? Invece di lottare per rispondere a questa domanda, trasformiamo di nuovo la lista di data frame in un normale data frame. In precedenza abbiamo usato <code><a href="https://tidyr.tidyverse.org/reference/nest.html">nest()</a></code> per trasformare un data frame regolare in un data frame annidato, e ora facciamo il contrario con <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code>:</p>
 <div class="sourceCode" id="cb691"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">by_country</span>, <span class="va">resids</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">resids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">by_country</span>, <span class="va">resids</span><span class="op">)</span></span>
 <span><span class="va">resids</span></span>
 <span><span class="co">#&gt; # A tibble: 1,704 × 9</span></span>
 <span><span class="co">#&gt; # Groups:   country, continent [142]</span></span>
@@ -361,11 +361,11 @@ strutture dati.</p></li>
 <span><span class="co">#&gt; 1   0.954   0.949 0.804    205. 5.41e-8     1  -13.3  32.6  34.1    6.47      10</span></span>
 <span><span class="co">#&gt; # … with 1 more variable: nobs &lt;int&gt;, and abbreviated variable names</span></span>
 <span><span class="co">#&gt; #   ¹​r.squared, ²​adj.r.squared, ³​statistic, ⁴​deviance, ⁵​df.residual</span></span></code></pre></div>
-<p>Possiamo usare <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> e <code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code> per creare un frame di dati con una riga per ogni paese:</p>
+<p>Possiamo usare <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> e <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code> per creare un frame di dati con una riga per ogni paese:</p>
 <div class="sourceCode" id="cb695"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">by_country</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>glance <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu">broom</span><span class="fu">::</span><span class="va"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">glance</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">glance</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 142 × 17</span></span>
 <span><span class="co">#&gt; # Groups:   country, continent [142]</span></span>
 <span><span class="co">#&gt;   country conti…¹ data     model resids   r.squ…² adj.r…³ sigma stati…⁴  p.value</span></span>
@@ -379,11 +379,11 @@ strutture dati.</p></li>
 <span><span class="co">#&gt; # … with 136 more rows, 7 more variables: df &lt;dbl&gt;, logLik &lt;dbl&gt;, AIC &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated</span></span>
 <span><span class="co">#&gt; #   variable names ¹​continent, ²​r.squared, ³​adj.r.squared, ⁴​statistic</span></span></code></pre></div>
-<p>Questo non è esattamente l’output che vogliamo, perché include ancora tutte le colonne della lista. Questo è il comportamento predefinito quando <code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code> lavora su frame di dati a riga singola. Per sopprimere queste colonne usiamo <code>.drop = TRUE</code>:</p>
+<p>Questo non è esattamente l’output che vogliamo, perché include ancora tutte le colonne della lista. Questo è il comportamento predefinito quando <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code> lavora su frame di dati a riga singola. Per sopprimere queste colonne usiamo <code>.drop = TRUE</code>:</p>
 <div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">glance</span> <span class="op">&lt;-</span> <span class="va">by_country</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>glance <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu">broom</span><span class="fu">::</span><span class="va"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">glance</span>, .drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">glance</span>, .drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.</span></span>
 <span><span class="co">#&gt; ℹ All list-columns are now preserved.</span></span>
 <span><span class="va">glance</span></span>
@@ -451,7 +451,7 @@ deterministici.</p></li>
 <li><p>Per creare l’ultimo grafico (che mostra i dati per i paesi con il
 peggiori modelli di adattamento), abbiamo avuto bisogno di due passaggi: abbiamo creato un frame di dati con
 una riga per paese e poi lo abbiamo semi-unito al dataset originale.
-È possibile evitare questa unione se usiamo <code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code> invece di
+È possibile evitare questa unione se usiamo <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code> invece di
 <code>unnest(.drop = TRUE)</code>. Come?</p></li>
 </ol>
 </div>
@@ -582,11 +582,11 @@ in un frame di dati annidato in cui si ha una lista-colonna di frame di dati.</p
 <span><span class="co">#&gt;   &lt;chr&gt;   &lt;list&gt;   </span></span>
 <span><span class="co">#&gt; 1 a,b,c   &lt;chr [3]&gt;</span></span>
 <span><span class="co">#&gt; 2 d,e,f,g &lt;chr [4]&gt;</span></span></code></pre></div>
-<p><code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code> sa come gestire queste liste di vettori:</p>
+<p><code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code> sa come gestire queste liste di vettori:</p>
 <div class="sourceCode" id="cb707"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x2 <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">x1</span>, <span class="st">","</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 7 × 2</span></span>
 <span><span class="co">#&gt;   x1      x2   </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;</span></span>
@@ -656,7 +656,7 @@ in un frame di dati annidato in cui si ha una lista-colonna di frame di dati.</p
 <span><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">probs</span><span class="op">)</span>, q <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">probs</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">q</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">q</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 15 × 3</span></span>
 <span><span class="co">#&gt;     cyl     p     q</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
@@ -718,7 +718,7 @@ quel pezzo mancante? Perché non è utile in questo caso?</p>
 <code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 15 × 2</span></span>
 <span><span class="co">#&gt;     cyl     q</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span></span>
@@ -748,7 +748,7 @@ quel pezzo mancante? Perché non è utile in questo caso?</p>
 <ol style="list-style-type: decimal">
 <li><p>Se volete un singolo valore, usate <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> con <code><a href="https://purrr.tidyverse.org/reference/map.html">map_lgl()</a></code>,
 <code><a href="https://purrr.tidyverse.org/reference/map.html">map_int()</a></code>, <code><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl()</a></code>, e <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> per creare un vettore atomico.</p></li>
-<li><p>Se volete molti valori, usate <code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code> per convertire le colonne della lista
+<li><p>Se volete molti valori, usate <code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code> per convertire le colonne della lista
 a colonne regolari, ripetendo le righe tante volte quanto necessario.</p></li>
 </ol>
 <p>Questi sono descritti più in dettaglio qui di seguito.</p>
@@ -797,9 +797,9 @@ a colonne regolari, ripetendo le righe tante volte quanto necessario.</p></li>
 <h3>
 <span class="header-section-number">25.5.2</span> Unnesting<a class="anchor" aria-label="anchor" href="#unnesting"><i class="fas fa-link"></i></a>
 </h3>
-<p><code><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest()</a></code> funziona ripetendo le colonne regolari una volta per ogni elemento della lista-colonna. Per esempio, nel seguente esempio molto semplice ripetiamo la prima riga 4 volte (perché lì il primo elemento di <code>y</code> ha lunghezza quattro), e la seconda riga una volta:</p>
+<p><code><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest()</a></code> funziona ripetendo le colonne regolari una volta per ogni elemento della lista-colonna. Per esempio, nel seguente esempio molto semplice ripetiamo la prima riga 4 volte (perché lì il primo elemento di <code>y</code> ha lunghezza quattro), e la seconda riga una volta:</p>
 <div class="sourceCode" id="cb718"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
 <span><span class="co">#&gt;       x     y</span></span>
 <span><span class="co">#&gt;   &lt;int&gt; &lt;dbl&gt;</span></span>
@@ -823,7 +823,7 @@ a colonne regolari, ripetendo le righe tante volte quanto necessario.</p></li>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   </span></span>
 <span><span class="co">#&gt; 1     1 &lt;chr [2]&gt; &lt;int [2]&gt;</span></span>
 <span><span class="co">#&gt; 2     2 &lt;chr [1]&gt; &lt;dbl [1]&gt;</span></span>
-<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span><span class="co">#&gt;       x y         z</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
@@ -843,7 +843,7 @@ a colonne regolari, ripetendo le righe tante volte quanto necessario.</p></li>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;list&gt;    &lt;list&gt;   </span></span>
 <span><span class="co">#&gt; 1     1 &lt;chr [1]&gt; &lt;int [2]&gt;</span></span>
 <span><span class="co">#&gt; 2     2 &lt;chr [2]&gt; &lt;dbl [1]&gt;</span></span>
-<span><span class="va">df2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">df2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
 <span><span class="co">#&gt;       x y         z</span></span>
 <span><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
