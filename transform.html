@@ -571,9 +571,9 @@ select in modo predefinito? Come si può cambiare questo default?</p>
 <span><span class="co">#&gt; 5  2013     1     1        -6       -25      762      116    19  1.93       9.83</span></span>
 <span><span class="co">#&gt; 6  2013     1     1        -4        12      719      150   -16  2.5       -6.4 </span></span>
 <span><span class="co">#&gt; # … with 336,770 more rows, and abbreviated variable name ¹​gain_per_hour</span></span></code></pre></div>
-<p>Se volete mantenere solo le nuove variabili, usate <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">transmute()</a></code>:</p>
+<p>Se volete mantenere solo le nuove variabili, usate <code><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute()</a></code>:</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">transmute</a></span><span class="op">(</span><span class="va">flights</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op">(</span><span class="va">flights</span>,</span>
 <span>  gain <span class="op">=</span> <span class="va">dep_delay</span> <span class="op">-</span> <span class="va">arr_delay</span>,</span>
 <span>  hours <span class="op">=</span> <span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span>,</span>
 <span>  gain_per_hour <span class="op">=</span> <span class="va">gain</span> <span class="op">/</span> <span class="va">hours</span></span>
@@ -611,7 +611,7 @@ la media.</p>
 ti permette di spezzare gli interi in pezzi. Per esempio, nel set di dati
 voli, puoi calcolare <code>ora</code> e <code>minuto</code> da <code>dep_time</code> con:</p>
 <div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">transmute</a></span><span class="op">(</span><span class="va">flights</span>,</span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html">transmute</a></span><span class="op">(</span><span class="va">flights</span>,</span>
 <span>  <span class="va">dep_time</span>,</span>
 <span>  hour <span class="op">=</span> <span class="va">dep_time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">100</span>,</span>
 <span>  minute <span class="op">=</span> <span class="va">dep_time</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">100</span></span>
@@ -637,14 +637,14 @@ interpretare: una differenza di 1 sulla scala log corrisponde al raddoppio sulla
 scala originale e una differenza di -1 corrisponde al dimezzamento.</p>
 </li>
 <li>
-<p>Offset: <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead()</a></code> e <code>lag()</code> vi permettono di fare riferimento a valori in testa o in coda
+<p>Offset: <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead()</a></code> e <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag()</a></code> vi permettono di fare riferimento a valori in testa o in coda
 valori. Questo vi permette di calcolare le differenze correnti (ad esempio, <code>x - lag(x)</code>)
 o trovare quando i valori cambiano (<code>x != lag(x)</code>). Sono molto utili in
 insieme a <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, che imparerete a conoscere tra poco.</p>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span>
-<span><span class="fu">lag</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] NA  1  2  3  4  5  6  7  8  9</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lead</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  2  3  4  5  6  7  8  9 10 NA</span></span></code></pre></div>
@@ -668,26 +668,26 @@ spesso una buona idea memorizzare i valori intermedi in nuove variabili in modo 
 controllare che ogni passo funzioni come previsto.</p></li>
 <li>
 <p>Rango: ci sono un certo numero di funzioni per i ranghi, ma si dovrebbe
-iniziare con <code><a href="https://dplyr.tidyverse.org/reference/ranking.html">min_rank()</a></code>. Esegue il tipo più usuale di classifica
+iniziare con <code><a href="https://dplyr.tidyverse.org/reference/row_number.html">min_rank()</a></code>. Esegue il tipo più usuale di classifica
 (es. 1°, 2°, 2°, 4°). Il default dà ai valori più piccoli il più piccolo dei
 ranghi; usate <code>desc(x)</code> per dare ai valori più grandi i ranghi più piccoli.</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">min_rank</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">min_rank</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  1  2  2 NA  4  5</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">min_rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">min_rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  5  3  3 NA  2  1</span></span></code></pre></div>
-<p>Se <code><a href="https://dplyr.tidyverse.org/reference/ranking.html">min_rank()</a></code> non fa ciò di cui avete bisogno, guardate le varianti
-<code><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/ranking.html">dense_rank()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/ranking.html">percent_rank()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/ranking.html">cume_dist()</a></code>,
-<code><a href="https://dplyr.tidyverse.org/reference/ranking.html">ntile()</a></code>. Vedi le loro pagine di aiuto per maggiori dettagli.</p>
+<p>Se <code><a href="https://dplyr.tidyverse.org/reference/row_number.html">min_rank()</a></code> non fa ciò di cui avete bisogno, guardate le varianti
+<code><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/row_number.html">dense_rank()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/percent_rank.html">percent_rank()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/percent_rank.html">cume_dist()</a></code>,
+<code><a href="https://dplyr.tidyverse.org/reference/ntile.html">ntile()</a></code>. Vedi le loro pagine di aiuto per maggiori dettagli.</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">row_number</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  1  2  3 NA  4  5</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">dense_rank</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">dense_rank</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  1  2  2 NA  3  4</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">percent_rank</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/percent_rank.html">percent_rank</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.00 0.25 0.25   NA 0.75 1.00</span></span>
-<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">cume_dist</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/percent_rank.html">cume_dist</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2 0.6 0.6  NA 0.8 1.0</span></span></code></pre></div>
 </li>
 </ul>
@@ -706,7 +706,7 @@ Cosa vedi? Cosa devi fare per risolvere il problema?</p></li>
 <li><p>Confronta <code>dep_time</code>, <code>sched_dep_time</code> e <code>dep_delay</code>. Come ti aspetteresti
 aspettarti che questi tre numeri siano correlati?</p></li>
 <li><p>Trova i 10 voli più in ritardo usando una funzione di classifica. Come vuoi
-gestire i pareggi? Leggete attentamente la documentazione per <code><a href="https://dplyr.tidyverse.org/reference/ranking.html">min_rank()</a></code>.</p></li>
+gestire i pareggi? Leggete attentamente la documentazione per <code><a href="https://dplyr.tidyverse.org/reference/row_number.html">min_rank()</a></code>.</p></li>
 <li><p>Cosa restituisce <code>1:3 + 1:10</code>? Perché?</p></li>
 <li><p>Quali funzioni trigonometriche fornisce R?</p></li>
 </ol>
@@ -1044,7 +1044,7 @@ tutte le variabili, con ogni osservazione in una riga separata:</p>
 <div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">not_cancelled</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">min_rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html">min_rank</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">r</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 770 × 20</span></span>
 <span><span class="co">#&gt; # Groups:   year, month, day [365]</span></span>
@@ -1329,7 +1329,7 @@ possibile?</p></li>
 volo, calcola la proporzione del ritardo totale per la sua destinazione.</p></li>
 <li><p>I ritardi sono tipicamente correlati temporalmente: anche una volta che il problema che
 il problema che ha causato il ritardo iniziale è stato risolto, i voli successivi sono ritardati
-per permettere ai voli precedenti di partire. Utilizzando <code>lag()</code>, esplorate come il ritardo
+per permettere ai voli precedenti di partire. Utilizzando <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag()</a></code>, esplorate come il ritardo
 di un volo sia correlato al ritardo del volo immediatamente precedente.</p></li>
 <li><p>Guarda ogni destinazione. Potete trovare voli che sono sospettosamente
 veloci? (cioè voli che rappresentano un potenziale errore di inserimento dati). 2. Calcola
