@@ -21,8 +21,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2.9000/transition.js"></script><script src="libs/bs3compat-0.4.2.9000/tabs.js"></script><script src="libs/bs3compat-0.4.2.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
-<script src="libs/str_view-binding-1.4.1/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
@@ -284,13 +283,14 @@ dato un vettore di lunghezza 0, 1, o 2.</p></li>
 <p>I pattern più semplici corrispondono a stringhe esatte:</p>
 <div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"pear"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"an"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Il passo successivo in termini di complessità è <code>.</code>, che corrisponde a qualsiasi carattere (eccetto un newline):</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"an"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ b&lt;an&gt;&lt;an&gt;a</span></span></code></pre></div>
+<p>Il passo successivo in termini di complessità è <code>.</code>, che corrisponde a qualsiasi carattere (eccetto un newline):</p>
 <div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">".a."</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-e5c8c404fe174e4c81bd" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e5c8c404fe174e4c81bd">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>But if “<code>.</code>” matches any character, how do you match the character “<code>.</code>”? You need to use an “escape” to tell the regular expression you want to match it exactly, not use its special behaviour. Like strings, regexps use the backslash, <code>\</code>, to escape special behaviour. So to match an <code>.</code>, you need the regexp <code>\.</code>. Unfortunately this creates a problem. We use strings to represent regular expressions, and <code>\</code> is also used as an escape symbol in strings. So to create the regular expression <code>\.</code> we need the string <code>"\\."</code>. `</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">".a."</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;ban&gt;ana</span></span>
+<span><span class="co">#&gt; [3] │ p&lt;ear&gt;</span></span></code></pre></div>
+<p>But if “<code>.</code>” matches any character, how do you match the character “<code>.</code>”? You need to use an “escape” to tell the regular expression you want to match it exactly, not use its special behaviour. Like strings, regexps use the backslash, <code>\</code>, to escape special behaviour. So to match an <code>.</code>, you need the regexp <code>\.</code>. Unfortunately this creates a problem. We use strings to represent regular expressions, and <code>\</code> is also used as an escape symbol in strings. So to create the regular expression <code>\.</code> we need the string <code>"\\."</code>. `</p>
 <div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Per creare l'espressione regolare, abbiamo bisogno di \</span></span>
 <span><span class="va">dot</span> <span class="op">&lt;-</span> <span class="st">"\\."</span></span>
@@ -300,17 +300,17 @@ dato un vettore di lunghezza 0, 1, o 2.</p></li>
 <span><span class="co">#&gt; \.</span></span>
 <span></span>
 <span><span class="co"># E questo dice a R di cercare un esplicito .</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"bef"</span><span class="op">)</span>, <span class="st">"a\\.c"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-36aa3d2a04d42bbc2145" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>bef<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Se <code>\</code> è usato come carattere di escape nelle espressioni regolari, come si fa a far corrispondere un letterale <code>\</code>? Beh, devi fare l’escape, creando l’espressione regolare <code>\\</code>. Per creare questa espressione regolare, hai bisogno di usare una stringa, che deve anche fare l’escape di <code>\</code>. Questo significa che per far corrispondere un letterale <code>\</code> hai bisogno di scrivere <code>"\\\\"</code> — hai bisogno di quattro backslash per corrispondere a uno!</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"bef"</span><span class="op">)</span>, <span class="st">"a\\.c"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;a.c&gt;</span></span></code></pre></div>
+<p>Se <code>\</code> è usato come carattere di escape nelle espressioni regolari, come si fa a far corrispondere un letterale <code>\</code>? Beh, devi fare l’escape, creando l’espressione regolare <code>\\</code>. Per creare questa espressione regolare, hai bisogno di usare una stringa, che deve anche fare l’escape di <code>\</code>. Questo significa che per far corrispondere un letterale <code>\</code> hai bisogno di scrivere <code>"\\\\"</code> — hai bisogno di quattro backslash per corrispondere a uno!</p>
 <div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"a\\b"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; a\b</span></span>
 <span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\\\"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-febe03efa1a2d8d52a86" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-febe03efa1a2d8d52a86">{"x":{"html":"<ul>\n  <li>a<span class='match'>\\<\/span>b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>In questo libro, scriverò l’espressione regolare come “" e le stringhe che rappresentano l’espressione regolare come”".</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"\\\\"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ a&lt;\&gt;b</span></span></code></pre></div>
+<p>In questo libro, scriverò l’espressione regolare come “" e le stringhe che rappresentano l’espressione regolare come”".</p>
 <div id="esercizi-33" class="section level4" number="14.3.1.1">
 <h4>
 <span class="header-section-number">14.3.1.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-33"><i class="fas fa-link"></i></a>
@@ -336,21 +336,21 @@ Come la rappresenteresti come stringa?</p></li>
 </ul>
 <div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"pear"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"^a"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-1fb4450895fe099f74a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1fb4450895fe099f74a1">{"x":{"html":"<ul>\n  <li><span class='match'>a<\/span>pple<\/li>\n  <li>banana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(x, "a$")
-<div id="htmlwidget-10b3b7155e8045a1b2ad" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-10b3b7155e8045a1b2ad">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>banan<span class='match'>a<\/span><\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Per ricordare quale sia, provate questo mnemonico che ho imparato da <a href="https://twitter.com/emisshula/status/323863393167613953">Evan Misshula</a>: se iniziate con power (<code>^</code>), finite con money (<code>$</code>).</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"^a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;a&gt;pple</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ banan&lt;a&gt;</span></span></code></pre></div>
+<p>Per ricordare quale sia, provate questo mnemonico che ho imparato da <a href="https://twitter.com/emisshula/status/323863393167613953">Evan Misshula</a>: se iniziate con power (<code>^</code>), finite con money (<code>$</code>).</p>
 <p>Per forzare un’espressione regolare a corrispondere solo ad una stringa completa, ancorala con entrambi <code>^</code> e <code>$</code>:</p>
 <div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple pie"</span>, <span class="st">"apple"</span>, <span class="st">"apple cake"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"apple"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-4018eef1a407a0df6b52" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4018eef1a407a0df6b52">{"x":{"html":"<ul>\n  <li><span class='match'>apple<\/span> pie<\/li>\n  <li><span class='match'>apple<\/span><\/li>\n  <li><span class='match'>apple<\/span> cake<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(x, "^apple$")
-<div id="htmlwidget-5b1b2f4ad92281566982" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5b1b2f4ad92281566982">{"x":{"html":"<ul>\n  <li>apple pie<\/li>\n  <li><span class='match'>apple<\/span><\/li>\n  <li>apple cake<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Potete anche abbinare il confine tra le parole con <code>\b</code>. Non lo uso spesso in R, ma a volte lo uso quando faccio una ricerca in RStudio quando voglio trovare il nome di una funzione che è un componente di altre funzioni. Per esempio, cercherò <code>\bsum\b</code> per evitare di abbinare <code>summarise</code>, <code>summary</code>, <code>rowsum</code> e così via.</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"apple"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;apple&gt; pie</span></span>
+<span><span class="co">#&gt; [2] │ &lt;apple&gt;</span></span>
+<span><span class="co">#&gt; [3] │ &lt;apple&gt; cake</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"^apple$"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;apple&gt;</span></span></code></pre></div>
+<p>Potete anche abbinare il confine tra le parole con <code>\b</code>. Non lo uso spesso in R, ma a volte lo uso quando faccio una ricerca in RStudio quando voglio trovare il nome di una funzione che è un componente di altre funzioni. Per esempio, cercherò <code>\bsum\b</code> per evitare di abbinare <code>summarise</code>, <code>summary</code>, <code>rowsum</code> e così via.</p>
 <div id="esercizi-34" class="section level4" number="14.3.2.1">
 <h4>
 <span class="header-section-number">14.3.2.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-34"><i class="fas fa-link"></i></a>
@@ -391,20 +391,19 @@ espressioni regolari che trovino tutte le parole che:</p>
 <p>Una classe di caratteri contenente un singolo carattere è una buona alternativa alle escape di backslash quando vuoi includere un singolo metacarattere in una regex. Molte persone lo trovano più leggibile.</p>
 <div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Cerca un carattere letterale che normalmente ha un significato speciale in una regex</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"a*c"</span>, <span class="st">"a c"</span><span class="op">)</span>, <span class="st">"a[.]c"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-25c3e940e6859592f801" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-25c3e940e6859592f801">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>a*c<\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
-<div id="htmlwidget-3f27c09be0c60bb52829" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3f27c09be0c60bb52829">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li><span class='match'>a*c<\/span><\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(c("abc", "a.c", "a*c", "a c"), "a[ ]")
-<div id="htmlwidget-416566eb193bf50d04e6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-416566eb193bf50d04e6">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li>a*c<\/li>\n  <li><span class='match'>a <\/span>c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Questo funziona per la maggior parte (ma non per tutti) i metacaratteri regex: <code>$</code> <code>.</code> <code>|</code> <code>?</code> <code>*</code> <code>+</code> <code>(</code> <code>)</code> <code>[</code> <code>{</code>. Sfortunatamente, alcuni caratteri hanno un significato speciale anche all’interno di una classe di caratteri e devono essere gestiti con escape di backslash: <code>]</code> <code>\</code> <code>^</code> e <code>-</code>.</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"a*c"</span>, <span class="st">"a c"</span><span class="op">)</span>, <span class="st">"a[.]c"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [2] │ &lt;a.c&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"a*c"</span>, <span class="st">"a c"</span><span class="op">)</span>, <span class="st">".[*]c"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [3] │ &lt;a*c&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"a.c"</span>, <span class="st">"a*c"</span>, <span class="st">"a c"</span><span class="op">)</span>, <span class="st">"a[ ]"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [4] │ &lt;a &gt;c</span></span></code></pre></div>
+<p>Questo funziona per la maggior parte (ma non per tutti) i metacaratteri regex: <code>$</code> <code>.</code> <code>|</code> <code>?</code> <code>*</code> <code>+</code> <code>(</code> <code>)</code> <code>[</code> <code>{</code>. Sfortunatamente, alcuni caratteri hanno un significato speciale anche all’interno di una classe di caratteri e devono essere gestiti con escape di backslash: <code>]</code> <code>\</code> <code>^</code> e <code>-</code>.</p>
 <p>Puoi usare <em>alternation</em> per scegliere tra uno o più schemi alternativi. Per esempio, <code>abc|d..f</code> corrisponderà sia a ‘“abc”’, sia a <code>"deaf"</code>. Nota che la precedenza per <code>|</code> è bassa, così che <code>abc|xyz`` corrisponde a</code>abc<code>o</code>xyz<code>, non a</code>abcyz<code>o</code>abxyz`. Come con le espressioni matematiche, se la precedenza dovesse confondere, usate le parentesi per rendere chiaro ciò che volete:</p>
 <div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey"</span>, <span class="st">"gray"</span><span class="op">)</span>, <span class="st">"gr(e|a)y"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-72cbf064100ce560a04c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-72cbf064100ce560a04c">{"x":{"html":"<ul>\n  <li><span class='match'>grey<\/span><\/li>\n  <li><span class='match'>gray<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><div id="esercizi-35" class="section level4" number="14.3.3.1">
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey"</span>, <span class="st">"gray"</span><span class="op">)</span>, <span class="st">"gr(e|a)y"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;grey&gt;</span></span>
+<span><span class="co">#&gt; [2] │ &lt;gray&gt;</span></span></code></pre></div>
+<div id="esercizi-35" class="section level4" number="14.3.3.1">
 <h4>
 <span class="header-section-number">14.3.3.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-35"><i class="fas fa-link"></i></a>
 </h4>
@@ -445,15 +444,13 @@ scritto nel tuo paese.</p></li>
 </ul>
 <div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"1888 è l'anno più lungo in numeri romani: MDCCCLXXXVIII"</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"CC?"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-d11fc4360aa0230696d7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d11fc4360aa0230696d7">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(x, "CC+")
-<div id="htmlwidget-21c7483268bafca56cec" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-21c7483268bafca56cec">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(x, 'C[LX]+')
-<div id="htmlwidget-1834a22cd196f3aa03a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1834a22cd196f3aa03a1">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MDCC<span class='match'>CLXXX<\/span>VIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Notate che la precedenza di questi operatori è alta, quindi potete scrivere: <code>colou?r</code> per abbinare sia l’ortografia americana che quella britannica. Ciò significa che la maggior parte degli usi avrà bisogno di parentesi, come <code>bana(na)+</code>.</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"CC?"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MD&lt;CC&gt;&lt;C&gt;LXXXVIII</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"CC+"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MD&lt;CCC&gt;LXXXVIII</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'C[LX]+'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MDCC&lt;CLXXX&gt;VIII</span></span></code></pre></div>
+<p>Notate che la precedenza di questi operatori è alta, quindi potete scrivere: <code>colou?r</code> per abbinare sia l’ortografia americana che quella britannica. Ciò significa che la maggior parte degli usi avrà bisogno di parentesi, come <code>bana(na)+</code>.</p>
 <p>Puoi anche specificare il numero di corrispondenze in modo preciso:</p>
 <ul>
 <li>
@@ -466,22 +463,19 @@ str_view(x, 'C[LX]+')
 <code>{n,m}</code>: tra n e m</li>
 </ul>
 <div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"C{2}"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-28515d92cb327f90c9eb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-28515d92cb327f90c9eb">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(x, "C{2,}")
-<div id="htmlwidget-0caf26d4e3c00206b0c5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0caf26d4e3c00206b0c5">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(x, "C{2,3}")
-<div id="htmlwidget-da0b268a2927f570ebf3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-da0b268a2927f570ebf3">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Per default queste corrispondenze sono “avide”: corrisponderanno alla stringa più lunga possibile. Potete renderle “pigre”, facendo corrispondere la stringa più corta possibile mettendo un <code>?</code> dopo di esse. Questa è una caratteristica avanzata delle espressioni regolari, ma è utile sapere che esiste:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"C{2}"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MD&lt;CC&gt;CLXXXVIII</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"C{2,}"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MD&lt;CCC&gt;LXXXVIII</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"C{2,3}"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MD&lt;CCC&gt;LXXXVIII</span></span></code></pre></div>
+<p>Per default queste corrispondenze sono “avide”: corrisponderanno alla stringa più lunga possibile. Potete renderle “pigre”, facendo corrispondere la stringa più corta possibile mettendo un <code>?</code> dopo di esse. Questa è una caratteristica avanzata delle espressioni regolari, ma è utile sapere che esiste:</p>
 <div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'C{2,3}?'</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-0ed12bb554391c49c2e3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ed12bb554391c49c2e3">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(x, 'C[LX]+?')
-<div id="htmlwidget-ec658d41f8c4f2d124e9" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec658d41f8c4f2d124e9">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MDCC<span class='match'>CL<\/span>XXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><div id="esercizi-36" class="section level4" number="14.3.4.1">
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'C{2,3}?'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MD&lt;CC&gt;CLXXXVIII</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'C[LX]+?'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ 1888 è l'anno più lungo in numeri romani: MDCC&lt;CL&gt;XXXVIII</span></span></code></pre></div>
+<div id="esercizi-36" class="section level4" number="14.3.4.1">
 <h4>
 <span class="header-section-number">14.3.4.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-36"><i class="fas fa-link"></i></a>
 </h4>
@@ -521,9 +515,14 @@ che definisce un’espressione regolare).</p>
 </h3>
 <p>Prima hai imparato a conoscere le parentesi come un modo per disambiguare espressioni complesse. Le parentesi creano anche un gruppo di cattura <em>numerato</em> (numero 1, 2 ecc.). Un gruppo di cattura memorizza <em>la parte di stringa</em> a cui corrisponde la parte dell’espressione regolare all’interno delle parentesi. Si può fare riferimento allo stesso testo precedentemente trovato da un gruppo di cattura con <em>backreferences</em>, come <code>1`,</code>2`` ecc. Per esempio, la seguente espressione regolare trova tutti i frutti che hanno una coppia di lettere ripetute.</p>
 <div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"(..)\\1"</span>, match <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-6b83523733b890d61edc" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b83523733b890d61edc">{"x":{"html":"<ul>\n  <li>b<span class='match'>anan<\/span>a<\/li>\n  <li><span class='match'>coco<\/span>nut<\/li>\n  <li><span class='match'>cucu<\/span>mber<\/li>\n  <li><span class='match'>juju<\/span>be<\/li>\n  <li><span class='match'>papa<\/span>ya<\/li>\n  <li>s<span class='match'>alal<\/span> berry<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>(A breve, vedrete anche come sono utili insieme a <code><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match()</a></code>.)</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">fruit</span>, <span class="st">"(..)\\1"</span>, match <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [4] │ b&lt;anan&gt;a</span></span>
+<span><span class="co">#&gt; [20] │ &lt;coco&gt;nut</span></span>
+<span><span class="co">#&gt; [22] │ &lt;cucu&gt;mber</span></span>
+<span><span class="co">#&gt; [41] │ &lt;juju&gt;be</span></span>
+<span><span class="co">#&gt; [56] │ &lt;papa&gt;ya</span></span>
+<span><span class="co">#&gt; [73] │ s&lt;alal&gt; berry</span></span></code></pre></div>
+<p>(A breve, vedrete anche come sono utili insieme a <code><a href="https://stringr.tidyverse.org/reference/str_match.html">str_match()</a></code>.)</p>
 <div id="esercizi-37" class="section level4" number="14.3.5.1">
 <h4>
 <span class="header-section-number">14.3.5.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-37"><i class="fas fa-link"></i></a>
@@ -733,9 +732,11 @@ r\\]|\\.)*\](?:(?:\r\n)?[ \t])*)(?:\.(?:(?:\r\n)?[ \t])*(?:[^()&lt;&gt;@,;:\\".\
 <div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="st">"abababa"</span>, <span class="st">"aba"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="st">"abababa"</span>, <span class="st">"aba"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-b3f7c917b6c8ff580948" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b3f7c917b6c8ff580948">{"x":{"html":"<ul>\n  <li><span class='match'>aba<\/span>b<span class='match'>aba<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><p>Notate l’uso di <code><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all()</a></code>. Come imparerete a breve, molte funzioni di stringr sono in coppia: una funzione lavora con una singola corrispondenza, e l’altra lavora con tutte le corrispondenze. La seconda funzione avrà il suffisso <code>_all</code>.</p>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="st">"abababa"</span>, <span class="st">"aba"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `str_view()` was deprecated in stringr 1.5.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use `str_view_all()` instead.</span></span>
+<span><span class="co">#&gt; [1] │ &lt;aba&gt;b&lt;aba&gt;</span></span></code></pre></div>
+<p>Notate l’uso di <code><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all()</a></code>. Come imparerete a breve, molte funzioni di stringr sono in coppia: una funzione lavora con una singola corrispondenza, e l’altra lavora con tutte le corrispondenze. La seconda funzione avrà il suffisso <code>_all</code>.</p>
 <div id="esercizi-38" class="section level4" number="14.4.1.1">
 <h4>
 <span class="header-section-number">14.4.1.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-38"><i class="fas fa-link"></i></a>
@@ -786,12 +787,13 @@ proporzione di vocali? (Suggerimento: qual è il denominatore?)</p></li>
 <p>Notate che <code><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract()</a></code> estrae solo la prima corrispondenza. Possiamo vederlo più facilmente selezionando prima tutte le frasi che hanno più di 1 corrispondenza:</p>
 <div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">more</span> <span class="op">&lt;-</span> <span class="va">sentences</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_count.html">str_count</a></span><span class="op">(</span><span class="va">sentences</span>, <span class="va">colour_match</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="va">more</span>, <span class="va">colour_match</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-d258b2ee1c304ebe1664" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d258b2ee1c304ebe1664">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-
-str_extract(more, colour_match)
-#&gt; [1] "blue"   "green"  "orange"
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="va">more</span>, <span class="va">colour_match</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ It is hard to erase &lt;blue&gt; or &lt;red&gt; ink.</span></span>
+<span><span class="co">#&gt; [2] │ The &lt;green&gt; light in the brown box flicke&lt;red&gt;.</span></span>
+<span><span class="co">#&gt; [3] │ The sky in the west is tinged with &lt;orange&gt; &lt;red&gt;.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract</a></span><span class="op">(</span><span class="va">more</span>, <span class="va">colour_match</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "blue"   "green"  "orange"</span></span></code></pre></div>
 <p>Questo è uno schema comune per le funzioni di stringr, perché lavorare con una singola corrispondenza vi permette di usare strutture dati molto più semplici. Per ottenere tutte le corrispondenze, usate <code><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all()</a></code>. Restituisce una lista:</p>
 <div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">more</span>, <span class="va">colour_match</span><span class="op">)</span></span>
@@ -993,16 +995,15 @@ regex per risolvere il problema.</p></li>
 <p>Invece di dividere le stringhe per pattern, potete anche dividere per carattere, linea, frase e parola <code><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary()</a></code>:</p>
 <div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"This is a sentence.  This is another sentence."</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-b8f31ebacaee3527bb86" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b8f31ebacaee3527bb86">{"x":{"html":"<ul>\n  <li><span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>a<\/span> <span class='match'>sentence<\/span>.  <span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>another<\/span> <span class='match'>sentence<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-
-str_split(x, " ")[[1]]
-#&gt; [1] "This"      "is"        "a"         "sentence." ""          "This"     
-#&gt; [7] "is"        "another"   "sentence."
-str_split(x, boundary("word"))[[1]]
-#&gt; [1] "This"     "is"       "a"        "sentence" "This"     "is"       "another" 
-#&gt; [8] "sentence"
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;This&gt; &lt;is&gt; &lt;a&gt; &lt;sentence&gt;.  &lt;This&gt; &lt;is&gt; &lt;another&gt; &lt;sentence&gt;.</span></span>
+<span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">" "</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "This"      "is"        "a"         "sentence." ""          "This"     </span></span>
+<span><span class="co">#&gt; [7] "is"        "another"   "sentence."</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "This"     "is"       "a"        "sentence" "This"     "is"       "another" </span></span>
+<span><span class="co">#&gt; [8] "sentence"</span></span></code></pre></div>
 <div id="esercizi-42" class="section level4" number="14.4.5.1">
 <h4>
 <span class="header-section-number">14.4.5.1</span> Esercizi<a class="anchor" aria-label="anchor" href="#esercizi-42"><i class="fas fa-link"></i></a>
@@ -1039,12 +1040,12 @@ poi leggete la documentazione.</p></li>
 <p><code>ignore_case = TRUE</code> permette ai caratteri di corrispondere sia alla loro forma maiuscola che a quella minuscola. Questo usa sempre il locale corrente.</p>
 <div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bananas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"banana"</span>, <span class="st">"Banana"</span>, <span class="st">"BANANA"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">bananas</span>, <span class="st">"banana"</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-b25b670b028f478bf741" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b25b670b028f478bf741">{"x":{"html":"<ul>\n  <li><span class='match'>banana<\/span><\/li>\n  <li>Banana<\/li>\n  <li>BANANA<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_view(bananas, regex("banana", ignore_case = TRUE))
-<div id="htmlwidget-46d1193f7ba074d981c8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-46d1193f7ba074d981c8">{"x":{"html":"<ul>\n  <li><span class='match'>banana<\/span><\/li>\n  <li><span class='match'>Banana<\/span><\/li>\n  <li><span class='match'>BANANA<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">bananas</span>, <span class="st">"banana"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;banana&gt;</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view</a></span><span class="op">(</span><span class="va">bananas</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">regex</a></span><span class="op">(</span><span class="st">"banana"</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;banana&gt;</span></span>
+<span><span class="co">#&gt; [2] │ &lt;Banana&gt;</span></span>
+<span><span class="co">#&gt; [3] │ &lt;BANANA&gt;</span></span></code></pre></div>
 </li>
 <li>
 <p><code>multiline = TRUE</code> permette a <code>^</code> e <code>$</code> di corrispondere all’inizio e alla fine di ogni linea piuttosto che all’inizio e alla fine della stringa completa.</p>
@@ -1088,9 +1089,9 @@ delle espressioni regolari. Il seguente microbenchmark mostra che è circa
 <span>  times <span class="op">=</span> <span class="fl">20</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Unit: microseconds</span></span>
-<span><span class="co">#&gt;   expr   min    lq    mean median     uq   max neval</span></span>
-<span><span class="co">#&gt;  fixed  73.8  86.6 168.515 114.45 166.25 944.6    20</span></span>
-<span><span class="co">#&gt;  regex 353.5 360.6 457.360 443.65 478.60 774.9    20</span></span></code></pre></div>
+<span><span class="co">#&gt;   expr   min     lq    mean median     uq   max neval</span></span>
+<span><span class="co">#&gt;  fixed  62.2  67.55 100.620  79.05  89.85 498.8    20</span></span>
+<span><span class="co">#&gt;  regex 273.4 280.35 296.135 285.35 289.95 489.5    20</span></span></code></pre></div>
 <p>Attenzione all’uso di <code><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed()</a></code> con dati non inglesi. È problematico perché ci sono spesso più modi di rappresentare lo stesso carattere. Per esempio, ci sono due modi per definire “á”: o come un singolo carattere o come una “a” più un accento:</p>
 <div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a1</span> <span class="op">&lt;-</span> <span class="st">"\u00e1"</span></span>
@@ -1142,12 +1143,12 @@ rispetto a <code><a href="https://stringr.tidyverse.org/reference/modifiers.html
 Potete anche usarla con le altre funzioni:</p>
 <div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"This is a sentence."</span></span>
-<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-382a200f56fb8e6a1fd3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-382a200f56fb8e6a1fd3">{"x":{"html":"<ul>\n  <li><span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>a<\/span> <span class='match'>sentence<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-str_extract_all(x, boundary("word"))
-#&gt; [[1]]
-#&gt; [1] "This"     "is"       "a"        "sentence"</li>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_view.html">str_view_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] │ &lt;This&gt; &lt;is&gt; &lt;a&gt; &lt;sentence&gt;.</span></span>
+<span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html">str_extract_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">boundary</a></span><span class="op">(</span><span class="st">"word"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] "This"     "is"       "a"        "sentence"</span></span></code></pre></div>
+</li>
 </ul>
 <div id="esercizi-43" class="section level3" number="14.5.1">
 <h3>

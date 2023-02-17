@@ -21,8 +21,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2.9000/transition.js"></script><script src="libs/bs3compat-0.4.2.9000/tabs.js"></script><script src="libs/bs3compat-0.4.2.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
-<script src="libs/str_view-binding-1.4.1/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
@@ -217,10 +216,10 @@ strategie che puoi usare per rendere questo più facile in <a href="model-intro.
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──</span></span>
-<span><span class="co">#&gt; ✔ ggplot2 3.4.0      ✔ purrr   0.3.5 </span></span>
-<span><span class="co">#&gt; ✔ tibble  3.1.8      ✔ dplyr   1.0.10</span></span>
-<span><span class="co">#&gt; ✔ tidyr   1.2.1      ✔ stringr 1.4.1 </span></span>
-<span><span class="co">#&gt; ✔ readr   2.1.3      ✔ forcats 0.5.2 </span></span>
+<span><span class="co">#&gt; ✔ ggplot2 3.4.1     ✔ purrr   1.0.1</span></span>
+<span><span class="co">#&gt; ✔ tibble  3.1.8     ✔ dplyr   1.1.0</span></span>
+<span><span class="co">#&gt; ✔ tidyr   1.3.0     ✔ stringr 1.5.0</span></span>
+<span><span class="co">#&gt; ✔ readr   2.1.4     ✔ forcats 1.0.0</span></span>
 <span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span></code></pre></div>
@@ -325,7 +324,7 @@ e ha fornito tonnellate di feedback utili.</p></li>
 <li><p>Tal Galili per aver migliorato il suo pacchetto dendextend per supportare una sezione sul clustering che non è stata inserita nella bozza finale.</p></li>
 </ul>
 <p>Questo libro è stato scritto in modo aperto, e molte persone hanno contribuito con pull request per risolvere problemi minori. Un ringraziamento speciale va a tutti coloro che hanno contribuito tramite GitHub:</p>
-<p>Grazie a tutti i collaboratori in ordine alfabetico: <span class="citation">@a-rosenberg</span>, A. s, Abhinav Singh, adi pradhan, Ahmed ElGabbas, Ajay Deonarine, <span class="citation">@AlanFeder</span>, Albert Y. Kim, <span class="citation">@Alex</span>, Andrea Gilardi, Andrew Landgraf, <span class="citation">@andrewmacfarland</span>, Angela Li, Azza Ahmed, bahadir cankardes, <span class="citation">@batpigandme</span>, <span class="citation">@behrman</span>, Ben Herbertson, Ben Marwick, Ben Steinberg, Benjamin Yeh, Bianca Peterson, Bill Behrman, <span class="citation">@BirgerNi</span>, <span class="citation">@boardtc</span>, Brandon Greenwell, Brent Brewington, Brett Klamer, Brian G. Barkley, Charlotte Wickham, Christian G. Warden, Christian Heinrich, Christian Mongeau, Colin Gillespie, Cooper Morris, Curtis Alexander, Daniel Gromer, David Clark, David Rubinger, Derwin McGeary, Devin Pastoor, Dirk Eddelbuettel, <span class="citation">@djbirke</span>, <span class="citation">@DSGeoff</span>, Dylan Cashman, Earl Brown, Edwin Thoen, Eric Watt, Erik Erhardt, Etienne B. Racine, Everett Robinson, Flemming Villalona, Floris Vanderhaeghe, Garrick Aden-Buie, George Wang, Gregory Jefferis, Gustav W Delius, Hao Chen, <span class="citation">@harrismcgehee</span>, Hengni Cai, Hiroaki Yutani, Hojjat Salmasian, Ian Lyttle, Ian Sealy, Ivan Krukov, Jacek Kolacz, Jacob Kaplan, Jakub Nowosad, Jazz Weisman, Jeff Boichuk, Jeffrey Arnold, Jen Ren, Jennifer (Jenny) Bryan, <span class="citation">@jennybc</span>, Jeroen Janssens, Jim Hester, <span class="citation">@jjchern</span>, Joanne Jang, Johannes Gruber, John Blischak, John D. Storey, John Sears, Jon Calder, <span class="citation">@Jonas</span>, Jonathan Page, <span class="citation">@jonathanflint</span>, Jose Roberto Ayala Solares, Josh Goldberg, <span class="citation">@juandering</span>, Julia Stewart Lowndes, Julian During, Justinas Petuchovas, <span class="citation">@kaetschap</span>, Kara de la Marck, Kara Woo, Katrin Leinweber, <span class="citation">@kdpsingh</span>, Kenny Darrell, Kirill Müller, Kirill Sevastyanenko, <span class="citation">@koalabearski</span>, Kunal Marwaha, <span class="citation">@KyleHumphrey</span>, Lawrence Wu, <span class="citation">@lindbrook</span>, Luke Smith, Luke W Johnston, Mara Averick, Maria Paula Caldas, Mark Beveridge, Matt Herman, Matthew Hendrickson, Matthew Sedaghatfar, <span class="citation">@MattWittbrodt</span>, Mauro Lepore, Michael Henry, Mine Cetinkaya-Rundel, <span class="citation">@MJMarshall</span>, Mustafa Ascha, <span class="citation">@nate-d-olson</span>, <span class="citation">@nattalides</span>, Nelson Areal, Nicholas Tierney, Nick Clark, <span class="citation">@nickelas</span>, Nina Munkholt Jakobsen, Nirmal Patel, Nischal Shrestha, Noah Landesberg, <span class="citation">@nwaff</span>, <span class="citation">@OaCantona</span>, Pablo E, Patrick Kennedy, <span class="citation">@Paul</span>, <span class="citation">@pete</span>, Peter Hurford, Rademeyer Vermaak, Radu Grosu, Ranae Dietzel, Riva Quiroga, <span class="citation">@rlzijdeman</span>, Rob Tenorio, Robert Schuessler, <span class="citation">@robertchu03</span>, Robin Gertenbach, <span class="citation">@robinlovelace</span>, <span class="citation">@robinsones</span>, Rohan Alexander, <span class="citation">@RomeroBarata</span>, S’busiso Mkhondwane, <span class="citation">@Saghir</span>, Sam Firke, Seamus McKinsey, <span class="citation">@seamus-mckinsey</span>, <span class="citation">@seanpwilliams</span>, Sebastian Kraus, Shannon Ellis, <span class="citation">@shoili</span>, <span class="citation">@sibusiso16</span>, <span class="citation">@Sophiazj</span>, <span class="citation">@spirgel</span>, Stéphane Guillou, Steve Mortimer, <span class="citation">@svenski</span>, Tal Galili, Terence Teo, Thomas Klebel, Tim Waterhouse, TJ Mahr, Tom Prior, <span class="citation">@twgardner2</span>, Ulrik Lyngs, Will Beasley, <span class="citation">@yahwes</span>, Yihui Xie, Yiming (Paul) Li, Yu Yu Aung, Zach Bogart, <span class="citation">@zeal626</span>, Zhuoer Dong, <span class="citation">@蒋雨蒙</span>.</p>
+<p>Grazie a tutti i collaboratori in ordine alfabetico: A. s, Abhinav Singh, Ahmed ElGabbas, Ajay Deonarine, <span class="citation">@AlanFeder</span>, Albert Y. Kim, <span class="citation">@Alex</span>, Andrea Gilardi, Andrew Landgraf, Angela Li, Azza Ahmed, Ben Herbertson, Ben Marwick, Ben Steinberg, Benjamin Yeh, Bianca Peterson, Bill Behrman, <span class="citation">@BirgerNi</span>, Brandon Greenwell, Brent Brewington, Brett Klamer, Brian G. Barkley, Charlotte Wickham, Christian G. Warden, Christian Heinrich, Christian Mongeau, Colin Gillespie, Cooper Morris, Curtis Alexander, <span class="citation">@DSGeoff</span>, Daniel Gromer, David Clark, David Rubinger, Derwin McGeary, Devin Pastoor, Dirk Eddelbuettel, Dylan Cashman, Earl Brown, Edwin Thoen, Eric Watt, Erik Erhardt, Etienne B. Racine, Everett Robinson, Flemming Villalona, Floris Vanderhaeghe, Garrick Aden-Buie, George Wang, Gregory Jefferis, Gustav W Delius, Hao Chen, Hengni Cai, Hiroaki Yutani, Hojjat Salmasian, Ian Lyttle, Ian Sealy, Ivan Krukov, Jacek Kolacz, Jacob Kaplan, Jakub Nowosad, Jazz Weisman, Jeff Boichuk, Jeffrey Arnold, Jen Ren, Jennifer (Jenny) Bryan, Jeroen Janssens, Jim Hester, Joanne Jang, Johannes Gruber, John Blischak, John D. Storey, John Sears, Jon Calder, <span class="citation">@Jonas</span>, Jonathan Page, Jose Roberto Ayala Solares, Josh Goldberg, Julia Stewart Lowndes, Julian During, Justinas Petuchovas, Kara Woo, Kara de la Marck, Katrin Leinweber, Kenny Darrell, Kirill Müller, Kirill Sevastyanenko, Kunal Marwaha, <span class="citation">@KyleHumphrey</span>, Lawrence Wu, Luke Smith, Luke W Johnston, <span class="citation">@MJMarshall</span>, Mara Averick, Maria Paula Caldas, Mark Beveridge, Matt Herman, <span class="citation">@MattWittbrodt</span>, Matthew Hendrickson, Matthew Sedaghatfar, Mauro Lepore, Michael Henry, Mine Cetinkaya-Rundel, Mustafa Ascha, Nelson Areal, Nicholas Tierney, Nick Clark, Nina Munkholt Jakobsen, Nirmal Patel, Nischal Shrestha, Noah Landesberg, <span class="citation">@OaCantona</span>, Pablo E, Patrick Kennedy, <span class="citation">@Paul</span>, Peter Hurford, Rademeyer Vermaak, Radu Grosu, Ranae Dietzel, Riva Quiroga, Rob Tenorio, Robert Schuessler, Robin Gertenbach, Rohan Alexander, <span class="citation">@RomeroBarata</span>, S’busiso Mkhondwane, <span class="citation">@Saghir</span>, Sam Firke, Seamus McKinsey, Sebastian Kraus, Shannon Ellis, <span class="citation">@Sophiazj</span>, Steve Mortimer, Stéphane Guillou, TJ Mahr, Tal Galili, Terence Teo, Thomas Klebel, Tim Waterhouse, Tom Prior, Ulrik Lyngs, Will Beasley, Yihui Xie, Yiming (Paul) Li, Yu Yu Aung, Zach Bogart, Zhuoer Dong, <span class="citation">@a-rosenberg</span>, adi pradhan, <span class="citation">@andrewmacfarland</span>, bahadir cankardes, <span class="citation">@batpigandme</span>, <span class="citation">@behrman</span>, <span class="citation">@boardtc</span>, <span class="citation">@djbirke</span>, <span class="citation">@harrismcgehee</span>, <span class="citation">@jennybc</span>, <span class="citation">@jjchern</span>, <span class="citation">@jonathanflint</span>, <span class="citation">@juandering</span>, <span class="citation">@kaetschap</span>, <span class="citation">@kdpsingh</span>, <span class="citation">@koalabearski</span>, <span class="citation">@lindbrook</span>, <span class="citation">@nate-d-olson</span>, <span class="citation">@nattalides</span>, <span class="citation">@nickelas</span>, <span class="citation">@nwaff</span>, <span class="citation">@pete</span>, <span class="citation">@rlzijdeman</span>, <span class="citation">@robertchu03</span>, <span class="citation">@robinlovelace</span>, <span class="citation">@robinsones</span>, <span class="citation">@seamus-mckinsey</span>, <span class="citation">@seanpwilliams</span>, <span class="citation">@shoili</span>, <span class="citation">@sibusiso16</span>, <span class="citation">@spirgel</span>, <span class="citation">@svenski</span>, <span class="citation">@twgardner2</span>, <span class="citation">@yahwes</span>, <span class="citation">@zeal626</span>, <span class="citation">@蒋雨蒙</span>.</p>
 </div>
 <div id="colophon" class="section level2" number="1.8">
 <h2>
@@ -338,14 +337,14 @@ e ha fornito tonnellate di feedback utili.</p></li>
 <span><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt;  setting  value</span></span>
 <span><span class="co">#&gt;  version  R version 4.2.2 (2022-10-31)</span></span>
-<span><span class="co">#&gt;  os       Ubuntu 20.04.5 LTS</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
 <span><span class="co">#&gt;  language (EN)</span></span>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2022-11-07</span></span>
+<span><span class="co">#&gt;  date     2023-02-17</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
@@ -354,105 +353,105 @@ e ha fornito tonnellate di feedback utili.</p></li>
 <span><span class="co">#&gt;  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  backports       1.4.1      2021-12-13 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  base64enc       0.1-3      2015-07-28 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  bit             4.0.4      2020-08-04 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  bit             4.0.5      2022-11-15 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  bit64           4.0.5      2020-08-30 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  blob            1.2.3      2022-04-10 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  broom           1.0.1      2022-08-29 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  bslib           0.4.0.9900 2022-11-07 [1] Github (rstudio/bslib@b9d5beb)</span></span>
+<span><span class="co">#&gt;  broom           1.0.3      2023-01-25 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  bslib           0.4.2.9000 2023-02-17 [1] Github (rstudio/bslib@fe41d6d)</span></span>
 <span><span class="co">#&gt;  cachem          1.0.6      2021-08-19 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  callr           3.7.3      2022-11-02 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  cellranger      1.1.0      2016-07-27 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  cli             3.4.1      2022-09-23 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  cli             3.6.0      2023-01-09 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  clipr           0.8.0      2022-02-22 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  colorspace      2.0-3      2022-02-21 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  colorspace      2.1-0      2023-01-23 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  cpp11           0.4.3      2022-10-12 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  crayon          1.5.2      2022-09-29 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  curl            4.3.3      2022-10-06 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  data.table      1.14.4     2022-10-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  curl            5.0.0      2023-01-12 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  data.table      1.14.8     2023-02-17 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  DBI             1.1.3      2022-06-18 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  dbplyr          2.2.1      2022-06-27 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  digest          0.6.30     2022-10-18 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  dplyr         * 1.0.10     2022-09-01 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  dbplyr          2.3.0      2023-01-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  digest          0.6.31     2022-12-11 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  dplyr         * 1.1.0      2023-01-29 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  dtplyr          1.2.2      2022-08-20 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  ellipsis        0.3.2      2021-04-29 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  evaluate        0.18       2022-11-07 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  fansi           1.0.3      2022-03-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  evaluate        0.20       2023-01-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  fansi           1.0.4      2023-01-22 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  farver          2.1.1      2022-07-06 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  fastmap         1.1.0      2021-01-25 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  forcats       * 0.5.2      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  fs              1.5.2      2021-12-08 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  gargle          1.2.1      2022-09-08 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  forcats       * 1.0.0      2023-01-29 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  fs              1.6.1      2023-02-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  gargle          1.3.0      2023-01-30 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  generics        0.1.3      2022-07-05 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  ggplot2       * 3.4.0      2022-11-04 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  ggplot2       * 3.4.1      2023-02-10 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  glue            1.6.2      2022-02-24 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  googledrive     2.0.0      2021-07-08 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  googlesheets4   1.0.1      2022-08-13 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  gtable          0.3.1      2022-09-01 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  haven           2.5.1      2022-08-22 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  highr           0.9        2021-04-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  highr           0.10       2022-12-22 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  hms             1.1.2      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  htmltools       0.5.3.9002 2022-11-07 [1] Github (rstudio/htmltools@8d1dd6a)</span></span>
+<span><span class="co">#&gt;  htmltools       0.5.4      2022-12-07 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  httr            1.4.4      2022-08-17 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  ids             1.0.1      2017-05-31 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  isoband         0.2.6      2022-10-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  isoband         0.2.7      2022-12-20 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  jquerylib       0.1.4      2021-04-26 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  jsonlite        1.8.3      2022-10-21 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  knitr           1.40       2022-08-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  jsonlite        1.8.4      2022-12-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  knitr           1.42       2023-01-25 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  labeling        0.4.2      2020-10-20 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  lattice         0.20-45    2021-09-22 [2] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  lifecycle       1.0.3      2022-10-07 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  lubridate       1.9.0      2022-11-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  lubridate       1.9.2      2023-02-10 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  magrittr        2.0.3      2022-03-30 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  MASS            7.3-58.1   2022-08-03 [2] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  Matrix          1.5-1      2022-09-13 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  MASS            7.3-58.2   2023-01-23 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  Matrix          1.5-3      2022-11-11 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  memoise         2.0.1      2021-11-26 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  mgcv            1.8-41     2022-10-21 [2] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  mime            0.12       2021-09-28 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  modelr          0.1.9      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  modelr          0.1.10     2022-11-11 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  munsell         0.5.0      2018-06-12 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  nlme            3.1-160    2022-10-10 [2] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  openssl         2.0.4      2022-10-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  nlme            3.1-162    2023-01-31 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  openssl         2.0.5      2022-12-06 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  pillar          1.8.1      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  processx        3.8.0      2022-10-26 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  progress        1.2.2      2019-05-16 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  ps              1.7.2      2022-10-26 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  purrr         * 0.3.5      2022-10-06 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  purrr         * 1.0.1      2023-01-10 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  R6              2.5.1      2021-08-19 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  rappdirs        0.3.3      2021-01-31 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  RColorBrewer    1.1-3      2022-04-03 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  readr         * 2.1.3      2022-10-01 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  readxl          1.4.1      2022-08-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  readr         * 2.1.4      2023-02-10 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  readxl          1.4.2      2023-02-09 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  rematch         1.0.1      2016-04-21 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  rematch2        2.1.2      2020-05-01 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  reprex          2.0.2      2022-08-17 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  rlang           1.0.6      2022-09-24 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  rmarkdown       2.17       2022-10-07 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rmarkdown       2.20       2023-01-19 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  rstudioapi      0.14       2022-08-22 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  rvest           1.0.3      2022-08-19 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  sass            0.4.2      2022-07-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  sass            0.4.5      2023-01-24 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  scales          1.2.1      2022-08-20 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  selectr         0.4-2      2019-11-20 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  stringi         1.7.8      2022-07-11 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  stringr       * 1.4.1      2022-08-20 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  stringi         1.7.12     2023-01-11 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  stringr       * 1.5.0      2022-12-02 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  sys             3.4.1      2022-10-18 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  tibble        * 3.1.8      2022-07-22 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  tidyr         * 1.2.1      2022-09-08 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tidyr         * 1.3.0      2023-01-24 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  tidyselect      1.2.0      2022-10-10 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  tidyverse     * 1.3.2      2022-07-18 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  timechange      0.1.1      2022-11-04 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  tinytex         0.42       2022-09-27 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  timechange      0.2.0      2023-01-11 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  tinytex         0.44       2023-02-01 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  tzdb            0.3.0      2022-03-28 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  utf8            1.2.2      2021-07-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  utf8            1.2.3      2023-01-31 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  uuid            1.1-0      2022-04-19 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  vctrs           0.5.0      2022-10-22 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  vctrs           0.5.2      2023-01-23 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  viridisLite     0.4.1      2022-08-22 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  vroom           1.6.0      2022-09-30 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  vroom           1.6.1      2023-01-22 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  withr           2.5.0      2022-03-03 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  xfun            0.34       2022-10-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  xfun            0.37       2023-01-31 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt;  xml2            1.3.3      2021-11-30 [1] CRAN (R 4.2.2)</span></span>
-<span><span class="co">#&gt;  yaml            2.3.6      2022-10-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  yaml            2.3.7      2023-01-23 [1] CRAN (R 4.2.2)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  [1] /home/runner/.cache/R/renv/library/r4ds_ita_1st_ed-2aac1073/R-4.2/x86_64-pc-linux-gnu</span></span>
 <span><span class="co">#&gt;  [2] /opt/R/4.2.2/lib/R/library</span></span>

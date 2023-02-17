@@ -434,6 +434,10 @@ Finora tutti i diagrammi hanno assunto che le chiavi siano uniche. Ma questo non
          3, "y4"
     )
     left_join(x, y, by = "key")
+    #> Warning in left_join(x, y, by = "key"): Each row in `x` is expected to match at most 1 row in `y`.
+    #> ℹ Row 2 of `x` matches multiple rows.
+    #> ℹ If multiple matches are expected, set `multiple = "all"` to silence this
+    #>   warning.
     #> # A tibble: 6 × 3
     #>     key val_x val_y
     #>   <dbl> <chr> <chr>
@@ -455,7 +459,7 @@ Finora, le coppie di tabelle sono sempre state unite da una singola variabile, e
     ```r
     flights2 %>% 
       left_join(weather)
-    #> Joining, by = c("year", "month", "day", "hour", "origin")
+    #> Joining with `by = join_by(year, month, day, hour, origin)`
     #> # A tibble: 336,776 × 18
     #>    year month   day  hour origin dest  tailnum carrier  temp  dewp humid wind_…¹
     #>   <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <dbl> <dbl> <dbl>   <dbl>
@@ -567,7 +571,7 @@ Finora, le coppie di tabelle sono sempre state unite da una singola variabile, e
 1.  Cosa è successo il 13 giugno 2013? Visualizza lo schema spaziale dei ritardi,
     e poi usa Google per fare un riferimento incrociato con le condizionir.
 
-
+    
 
 ### Altre implementazioni
 
@@ -652,7 +656,7 @@ Invece puoi usare una semi-join, che collega le due tabelle come una mutating jo
 ```r
 flights %>% 
   semi_join(top_dest)
-#> Joining, by = "dest"
+#> Joining with `by = join_by(dest)`
 #> # A tibble: 141,145 × 19
 #>    year month   day dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
 #>   <int> <int> <int>    <int>       <int>   <dbl>   <int>   <int>   <dbl> <chr>  

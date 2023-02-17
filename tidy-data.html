@@ -21,8 +21,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2.9000/transition.js"></script><script src="libs/bs3compat-0.4.2.9000/tabs.js"></script><script src="libs/bs3compat-0.4.2.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
-<script src="libs/str_view-binding-1.4.1/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
@@ -133,7 +132,7 @@
 <code class="sourceCode R"><span><span class="va">table1</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year  cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -143,7 +142,7 @@
 <span><span class="va">table2</span></span>
 <span><span class="co">#&gt; # A tibble: 12 × 4</span></span>
 <span><span class="co">#&gt;   country      year type           count</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 cases            745</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  1999 population  19987071</span></span>
 <span><span class="co">#&gt; 3 Afghanistan  2000 cases           2666</span></span>
@@ -154,7 +153,7 @@
 <span><span class="va">table3</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country      year rate             </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            </span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
 <span><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
@@ -166,14 +165,14 @@
 <span><span class="va">table4a</span>  <span class="co"># casi</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span><span class="co">#&gt;   country     `1999` `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan    745   2666</span></span>
 <span><span class="co">#&gt; 2 Brazil       37737  80488</span></span>
 <span><span class="co">#&gt; 3 China       212258 213766</span></span>
 <span><span class="va">table4b</span>  <span class="co"># popolazione</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span><span class="co">#&gt;   country         `1999`     `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan   19987071   20595360</span></span>
 <span><span class="co">#&gt; 2 Brazil       172006362  174504898</span></span>
 <span><span class="co">#&gt; 3 China       1272915272 1280428583</span></span></code></pre></div>
@@ -215,7 +214,7 @@ dati ordinati in modo particolarmente naturale.</p></li>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rate <span class="op">=</span> <span class="va">cases</span> <span class="op">/</span> <span class="va">population</span> <span class="op">*</span> <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
 <span><span class="co">#&gt;   country      year  cases population  rate</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071 0.373</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360 1.29 </span></span>
 <span><span class="co">#&gt; 3 Brazil       1999  37737  172006362 2.19 </span></span>
@@ -228,7 +227,7 @@ dati ordinati in modo particolarmente naturale.</p></li>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">year</span>, wt <span class="op">=</span> <span class="va">cases</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 2</span></span>
 <span><span class="co">#&gt;    year      n</span></span>
-<span><span class="co">#&gt;   &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1  1999 250740</span></span>
 <span><span class="co">#&gt; 2  2000 296920</span></span>
 <span></span>
@@ -287,7 +286,7 @@ Il secondo passo è quello di risolvere uno dei due problemi comuni:</p>
 <code class="sourceCode R"><span><span class="va">table4a</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span><span class="co">#&gt;   country     `1999` `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan    745   2666</span></span>
 <span><span class="co">#&gt; 2 Brazil       37737  80488</span></span>
 <span><span class="co">#&gt; 3 China       212258 213766</span></span></code></pre></div>
@@ -304,7 +303,7 @@ queste sono le colonne <code>1999</code> e <code>2000</code>.</p></li>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country     year   cases</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan 1999     745</span></span>
 <span><span class="co">#&gt; 2 Afghanistan 2000    2666</span></span>
 <span><span class="co">#&gt; 3 Brazil      1999   37737</span></span>
@@ -327,7 +326,7 @@ Figure 12.2: Pivot di <code>table4</code> in forma ‘long’ e ordinata.
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country     year  population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan 1999    19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan 2000    20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil      1999   172006362</span></span>
@@ -341,10 +340,10 @@ Figure 12.2: Pivot di <code>table4</code> in forma ‘long’ e ordinata.
 <span><span class="va">tidy4b</span> <span class="op">&lt;-</span> <span class="va">table4b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">tidy4a</span>, <span class="va">tidy4b</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Joining, by = c("country", "year")</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(country, year)`</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country     year   cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan 1999     745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan 2000    2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil      1999   37737  172006362</span></span>
@@ -361,7 +360,7 @@ Figure 12.2: Pivot di <code>table4</code> in forma ‘long’ e ordinata.
 <code class="sourceCode R"><span><span class="va">table2</span></span>
 <span><span class="co">#&gt; # A tibble: 12 × 4</span></span>
 <span><span class="co">#&gt;   country      year type           count</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 cases            745</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  1999 population  19987071</span></span>
 <span><span class="co">#&gt; 3 Afghanistan  2000 cases           2666</span></span>
@@ -380,7 +379,7 @@ Figure 12.2: Pivot di <code>table4</code> in forma ‘long’ e ordinata.
 <span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">type</span>, values_from <span class="op">=</span> <span class="va">count</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year  cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -421,7 +420,7 @@ Considerate attentamente il seguente esempio:</p>
 <div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">table4a</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1999</span>, <span class="fl">2000</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `build_longer_spec()`:</span></span>
+<span><span class="co">#&gt; Error in `pivot_longer()`:</span></span>
 <span><span class="co">#&gt; ! Can't subset columns past the end.</span></span>
 <span><span class="co">#&gt; ℹ Locations 1999 and 2000 don't exist.</span></span>
 <span><span class="co">#&gt; ℹ There are only 3 columns.</span></span></code></pre></div>
@@ -465,7 +464,7 @@ Considerate attentamente il seguente esempio:</p>
 <code class="sourceCode R"><span><span class="va">table3</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country      year rate             </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            </span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
 <span><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
@@ -478,7 +477,7 @@ Considerate attentamente il seguente esempio:</p>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">rate</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cases"</span>, <span class="st">"population"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year cases  population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 745    19987071  </span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000 2666   20595360  </span></span>
 <span><span class="co">#&gt; 3 Brazil       1999 37737  172006362 </span></span>
@@ -502,7 +501,7 @@ Figure 12.4: Separating <code>table3</code> makes it tidy
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">rate</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cases"</span>, <span class="st">"population"</span><span class="op">)</span>, convert <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year  cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -696,20 +695,20 @@ semplicemente non appare nel set di dati.</p></li>
 <code class="sourceCode R"><span><span class="va">who</span></span>
 <span><span class="co">#&gt; # A tibble: 7,240 × 60</span></span>
 <span><span class="co">#&gt;   country     iso2  iso3   year new_sp…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan AF    AFG    1980       NA      NA      NA      NA      NA      NA</span></span>
 <span><span class="co">#&gt; 2 Afghanistan AF    AFG    1981       NA      NA      NA      NA      NA      NA</span></span>
 <span><span class="co">#&gt; 3 Afghanistan AF    AFG    1982       NA      NA      NA      NA      NA      NA</span></span>
 <span><span class="co">#&gt; 4 Afghanistan AF    AFG    1983       NA      NA      NA      NA      NA      NA</span></span>
 <span><span class="co">#&gt; 5 Afghanistan AF    AFG    1984       NA      NA      NA      NA      NA      NA</span></span>
 <span><span class="co">#&gt; 6 Afghanistan AF    AFG    1985       NA      NA      NA      NA      NA      NA</span></span>
-<span><span class="co">#&gt; # … with 7,234 more rows, 50 more variables: new_sp_m65 &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   new_sp_f014 &lt;int&gt;, new_sp_f1524 &lt;int&gt;, new_sp_f2534 &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   new_sp_f3544 &lt;int&gt;, new_sp_f4554 &lt;int&gt;, new_sp_f5564 &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   new_sp_f65 &lt;int&gt;, new_sn_m014 &lt;int&gt;, new_sn_m1524 &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   new_sn_m2534 &lt;int&gt;, new_sn_m3544 &lt;int&gt;, new_sn_m4554 &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   new_sn_m5564 &lt;int&gt;, new_sn_m65 &lt;int&gt;, new_sn_f014 &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   new_sn_f1524 &lt;int&gt;, new_sn_f2534 &lt;int&gt;, new_sn_f3544 &lt;int&gt;, …</span></span></code></pre></div>
+<span><span class="co">#&gt; # … with 7,234 more rows, 50 more variables: new_sp_m65 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   new_sp_f014 &lt;dbl&gt;, new_sp_f1524 &lt;dbl&gt;, new_sp_f2534 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   new_sp_f3544 &lt;dbl&gt;, new_sp_f4554 &lt;dbl&gt;, new_sp_f5564 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   new_sp_f65 &lt;dbl&gt;, new_sn_m014 &lt;dbl&gt;, new_sn_m1524 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   new_sn_m2534 &lt;dbl&gt;, new_sn_m3544 &lt;dbl&gt;, new_sn_m4554 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   new_sn_m5564 &lt;dbl&gt;, new_sn_m65 &lt;dbl&gt;, new_sn_f014 &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   new_sn_f1524 &lt;dbl&gt;, new_sn_f2534 &lt;dbl&gt;, new_sn_f3544 &lt;dbl&gt;, …</span></span></code></pre></div>
 <p>Questo è un tipico set di dati della vita reale. Contiene colonne ridondanti, codici variabili strani e molti valori mancanti. In breve, <code>who</code> è disordinato, e avremo bisogno di più passi per metterlo in ordine. Come dplyr, tidyr è progettato in modo che ogni funzione faccia bene una cosa. Questo significa che in situazioni reali avrete bisogno di mettere insieme più verbi in una pipeline.</p>
 <p>Il posto migliore per iniziare è quasi sempre quello di riunire le colonne che non sono variabili. Diamo un’occhiata a quello che abbiamo:</p>
 <ul>
@@ -732,7 +731,7 @@ nei nomi delle variabili (es. <code>new_sp_m014</code>, <code>new_ep_m014</code>
 <span><span class="va">who1</span></span>
 <span><span class="co">#&gt; # A tibble: 76,046 × 6</span></span>
 <span><span class="co">#&gt;   country     iso2  iso3   year key          cases</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan AF    AFG    1997 new_sp_m014      0</span></span>
 <span><span class="co">#&gt; 2 Afghanistan AF    AFG    1997 new_sp_m1524    10</span></span>
 <span><span class="co">#&gt; 3 Afghanistan AF    AFG    1997 new_sp_m2534     6</span></span>
@@ -804,7 +803,7 @@ sette gruppi di età:</p>
 <span><span class="va">who2</span></span>
 <span><span class="co">#&gt; # A tibble: 76,046 × 6</span></span>
 <span><span class="co">#&gt;   country     iso2  iso3   year key          cases</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan AF    AFG    1997 new_sp_m014      0</span></span>
 <span><span class="co">#&gt; 2 Afghanistan AF    AFG    1997 new_sp_m1524    10</span></span>
 <span><span class="co">#&gt; 3 Afghanistan AF    AFG    1997 new_sp_m2534     6</span></span>
@@ -819,7 +818,7 @@ sette gruppi di età:</p>
 <span><span class="va">who3</span></span>
 <span><span class="co">#&gt; # A tibble: 76,046 × 8</span></span>
 <span><span class="co">#&gt;   country     iso2  iso3   year new   type  sexage cases</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan AF    AFG    1997 new   sp    m014       0</span></span>
 <span><span class="co">#&gt; 2 Afghanistan AF    AFG    1997 new   sp    m1524     10</span></span>
 <span><span class="co">#&gt; 3 Afghanistan AF    AFG    1997 new   sp    m2534      6</span></span>
@@ -844,7 +843,7 @@ sette gruppi di età:</p>
 <span><span class="va">who5</span></span>
 <span><span class="co">#&gt; # A tibble: 76,046 × 6</span></span>
 <span><span class="co">#&gt;   country      year type  sex   age   cases</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1997 sp    m     014       0</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  1997 sp    m     1524     10</span></span>
 <span><span class="co">#&gt; 3 Afghanistan  1997 sp    m     2534      6</span></span>

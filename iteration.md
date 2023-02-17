@@ -964,6 +964,8 @@ Per gestire questo caso, potete usare `invoke_map()`:
 
 ```r
 invoke_map(f, param, n = 5) %>% str()
+#> Warning: `invoke_map()` was deprecated in purrr 1.0.0.
+#> ℹ Please use map() + exec() instead.
 #> List of 3
 #>  $ : num [1:5] 0.479 0.439 -0.471 0.348 -0.581
 #>  $ : num [1:5] 2.48 3.9 7.54 -9.12 3.94
@@ -1104,8 +1106,8 @@ dfs <- list(
 )
 
 dfs %>% reduce(full_join)
-#> Joining, by = "name"
-#> Joining, by = "name"
+#> Joining with `by = join_by(name)`
+#> Joining with `by = join_by(name)`
 #> # A tibble: 2 × 4
 #>   name    age sex   treatment
 #>   <chr> <dbl> <chr> <chr>    

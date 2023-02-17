@@ -245,11 +245,7 @@ I pattern più semplici corrispondono a stringhe esatte:
 ```r
 x <- c("apple", "banana", "pear")
 str_view(x, "an")
-```
-
-```{=html}
-<div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>b<span class='match'>an<\/span>ana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ b<an><an>a
 ```
 
 Il passo successivo in termini di complessità è `.`, che corrisponde a qualsiasi carattere (eccetto un newline):
@@ -257,11 +253,8 @@ Il passo successivo in termini di complessità è `.`, che corrisponde a qualsia
 
 ```r
 str_view(x, ".a.")
-```
-
-```{=html}
-<div id="htmlwidget-e5c8c404fe174e4c81bd" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e5c8c404fe174e4c81bd">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li><span class='match'>ban<\/span>ana<\/li>\n  <li>p<span class='match'>ear<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ <ban>ana
+#> [3] │ p<ear>
 ```
 
 But if "`.`" matches any character, how do you match the character "`.`"? You need to use an "escape" to tell the regular expression you want to match it exactly, not use its special behaviour. Like strings, regexps use the backslash, `\`, to escape special behaviour. So to match an `.`, you need the regexp `\.`. Unfortunately this creates a problem. We use strings to represent regular expressions, and `\` is also used as an escape symbol in strings. So to create the regular expression `\.` we need the string `"\\."`. `
@@ -277,11 +270,7 @@ writeLines(dot)
 
 # E questo dice a R di cercare un esplicito .
 str_view(c("abc", "a.c", "bef"), "a\\.c")
-```
-
-```{=html}
-<div id="htmlwidget-36aa3d2a04d42bbc2145" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>bef<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ <a.c>
 ```
 
 Se `\` è usato come carattere di escape nelle espressioni regolari, come si fa a far corrispondere un letterale `\`? Beh, devi fare l'escape, creando l'espressione regolare `\\`. Per creare questa espressione regolare, hai bisogno di usare una stringa, che deve anche fare l'escape di `\`. Questo significa che per far corrispondere un letterale `\` hai bisogno di scrivere `"\\\\"` --- hai bisogno di quattro backslash per corrispondere a uno!
@@ -293,11 +282,7 @@ writeLines(x)
 #> a\b
 
 str_view(x, "\\\\")
-```
-
-```{=html}
-<div id="htmlwidget-febe03efa1a2d8d52a86" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-febe03efa1a2d8d52a86">{"x":{"html":"<ul>\n  <li>a<span class='match'>\\<\/span>b<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ a<\>b
 ```
 
 In questo libro, scriverò l'espressione regolare come "\" e le stringhe che rappresentano l'espressione regolare come "\".
@@ -322,17 +307,9 @@ Per default, le espressioni regolari corrispondono a qualsiasi parte di una stri
 ```r
 x <- c("apple", "banana", "pear")
 str_view(x, "^a")
-```
-
-```{=html}
-<div id="htmlwidget-1fb4450895fe099f74a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1fb4450895fe099f74a1">{"x":{"html":"<ul>\n  <li><span class='match'>a<\/span>pple<\/li>\n  <li>banana<\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ <a>pple
 str_view(x, "a$")
-```
-
-```{=html}
-<div id="htmlwidget-10b3b7155e8045a1b2ad" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-10b3b7155e8045a1b2ad">{"x":{"html":"<ul>\n  <li>apple<\/li>\n  <li>banan<span class='match'>a<\/span><\/li>\n  <li>pear<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ banan<a>
 ```
 
 Per ricordare quale sia, provate questo mnemonico che ho imparato da [Evan Misshula](https://twitter.com/emisshula/status/323863393167613953): se iniziate con power (`^`), finite con money (`$`).
@@ -343,17 +320,11 @@ Per forzare un'espressione regolare a corrispondere solo ad una stringa completa
 ```r
 x <- c("apple pie", "apple", "apple cake")
 str_view(x, "apple")
-```
-
-```{=html}
-<div id="htmlwidget-4018eef1a407a0df6b52" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4018eef1a407a0df6b52">{"x":{"html":"<ul>\n  <li><span class='match'>apple<\/span> pie<\/li>\n  <li><span class='match'>apple<\/span><\/li>\n  <li><span class='match'>apple<\/span> cake<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ <apple> pie
+#> [2] │ <apple>
+#> [3] │ <apple> cake
 str_view(x, "^apple$")
-```
-
-```{=html}
-<div id="htmlwidget-5b1b2f4ad92281566982" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5b1b2f4ad92281566982">{"x":{"html":"<ul>\n  <li>apple pie<\/li>\n  <li><span class='match'>apple<\/span><\/li>\n  <li>apple cake<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ <apple>
 ```
 
 Potete anche abbinare il confine tra le parole con `\b`. Non lo uso spesso in R, ma a volte lo uso quando faccio una ricerca in RStudio quando voglio trovare il nome di una funzione che è un componente di altre funzioni. Per esempio, cercherò `\bsum\b` per evitare di abbinare `summarise`, `summary`, `rowsum` e così via.
@@ -390,23 +361,11 @@ Una classe di caratteri contenente un singolo carattere è una buona alternativa
 ```r
 # Cerca un carattere letterale che normalmente ha un significato speciale in una regex
 str_view(c("abc", "a.c", "a*c", "a c"), "a[.]c")
-```
-
-```{=html}
-<div id="htmlwidget-25c3e940e6859592f801" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-25c3e940e6859592f801">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li><span class='match'>a.c<\/span><\/li>\n  <li>a*c<\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [2] │ <a.c>
 str_view(c("abc", "a.c", "a*c", "a c"), ".[*]c")
-```
-
-```{=html}
-<div id="htmlwidget-3f27c09be0c60bb52829" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3f27c09be0c60bb52829">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li><span class='match'>a*c<\/span><\/li>\n  <li>a c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [3] │ <a*c>
 str_view(c("abc", "a.c", "a*c", "a c"), "a[ ]")
-```
-
-```{=html}
-<div id="htmlwidget-416566eb193bf50d04e6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-416566eb193bf50d04e6">{"x":{"html":"<ul>\n  <li>abc<\/li>\n  <li>a.c<\/li>\n  <li>a*c<\/li>\n  <li><span class='match'>a <\/span>c<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [4] │ <a >c
 ```
 
 Questo funziona per la maggior parte (ma non per tutti) i metacaratteri regex: `$` `.` `|` `?` `*` `+` `(` `)` `[` `{`. Sfortunatamente, alcuni caratteri hanno un significato speciale anche all'interno di una classe di caratteri e devono essere gestiti con escape di backslash: `]` `\` `^` e `-`.
@@ -416,11 +375,8 @@ Puoi usare _alternation_ per scegliere tra uno o più schemi alternativi. Per es
 
 ```r
 str_view(c("grey", "gray"), "gr(e|a)y")
-```
-
-```{=html}
-<div id="htmlwidget-72cbf064100ce560a04c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-72cbf064100ce560a04c">{"x":{"html":"<ul>\n  <li><span class='match'>grey<\/span><\/li>\n  <li><span class='match'>gray<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ <grey>
+#> [2] │ <gray>
 ```
 
 #### Esercizi
@@ -458,23 +414,11 @@ Il prossimo passo in termini di potenza coinvolge il controllo di quante volte u
 ```r
 x <- "1888 è l'anno più lungo in numeri romani: MDCCCLXXXVIII"
 str_view(x, "CC?")
-```
-
-```{=html}
-<div id="htmlwidget-d11fc4360aa0230696d7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d11fc4360aa0230696d7">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MD<CC><C>LXXXVIII
 str_view(x, "CC+")
-```
-
-```{=html}
-<div id="htmlwidget-21c7483268bafca56cec" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-21c7483268bafca56cec">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MD<CCC>LXXXVIII
 str_view(x, 'C[LX]+')
-```
-
-```{=html}
-<div id="htmlwidget-1834a22cd196f3aa03a1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1834a22cd196f3aa03a1">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MDCC<span class='match'>CLXXX<\/span>VIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MDCC<CLXXX>VIII
 ```
 
 Notate che la precedenza di questi operatori è alta, quindi potete scrivere: `colou?r` per abbinare sia l'ortografia americana che quella britannica. Ciò significa che la maggior parte degli usi avrà bisogno di parentesi, come `bana(na)+`.
@@ -489,23 +433,11 @@ Puoi anche specificare il numero di corrispondenze in modo preciso:
 
 ```r
 str_view(x, "C{2}")
-```
-
-```{=html}
-<div id="htmlwidget-28515d92cb327f90c9eb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-28515d92cb327f90c9eb">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MD<CC>CLXXXVIII
 str_view(x, "C{2,}")
-```
-
-```{=html}
-<div id="htmlwidget-0caf26d4e3c00206b0c5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0caf26d4e3c00206b0c5">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MD<CCC>LXXXVIII
 str_view(x, "C{2,3}")
-```
-
-```{=html}
-<div id="htmlwidget-da0b268a2927f570ebf3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-da0b268a2927f570ebf3">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CCC<\/span>LXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MD<CCC>LXXXVIII
 ```
 
 Per default queste corrispondenze sono "avide": corrisponderanno alla stringa più lunga possibile. Potete renderle "pigre", facendo corrispondere la stringa più corta possibile mettendo un `?` dopo di esse. Questa è una caratteristica avanzata delle espressioni regolari, ma è utile sapere che esiste:
@@ -513,17 +445,9 @@ Per default queste corrispondenze sono "avide": corrisponderanno alla stringa pi
 
 ```r
 str_view(x, 'C{2,3}?')
-```
-
-```{=html}
-<div id="htmlwidget-0ed12bb554391c49c2e3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0ed12bb554391c49c2e3">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MD<span class='match'>CC<\/span>CLXXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MD<CC>CLXXXVIII
 str_view(x, 'C[LX]+?')
-```
-
-```{=html}
-<div id="htmlwidget-ec658d41f8c4f2d124e9" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec658d41f8c4f2d124e9">{"x":{"html":"<ul>\n  <li>1888 è l'anno più lungo in numeri romani: MDCC<span class='match'>CL<\/span>XXXVIII<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ 1888 è l'anno più lungo in numeri romani: MDCC<CL>XXXVIII
 ```
 
 #### Esercizi
@@ -555,11 +479,12 @@ Prima hai imparato a conoscere le parentesi come un modo per disambiguare espres
 
 ```r
 str_view(fruit, "(..)\\1", match = TRUE)
-```
-
-```{=html}
-<div id="htmlwidget-6b83523733b890d61edc" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b83523733b890d61edc">{"x":{"html":"<ul>\n  <li>b<span class='match'>anan<\/span>a<\/li>\n  <li><span class='match'>coco<\/span>nut<\/li>\n  <li><span class='match'>cucu<\/span>mber<\/li>\n  <li><span class='match'>juju<\/span>be<\/li>\n  <li><span class='match'>papa<\/span>ya<\/li>\n  <li>s<span class='match'>alal<\/span> berry<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#>  [4] │ b<anan>a
+#> [20] │ <coco>nut
+#> [22] │ <cucu>mber
+#> [41] │ <juju>be
+#> [56] │ <papa>ya
+#> [73] │ s<alal> berry
 ```
 
 (A breve, vedrete anche come sono utili insieme a `str_match()`.)
@@ -796,11 +721,9 @@ Notate che le corrispondenze non si sovrappongono mai. Per esempio, in `"abababa
 str_count("abababa", "aba")
 #> [1] 2
 str_view_all("abababa", "aba")
-```
-
-```{=html}
-<div id="htmlwidget-b3f7c917b6c8ff580948" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b3f7c917b6c8ff580948">{"x":{"html":"<ul>\n  <li><span class='match'>aba<\/span>b<span class='match'>aba<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> Warning: `str_view()` was deprecated in stringr 1.5.0.
+#> ℹ Please use `str_view_all()` instead.
+#> [1] │ <aba>b<aba>
 ```
 
 Notate l'uso di `str_view_all()`. Come imparerete a breve, molte funzioni di stringr sono in coppia: una funzione lavora con una singola corrispondenza, e l'altra lavora con tutte le corrispondenze. La seconda funzione avrà il suffisso `_all`.
@@ -862,11 +785,9 @@ Notate che `str_extract()` estrae solo la prima corrispondenza. Possiamo vederlo
 ```r
 more <- sentences[str_count(sentences, colour_match) > 1]
 str_view_all(more, colour_match)
-```
-
-```{=html}
-<div id="htmlwidget-d258b2ee1c304ebe1664" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d258b2ee1c304ebe1664">{"x":{"html":"<ul>\n  <li>It is hard to erase <span class='match'>blue<\/span> or <span class='match'>red<\/span> ink.<\/li>\n  <li>The <span class='match'>green<\/span> light in the brown box flicke<span class='match'>red<\/span>.<\/li>\n  <li>The sky in the west is tinged with <span class='match'>orange<\/span> <span class='match'>red<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ It is hard to erase <blue> or <red> ink.
+#> [2] │ The <green> light in the brown box flicke<red>.
+#> [3] │ The sky in the west is tinged with <orange> <red>.
 
 str_extract(more, colour_match)
 #> [1] "blue"   "green"  "orange"
@@ -1106,11 +1027,7 @@ Invece di dividere le stringhe per pattern, potete anche dividere per carattere,
 ```r
 x <- "This is a sentence.  This is another sentence."
 str_view_all(x, boundary("word"))
-```
-
-```{=html}
-<div id="htmlwidget-b8f31ebacaee3527bb86" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b8f31ebacaee3527bb86">{"x":{"html":"<ul>\n  <li><span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>a<\/span> <span class='match'>sentence<\/span>.  <span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>another<\/span> <span class='match'>sentence<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+#> [1] │ <This> <is> <a> <sentence>.  <This> <is> <another> <sentence>.
 
 str_split(x, " ")[[1]]
 #> [1] "This"      "is"        "a"         "sentence." ""          "This"     
@@ -1154,17 +1071,11 @@ Potete usare gli altri argomenti di `regex()` per controllare i dettagli della c
     ```r
     bananas <- c("banana", "Banana", "BANANA")
     str_view(bananas, "banana")
-    ```
-    
-    ```{=html}
-    <div id="htmlwidget-b25b670b028f478bf741" style="width:960px;height:100%;" class="str_view html-widget"></div>
-    <script type="application/json" data-for="htmlwidget-b25b670b028f478bf741">{"x":{"html":"<ul>\n  <li><span class='match'>banana<\/span><\/li>\n  <li>Banana<\/li>\n  <li>BANANA<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+    #> [1] │ <banana>
     str_view(bananas, regex("banana", ignore_case = TRUE))
-    ```
-    
-    ```{=html}
-    <div id="htmlwidget-46d1193f7ba074d981c8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-    <script type="application/json" data-for="htmlwidget-46d1193f7ba074d981c8">{"x":{"html":"<ul>\n  <li><span class='match'>banana<\/span><\/li>\n  <li><span class='match'>Banana<\/span><\/li>\n  <li><span class='match'>BANANA<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+    #> [1] │ <banana>
+    #> [2] │ <Banana>
+    #> [3] │ <BANANA>
     ```
     
 * `multiline = TRUE` permette a `^` e `$` di corrispondere all'inizio e alla fine di ogni linea piuttosto che all'inizio e alla fine della stringa completa.
@@ -1214,9 +1125,9 @@ Ci sono altre tre funzioni che puoi usare al posto di `regex()`:
       times = 20
     )
     #> Unit: microseconds
-    #>   expr   min    lq    mean median     uq   max neval
-    #>  fixed  73.8  86.6 168.515 114.45 166.25 944.6    20
-    #>  regex 353.5 360.6 457.360 443.65 478.60 774.9    20
+    #>   expr   min     lq    mean median     uq   max neval
+    #>  fixed  62.2  67.55 100.620  79.05  89.85 498.8    20
+    #>  regex 273.4 280.35 296.135 285.35 289.95 489.5    20
     ```
     
     Attenzione all'uso di `fixed()` con dati non inglesi. È problematico perché ci sono spesso più modi di rappresentare lo stesso carattere. Per esempio, ci sono due modi per definire "á": o come un singolo carattere o come una "a" più un accento:
@@ -1285,11 +1196,7 @@ Ci sono altre tre funzioni che puoi usare al posto di `regex()`:
     ```r
     x <- "This is a sentence."
     str_view_all(x, boundary("word"))
-    ```
-    
-    ```{=html}
-    <div id="htmlwidget-382a200f56fb8e6a1fd3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-    <script type="application/json" data-for="htmlwidget-382a200f56fb8e6a1fd3">{"x":{"html":"<ul>\n  <li><span class='match'>This<\/span> <span class='match'>is<\/span> <span class='match'>a<\/span> <span class='match'>sentence<\/span>.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+    #> [1] │ <This> <is> <a> <sentence>.
     str_extract_all(x, boundary("word"))
     #> [[1]]
     #> [1] "This"     "is"       "a"        "sentence"

@@ -21,8 +21,7 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.2.9000/transition.js"></script><script src="libs/bs3compat-0.4.2.9000/tabs.js"></script><script src="libs/bs3compat-0.4.2.9000/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet">
-<script src="libs/str_view-binding-1.4.1/str_view.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script><link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-1.3.1/leaflet.js"></script><link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="libs/proj4-2.6.2/proj4.min.js"></script><script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="libs/leaflet-binding-2.1.1/leaflet.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
@@ -145,9 +144,9 @@ che sia un nome molto utile.</p></li>
 <p>Per ottenere la data o la data-ora corrente potete usare <code><a href="https://lubridate.tidyverse.org/reference/now.html">today()</a></code> o <code><a href="https://lubridate.tidyverse.org/reference/now.html">now()</a></code>:</p>
 <div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2022-11-07"</span></span>
+<span><span class="co">#&gt; [1] "2023-02-17"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2022-11-07 19:07:44 UTC"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "2023-02-17 23:18:48 UTC"</span></span></code></pre></div>
 <p>Altrimenti, ci sono tre modi per creare una data/ora:</p>
 <ul>
 <li>Da una stringa.</li>
@@ -266,9 +265,9 @@ O in un solo giorno:</div>
 <p>Potresti voler passare da una data-ora a una data. Questo è il lavoro di <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code> e <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>:</p>
 <div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2022-11-07 UTC"</span></span>
+<span><span class="co">#&gt; [1] "2023-02-17 UTC"</span></span>
 <span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2022-11-07"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "2023-02-17"</span></span></code></pre></div>
 <p>A volte otterrete data/ora come offset numerico dalla “Unix Epoch”, 1970-01-01. Se l’offset è in secondi, usate <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime()</a></code>; se è in giorni, usate <code><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_date()</a></code>.</p>
 <div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as_date.html">as_datetime</a></span><span class="op">(</span><span class="fl">60</span> <span class="op">*</span> <span class="fl">60</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span></span>
@@ -465,11 +464,11 @@ Suggerimento: create una variabile binaria che vi dica se un volo
 <code class="sourceCode R"><span><span class="co"># How old is Hadley?</span></span>
 <span><span class="va">h_age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">today</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">ymd</a></span><span class="op">(</span><span class="fl">19791014</span><span class="op">)</span></span>
 <span><span class="va">h_age</span></span>
-<span><span class="co">#&gt; Time difference of 15730 days</span></span></code></pre></div>
+<span><span class="co">#&gt; Time difference of 15832 days</span></span></code></pre></div>
 <p>Un oggetto di classe difftime registra un intervallo di tempo di secondi, minuti, ore, giorni o settimane. Questa ambiguità può rendere difftime un po’ doloroso lavorarci, così lubridate fornisce un’alternativa che usa sempre i secondi: la <strong>durata</strong>.</p>
 <div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/as.duration.html">as.duration</a></span><span class="op">(</span><span class="va">h_age</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "1359072000s (~43.07 years)"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "1367884800s (~43.35 years)"</span></span></code></pre></div>
 <p>Le durate hanno un mucchio di costruttori convenienti:</p>
 <div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/duration.html">dseconds</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span></span>
@@ -556,7 +555,7 @@ Suggerimento: create una variabile binaria che vi dica se un volo
 <div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights_dt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">arr_time</span> <span class="op">&lt;</span> <span class="va">dep_time</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; # A tibble: 10,640 × 9</span></span>
+<span><span class="co">#&gt; # A tibble: 10,633 × 9</span></span>
 <span><span class="co">#&gt;   origin dest  dep_delay arr_delay dep_time            sched_dep_time     </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             </span></span>
 <span><span class="co">#&gt; 1 EWR    BQN           9        -4 2013-01-01 19:29:00 2013-01-01 19:20:00</span></span>
@@ -565,7 +564,7 @@ Suggerimento: create una variabile binaria che vi dica se un volo
 <span><span class="co">#&gt; 4 EWR    SJU          -6       -12 2013-01-01 21:02:00 2013-01-01 21:08:00</span></span>
 <span><span class="co">#&gt; 5 EWR    SFO          11       -14 2013-01-01 21:08:00 2013-01-01 20:57:00</span></span>
 <span><span class="co">#&gt; 6 LGA    FLL         -10        -2 2013-01-01 21:20:00 2013-01-01 21:30:00</span></span>
-<span><span class="co">#&gt; # … with 10,634 more rows, and 3 more variables: arr_time &lt;dttm&gt;,</span></span>
+<span><span class="co">#&gt; # … with 10,627 more rows, and 3 more variables: arr_time &lt;dttm&gt;,</span></span>
 <span><span class="co">#&gt; #   sched_arr_time &lt;dttm&gt;, air_time &lt;dbl&gt;</span></span></code></pre></div>
 <p>Questi sono voli notturni. Abbiamo usato le stesse informazioni sulla data sia per la partenza che per l’arrivo, ma questi voli sono arrivati il giorno successivo. Possiamo risolvere questo problema aggiungendo <code>days(1)</code> all’orario di arrivo di ogni volo notturno.</p>
 <div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
@@ -652,7 +651,7 @@ quanti anni hai in anni.</p></li>
 <p>E vedere la lista completa di tutti i nomi dei fusi orari con <code><a href="https://rdrr.io/r/base/timezones.html">OlsonNames()</a></code>:</p>
 <div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 609</span></span>
+<span><span class="co">#&gt; [1] 597</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/timezones.html">OlsonNames</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"</span></span>
 <span><span class="co">#&gt; [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"</span></span></code></pre></div>

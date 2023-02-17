@@ -620,6 +620,11 @@ sim <- tribble(
 
 sim %>%
   mutate(sims = invoke_map(f, params, n = 10))
+#> Warning: There was 1 warning in `mutate()`.
+#> ℹ In argument: `sims = invoke_map(f, params, n = 10)`.
+#> Caused by warning:
+#> ! `invoke_map()` was deprecated in purrr 1.0.0.
+#> ℹ Please use map() + exec() instead.
 #> # A tibble: 3 × 3
 #>   f     params           sims      
 #>   <chr> <list>           <list>    
@@ -639,6 +644,11 @@ Una restrizione di `summarise()` è che funziona solo con funzioni di riepilogo 
 mtcars %>% 
   group_by(cyl) %>% 
   summarise(q = quantile(mpg))
+#> Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
+#> dplyr 1.1.0.
+#> ℹ Please use `reframe()` instead.
+#> ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
+#>   always returns an ungrouped data frame and adjust accordingly.
 #> `summarise()` has grouped output by 'cyl'. You can override using the `.groups`
 #> argument.
 #> # A tibble: 15 × 2

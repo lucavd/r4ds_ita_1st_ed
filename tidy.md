@@ -28,7 +28,7 @@ library(tidyverse)
 table1
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <dbl>      <dbl>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -38,7 +38,7 @@ table1
 table2
 #> # A tibble: 12 × 4
 #>   country      year type           count
-#>   <chr>       <int> <chr>          <int>
+#>   <chr>       <dbl> <chr>          <dbl>
 #> 1 Afghanistan  1999 cases            745
 #> 2 Afghanistan  1999 population  19987071
 #> 3 Afghanistan  2000 cases           2666
@@ -49,7 +49,7 @@ table2
 table3
 #> # A tibble: 6 × 3
 #>   country      year rate             
-#> * <chr>       <int> <chr>            
+#>   <chr>       <dbl> <chr>            
 #> 1 Afghanistan  1999 745/19987071     
 #> 2 Afghanistan  2000 2666/20595360    
 #> 3 Brazil       1999 37737/172006362  
@@ -61,14 +61,14 @@ table3
 table4a  # casi
 #> # A tibble: 3 × 3
 #>   country     `1999` `2000`
-#> * <chr>        <int>  <int>
+#>   <chr>        <dbl>  <dbl>
 #> 1 Afghanistan    745   2666
 #> 2 Brazil       37737  80488
 #> 3 China       212258 213766
 table4b  # popolazione
 #> # A tibble: 3 × 3
 #>   country         `1999`     `2000`
-#> * <chr>            <int>      <int>
+#>   <chr>            <dbl>      <dbl>
 #> 1 Afghanistan   19987071   20595360
 #> 2 Brazil       172006362  174504898
 #> 3 China       1272915272 1280428583
@@ -116,7 +116,7 @@ table1 %>%
   mutate(rate = cases / population * 10000)
 #> # A tibble: 6 × 5
 #>   country      year  cases population  rate
-#>   <chr>       <int>  <int>      <int> <dbl>
+#>   <chr>       <dbl>  <dbl>      <dbl> <dbl>
 #> 1 Afghanistan  1999    745   19987071 0.373
 #> 2 Afghanistan  2000   2666   20595360 1.29 
 #> 3 Brazil       1999  37737  172006362 2.19 
@@ -129,7 +129,7 @@ table1 %>%
   count(year, wt = cases)
 #> # A tibble: 2 × 2
 #>    year      n
-#>   <int>  <int>
+#>   <dbl>  <dbl>
 #> 1  1999 250740
 #> 2  2000 296920
 
@@ -188,7 +188,7 @@ Un problema comune è un dataset dove alcuni dei nomi delle colonne non sono nom
 table4a
 #> # A tibble: 3 × 3
 #>   country     `1999` `2000`
-#> * <chr>        <int>  <int>
+#>   <chr>        <dbl>  <dbl>
 #> 1 Afghanistan    745   2666
 #> 2 Brazil       37737  80488
 #> 3 China       212258 213766
@@ -211,7 +211,7 @@ table4a %>%
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
 #> # A tibble: 6 × 3
 #>   country     year   cases
-#>   <chr>       <chr>  <int>
+#>   <chr>       <chr>  <dbl>
 #> 1 Afghanistan 1999     745
 #> 2 Afghanistan 2000    2666
 #> 3 Brazil      1999   37737
@@ -241,7 +241,7 @@ table4b %>%
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "population")
 #> # A tibble: 6 × 3
 #>   country     year  population
-#>   <chr>       <chr>      <int>
+#>   <chr>       <chr>      <dbl>
 #> 1 Afghanistan 1999    19987071
 #> 2 Afghanistan 2000    20595360
 #> 3 Brazil      1999   172006362
@@ -259,10 +259,10 @@ tidy4a <- table4a %>%
 tidy4b <- table4b %>% 
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "population")
 left_join(tidy4a, tidy4b)
-#> Joining, by = c("country", "year")
+#> Joining with `by = join_by(country, year)`
 #> # A tibble: 6 × 4
 #>   country     year   cases population
-#>   <chr>       <chr>  <int>      <int>
+#>   <chr>       <chr>  <dbl>      <dbl>
 #> 1 Afghanistan 1999     745   19987071
 #> 2 Afghanistan 2000    2666   20595360
 #> 3 Brazil      1999   37737  172006362
@@ -280,7 +280,7 @@ left_join(tidy4a, tidy4b)
 table2
 #> # A tibble: 12 × 4
 #>   country      year type           count
-#>   <chr>       <int> <chr>          <int>
+#>   <chr>       <dbl> <chr>          <dbl>
 #> 1 Afghanistan  1999 cases            745
 #> 2 Afghanistan  1999 population  19987071
 #> 3 Afghanistan  2000 cases           2666
@@ -304,7 +304,7 @@ table2 %>%
     pivot_wider(names_from = type, values_from = count)
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <dbl>      <dbl>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -348,7 +348,7 @@ Come avrete capito dai loro nomi, `pivot_wider()` e `pivot_longer()` sono comple
     ```r
     table4a %>% 
       pivot_longer(c(1999, 2000), names_to = "year", values_to = "cases")
-    #> Error in `build_longer_spec()`:
+    #> Error in `pivot_longer()`:
     #> ! Can't subset columns past the end.
     #> ℹ Locations 1999 and 2000 don't exist.
     #> ℹ There are only 3 columns.
@@ -393,7 +393,7 @@ La funzione `separate()` separa una colonna in colonne multiple, dividendo ogni 
 table3
 #> # A tibble: 6 × 3
 #>   country      year rate             
-#> * <chr>       <int> <chr>            
+#>   <chr>       <dbl> <chr>            
 #> 1 Afghanistan  1999 745/19987071     
 #> 2 Afghanistan  2000 2666/20595360    
 #> 3 Brazil       1999 37737/172006362  
@@ -410,7 +410,7 @@ table3 %>%
   separate(rate, into = c("cases", "population"))
 #> # A tibble: 6 × 4
 #>   country      year cases  population
-#>   <chr>       <int> <chr>  <chr>     
+#>   <chr>       <dbl> <chr>  <chr>     
 #> 1 Afghanistan  1999 745    19987071  
 #> 2 Afghanistan  2000 2666   20595360  
 #> 3 Brazil       1999 37737  172006362 
@@ -442,7 +442,7 @@ table3 %>%
   separate(rate, into = c("cases", "population"), convert = TRUE)
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <int>      <int>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -665,20 +665,20 @@ C'è una ricchezza di informazioni epidemiologiche in questo set di dati, ma è 
 who
 #> # A tibble: 7,240 × 60
 #>   country     iso2  iso3   year new_sp…¹ new_s…² new_s…³ new_s…⁴ new_s…⁵ new_s…⁶
-#>   <chr>       <chr> <chr> <int>    <int>   <int>   <int>   <int>   <int>   <int>
+#>   <chr>       <chr> <chr> <dbl>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
 #> 1 Afghanistan AF    AFG    1980       NA      NA      NA      NA      NA      NA
 #> 2 Afghanistan AF    AFG    1981       NA      NA      NA      NA      NA      NA
 #> 3 Afghanistan AF    AFG    1982       NA      NA      NA      NA      NA      NA
 #> 4 Afghanistan AF    AFG    1983       NA      NA      NA      NA      NA      NA
 #> 5 Afghanistan AF    AFG    1984       NA      NA      NA      NA      NA      NA
 #> 6 Afghanistan AF    AFG    1985       NA      NA      NA      NA      NA      NA
-#> # … with 7,234 more rows, 50 more variables: new_sp_m65 <int>,
-#> #   new_sp_f014 <int>, new_sp_f1524 <int>, new_sp_f2534 <int>,
-#> #   new_sp_f3544 <int>, new_sp_f4554 <int>, new_sp_f5564 <int>,
-#> #   new_sp_f65 <int>, new_sn_m014 <int>, new_sn_m1524 <int>,
-#> #   new_sn_m2534 <int>, new_sn_m3544 <int>, new_sn_m4554 <int>,
-#> #   new_sn_m5564 <int>, new_sn_m65 <int>, new_sn_f014 <int>,
-#> #   new_sn_f1524 <int>, new_sn_f2534 <int>, new_sn_f3544 <int>, …
+#> # … with 7,234 more rows, 50 more variables: new_sp_m65 <dbl>,
+#> #   new_sp_f014 <dbl>, new_sp_f1524 <dbl>, new_sp_f2534 <dbl>,
+#> #   new_sp_f3544 <dbl>, new_sp_f4554 <dbl>, new_sp_f5564 <dbl>,
+#> #   new_sp_f65 <dbl>, new_sn_m014 <dbl>, new_sn_m1524 <dbl>,
+#> #   new_sn_m2534 <dbl>, new_sn_m3544 <dbl>, new_sn_m4554 <dbl>,
+#> #   new_sn_m5564 <dbl>, new_sn_m65 <dbl>, new_sn_f014 <dbl>,
+#> #   new_sn_f1524 <dbl>, new_sn_f2534 <dbl>, new_sn_f3544 <dbl>, …
 ```
 
 Questo è un tipico set di dati della vita reale. Contiene colonne ridondanti, codici variabili strani e molti valori mancanti. In breve, `who` è disordinato, e avremo bisogno di più passi per metterlo in ordine. Come dplyr, tidyr è progettato in modo che ogni funzione faccia bene una cosa. Questo significa che in situazioni reali avrete bisogno di mettere insieme più verbi in una pipeline. 
@@ -708,7 +708,7 @@ who1 <- who %>%
 who1
 #> # A tibble: 76,046 × 6
 #>   country     iso2  iso3   year key          cases
-#>   <chr>       <chr> <chr> <int> <chr>        <int>
+#>   <chr>       <chr> <chr> <dbl> <chr>        <dbl>
 #> 1 Afghanistan AF    AFG    1997 new_sp_m014      0
 #> 2 Afghanistan AF    AFG    1997 new_sp_m1524    10
 #> 3 Afghanistan AF    AFG    1997 new_sp_m2534     6
@@ -774,7 +774,7 @@ who2 <- who1 %>%
 who2
 #> # A tibble: 76,046 × 6
 #>   country     iso2  iso3   year key          cases
-#>   <chr>       <chr> <chr> <int> <chr>        <int>
+#>   <chr>       <chr> <chr> <dbl> <chr>        <dbl>
 #> 1 Afghanistan AF    AFG    1997 new_sp_m014      0
 #> 2 Afghanistan AF    AFG    1997 new_sp_m1524    10
 #> 3 Afghanistan AF    AFG    1997 new_sp_m2534     6
@@ -793,7 +793,7 @@ who3 <- who2 %>%
 who3
 #> # A tibble: 76,046 × 8
 #>   country     iso2  iso3   year new   type  sexage cases
-#>   <chr>       <chr> <chr> <int> <chr> <chr> <chr>  <int>
+#>   <chr>       <chr> <chr> <dbl> <chr> <chr> <chr>  <dbl>
 #> 1 Afghanistan AF    AFG    1997 new   sp    m014       0
 #> 2 Afghanistan AF    AFG    1997 new   sp    m1524     10
 #> 3 Afghanistan AF    AFG    1997 new   sp    m2534      6
@@ -826,7 +826,7 @@ who5 <- who4 %>%
 who5
 #> # A tibble: 76,046 × 6
 #>   country      year type  sex   age   cases
-#>   <chr>       <int> <chr> <chr> <chr> <int>
+#>   <chr>       <dbl> <chr> <chr> <chr> <dbl>
 #> 1 Afghanistan  1997 sp    m     014       0
 #> 2 Afghanistan  1997 sp    m     1524     10
 #> 3 Afghanistan  1997 sp    m     2534      6

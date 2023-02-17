@@ -46,9 +46,9 @@ Per ottenere la data o la data-ora corrente potete usare `today()` o `now()`:
 
 ```r
 today()
-#> [1] "2022-11-07"
+#> [1] "2023-02-17"
 now()
-#> [1] "2022-11-07 19:07:44 UTC"
+#> [1] "2023-02-17 23:18:48 UTC"
 ```
 
 Altrimenti, ci sono tre modi per creare una data/ora:
@@ -200,9 +200,9 @@ Potresti voler passare da una data-ora a una data. Questo è il lavoro di `as_da
 
 ```r
 as_datetime(today())
-#> [1] "2022-11-07 UTC"
+#> [1] "2023-02-17 UTC"
 as_date(now())
-#> [1] "2022-11-07"
+#> [1] "2023-02-17"
 ```
 
 A volte otterrete data/ora come offset numerico dalla "Unix Epoch", 1970-01-01. Se l'offset è in secondi, usate `as_datetime()`; se è in giorni, usate `as_date()`.
@@ -441,7 +441,7 @@ In R, quando si sottraggono due date, si ottiene un oggetto difftime:
 # How old is Hadley?
 h_age <- today() - ymd(19791014)
 h_age
-#> Time difference of 15730 days
+#> Time difference of 15832 days
 ```
 
 Un oggetto di classe difftime registra un intervallo di tempo di secondi, minuti, ore, giorni o settimane. Questa ambiguità può rendere difftime un po' doloroso lavorarci, così lubridate fornisce un'alternativa che usa sempre i secondi: la __durata__.
@@ -449,7 +449,7 @@ Un oggetto di classe difftime registra un intervallo di tempo di secondi, minuti
 
 ```r
 as.duration(h_age)
-#> [1] "1359072000s (~43.07 years)"
+#> [1] "1367884800s (~43.35 years)"
 ```
 
 Le durate hanno un mucchio di costruttori convenienti:
@@ -570,7 +570,7 @@ Usiamo i periodi per risolvere una stranezza legata alle date dei nostri voli. A
 ```r
 flights_dt %>% 
   filter(arr_time < dep_time) 
-#> # A tibble: 10,640 × 9
+#> # A tibble: 10,633 × 9
 #>   origin dest  dep_delay arr_delay dep_time            sched_dep_time     
 #>   <chr>  <chr>     <dbl>     <dbl> <dttm>              <dttm>             
 #> 1 EWR    BQN           9        -4 2013-01-01 19:29:00 2013-01-01 19:20:00
@@ -579,7 +579,7 @@ flights_dt %>%
 #> 4 EWR    SJU          -6       -12 2013-01-01 21:02:00 2013-01-01 21:08:00
 #> 5 EWR    SFO          11       -14 2013-01-01 21:08:00 2013-01-01 20:57:00
 #> 6 LGA    FLL         -10        -2 2013-01-01 21:20:00 2013-01-01 21:30:00
-#> # … with 10,634 more rows, and 3 more variables: arr_time <dttm>,
+#> # … with 10,627 more rows, and 3 more variables: arr_time <dttm>,
 #> #   sched_arr_time <dttm>, air_time <dbl>
 ```
 Questi sono voli notturni. Abbiamo usato le stesse informazioni sulla data sia per la partenza che per l'arrivo, ma questi voli sono arrivati il giorno successivo. Possiamo risolvere questo problema aggiungendo `days(1)` all'orario di arrivo di ogni volo notturno.
@@ -685,7 +685,7 @@ E vedere la lista completa di tutti i nomi dei fusi orari con `OlsonNames()`:
 
 ```r
 length(OlsonNames())
-#> [1] 609
+#> [1] 597
 head(OlsonNames())
 #> [1] "Africa/Abidjan"     "Africa/Accra"       "Africa/Addis_Ababa"
 #> [4] "Africa/Algiers"     "Africa/Asmara"      "Africa/Asmera"
