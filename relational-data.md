@@ -571,7 +571,7 @@ Finora, le coppie di tabelle sono sempre state unite da una singola variabile, e
 1.  Cosa è successo il 13 giugno 2013? Visualizza lo schema spaziale dei ritardi,
     e poi usa Google per fare un riferimento incrociato con le condizionir.
 
-    
+
 
 ### Altre implementazioni
 
